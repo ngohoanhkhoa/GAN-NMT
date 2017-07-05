@@ -70,7 +70,7 @@ class Iterator(object, metaclass=ABCMeta):
         else:
             # Lookup the keys and return an ordered dict of the current minibatch
             return OrderedDict([(k, data[i]) for i,k in enumerate(self._keys)])
-
+            
     # May or may not be used.
     def prepare_batches(self):
         """Prepare self.__iter."""

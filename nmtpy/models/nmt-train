@@ -1,12 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Wed May 24 14:16:41 2017
-
-@author: macbook975
-"""
-
-#!/Users/macbook975/anaconda/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
 
@@ -24,7 +16,7 @@ from nmtpy.config import Config
 from nmtpy.logger import Logger
 from nmtpy.sysutils import *
 from nmtpy.nmtutils import get_param_dict
-from nmtpy.mainloop_GAN import MainLoop
+from nmtpy.mainloop import MainLoop
 
 # Ensure cleaning up temp files and processes
 import nmtpy.cleanup as cleanup
@@ -67,6 +59,7 @@ if __name__ == '__main__':
     # a different model by fixing every other parameter given in the configuration
     parser.add_argument('-m', '--model-type'    , help="Override the model type given in the configuration",
                                                   type=str)
+
     parser.add_argument('-s', '--suffix'        , help="Model file suffix",
                                                   type=str, default=None)
     parser.add_argument('-i', '--init'          , help="Pretrained weights .npz extracted with nmt-extract",
@@ -80,9 +73,6 @@ if __name__ == '__main__':
 
     parser.add_argument('-v', '--verbose'       , help="Dump Theano graph and inspect optimization.",
                                                   action="store_true", default=False)
-    
-#    parser.add_argument('-p', '--pretrain'      , help="Pretrain Generator and Discriminator",
-#                                                    defaut=False)
 
     # You can basically override everything by passing 'lrate: 0.1' style strings at the end
     # of command-line arguments
@@ -174,35 +164,20 @@ if __name__ == '__main__':
 
     # Import the model
     Model = importlib.import_module("nmtpy.models.%s" % train_args.model_type).Model
-    # Khoa: 
-    Discriminator = importlib.import_module("nmtpy.models.cnn_discriminator").Model
-    # Khoa.
-    
+
     # Create model object
     # Save model_type into the model as well
     model = Model(seed=train_args.seed, logger=log,
                   model_type=train_args.model_type, **(model_args.__dict__))
-    
-    # Khoa:
-    discriminator = Discriminator(seed=train_args.seed, logger=log,
-                  model_type=train_args.model_type, **(model_args.__dict__))
-    # Khoa.
-    
+
     # Initialize parameters
     log.info("Initializing parameters")
     model.init_params()
-    # Khoa:
-    discriminator.init_params()
-    # Khoa.
-    
-    
+
     # Create theano shared variables
     log.info('Creating shared variables')
     model.init_shared_variables()
-    # Khoa:
-    discriminator.init_shared_variables()
-    # Khoa.
-    
+
     # List of weights that will not receive updates during BP
     dont_update = []
 
@@ -212,44 +187,27 @@ if __name__ == '__main__':
         log.info('  %s' % os.path.basename(train_args.init))
         new_params = get_param_dict(train_args.init)
         model.update_shared_variables(new_params)
-#        discriminator.update_shared_variables(new_params)
         if freeze:
             log.info('Pretrained weights will not be updated.')
             dont_update = list(new_params.keys())
 
     # Print number of parameters
-    # Khoa:
-    log.info("Number of parameters generator: %s" % model.get_nb_params())
-    log.info("Number of parameters discriminator: %s" % discriminator.get_nb_params())
-    # Khoa.
-    
+    log.info("Number of parameters: %s" % model.get_nb_params())
+
     # Load data
     log.info("Loading data")
     model.load_data()
-    
+
     # Dump model information
     model.info()
-    # Khoa:
-    discriminator.info()
-    # Khoa.
-    
+
     # Build the model
     log.info("Building model")
-    data_loss_generator = model.build()
-    # Khoa:
-    data_loss_discriminator = discriminator.build()
-    # Khoa.
-    
+    data_loss = model.build()
+
     log.info("Input tensor order: ")
     log.info(list(model.inputs.values()))
 
-    
-    log.info('Building sampler')
-    model.build_sampler()
-    # Khoa:
-    discriminator.build_sampler()   
-    # Khoa.
-    
     if train_args.sample_freq > 0:
         log.info('Building sampler')
         model.build_sampler()
@@ -263,13 +221,8 @@ if __name__ == '__main__':
 
     # Build optimizer
     log.info('Building optimizer %s (initial lr=%.5f)' % (model_args.optimizer, model_args.lrate))
-    model.build_optimizer(data_loss_generator, model.reward, reg_loss, train_args.clip_c, dont_update=dont_update, debug=verbose)
-#    model.build_optimizer(data_loss_generator, None, reg_loss, train_args.clip_c, dont_update=dont_update, debug=verbose)
-    
-    # Khoa:
-    discriminator.build_optimizer(data_loss_discriminator, reg_loss, train_args.clip_c, dont_update=dont_update, debug=verbose)
-    # Khoa.
-    
+    model.build_optimizer(data_loss, reg_loss, train_args.clip_c, dont_update=dont_update, debug=verbose)
+
     # Save graph
     if verbose:
         theano.printing.debugprint(model.train_batch, file=open('%s.graph' % log_file.replace(".log", ""), 'w'))
@@ -278,7 +231,5 @@ if __name__ == '__main__':
     np.random.seed(train_args.seed)
 
     # Create mainloop
-    # Khoa: Put discriminator
-    loop = MainLoop(model,discriminator, log, train_args, model_args)
+    loop = MainLoop(model, log, train_args, model_args)
     loop.run()
-    # Khoa.

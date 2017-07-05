@@ -10,11 +10,13 @@ import time
 import os
 
 class MainLoop(object):
-    def __init__(self, model, logger, train_args, model_args):
+    def __init__(self, model, discriminator, logger, train_args, model_args):
         # NOTE: model_args not used, if necessary they should be accessible
         # from self.model.*
         
         self.model          = model                         # The model instance that is trained
+        self.discriminator  = discriminator
+        
         self.__log          = logger                        # logger instance
 
         # Counters
@@ -311,9 +313,30 @@ class MainLoop(object):
         self.model.set_dropout(True)
         #self.model.save(self.model.save_path + '.npz')
 #        while self.__train_epoch():
-        while self.__train_GAN():
-            pass
-
+        # Khoa:
+#        self.__print("--------------------------------------------------------")
+#        self.__print("Pre-train Generator")
+#        self.ectr = 0
+#        self.uctr = 0
+#        while self.__pre_train_generator():pass
+#        self.__print('Saving pre-trained Generator.')
+#        self.model.save("%s_pre_trained_Generator.npz" % self.model.save_path)
+    
+#        self.__print("--------------------------------------------------------")
+#        self.__print("Pre-train Discriminator")
+#        self.ectr = 0
+#        self.uctr = 0
+#        while self.__pre_train_discriminator():pass
+#        self.__print('Saving pre-trained Discriminator.')
+#        self.model.save("%s_pre_trained_Discriminator.npz" % self.model.save_path)
+#    
+#        self.__print("--------------------------------------------------------")
+#        self.__print("Train GAN")
+#        self.ectr = 0
+#        self.uctr = 0
+        while self.__train_GAN():pass
+        # Khoa.
+        
         # Final summary
         if self.f_valid >= 0:
             self.__dump_val_summary()
@@ -321,6 +344,7 @@ class MainLoop(object):
             # No validation data used, save the final model
             self.__print('Saving final model.')
             self.model.save("%s.npz" % self.model.save_path)
+            
 
     def __train_GAN(self):
         """Train a full epoch."""
@@ -330,54 +354,68 @@ class MainLoop(object):
         start_uctr = self.uctr
         self.__print('Starting Epoch %d' % self.ectr, True)
 
-        batch_losses = []
-
+        generator_batch_losses = []
+        discriminator_batch_losses = []
+        
         #Iterate over batches
         for data in self.model.train_iterator:
             self.uctr += 1
 
             #Train the generator
             for it in range(1):
-                self.__print("Train Generator")
-
-
-#                # Generate samples
-#                Khoa: def translate(self, inputs, beam_size, maxlen)
-                input_sentences, translated_sentences = self.model.translate(list(data.values()), 1, 50)
+                # Khoa: Generate samples
+                # Khoa: def translate(self, inputs, beam_size, maxlen)
+                input_sentences, translated_sentences = self.model.translate(list(data.values()),
+                                                                             beam_size=1,
+                                                                             maxlen=10)
                 
-
-                # Get reward for each sentence in batch
+                # Khoa: Get reward for each sentence in batch
                 rewards = []
                 for sentence_index in range(len(translated_sentences)):
-                    # Khoa: def get_reward(self, input_sentence, translated_sentence, rollout_num = 20, maxlen = 100, beam_size=12):
-                    reward = self.model.get_reward(input_sentences[sentence_index], translated_sentences[sentence_index], 1, 10)
+                    # Khoa: get_reward(self, discriminator, input_sentence, translated_sentence, rollout_num = 20, maxlen = 50, beam_size=12, base_value=0.1)
+                    reward = self.model.get_reward(self.discriminator, 
+                                                   input_sentences[sentence_index], 
+                                                   translated_sentences[sentence_index], 
+                                                   rollout_num = 1, 
+                                                   maxlen = 10, 
+                                                   beam_size=1, 
+                                                   base_value=0.5)
                     rewards.append(reward)
+
                 
                 # Khoa: def get_batch(self,data_values, translated_sentences, discriminator_rewards, professor_rewards )
-                batch, discriminator_rewards, professor_rewards  = self.model.get_batch(list(data.values()), translated_sentences, rewards, 1 )
+                batch_generator, discriminator_rewards, professor_rewards  = self.model.get_batch(list(data.values()), 
+                                                                                                  translated_sentences, 
+                                                                                                  discriminator_rewards=rewards,
+                                                                                                  professor_rewards=1 )
                 
+                # Khoa: Update Generator with Reward from Discriminator
+                loss_generator = self.model.train_batch(*batch_generator, discriminator_rewards)
+                # Khoa: Update Generator with Professor Forcing
+                loss_generator = self.model.train_batch(*batch_generator,professor_rewards)
+                # Khoa: Get loss
+#                self.__print('Loss Generator: %10.6f' % loss_generator)
+                generator_batch_losses.append(loss_generator)
+                self.__send_stats(self.uctr, train_loss=loss_generator)
+
                 
-                # Update Generator with Reward
-                loss = self.model.train_batch(*batch, discriminator_rewards)
-                print("Loss Reward:", loss)
-                batch_losses.append(loss)
-                self.__send_stats(self.uctr, train_loss=loss)
+            # Train de discriminator
+            for it in range(1):
+                # Khoa: prepare_data(self, data_values, generator, maxlen=50)
+                batch_discriminator = self.discriminator.prepare_data(list(data.values()), self.model)
                 
-                # Update Generator with Professor Forcing
-                loss = self.model.train_batch(*batch,professor_rewards)
-                print("Loss Professor:", loss)
-                batch_losses.append(loss)
-                self.__send_stats(self.uctr, train_loss=loss)
-                    
-                    
-#            # Train de discriminator
-#            for it in range(1):
-#                self.__print("Train Discriminator")
+                # Update Discriminator
+                loss_discriminator = self.discriminator.train_batch(*batch_discriminator)
+                
+                # Khoa: Get loss
+#                self.__print('Loss Discriminaror: %10.6f' % loss_discriminator)
+                discriminator_batch_losses.append(loss_discriminator)
 
             # Verbose
             if self.uctr % self.f_verbose == 0:
-                self.__print("Epoch: %6d, update: %7d, cost: %10.6f" % (self.ectr, self.uctr, loss))
-
+                self.__print("Generator: Epoch: %6d, update: %7d, cost: %10.6f" % (self.ectr, self.uctr, loss_generator))
+                self.__print("Discriminator: Epoch: %6d, update: %7d, cost: %10.6f" % (self.ectr, self.uctr, loss_discriminator))
+                
             # Should we stop
             if self.uctr == self.max_updates:
                 self.__print("Max iteration %d reached." % self.uctr)
@@ -403,8 +441,13 @@ class MainLoop(object):
 
         # Print epoch summary
         up_ctr = self.uctr - start_uctr
-        self.__dump_epoch_summary(batch_losses, epoch_time, up_ctr)
-
+        self.__print("---------------------------------------------------------")
+        self.__print("Epoch summary of Generator:")
+        self.__dump_epoch_summary(generator_batch_losses, epoch_time, up_ctr)
+        self.__print("Epoch summary of Discriminator:")
+        self.__dump_epoch_summary(discriminator_batch_losses, epoch_time, up_ctr)
+        self.__print("---------------------------------------------------------")
+        
         # Do validation
         if self.epoch_valid:
             self.__do_validation()
@@ -415,3 +458,126 @@ class MainLoop(object):
             return False
 
         return True
+    
+#    def __pre_train_generator(self):
+#        self.ectr += 1
+#
+#        start = time.time()
+#        start_uctr = self.uctr
+#        self.__print('Starting Epoch %d' % self.ectr, True)
+#
+#        pretrain_generator_batch_losses = []
+#
+#        # Khoa: Pre-train Generator
+#        for data in self.model.train_iterator:
+#            self.uctr += 1
+#            
+#            loss_pretrain_generator = self.model.train_batch(*list(data.values()), 1)
+#            pretrain_generator_batch_losses.append(loss_pretrain_generator)
+#            
+#            # Verbose
+#            if self.uctr % self.f_verbose == 0:
+#                self.__print(" Pre-train Generator: Epoch: %6d, update: %7d, cost: %10.6f" % 
+#                             (self.ectr, self.uctr, loss_pretrain_generator))
+#               
+#            # Should we stop
+#            if self.uctr == self.max_updates:
+#                self.__print("Max iteration %d reached." % self.uctr)
+#                return False
+#
+#            # Update learning rate if requested
+#            self.__update_lrate()
+#
+#            # Do sampling
+#            self.__do_sampling(data)
+#
+#            # Do validation
+#            if not self.epoch_valid and self.f_valid > 0 and self.uctr % self.f_valid == 0:
+#                self.__do_validation()
+#
+#            # Check stopping conditions
+#            if self.early_bad == self.patience:
+#                self.__print("Early stopped.")
+#                return False
+#                
+#        # An epoch is finished
+#        epoch_time = time.time() - start
+#
+#        # Print epoch summary
+#        up_ctr = self.uctr - start_uctr
+#        self.__dump_epoch_summary(pretrain_generator_batch_losses, epoch_time, up_ctr)
+#
+#        # Do validation
+#        if self.epoch_valid:
+#            self.__do_validation()
+#
+#        # Check whether maximum epoch is reached
+#        if self.ectr == self.max_epochs:
+#            self.__print("Max epochs %d reached." % self.max_epochs)
+#            return False
+#
+#        return True
+#    
+#    # Khoa: Pre-train Discriminator
+#    def __pre_train_discriminator(self):
+#        self.ectr += 1
+#
+#        start = time.time()
+#        start_uctr = self.uctr
+#        self.__print('Starting Epoch %d' % self.ectr, True)
+#
+#        pretrain_discriminator_batch_losses = []
+#            
+#        for data in self.model.train_iterator:
+#            self.uctr += 1
+#            self.model.build_sampler()
+#            # Khoa: prepare_data(self, data_values, generator, maxlen=50)
+#            batch_discriminator = self.discriminator.prepare_data(list(data.values()), self.model)
+#                    
+#            # Update Discriminator
+#            loss_pretrain_discriminator = self.discriminator.train_batch(*batch_discriminator)
+#                    
+#            # Khoa: Get loss
+#            pretrain_discriminator_batch_losses.append(loss_pretrain_discriminator)
+#                
+#            # Verbose
+#            if self.uctr % self.f_verbose == 0:
+#                self.__print(" Pre-train Discriminator: Epoch: %6d, update: %7d, cost: %10.6f" % 
+#                             (self.ectr, self.uctr, loss_pretrain_discriminator))
+#               
+#            # Should we stop
+#            if self.uctr == self.max_updates:
+#                self.__print("Max iteration %d reached." % self.uctr)
+#                return False
+#
+#            # Update learning rate if requested
+#            self.__update_lrate()
+#
+#
+#            # Do validation
+#            if not self.epoch_valid and self.f_valid > 0 and self.uctr % self.f_valid == 0:
+#                self.__do_validation()
+#
+#            # Check stopping conditions
+#            if self.early_bad == self.patience:
+#                self.__print("Early stopped.")
+#                return False
+#                
+#        # An epoch is finished
+#        epoch_time = time.time() - start
+#
+#        # Print epoch summary
+#        up_ctr = self.uctr - start_uctr
+#        self.__dump_epoch_summary(pretrain_discriminator_batch_losses, epoch_time, up_ctr)
+#
+#        # Do validation
+#        if self.epoch_valid:
+#            self.__do_validation()
+#
+#        # Check whether maximum epoch is reached
+#        if self.ectr == self.max_epochs:
+#            self.__print("Max epochs %d reached." % self.max_epochs)
+#            return False
+#
+#        return True                
+#        

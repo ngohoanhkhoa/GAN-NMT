@@ -3,27 +3,20 @@ import importlib
 
 from collections import OrderedDict
 
-from abc import ABCMeta, abstractmethod
-
 import theano
 import theano.tensor as tensor
-from theano.sandbox.rng_mrg import MRG_RandomStreams as RandomStreams
 
 import numpy as np
-from ..nmtutils import unzip, get_param_dict
-from ..sysutils import readable_size, get_temp_file, get_valid_evaluation
 from ..defaults import INT, FLOAT
 
 # Ours
 from ..layers import dropout, tanh, get_new_layer
-from ..defaults import INT, FLOAT
-from ..nmtutils import norm_weight, invert_dictionary, load_dictionary
+from ..nmtutils import norm_weight
 from ..iterators.text import TextIterator
 from ..iterators.bitext import BiTextIterator
-from .basemodel import BaseModel
 from .attention import Model as Attention
+
  
-import copy
 #######################################
 ## For debugging function input outputs
 def inspect_inputs(i, node, fn):
@@ -44,6 +37,7 @@ class Model(Attention):
         
         # Khoa:
         self.reward = tensor.matrix(name="Reward",dtype=FLOAT)
+                
         # Khoa.
 
     def load_valid_data(self, from_translate=False):
@@ -101,8 +95,11 @@ class Model(Attention):
         # Our final cost
         # Khoa:
         final_cost = (reward*log_probs_ouput).sum(0).mean()
-#        final_cost = cost.mean()
-        # Khoa.
+#        if reward is not None:
+#            final_cost = (reward*log_probs_ouput).sum(0).mean()
+#        else:
+#            final_cost = cost.mean()
+#         Khoa.
         
         # If we have a regularization cost, add it
         if regcost is not None:
@@ -144,9 +141,10 @@ class Model(Attention):
             self.train_batch = theano.function(list(self.inputs.values())+[reward], norm_cost, updates=updates,
                                                mode=theano.compile.MonitorMode(
                                                    pre_func=inspect_inputs,
-                                                   post_func=inspect_outputs), on_unused_input='ignore')
+                                                   post_func=inspect_outputs), on_unused_input='ignore',allow_input_downcast=True)
         else:
-            self.train_batch = theano.function(list(self.inputs.values())+[reward], norm_cost, updates=updates, on_unused_input='ignore')
+            self.train_batch = theano.function(list(self.inputs.values())+[reward], norm_cost, updates=updates, 
+                                               on_unused_input='ignore',allow_input_downcast=True)
             
     def init_params(self):
         params = OrderedDict()
@@ -299,11 +297,12 @@ class Model(Attention):
         
         cost = (cost * y_mask).sum(0)
 
+        self.log_probs_ouput = theano.function(list(self.inputs.values()), log_probs_ouput)
+        
         self.f_log_probs = theano.function(list(self.inputs.values()), cost)
 
         # For alpha regularization
         # Khoa:
-#        return cost
         return cost, log_probs_ouput
     
     
@@ -341,15 +340,14 @@ class Model(Attention):
 
     
     # Khoa: Reward for a fixed length sentence    
-    def get_reward(self, input_sentence, translated_sentence, rollout_num = 20, maxlen = 100, beam_size=12):
+    def get_reward(self, discriminator, input_sentence, translated_sentence, rollout_num = 20, maxlen = 50, beam_size=12, base_value=0.1):
         final_reward = []
-        base_value = 0.5
         for token_index in range(len(translated_sentence)):
             if token_index == len(translated_sentence)-1:
                 discriminator_reward = np.random.uniform()
                 final_reward.append(discriminator_reward - base_value)
             else:
-                reward = 1
+                reward = 0
                 max_sentence_len = maxlen - token_index - 1
                 for rollout_time  in range(rollout_num):
                     sentence = self.monte_carlo_search(input_sentence,translated_sentence[token_index],[self.f_init],[self.f_next],beam_size,max_sentence_len)
@@ -357,10 +355,11 @@ class Model(Attention):
                     for token in sentence: final_sentence.append([token])
                     final_sentence = np.array(final_sentence, dtype=INT)
                     final_sentence = np.concatenate((input_sentence[0:token_index+1], final_sentence), axis=0)
-
                     
-                    discriminator_reward = np.random.uniform()
-                    reward += (discriminator_reward - base_value)
+                    batch = discriminator.get_batch(input_sentence,final_sentence, maxlen=50)
+                    discriminator_reward = discriminator.get_discriminator_reward(batch[0],batch[1])
+                    
+                    reward += (discriminator_reward[0] - base_value)
                 final_reward.append(reward/rollout_num)
         return np.array(final_reward,dtype=FLOAT)
     

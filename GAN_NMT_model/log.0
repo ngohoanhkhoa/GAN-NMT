@@ -1,0 +1,84 @@
+THEANO_FLAGS = device=cpu,floatX=float32
+Using device: auto (on machine NGO-HO-Anh-Khoa-Macbook.local)
+Theano version: 0.9.0.dev-c697eeab84e5b8a74908da654b66ec9eca4f1291
+Training options:
+-----------------------------------
+         clip_c : 1.0
+        decay_c : 0
+      device_id : auto
+           init : None
+     max_epochs : 20
+  max_iteration : 1000000
+     model_type : attention_GAN
+       patience : 10
+    sample_freq : 0
+    save_best_n : 4
+           seed : 1234
+  snapshot_freq : 0
+     valid_beam : 12
+     valid_freq : 5000
+   valid_metric : bleu
+    valid_njobs : 16
+ valid_save_hyp : False
+    valid_start : 2
+
+Model options:
+-----------------------------------
+     batch_size : 2
+       dec_type : gru_cond
+        dropout : 0.0
+  embedding_dim : 620
+       enc_type : gru
+     layer_norm : False
+          lrate : 1
+    n_words_src : 30000
+    n_words_trg : 30000
+          njobs : 15
+      norm_cost : False
+      optimizer : adadelta
+        rnn_dim : 1000
+      save_path : /Users/macbook975/Documents/Stage/GAN_NMT_model/models/attention_en-fr/attention_GAN-e620-r1000-adadelta_1e+00-bs2-bleu-each5000_do_d0.0-gc1-init_xavier-s1234.9
+   shuffle_mode : None
+   tied_trg_emb : True
+   valid_metric : bleu
+    weight_init : xavier
+          dicts =
+            src : /Users/macbook975/Documents/Stage/GAN_NMT_model/data/train.en.vocab.pkl
+            trg : /Users/macbook975/Documents/Stage/GAN_NMT_model/data/train.fr.vocab.pkl
+           data =
+      train_src : /Users/macbook975/Documents/Stage/GAN_NMT_model/data/train.en
+      train_trg : /Users/macbook975/Documents/Stage/GAN_NMT_model/data/train.fr
+      valid_src : /Users/macbook975/Documents/Stage/GAN_NMT_model/data/valid.en
+      valid_trg : /Users/macbook975/Documents/Stage/GAN_NMT_model/data/valid.fr
+
+Initializing parameters
+Creating shared variables
+Number of parameters: 44.3M
+Loading data
+Shuffle mode: None
+Source vocabulary size: 7751
+Target vocabulary size: 9067
+19972 training samples
+506 validation samples
+dropout (emb,ctx,out): 0.00, 0.00, 0.00
+Building model
+Input tensor order: 
+[x, x_mask, y, y_mask]
+Building sampler
+Building optimizer adadelta (initial lr=1.00000)
+Starting Epoch 1
+----------------
+Train Generator
+Train Generator
+Train Generator
+Train Generator
+Train Generator
+Loss Reward: 454.314697265625
+Loss Professor: 452.2508544921875
+Loss Reward: 448.4737243652344
+Loss Professor: 422.8907775878906
+Loss Reward: 389.87353515625
+Loss Professor: 337.6956481933594
+Loss Reward: 252.47592163085938
+Loss Professor: 115.38031768798828
+Loss Reward: 10.546857833862305

@@ -71,6 +71,10 @@ if __name__ == '__main__':
                                                   type=str, default=None)
     parser.add_argument('-i', '--init'          , help="Pretrained weights .npz extracted with nmt-extract",
                                                   type=str)
+    # Khoa:
+    parser.add_argument('-id', '--initdis'      , help="Pretrained weights .npz extracted with nmt-extract",
+                                                  type=str)
+    # Khoa.
     parser.add_argument('-f', '--freeze'        , help="Freeze the pretrained weights given with --init",
                                                   action="store_true", default=False)
     parser.add_argument('-t', '--timestamp'     , help="Add timestamp to log messages.",
@@ -81,8 +85,6 @@ if __name__ == '__main__':
     parser.add_argument('-v', '--verbose'       , help="Dump Theano graph and inspect optimization.",
                                                   action="store_true", default=False)
     
-#    parser.add_argument('-p', '--pretrain'      , help="Pretrain Generator and Discriminator",
-#                                                    defaut=False)
 
     # You can basically override everything by passing 'lrate: 0.1' style strings at the end
     # of command-line arguments
@@ -208,11 +210,20 @@ if __name__ == '__main__':
 
     # Override some weights with pre-trained ones if given
     if train_args.init:
-        log.info('Will override parameters from pre-trained weights')
+        log.info('Will override parameters from pre-trained weights init Generator')
         log.info('  %s' % os.path.basename(train_args.init))
         new_params = get_param_dict(train_args.init)
         model.update_shared_variables(new_params)
-#        discriminator.update_shared_variables(new_params)
+        if freeze:
+            log.info('Pretrained weights will not be updated.')
+            dont_update = list(new_params.keys())
+    
+    # Override some weights with pre-trained ones if given
+    if model_args.initdis:
+        log.info('Will override parameters from pre-trained weights init Discriminator')
+        log.info('  %s' % os.path.basename(model_args.initdis))
+        new_params = get_param_dict(model_args.initdis)
+        discriminator.update_shared_variables(new_params)
         if freeze:
             log.info('Pretrained weights will not be updated.')
             dont_update = list(new_params.keys())

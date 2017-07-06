@@ -219,10 +219,10 @@ if __name__ == '__main__':
             dont_update = list(new_params.keys())
     
     # Override some weights with pre-trained ones if given
-    if model_args.initdis:
+    if train_args.initdis:
         log.info('Will override parameters from pre-trained weights init Discriminator')
-        log.info('  %s' % os.path.basename(model_args.initdis))
-        new_params = get_param_dict(model_args.initdis)
+        log.info('  %s' % os.path.basename(train_args.initdis))
+        new_params = get_param_dict(train_args.initdis)
         discriminator.update_shared_variables(new_params)
         if freeze:
             log.info('Pretrained weights will not be updated.')

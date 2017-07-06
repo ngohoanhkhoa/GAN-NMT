@@ -37,7 +37,6 @@ class Model(Attention):
         
         # Khoa:
         self.reward = tensor.matrix(name="Reward",dtype=FLOAT)
-                
         # Khoa.
 
     def load_valid_data(self, from_translate=False):

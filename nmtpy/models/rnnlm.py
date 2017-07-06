@@ -188,7 +188,7 @@ class Model(BaseModel):
         # next word probability
         inps = [y, init_state]
         outs = [next_log_probs, next_word, next_state]
-        self.f_next = theano.function(inps, outs, name='f_next')
+        self.f_next = theano.function(inps, outs, name='f_next',on_unused_input='ignore')
 
     def gen_sample(tparams, f_next, options, trng=None, maxlen=30, argmax=False):
         sample = []

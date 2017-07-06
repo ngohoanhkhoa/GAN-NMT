@@ -5,4 +5,4 @@
 export THEANO_FLAGS=device=cpu,floatX=float32
 #export OMP_NUM_THREADS=8
 
-python ~/Documents/Stage/nmtpy/nmtpy/train_discriminator.py -c ~/Documents/Stage/GAN_NMT_model/discriminator_en_fr.conf
+python ~/Documents/Stage/nmtpy/nmtpy/train_rnnlm.py -c ~/Documents/Stage/GAN_NMT_model/rnnlm.conf

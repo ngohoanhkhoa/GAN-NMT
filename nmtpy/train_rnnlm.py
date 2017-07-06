@@ -16,7 +16,7 @@ from nmtpy.config import Config
 from nmtpy.logger import Logger
 from nmtpy.sysutils import *
 from nmtpy.nmtutils import get_param_dict
-from nmtpy.mainloop import MainLoop
+from nmtpy.mainloop_rnnlm import MainLoop
 
 # Ensure cleaning up temp files and processes
 import nmtpy.cleanup as cleanup

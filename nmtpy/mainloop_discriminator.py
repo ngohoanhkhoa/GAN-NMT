@@ -278,6 +278,9 @@ class MainLoop(object):
             pass
 
         # Final summary
+        self.__print('Saving last model found.')
+        self.model.save("%s_last.npz" % self.model.save_path)
+        
         if self.f_valid >= 0:
             self.__dump_val_summary()
         else:

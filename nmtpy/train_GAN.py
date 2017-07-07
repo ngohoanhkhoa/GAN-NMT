@@ -230,7 +230,7 @@ if __name__ == '__main__':
 
     # Print number of parameters
     # Khoa:
-    log.info("Number of parameters generator: %s" % model.get_nb_params())
+    log.info("Number of parameters generator    : %s" % model.get_nb_params())
     log.info("Number of parameters discriminator: %s" % discriminator.get_nb_params())
     # Khoa.
     

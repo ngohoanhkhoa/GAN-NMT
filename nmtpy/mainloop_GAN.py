@@ -14,8 +14,14 @@ class MainLoop(object):
         # NOTE: model_args not used, if necessary they should be accessible
         # from self.model.*
         
-        self.model          = model                         # The model instance that is trained
+        # Khoa:
         self.discriminator  = discriminator
+        self.maxlen = train_args.maxlen
+        self.rollnum = train_args.rollnum
+        # Khoa.
+        
+        self.model          = model                         # The model instance that is trained
+        
         
         self.__log          = logger                        # logger instance
 
@@ -338,6 +344,9 @@ class MainLoop(object):
         # Khoa.
         
         # Final summary
+        self.__print('Saving last model found.')
+        self.model.save("%s_last.npz" % self.model.save_path)
+        
         if self.f_valid >= 0:
             self.__dump_val_summary()
         else:
@@ -367,21 +376,26 @@ class MainLoop(object):
                 # Khoa: def translate(self, inputs, beam_size, maxlen)
                 input_sentences, translated_sentences = self.model.translate(list(data.values()),
                                                                              beam_size=1,
-                                                                             maxlen=10)
-                
+                                                                             maxlen=self.maxlen)
                 # Khoa: Get reward for each sentence in batch
                 rewards = []
                 for sentence_index in range(len(translated_sentences)):
-                    # Khoa: get_reward(self, discriminator, input_sentence, translated_sentence, rollout_num = 20, maxlen = 50, beam_size=12, base_value=0.1)
-                    reward = self.model.get_reward(self.discriminator, 
+                    # Khoa: get_reward_MC(self, discriminator, input_sentence, translated_sentence, rollout_num = 20, maxlen = 50, beam_size=12, base_value=0.1)
+                    reward = self.model.get_reward_MC(self.discriminator, 
                                                    input_sentences[sentence_index], 
                                                    translated_sentences[sentence_index], 
-                                                   rollout_num = 1, 
-                                                   maxlen = 10, 
+                                                   rollout_num = self.rollnum, 
+                                                   maxlen = self.maxlen, 
                                                    beam_size=1, 
                                                    base_value=0.5)
-                    rewards.append(reward)
 
+                    # Khoa: def get_reward_not_MC(self, discriminator, input_sentence, translated_sentence, base_value=0.1):  
+#                    reward = self.model.get_reward_not_MC(self.discriminator, 
+#                                                   input_sentences[sentence_index], 
+#                                                   translated_sentences[sentence_index],
+#                                                   base_value=0.5)
+
+                    rewards.append(reward)
                 
                 # Khoa: def get_batch(self,data_values, translated_sentences, discriminator_rewards, professor_rewards )
                 batch_generator, discriminator_rewards, professor_rewards  = self.model.get_batch(list(data.values()), 
@@ -394,26 +408,30 @@ class MainLoop(object):
                 # Khoa: Update Generator with Professor Forcing
                 loss_generator = self.model.train_batch(*batch_generator,professor_rewards)
                 # Khoa: Get loss
-#                self.__print('Loss Generator: %10.6f' % loss_generator)
+                #self.__print('Loss Generator: %10.6f' % loss_generator)
                 generator_batch_losses.append(loss_generator)
                 self.__send_stats(self.uctr, train_loss=loss_generator)
 
                 
             # Train de discriminator
             for it in range(1):
-                # Khoa: prepare_data(self, data_values, generator, maxlen=50)
-                batch_discriminator = self.discriminator.prepare_data(list(data.values()), self.model)
+                # Khoa: prepare_data_MC(self, data_values, generator, beam_size = 1, maxlen=50)
+                batch_discriminator = self.discriminator.prepare_data_MC(list(data.values()), self.model)
+                
+                # Khoa: prepare_data_not_MC(self, data_values, generator, beam_size = 1, maxlen=50)
+#                batch_discriminator = self.discriminator.prepare_data_not_MC(list(data.values()), self.model)
                 
                 # Update Discriminator
                 loss_discriminator = self.discriminator.train_batch(*batch_discriminator)
                 
                 # Khoa: Get loss
-#                self.__print('Loss Discriminaror: %10.6f' % loss_discriminator)
+                #self.__print('Loss Discriminaror: %10.6f' % loss_discriminator)
                 discriminator_batch_losses.append(loss_discriminator)
 
             # Verbose
             if self.uctr % self.f_verbose == 0:
-                self.__print("Generator: Epoch: %6d, update: %7d, cost: %10.6f" % (self.ectr, self.uctr, loss_generator))
+#                self.__print("Generator: Epoch: %6d, update: %7d" % (self.ectr, self.uctr))
+                self.__print("Generator    : Epoch: %6d, update: %7d, cost: %10.6f" % (self.ectr, self.uctr, loss_generator))
                 self.__print("Discriminator: Epoch: %6d, update: %7d, cost: %10.6f" % (self.ectr, self.uctr, loss_discriminator))
                 
             # Should we stop
@@ -442,7 +460,7 @@ class MainLoop(object):
         # Print epoch summary
         up_ctr = self.uctr - start_uctr
         self.__print("---------------------------------------------------------")
-        self.__print("Epoch summary of Generator:")
+        self.__print("Epoch summary of Generator    :")
         self.__dump_epoch_summary(generator_batch_losses, epoch_time, up_ctr)
         self.__print("Epoch summary of Discriminator:")
         self.__dump_epoch_summary(discriminator_batch_losses, epoch_time, up_ctr)

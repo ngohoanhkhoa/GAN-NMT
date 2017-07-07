@@ -498,19 +498,32 @@ class Model(BaseModel):
         self.get_probs = theano.function(list([x,y]), probs, on_unused_input='ignore')
 
     
+    # Khoa: Get the probability of a sentence being human-translated
     def get_discriminator_reward(self, x,y):
         probs = self.get_probs(x,y)
         probs  = np.array(probs)
         return probs[:,0]
     
-    def prepare_data(self, data_values, generator, maxlen=50):
-        input_sentences, translated_sentences = generator.translate(data_values, 1, maxlen)
+    def prepare_data_MC(self, data_values, generator,beam_size=1, maxlen=50):
+        input_sentences, translated_sentences = generator.translate(data_values, beam_size, maxlen)
         
-        translated_sentences_ = translated_sentences.swapaxes(0,1)
+        translated_sentences_ = []
+        for sentence in translated_sentences:
+            # Khoa: Modify (Increase and decrease) the size of translated_sentences_ into sentence lenght = 50 for convolution
+            # Similar to get_batch; maxlen shoule be fixed as 50 (cnn_discriminator)
+            while len(sentence) < maxlen:
+                sentence = np.append(sentence, [[0]] , axis=0)
+            if len(sentence) > maxlen:
+                sentence = np.delete(sentence,np.s_[maxlen:],0)
+                
+            translated_sentences_.append(sentence)
+        
+        translated_sentences_ = np.array(translated_sentences_)
+        translated_sentences_ = translated_sentences_.swapaxes(0,1)
         translated_sentences_shape = translated_sentences_.shape
         translated_sentences_ = translated_sentences_.reshape(translated_sentences_shape[0],translated_sentences_shape[1])
         
-        batch = self.get_batch(data_values[0],data_values[2],maxlen)
+        batch = self.get_batch(data_values[0],data_values[2])
         batch[0] = np.concatenate([batch[0],batch[0]],axis=1)
         batch[1] = np.concatenate([batch[1],translated_sentences_],axis=1)
         
@@ -522,8 +535,47 @@ class Model(BaseModel):
         batch.append(np.array(label, dtype=INT)) 
         
         return batch
-        
     
+    def prepare_data_not_MC(self, data_values, generator, beam_size = 1, maxlen=50):
+        input_sentences, translated_sentences = generator.translate(data_values, beam_size, maxlen)
+        
+        # Khoa: Select a part of a sentence for cnn_discriminator
+        translated_sentences_ = []
+        for sentence in translated_sentences:
+            random_index = np.random.randint(0,len(sentence),2)
+            if random_index[0] > random_index[1]:
+                random_index[0],random_index[1] = random_index[1],random_index[0]
+            sentence = sentence[random_index[0]:random_index[1]]
+            # Khoa: Modify (Increase and decrease) the size of translated_sentences_ into sentence lenght = 50 for convolution
+            # Similar to get_batch; maxlen shoule be fixed as 50 (cnn_discriminator)
+            while len(sentence) < maxlen:
+                sentence = np.append(sentence, [[0]] , axis=0)
+            if len(sentence) > maxlen:
+                sentence = np.delete(sentence,np.s_[maxlen:],0)
+                
+            translated_sentences_.append(sentence)
+            
+        translated_sentences_ = np.array(translated_sentences_)
+        translated_sentences_ = translated_sentences_.swapaxes(0,1)
+        translated_sentences_shape = translated_sentences_.shape
+        translated_sentences_ = translated_sentences_.reshape(translated_sentences_shape[0],translated_sentences_shape[1])
+        
+        
+        batch = self.get_batch(data_values[0],data_values[2],maxlen)
+        batch[0] = np.concatenate([batch[0],batch[0]],axis=1)
+        batch[1] = np.concatenate([batch[1],translated_sentences_],axis=1)
+        
+        
+        label = []
+        for i in range(0,int(batch[0].shape[1]/2)):
+            label.append([1,0])
+        for i in range(int(batch[0].shape[1]/2),batch[0].shape[1]):
+            label.append([0,1])
+        batch.append(np.array(label, dtype=INT)) 
+        
+        return batch
+        
+    # Khoa: Modify (Increase and decrease) the size of batch into sentence length = 50 for convolution
     def get_batch(self,x,y, maxlen=50):
         x = list(x)
         y = list(y)
@@ -542,8 +594,8 @@ class Model(BaseModel):
             y = np.delete(y,np.s_[maxlen:],0)
                     
         batch = []
-        batch.append(np.array(x, dtype='int64'))
-        batch.append(np.array(y, dtype='int64'))
+        batch.append(np.array(x, dtype=INT))
+        batch.append(np.array(y, dtype=INT))
             
         return list(batch)
 

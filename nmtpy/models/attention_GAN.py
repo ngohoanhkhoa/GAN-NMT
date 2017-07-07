@@ -338,28 +338,41 @@ class Model(Attention):
         return batch, discriminator_batch_rewards, professor_batch_rewards
 
     
-    # Khoa: Reward for a fixed length sentence    
-    def get_reward(self, discriminator, input_sentence, translated_sentence, rollout_num = 20, maxlen = 50, beam_size=12, base_value=0.1):
+    # Khoa: Reward for a fixed length sentence by using Monte Carlo search 
+    def get_reward_MC(self, discriminator, input_sentence, translated_sentence, rollout_num = 20, maxlen = 50, beam_size=12, base_value=0.1):
         final_reward = []
         for token_index in range(len(translated_sentence)):
             if token_index == len(translated_sentence)-1:
-                discriminator_reward = np.random.uniform()
-                final_reward.append(discriminator_reward - base_value)
+                batch = discriminator.get_batch(input_sentence,translated_sentence)
+                discriminator_reward = discriminator.get_discriminator_reward(batch[0],batch[1])
+                final_reward.append(discriminator_reward[0] - base_value)
             else:
                 reward = 0
                 max_sentence_len = maxlen - token_index - 1
                 for rollout_time  in range(rollout_num):
                     sentence = self.monte_carlo_search(input_sentence,translated_sentence[token_index],[self.f_init],[self.f_next],beam_size,max_sentence_len)
-                    final_sentence = []
-                    for token in sentence: final_sentence.append([token])
-                    final_sentence = np.array(final_sentence, dtype=INT)
-                    final_sentence = np.concatenate((input_sentence[0:token_index+1], final_sentence), axis=0)
+                    sentence_ = np.array(sentence)
+                    sentence_shape = sentence_.shape
+                    sentence_ = sentence_.reshape(sentence_shape[0],1)
                     
-                    batch = discriminator.get_batch(input_sentence,final_sentence, maxlen=50)
+                    final_sentence = np.array(sentence_, dtype=INT)
+                    final_sentence = np.concatenate((translated_sentence[0:token_index+1], final_sentence), axis=0)
+                   
+                    batch = discriminator.get_batch(input_sentence,final_sentence)
                     discriminator_reward = discriminator.get_discriminator_reward(batch[0],batch[1])
                     
                     reward += (discriminator_reward[0] - base_value)
                 final_reward.append(reward/rollout_num)
+        return np.array(final_reward,dtype=FLOAT)
+    
+    # Khoa: Reward for a fixed length sentence: Discriminator directly assign reward for each parts of token
+    def get_reward_not_MC(self, discriminator, input_sentence, translated_sentence, base_value=0.1):
+        final_reward = []
+        for token_index in range(len(translated_sentence)):
+            partially_generated_token = translated_sentence[0:token_index+1]
+            batch = discriminator.get_batch(input_sentence,partially_generated_token)
+            discriminator_reward = discriminator.get_discriminator_reward(batch[0],batch[1])
+            final_reward.append(discriminator_reward[0] - base_value)
         return np.array(final_reward,dtype=FLOAT)
     
     # Khoa: Similar as Beam search
@@ -504,22 +517,20 @@ class Model(Attention):
      
     # Khoa:
     def translate(self, inputs, beam_size, maxlen):
-        input_sentences = []
         translated_sentences = []
-        for sentence_index in range(np.array(inputs)[0].shape[1]):
-            sentence = []
-            for token in np.array(inputs)[0][:,sentence_index]: sentence.append([token])
-            sentence = np.array(sentence, dtype=INT)
-            
+        
+        input_sentences = np.array(inputs[0])
+        input_sentences = input_sentences.swapaxes(1,0)
+        input_sentences_shape = input_sentences.shape
+        input_sentences = input_sentences.reshape((input_sentences_shape[0],input_sentences_shape[1],1))
+        
+        for sentence in input_sentences:
             translated_sentence = self.beam_search_(sentence,[self.f_init],[self.f_next], beam_size, maxlen)
             
-            final_sentence = []
-            for token in translated_sentence[0]:
-                final_sentence.append([token])
-            final_sentence = np.array(final_sentence, dtype=INT)
-            
-            input_sentences.append(sentence)
-            translated_sentences.append(final_sentence)
+            translated_sentence_ = np.array(translated_sentence[0])
+            translated_sentence_shape = translated_sentence_.shape
+            translated_sentence = translated_sentence_.reshape((translated_sentence_shape[0],1))
+            translated_sentences.append(translated_sentence)
         
         return np.array(input_sentences), np.array(translated_sentences)
 

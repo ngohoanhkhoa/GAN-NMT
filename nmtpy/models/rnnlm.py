@@ -22,7 +22,7 @@ class Model(BaseModel):
         # Let's default to GRU
         self.rnn_type = kwargs.get('rnn_type', 'gru')
 
-        self.src_dict, src_idict = load_dictionary(dicts['src'])
+        self.src_dict, src_idict = load_dictionary(dicts['src_lm'])
         self.n_words = min(self.n_words, len(self.src_dict)) \
                 if self.n_words > 0 else len(self.src_dict)
 
@@ -138,6 +138,16 @@ class Model(BaseModel):
         self.f_log_probs = theano.function(list(self.inputs.values()), cost)
 
         return cost.mean()
+    
+    def pred_probs(self, x, x_mask):
+        probs = self.f_log_probs(x, x_mask)
+        return probs
+    
+    def get_batch(self, translated_sentence):
+        y = translated_sentence
+        y_mask = np.ones(y.shape,dtype=FLOAT)
+        return y, y_mask
+        
 
     def val_loss(self, sentence=None):
          probs = []

@@ -33,7 +33,6 @@ class Model(Attention):
         super(Model, self).__init__(seed, logger, **kwargs)
         
         self.log_probs         = None
-        self.data_mode = kwargs.get('data_mode', 'pairs')
         
         # Khoa:
         self.reward = tensor.matrix(name="Reward",dtype=FLOAT)
@@ -105,14 +104,14 @@ class Model(Attention):
             final_cost += regcost
 
 
-        # Normalize cost w.r.t sentence lengths to correctly compute perplexity
-        # Only active when y_mask is available
-        if 'y_mask' in self.inputs:
-            norm_cost = (cost / self.inputs['y_mask'].sum(0)).mean()
-            if regcost is not None:
-                norm_cost += regcost
-        else:
-            norm_cost = final_cost
+#        # Normalize cost w.r.t sentence lengths to correctly compute perplexity
+#        # Only active when y_mask is available
+#        if 'y_mask' in self.inputs:
+#            norm_cost = (cost / self.inputs['y_mask'].sum(0)).mean()
+#            if regcost is not None:
+#                norm_cost += regcost
+#        else:
+#            norm_cost = final_cost
 
         norm_cost = final_cost
         
@@ -311,34 +310,63 @@ class Model(Attention):
         professor_batch_rewards = []
         discriminator_batch_rewards = []
         batch = []
-        y = []
         
         discriminator_rewards = np.array(discriminator_rewards)
         translated_sentences = np.array(translated_sentences)
         
-        for token_index in range(translated_sentences.shape[1]):
-            for sentence_index in range(translated_sentences.shape[0]):
-                y.append(translated_sentences[sentence_index][token_index])
-                discriminator_batch_rewards.append(discriminator_rewards[sentence_index][token_index])
-                professor_batch_rewards.append(professor_rewards)
-                
-        y = np.array(y,dtype=INT).reshape(translated_sentences.shape[1],translated_sentences.shape[0])
-        mask_y = np.ones(y.shape,dtype=FLOAT)
+        # Khoa: Similar to mask_data(seqs) of iterator.py, put all translated sentences into a same-size batch
+        lengths = [len(s) for s in translated_sentences]
+        n_samples = len(translated_sentences)
+
+        maxlen = np.max(lengths) + 1
+
+        # Shape is (t_steps, samples)
+        y = np.zeros((n_samples,maxlen,1)).astype(INT)
+        y_mask = np.zeros_like(y).astype(FLOAT)
+        discriminator_batch_rewards = np.zeros_like(y).astype(FLOAT)
+        professor_batch_rewards = np.zeros_like(y).astype(FLOAT)
+
+        for idx, s_y in enumerate(translated_sentences):
+            y[idx, :lengths[idx]] = np.array(s_y)
+            y_mask[idx, :lengths[idx] + 1] = 1.
+
+        lengths = [len(r) for r in discriminator_rewards]
+        for idx, r in enumerate(discriminator_rewards):
+            discriminator_batch_rewards[idx, :lengths[idx]] = np.array(r).reshape(lengths[idx],1)
+            professor_batch_rewards[idx, :lengths[idx]] = professor_rewards
         
-        discriminator_batch_rewards = np.array(discriminator_batch_rewards,dtype=FLOAT).reshape(translated_sentences.shape[1],translated_sentences.shape[0])
-        professor_batch_rewards = np.array(professor_batch_rewards,dtype=FLOAT).reshape(translated_sentences.shape[1],translated_sentences.shape[0])
+        # Khoa.
         
+        # Khoa: Change batch, rewards matrix into good form for function train_batch()
+        y_ = y.swapaxes(0,1)
+        y_shape = y_.shape
+        y = y_.reshape(y_shape[0],y_shape[1])
+        
+        
+        y_mask_ = y_mask.swapaxes(0,1)
+        y_mask_shape = y_mask_.shape
+        y_mask = y_mask_.reshape(y_mask_shape[0],y_mask_shape[1])
+        
+        discriminator_batch_rewards_ = discriminator_batch_rewards.swapaxes(0,1)
+        discriminator_batch_rewards_shape = discriminator_batch_rewards_.shape
+        discriminator_batch_rewards = discriminator_batch_rewards_.reshape(discriminator_batch_rewards_shape[0],discriminator_batch_rewards_shape[1])
+
+        
+        professor_batch_rewards_ = professor_batch_rewards.swapaxes(0,1)
+        professor_batch_rewards_shape = professor_batch_rewards_.shape
+        professor_batch_rewards = professor_batch_rewards_.reshape(professor_batch_rewards_shape[0],professor_batch_rewards_shape[1])
+        # Khoa.
         
         batch.append(data_values[0])
         batch.append(data_values[1])
         batch.append(y)
-        batch.append(mask_y)
+        batch.append(y_mask)
         batch = np.array(batch)
         
         return batch, discriminator_batch_rewards, professor_batch_rewards
 
     
-    # Khoa: Reward for a fixed length sentence by using Monte Carlo search 
+    # Khoa: Reward for a sentence by using Monte Carlo search 
     def get_reward_MC(self, discriminator, input_sentence, translated_sentence, rollout_num = 20, maxlen = 50, beam_size=12, base_value=0.1):
         final_reward = []
         for token_index in range(len(translated_sentence)):
@@ -365,7 +393,7 @@ class Model(Attention):
                 final_reward.append(reward/rollout_num)
         return np.array(final_reward,dtype=FLOAT)
     
-    # Khoa: Reward for a fixed length sentence: Discriminator directly assign reward for each parts of token
+    # Khoa: Reward for a sentence: Discriminator directly assign reward for each parts of token
     def get_reward_not_MC(self, discriminator, input_sentence, translated_sentence, base_value=0.1):
         final_reward = []
         for token_index in range(len(translated_sentence)):
@@ -375,8 +403,14 @@ class Model(Attention):
             final_reward.append(discriminator_reward[0] - base_value)
         return np.array(final_reward,dtype=FLOAT)
     
-    # Khoa: Similar as Beam search
-    def monte_carlo_search(self, inputs, token, f_inits, f_nexts, beam_size=12, maxlen=100, suppress_unks=False, **kwargs):
+    # Khoa: Reward for a sentence: Get reward from Language Model
+    def get_reward_LM(self, language_model, translated_sentence, base_value=0.1):
+        batch = language_model.get_batch(translated_sentence)
+        probs = language_model.pred_probs(batch[0],batch[1])
+        return probs
+    
+    # Khoa: Similar as Beam search but from any token, not just from the first token of a sentence.
+    def monte_carlo_search(self, inputs, token, f_inits, f_nexts, beam_size=12, maxlen=50, suppress_unks=False, **kwargs):
         
         # Final results and their scores
         final_sample        = []
@@ -515,7 +549,7 @@ class Model(Attention):
         # Khoa: Return the last value of final_sample
         return final_sample[-1]
      
-    # Khoa:
+    # Khoa: The translated sentences could have different sizes (Not ready for a batch)
     def translate(self, inputs, beam_size, maxlen):
         translated_sentences = []
         
@@ -533,7 +567,8 @@ class Model(Attention):
             translated_sentences.append(translated_sentence)
         
         return np.array(input_sentences), np.array(translated_sentences)
-
+    
+    # Khoa: This beam search is modified and used for function translate() because the errors of f_init.
     def beam_search_(self, inputs, f_inits, f_nexts, beam_size=12, maxlen=100, suppress_unks=False, **kwargs):
         # Final results and their scores
         final_sample        = []
@@ -669,7 +704,7 @@ class Model(Attention):
 
         return final_sample
             
-            
+    # Khoa: The original Beam seach of nmtpy, this function is for nmt-translate (Validation step)
     def beam_search(self, inputs, f_inits, f_nexts, beam_size=12, maxlen=100, suppress_unks=False, **kwargs):
         # Final results and their scores
         final_sample        = []

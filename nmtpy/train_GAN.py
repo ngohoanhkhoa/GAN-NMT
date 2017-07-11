@@ -69,10 +69,14 @@ if __name__ == '__main__':
                                                   type=str)
     parser.add_argument('-s', '--suffix'        , help="Model file suffix",
                                                   type=str, default=None)
-    parser.add_argument('-i', '--init'          , help="Pretrained weights .npz extracted with nmt-extract",
+    parser.add_argument('-i', '--init'          , help="Pretrained weights .npz extracted with nmt-extract - Generator",
                                                   type=str)
-    # Khoa:
-    parser.add_argument('-id', '--initdis'      , help="Pretrained weights .npz extracted with nmt-extract",
+    # Khoa: Init parameters of Discriminator - Pre-trained Discriminator
+    parser.add_argument('-id', '--initdis'      , help="Pretrained weights .npz extracted with nmt-extract - Discriminator",
+                                                  type=str)
+    
+    # Khoa: Init parameters of Language Model - Pre-trained Language Model
+    parser.add_argument('-ilm', '--initlm'      , help="Pretrained weights .npz extracted with nmt-extract - Language Model",
                                                   type=str)
     # Khoa.
     parser.add_argument('-f', '--freeze'        , help="Freeze the pretrained weights given with --init",
@@ -177,7 +181,8 @@ if __name__ == '__main__':
     # Import the model
     Model = importlib.import_module("nmtpy.models.%s" % train_args.model_type).Model
     # Khoa: 
-    Discriminator = importlib.import_module("nmtpy.models.cnn_discriminator").Model
+    Discriminator = importlib.import_module("nmtpy.models.%s" % train_args.model_discriminator_type).Model
+    Language_model = importlib.import_module("nmtpy.models.%s" % train_args.model_language_model_type).Model
     # Khoa.
     
     # Create model object
@@ -188,6 +193,9 @@ if __name__ == '__main__':
     # Khoa:
     discriminator = Discriminator(seed=train_args.seed, logger=log,
                   model_type=train_args.model_type, **(model_args.__dict__))
+    
+    language_model = Language_model(seed=train_args.seed, logger=log,
+                  model_type=train_args.model_type, **(model_args.__dict__))
     # Khoa.
     
     # Initialize parameters
@@ -195,6 +203,7 @@ if __name__ == '__main__':
     model.init_params()
     # Khoa:
     discriminator.init_params()
+    language_model.init_params()
     # Khoa.
     
     
@@ -203,6 +212,7 @@ if __name__ == '__main__':
     model.init_shared_variables()
     # Khoa:
     discriminator.init_shared_variables()
+    language_model.init_shared_variables()
     # Khoa.
     
     # List of weights that will not receive updates during BP
@@ -217,8 +227,7 @@ if __name__ == '__main__':
         if freeze:
             log.info('Pretrained weights will not be updated.')
             dont_update = list(new_params.keys())
-    
-    # Override some weights with pre-trained ones if given
+
     if train_args.initdis:
         log.info('Will override parameters from pre-trained weights init Discriminator')
         log.info('  %s' % os.path.basename(train_args.initdis))
@@ -227,11 +236,21 @@ if __name__ == '__main__':
         if freeze:
             log.info('Pretrained weights will not be updated.')
             dont_update = list(new_params.keys())
+    
+    if train_args.initlm:
+        log.info('Will override parameters from pre-trained weights init Language Model')
+        log.info('  %s' % os.path.basename(train_args.initlm))
+        new_params = get_param_dict(train_args.initlm)
+        language_model.update_shared_variables(new_params)
+        if freeze:
+            log.info('Pretrained weights will not be updated.')
+            dont_update = list(new_params.keys())
 
     # Print number of parameters
     # Khoa:
     log.info("Number of parameters generator    : %s" % model.get_nb_params())
     log.info("Number of parameters discriminator: %s" % discriminator.get_nb_params())
+    log.info("Number of parameters language model: %s" % language_model.get_nb_params())
     # Khoa.
     
     # Load data
@@ -242,6 +261,7 @@ if __name__ == '__main__':
     model.info()
     # Khoa:
     discriminator.info()
+    language_model.info()
     # Khoa.
     
     # Build the model
@@ -249,6 +269,7 @@ if __name__ == '__main__':
     data_loss_generator = model.build()
     # Khoa:
     data_loss_discriminator = discriminator.build()
+    data_loss_language_model = language_model.build()
     # Khoa.
     
     log.info("Input tensor order: ")
@@ -290,6 +311,6 @@ if __name__ == '__main__':
 
     # Create mainloop
     # Khoa: Put discriminator
-    loop = MainLoop(model,discriminator, log, train_args, model_args)
+    loop = MainLoop(model,discriminator, language_model, log, train_args, model_args)
     loop.run()
     # Khoa.

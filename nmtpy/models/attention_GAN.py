@@ -104,14 +104,14 @@ class Model(Attention):
             final_cost += regcost
 
 
-#        # Normalize cost w.r.t sentence lengths to correctly compute perplexity
-#        # Only active when y_mask is available
-#        if 'y_mask' in self.inputs:
-#            norm_cost = (cost / self.inputs['y_mask'].sum(0)).mean()
-#            if regcost is not None:
-#                norm_cost += regcost
-#        else:
-#            norm_cost = final_cost
+        # Normalize cost w.r.t sentence lengths to correctly compute perplexity
+        # Only active when y_mask is available
+        if 'y_mask' in self.inputs:
+            norm_cost = (cost / self.inputs['y_mask'].sum(0)).mean()
+            if regcost is not None:
+                norm_cost += regcost
+        else:
+            norm_cost = final_cost
 
         norm_cost = final_cost
         
@@ -305,7 +305,7 @@ class Model(Attention):
     
     
     # Khoa: Return the batch format of sentences and rewards for training
-    def get_batch(self,data_values, translated_sentences, discriminator_rewards, professor_rewards ):
+    def get_batch(self, data_values, translated_sentences, discriminator_rewards, professor_rewards):
 
         professor_batch_rewards = []
         discriminator_batch_rewards = []
@@ -337,7 +337,7 @@ class Model(Attention):
         
         # Khoa.
         
-        # Khoa: Change batch, rewards matrix into good form for function train_batch()
+        # Khoa: Change batch, reward matrix into good form for function train_batch()
         y_ = y.swapaxes(0,1)
         y_shape = y_.shape
         y = y_.reshape(y_shape[0],y_shape[1])
@@ -365,6 +365,30 @@ class Model(Attention):
         
         return batch, discriminator_batch_rewards, professor_batch_rewards
 
+    def get_batch_reward_for_lm(self, translated_sentences, language_model_rewards):
+        language_model_rewards = np.array(language_model_rewards)
+        
+        # Khoa: Similar to mask_data(seqs) of iterator.py, put all translated sentences into a same-size batch
+        lengths = [len(s) for s in translated_sentences]
+        n_samples = len(translated_sentences)
+
+        maxlen = np.max(lengths) + 1
+
+        # Shape is (t_steps, samples)
+        y = np.zeros((n_samples,maxlen,1)).astype(INT)
+        language_model_batch_rewards = np.zeros_like(y).astype(FLOAT)
+
+        for idx, r in enumerate(translated_sentences):
+            language_model_batch_rewards[idx, :lengths[idx]] = language_model_rewards[idx]
+        
+        # Khoa.
+        
+        # Khoa: Change reward matrix into good form for function train_batch()
+        language_model_batch_rewards_ = language_model_batch_rewards.swapaxes(0,1)
+        language_model_batch_rewards_shape = language_model_batch_rewards_.shape
+        language_model_batch_rewards = language_model_batch_rewards_.reshape(language_model_batch_rewards_shape[0],language_model_batch_rewards_shape[1])
+        
+        return language_model_batch_rewards
     
     # Khoa: Reward for a sentence by using Monte Carlo search 
     def get_reward_MC(self, discriminator, input_sentence, translated_sentence, rollout_num = 20, maxlen = 50, beam_size=12, base_value=0.1):
@@ -408,6 +432,25 @@ class Model(Attention):
         batch = language_model.get_batch(translated_sentence)
         probs = language_model.pred_probs(batch[0],batch[1])
         return probs
+    
+    # Khoa: The translated sentences could have different sizes (Not ready for a batch)
+    def translate(self, inputs, beam_size, maxlen):
+        translated_sentences = []
+        
+        input_sentences = np.array(inputs[0])
+        input_sentences = input_sentences.swapaxes(1,0)
+        input_sentences_shape = input_sentences.shape
+        input_sentences = input_sentences.reshape((input_sentences_shape[0],input_sentences_shape[1],1))
+        
+        for sentence in input_sentences:
+            translated_sentence = self.beam_search_(sentence,[self.f_init],[self.f_next], beam_size, maxlen)
+            
+            translated_sentence_ = np.array(translated_sentence[0])
+            translated_sentence_shape = translated_sentence_.shape
+            translated_sentence = translated_sentence_.reshape((translated_sentence_shape[0],1))
+            translated_sentences.append(translated_sentence)
+        
+        return np.array(input_sentences), np.array(translated_sentences)
     
     # Khoa: Similar as Beam search but from any token, not just from the first token of a sentence.
     def monte_carlo_search(self, inputs, token, f_inits, f_nexts, beam_size=12, maxlen=50, suppress_unks=False, **kwargs):
@@ -549,24 +592,6 @@ class Model(Attention):
         # Khoa: Return the last value of final_sample
         return final_sample[-1]
      
-    # Khoa: The translated sentences could have different sizes (Not ready for a batch)
-    def translate(self, inputs, beam_size, maxlen):
-        translated_sentences = []
-        
-        input_sentences = np.array(inputs[0])
-        input_sentences = input_sentences.swapaxes(1,0)
-        input_sentences_shape = input_sentences.shape
-        input_sentences = input_sentences.reshape((input_sentences_shape[0],input_sentences_shape[1],1))
-        
-        for sentence in input_sentences:
-            translated_sentence = self.beam_search_(sentence,[self.f_init],[self.f_next], beam_size, maxlen)
-            
-            translated_sentence_ = np.array(translated_sentence[0])
-            translated_sentence_shape = translated_sentence_.shape
-            translated_sentence = translated_sentence_.reshape((translated_sentence_shape[0],1))
-            translated_sentences.append(translated_sentence)
-        
-        return np.array(input_sentences), np.array(translated_sentences)
     
     # Khoa: This beam search is modified and used for function translate() because the errors of f_init.
     def beam_search_(self, inputs, f_inits, f_nexts, beam_size=12, maxlen=100, suppress_unks=False, **kwargs):

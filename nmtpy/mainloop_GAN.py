@@ -21,14 +21,20 @@ class MainLoop(object):
         if language_model:
             self.language_model =  language_model
         
+        # Alpha value for modifying the reward between Discriminator and Language Model
+        self.alpha = train_args.alpha_init
+        self.alpha_rate = train_args.alpha_rate
+        
         self.monte_carlo_search = train_args.monte_carlo_search
         self.maxlen = train_args.maxlen
         self.rollnum = train_args.rollnum
         
+        # Number of loop for Generator and Discriminator
         self.generator_loop_num = train_args.generator_loop_num
         self.discriminator_loop_num = train_args.discriminator_loop_num
         # Khoa.
         
+        # Khoa: The model of generator - Our main NMT model
         self.model          = model                         # The model instance that is trained
         
         
@@ -159,6 +165,7 @@ class MainLoop(object):
     def __update_lrate(self):
         """Update learning rate by annealing it."""
         pass
+    
 
     def __train_epoch(self):
         """Train a full epoch."""
@@ -379,6 +386,9 @@ class MainLoop(object):
         for data in self.model.train_iterator:
             self.uctr += 1
             
+            if self.alpha != 1:
+                self.alpha += self.alpha_rate
+            
             #Train the generator
             for it in range(self.generator_loop_num):
                 # Khoa: Generate samples
@@ -387,11 +397,14 @@ class MainLoop(object):
                                                                              beam_size=1,
                                                                              maxlen=self.maxlen)
                 
+                
                 # Khoa: Get reward for each sentence in batch. 
+
+                # -------------------------------------------------------------
+                # Khoa: Reward from Discriminator
                 # There are two ways of Discriminator: 
                     # Monte Carlo search (MC) or Getting directly from Discriminator (not_MC)
                 discriminator_rewards_ = []
-                language_model_rewards_ = []
                 for sentence_index in range(len(translated_sentences)):
                     if self.monte_carlo_search:
                         # Khoa: get_reward_MC(self, discriminator, 
@@ -416,24 +429,38 @@ class MainLoop(object):
                                                    base_value=0.5)
                     
                     discriminator_rewards_.append(reward)
-                    
-                    if self.language_model is not None:
+                        
+                        
+                # Khoa: get_batch(self,data_values, translated_sentences, 
+                # discriminator_rewards, professor_rewards,language_model_rewards)
+                batch_generator, discriminator_rewards, professor_rewards = self.model.get_batch(
+                                                                            list(data.values()), 
+                                                                            translated_sentences, 
+                                                                            discriminator_rewards=discriminator_rewards_,
+                                                                            professor_rewards= 1)
+                
+                # -------------------------------------------------------------
+                # Khoa: Reward of Language Model
+                language_model_rewards = []
+                if self.language_model is not None:
+                    language_model_rewards_ = []
+                    for sentence_index in range(len(translated_sentences)):
+                        # Khoa: def get_reward_LM(self, language_model, translated_sentence, base_value=0.1)
                         reward = self.model.get_reward_LM(self.language_model, 
                                                         translated_sentences[sentence_index], 
                                                         base_value=0.1)
                         language_model_rewards_.append(reward)
+                        
+                    language_model_rewards = self.model.get_batch_reward_for_lm(translated_sentences, 
+                                                                                language_model_rewards_)
                     
+                # -------------------------------------------------------------
                 
+                rewards = self.alpha*discriminator_rewards + (1-self.alpha)*language_model_rewards
                 
-                # Khoa: def get_batch(self,data_values, translated_sentences, discriminator_rewards, professor_rewards )
-                batch_generator, discriminator_rewards, professor_rewards  = self.model.get_batch(list(data.values()), 
-                                                                                                  translated_sentences, 
-                                                                                                  discriminator_rewards=discriminator_rewards_,
-                                                                                                  professor_rewards= 1 )
-                
-        
-                # Khoa: Update Generator with Reward from Discriminator
-                loss_generator = self.model.train_batch(*batch_generator, discriminator_rewards)
+                # -------------------------------------------------------------
+                # Khoa: Update Generator with Reward from Discriminator or/and Language Model
+                loss_generator = self.model.train_batch(*batch_generator, rewards)
                 # Khoa: Update Generator with Professor Forcing
                 loss_generator = self.model.train_batch(*batch_generator,professor_rewards)
                 # Khoa: Get loss

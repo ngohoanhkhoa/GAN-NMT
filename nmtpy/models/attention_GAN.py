@@ -112,8 +112,6 @@ class Model(Attention):
                 norm_cost += regcost
         else:
             norm_cost = final_cost
-
-        norm_cost = final_cost
         
         # Get gradients of cost with respect to variables
         # This uses final_cost which is not normalized w.r.t sentence lengths
@@ -323,18 +321,21 @@ class Model(Attention):
         # Shape is (t_steps, samples)
         y = np.zeros((n_samples,maxlen,1)).astype(INT)
         y_mask = np.zeros_like(y).astype(FLOAT)
-        discriminator_batch_rewards = np.zeros_like(y).astype(FLOAT)
-        professor_batch_rewards = np.zeros_like(y).astype(FLOAT)
-
+        
+        # Khoa: Make y, y_mask for machine-translated sentence
         for idx, s_y in enumerate(translated_sentences):
             y[idx, :lengths[idx]] = np.array(s_y)
             y_mask[idx, :lengths[idx] + 1] = 1.
-
+          
+        discriminator_batch_rewards = np.zeros_like(y).astype(FLOAT)
         lengths = [len(r) for r in discriminator_rewards]
         for idx, r in enumerate(discriminator_rewards):
             discriminator_batch_rewards[idx, :lengths[idx]] = np.array(r).reshape(lengths[idx],1)
-            professor_batch_rewards[idx, :lengths[idx]] = professor_rewards
-        
+                                   
+        # Khoa: Make professor reward for human-translated sentence
+        professor_batch_rewards = np.zeros_like(data_values[2]).astype(FLOAT)
+        professor_batch_rewards[:, :] = professor_rewards
+        professor_batch_rewards = professor_batch_rewards*data_values[3]
         # Khoa.
         
         # Khoa: Change batch, reward matrix into good form for function train_batch()
@@ -350,11 +351,6 @@ class Model(Attention):
         discriminator_batch_rewards_ = discriminator_batch_rewards.swapaxes(0,1)
         discriminator_batch_rewards_shape = discriminator_batch_rewards_.shape
         discriminator_batch_rewards = discriminator_batch_rewards_.reshape(discriminator_batch_rewards_shape[0],discriminator_batch_rewards_shape[1])
-
-        
-        professor_batch_rewards_ = professor_batch_rewards.swapaxes(0,1)
-        professor_batch_rewards_shape = professor_batch_rewards_.shape
-        professor_batch_rewards = professor_batch_rewards_.reshape(professor_batch_rewards_shape[0],professor_batch_rewards_shape[1])
         # Khoa.
         
         batch.append(data_values[0])

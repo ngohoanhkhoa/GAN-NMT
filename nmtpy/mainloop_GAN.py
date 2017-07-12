@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from collections import OrderedDict
-from shutil import copy
 
 from nmtpy.metrics import is_last_best, find_best, comparators
 from nmtpy.sysutils import force_symlink
@@ -459,10 +458,13 @@ class MainLoop(object):
                 rewards = self.alpha*discriminator_rewards + (1-self.alpha)*language_model_rewards
                 
                 # -------------------------------------------------------------
-                # Khoa: Update Generator with Reward from Discriminator or/and Language Model
+                # Khoa: Update Generator with Reward from Discriminator or/and Language Model 
+                # (Using machine-translated sentence)
                 loss_generator = self.model.train_batch(*batch_generator, rewards)
-                # Khoa: Update Generator with Professor Forcing
-                loss_generator = self.model.train_batch(*batch_generator,professor_rewards)
+                
+                # Khoa: Update Generator with Professor Forcing (Using human-translated sentence)
+                loss_generator = self.model.train_batch(*list(data.values()), professor_rewards)
+                
                 # Khoa: Get loss
                 #self.__print('Loss Generator: %10.6f' % loss_generator)
                 generator_batch_losses.append(loss_generator)

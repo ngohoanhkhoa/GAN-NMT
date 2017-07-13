@@ -335,27 +335,7 @@ class MainLoop(object):
         #self.model.save(self.model.save_path + '.npz')
 #        while self.__train_epoch():
         # Khoa:
-#        self.__print("--------------------------------------------------------")
-#        self.__print("Pre-train Generator")
-#        self.ectr = 0
-#        self.uctr = 0
-#        while self.__pre_train_generator():pass
-#        self.__print('Saving pre-trained Generator.')
-#        self.model.save("%s_pre_trained_Generator.npz" % self.model.save_path)
-    
-#        self.__print("--------------------------------------------------------")
-#        self.__print("Pre-train Discriminator")
-#        self.ectr = 0
-#        self.uctr = 0
-#        while self.__pre_train_discriminator():pass
-#        self.__print('Saving pre-trained Discriminator.')
-#        self.model.save("%s_pre_trained_Discriminator.npz" % self.model.save_path)
-#    
-#        self.__print("--------------------------------------------------------")
-#        self.__print("Train GAN")
-#        self.ectr = 0
-#        self.uctr = 0
-        while self.__train_GAN():pass
+        while self.__train_GAN(): pass
         # Khoa.
         
         # Final summary
@@ -474,12 +454,10 @@ class MainLoop(object):
             # Train de discriminator
             for it in range(self.discriminator_loop_num):
                 if self.monte_carlo_search:
-                    # Khoa: get_reward_MC(self, discriminator, input_sentence, translated_sentence, 
-                    # rollout_num = 20, maxlen = 50, beam_size=12, base_value=0.1)
+                    # Khoa: def prepare_data_MC(self, data_values, generator, beam_size=1, maxlen=50)
                     batch_discriminator = self.discriminator.prepare_data_MC(list(data.values()), self.model)
                 else:
-                    # Khoa: get_reward_not_MC(self, discriminator, input_sentence, 
-                    # translated_sentence, base_value=0.1)
+                    # Khoa: def prepare_data_not_MC(self, data_values, generator, beam_size = 1, maxlen=50)
                     batch_discriminator = self.discriminator.prepare_data_not_MC(list(data.values()), self.model)
                 
                 # Update Discriminator
@@ -536,7 +514,28 @@ class MainLoop(object):
             return False
 
         return True
+
+#        self.__print("--------------------------------------------------------")
+#        self.__print("Pre-train Generator")
+#        self.ectr = 0
+#        self.uctr = 0
+#        while self.__pre_train_generator():pass
+#        self.__print('Saving pre-trained Generator.')
+#        self.model.save("%s_pre_trained_Generator.npz" % self.model.save_path)
     
+#        self.__print("--------------------------------------------------------")
+#        self.__print("Pre-train Discriminator")
+#        self.ectr = 0
+#        self.uctr = 0
+#        while self.__pre_train_discriminator():pass
+#        self.__print('Saving pre-trained Discriminator.')
+#        self.model.save("%s_pre_trained_Discriminator.npz" % self.model.save_path)
+#    
+#        self.__print("--------------------------------------------------------")
+#        self.__print("Train GAN")
+#        self.ectr = 0
+#        self.uctr = 0
+
 #    def __pre_train_generator(self):
 #        self.ectr += 1
 #

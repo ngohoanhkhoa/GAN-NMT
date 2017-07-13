@@ -14,6 +14,8 @@ class MainLoop(object):
         # NOTE: model_args not used, if necessary they should be accessible
         # from self.model.*
 
+        # Khoa: Max accuracy of Discriminator
+        self.max_acc       = train_args.max_acc
         self.model          = model                         # The model instance that is trained
         self.__log          = logger                        # logger instance
 
@@ -178,9 +180,9 @@ class MainLoop(object):
             self.__update_lrate()
 
             # Do validation
-            # Remember to check early stop condition (min_loss) in self.__do_validation()
+            # Remember to check early stop condition in self.__do_validation()
             if not self.epoch_valid and self.f_valid > 0 and self.uctr % self.f_valid == 0:
-                self.__do_validation(0.2) # min_loss = 0.2
+                return self.__do_validation()
 
             # Check stopping conditions
             if self.early_bad == self.patience:
@@ -196,7 +198,7 @@ class MainLoop(object):
 
         # Do validation
         if self.epoch_valid:
-            self.__do_validation(0.2)
+            self.__do_validation()
 
         # Check whether maximum epoch is reached
         if self.ectr == self.max_epochs:
@@ -208,7 +210,7 @@ class MainLoop(object):
     def __do_sampling(self, data):
         return 0
 
-    def __do_validation(self, min_loss):
+    def __do_validation(self):
         """Do early-stopping validation."""
         if self.ectr >= self.valid_start:
             self.vctr += 1
@@ -242,7 +244,9 @@ class MainLoop(object):
                 
             self.__dump_val_summary()
             
-            if cur_loss < min_loss:
+            # Khoa: Set the initial accuracy for Discriminator in GAN
+            if cur_loss < (1 - self.max_acc):
+                self.__print("Reach maximum accuracy %.3f : Current Accuracy = %.3f " % (self.max_acc,1-cur_loss ))
                 return False
 
     def __dump_val_summary(self):

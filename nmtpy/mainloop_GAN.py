@@ -14,11 +14,11 @@ class MainLoop(object):
         # from self.model.*
         
         # Khoa:
-        if discriminator:
+        if discriminator is not None:
             self.discriminator  = discriminator
+            self.best_discriminator = discriminator
             
-        if language_model:
-            self.language_model =  language_model
+        self.language_model =  language_model
         
         # Alpha value for modifying the reward between Discriminator and Language Model
         self.alpha = train_args.alpha_init
@@ -31,6 +31,11 @@ class MainLoop(object):
         # Number of loop for Generator and Discriminator
         self.generator_loop_num = train_args.generator_loop_num
         self.discriminator_loop_num = train_args.discriminator_loop_num
+        
+        # Maximum - Minimum accuracy of Discriminator
+        
+        self.max_acc = train_args.max_acc
+        self.min_acc = train_args.min_acc
         # Khoa.
         
         # Khoa: The model of generator - Our main NMT model
@@ -303,7 +308,37 @@ class MainLoop(object):
                 self.__print("Early stopping patience: %d validation left" % (self.patience - self.early_bad))
 
             self.__dump_val_summary()
-
+    
+    def __do_validation_check_accuracy_discriminator(self):
+        prob_true = []
+        for data in self.model.valid_iterator:
+            if self.monte_carlo_search:
+                # Khoa: def prepare_data_MC(self, data_values, generator, beam_size=1, maxlen=50)
+                batch_discriminator = self.discriminator.prepare_data_MC(list(data.values()), self.model)
+            else:
+                # Khoa: def prepare_data_not_MC(self, data_values, generator, beam_size = 1, maxlen=50)
+                batch_discriminator = self.discriminator.prepare_data_not_MC(list(data.values()), self.model)
+    
+            probs = self.discriminator.get_probs_valid(*batch_discriminator)
+            probs = np.array(probs)*np.array(batch_discriminator[2])
+            probs = probs.sum(0)
+            true_num= sum(1 for prob in probs if prob > 0.5)
+            prob_true.append(1 - (true_num/len(probs)))
+            
+        mean_acc = np.array(prob_true).mean()
+        
+        if mean_acc < self.max_acc and mean_acc > self.min_acc:
+            self.best_discriminator = self.discriminator
+            return True
+        
+        if mean_acc < self.min_acc:
+            return True
+        
+        if mean_acc > self.max_acc:
+            self.discriminator = self.best_discriminator
+            return False
+            
+            
     def __dump_val_summary(self):
         """Print validation summary."""
         for metric, history in self.valid_metrics.items():
@@ -434,8 +469,10 @@ class MainLoop(object):
                                                                                 language_model_rewards_)
                     
                 # -------------------------------------------------------------
-                
-                rewards = self.alpha*discriminator_rewards + (1-self.alpha)*language_model_rewards
+                if self.language_model is not None:
+                    rewards = self.alpha*discriminator_rewards + (1-self.alpha)*language_model_rewards
+                else:
+                    rewards = discriminator_rewards
                 
                 # -------------------------------------------------------------
                 # Khoa: Update Generator with Reward from Discriminator or/and Language Model 
@@ -452,20 +489,21 @@ class MainLoop(object):
 
                 
             # Train de discriminator
-            for it in range(self.discriminator_loop_num):
-                if self.monte_carlo_search:
-                    # Khoa: def prepare_data_MC(self, data_values, generator, beam_size=1, maxlen=50)
-                    batch_discriminator = self.discriminator.prepare_data_MC(list(data.values()), self.model)
-                else:
-                    # Khoa: def prepare_data_not_MC(self, data_values, generator, beam_size = 1, maxlen=50)
-                    batch_discriminator = self.discriminator.prepare_data_not_MC(list(data.values()), self.model)
-                
-                # Update Discriminator
-                loss_discriminator = self.discriminator.train_batch(*batch_discriminator)
-                
-                # Khoa: Get loss
-                #self.__print('Loss Discriminaror: %10.6f' % loss_discriminator)
-                discriminator_batch_losses.append(loss_discriminator)
+            if self.__do_validation_check_accuracy_discriminator():
+                for it in range(self.discriminator_loop_num):
+                    if self.monte_carlo_search:
+                        # Khoa: def prepare_data_MC(self, data_values, generator, beam_size=1, maxlen=50)
+                        batch_discriminator = self.discriminator.prepare_data_MC(list(data.values()), self.model)
+                    else:
+                        # Khoa: def prepare_data_not_MC(self, data_values, generator, beam_size = 1, maxlen=50)
+                        batch_discriminator = self.discriminator.prepare_data_not_MC(list(data.values()), self.model)
+                    
+                    # Update Discriminator
+                    loss_discriminator = self.discriminator.train_batch(*batch_discriminator)
+                    
+                    # Khoa: Get loss
+                    #self.__print('Loss Discriminaror: %10.6f' % loss_discriminator)
+                    discriminator_batch_losses.append(loss_discriminator)
 
             # Verbose
             if self.uctr % self.f_verbose == 0:

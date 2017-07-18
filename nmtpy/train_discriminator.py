@@ -204,6 +204,9 @@ if __name__ == '__main__':
     # Build the model
     log.info("Building model")
     data_loss = model.build()
+    
+    log.info('Building sampler')
+    model.build_sampler()
 
     log.info("Input tensor order: ")
     log.info(list(model.inputs.values()))

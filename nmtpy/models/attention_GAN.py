@@ -15,6 +15,7 @@ from ..nmtutils import norm_weight
 from ..iterators.text import TextIterator
 from ..iterators.bitext import BiTextIterator
 from .attention import Model as Attention
+from .cnn_discriminator import ClassificationIterator as ClassificationIterator
 
  
 #######################################
@@ -36,6 +37,8 @@ class Model(Attention):
         
         # Khoa:
         self.reward = tensor.matrix(name="Reward",dtype=FLOAT)
+        
+        self.valid_iterator_discriminator = None
         # Khoa.
 
     def load_valid_data(self, from_translate=False):
@@ -56,8 +59,19 @@ class Model(Attention):
                                     srcfile=self.data['valid_src'], srcdict=self.src_dict,
                                     trgfile=self.valid_ref_files[0], trgdict=self.trg_dict,
                                     n_words_src=self.n_words_src, n_words_trg=self.n_words_trg)
-
+        
         self.valid_iterator.read()
+        
+        def load_valid_data_discriminator(self):
+            self.valid_iterator_discriminator = ClassificationIterator(
+                                    batch_size=self.batch_size,
+                                    srcfile=self.data['valid_src_discriminator'], srcdict=self.src_dict,
+                                    trgfile=self.data['valid_trg_discriminator'], trgdict=self.trg_dict,
+                                    labelfile=self.data['valid_label_discriminator'],
+                                    n_words_src=self.n_words_src,
+                                    n_words_trg=self.n_words_trg)
+
+            self.valid_iterator_discriminator.read()
 
     def load_data(self):
         self.train_iterator = BiTextIterator(

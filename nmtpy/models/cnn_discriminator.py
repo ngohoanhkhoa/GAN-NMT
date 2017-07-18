@@ -491,12 +491,10 @@ class Model(BaseModel):
         logit = get_new_layer('ff')[1](self.tparams, conv_after_pooling_, prefix='ff_logit', activ='linear')
         logit_shp = logit.shape
         
-        
         # Khoa: Apply softmax 
         probs = tensor.nnet.softmax(logit.reshape([logit_shp[1], logit_shp[0]*logit_shp[2]]))
         
         self.get_probs = theano.function(list([x,y]), probs, on_unused_input='ignore')
-
     
     # Khoa: Get the probability of a sentence being human-translated
     def get_discriminator_reward(self, x,y):
@@ -625,7 +623,7 @@ class Model(BaseModel):
 
         for data in self.valid_iterator:
             batch_discriminator = self.get_batch(list(data.values())[0],list(data.values())[2])
-            batch_discriminator.append(np.array(list(data.values())[4], dtype='int64')) 
+            batch_discriminator.append(np.array(list(data.values())[4], dtype=INT)) 
             probs = self.get_probs_valid(*batch_discriminator)
             probs = np.array(probs)*np.array(list(data.values())[4])
             probs = probs.sum(0)
@@ -633,9 +631,9 @@ class Model(BaseModel):
             prob_true.append(1 - (true_num/len(probs)))
 
         if mean:
-            return np.array(probs).mean()
+            return np.array(prob_true).mean()
         else:
-            return np.array(probs)
+            return np.array(prob_true)
     # Khoa.
 
     def concatenate(self, tensor_list, axis=0):

@@ -1,10 +1,18 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed May 24 14:16:41 2017
+
+@author: macbook975
+"""
+
+#!/Users/macbook975/anaconda/bin/python
 # -*- coding: utf-8 -*-
 import os
 
 # Avoid thread explosion
-os.environ["OMP_NUM_THREADS"] = "8"
-os.environ["MKL_NUM_THREADS"] = "8"
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["MKL_NUM_THREADS"] = "1"
 
 import sys
 import argparse
@@ -16,7 +24,7 @@ from nmtpy.config import Config
 from nmtpy.logger import Logger
 from nmtpy.sysutils import *
 from nmtpy.nmtutils import get_param_dict
-from nmtpy.mainloop_rnnlm import MainLoop
+from nmtpy.mainloop_GAN_MC import MainLoop
 
 # Ensure cleaning up temp files and processes
 import nmtpy.cleanup as cleanup
@@ -59,11 +67,18 @@ if __name__ == '__main__':
     # a different model by fixing every other parameter given in the configuration
     parser.add_argument('-m', '--model-type'    , help="Override the model type given in the configuration",
                                                   type=str)
-
     parser.add_argument('-s', '--suffix'        , help="Model file suffix",
                                                   type=str, default=None)
-    parser.add_argument('-i', '--init'          , help="Pretrained weights .npz extracted with nmt-extract",
+    parser.add_argument('-i', '--init'          , help="Pretrained weights .npz extracted with nmt-extract - Generator",
                                                   type=str)
+    # Khoa: Init parameters of Discriminator - Pre-trained Discriminator
+    parser.add_argument('-id', '--initdis'      , help="Pretrained weights .npz extracted with nmt-extract - Discriminator",
+                                                  type=str)
+    
+    # Khoa: Init parameters of Language Model - Pre-trained Language Model
+    parser.add_argument('-ilm', '--initlm'      , help="Pretrained weights .npz extracted with nmt-extract - Language Model",
+                                                  type=str)
+    # Khoa.
     parser.add_argument('-f', '--freeze'        , help="Freeze the pretrained weights given with --init",
                                                   action="store_true", default=False)
     parser.add_argument('-t', '--timestamp'     , help="Add timestamp to log messages.",
@@ -73,6 +88,7 @@ if __name__ == '__main__':
 
     parser.add_argument('-v', '--verbose'       , help="Dump Theano graph and inspect optimization.",
                                                   action="store_true", default=False)
+    
 
     # You can basically override everything by passing 'lrate: 0.1' style strings at the end
     # of command-line arguments
@@ -164,26 +180,51 @@ if __name__ == '__main__':
 
     # Import the model
     Model = importlib.import_module("nmtpy.models.%s" % train_args.model_type).Model
-
+    # Khoa: 
+    Discriminator = importlib.import_module("nmtpy.models.%s" % train_args.model_discriminator_type).Model
+    if train_args.model_language_model_type is not None:
+        Language_model = importlib.import_module("nmtpy.models.%s" % train_args.model_language_model_type).Model
+    # Khoa.
+    
     # Create model object
     # Save model_type into the model as well
     model = Model(seed=train_args.seed, logger=log,
                   model_type=train_args.model_type, **(model_args.__dict__))
-
+    
+    # Khoa:
+    discriminator = Discriminator(seed=train_args.seed, logger=log,
+                  model_type=train_args.model_type, **(model_args.__dict__))
+    
+    if train_args.model_language_model_type is not None:
+        language_model = Language_model(seed=train_args.seed, logger=log,
+                  model_type=train_args.model_type, **(model_args.__dict__))
+    # Khoa.
+    
     # Initialize parameters
     log.info("Initializing parameters")
     model.init_params()
-
+    # Khoa:
+    discriminator.init_params()
+    if train_args.model_language_model_type is not None:
+        language_model.init_params()
+    # Khoa.
+    
+    
     # Create theano shared variables
     log.info('Creating shared variables')
     model.init_shared_variables()
-
+    # Khoa:
+    discriminator.init_shared_variables()
+    if train_args.model_language_model_type is not None:
+        language_model.init_shared_variables()
+    # Khoa.
+    
     # List of weights that will not receive updates during BP
     dont_update = []
 
     # Override some weights with pre-trained ones if given
     if train_args.init:
-        log.info('Will override parameters from pre-trained weights')
+        log.info('Will override parameters from pre-trained weights init Generator')
         log.info('  %s' % os.path.basename(train_args.init))
         new_params = get_param_dict(train_args.init)
         model.update_shared_variables(new_params)
@@ -191,23 +232,68 @@ if __name__ == '__main__':
             log.info('Pretrained weights will not be updated.')
             dont_update = list(new_params.keys())
 
-    # Print number of parameters
-    log.info("Number of parameters: %s" % model.get_nb_params())
+    if train_args.initdis:
+        log.info('Will override parameters from pre-trained weights init Discriminator')
+        log.info('  %s' % os.path.basename(train_args.initdis))
+        new_params = get_param_dict(train_args.initdis)
+        discriminator.update_shared_variables(new_params)
+        if freeze:
+            log.info('Pretrained weights will not be updated.')
+            dont_update = list(new_params.keys())
+    if train_args.model_language_model_type is not None:
+        if train_args.initlm:
+            log.info('Will override parameters from pre-trained weights init Language Model')
+            log.info('  %s' % os.path.basename(train_args.initlm))
+            new_params = get_param_dict(train_args.initlm)
+            language_model.update_shared_variables(new_params)
+            if freeze:
+                log.info('Pretrained weights will not be updated.')
+                dont_update = list(new_params.keys())
 
+    # Print number of parameters
+    # Khoa:
+    log.info("Number of parameters generator    : %s" % model.get_nb_params())
+    log.info("Number of parameters discriminator: %s" % discriminator.get_nb_params())
+    if train_args.model_language_model_type is not None:
+        log.info("Number of parameters language model: %s" % language_model.get_nb_params())
+    else:
+        log.info("No language model") 
+    # Khoa.
+    
     # Load data
     log.info("Loading data")
     model.load_data()
-
+    
+    # Khoa: Validation from file ?
+    # discriminator.load_valid_data_discriminator()
+    
     # Dump model information
     model.info()
-
+    # Khoa:
+    discriminator.info()
+    if train_args.model_language_model_type is not None:
+        language_model.info()
+    # Khoa.
+    
     # Build the model
     log.info("Building model")
-    data_loss = model.build()
-
+    data_loss_generator = model.build()
+    # Khoa:
+    data_loss_discriminator = discriminator.build()
+    if train_args.model_language_model_type is not None:
+        data_loss_language_model = language_model.build()
+    # Khoa.
+    
     log.info("Input tensor order: ")
     log.info(list(model.inputs.values()))
 
+    
+    log.info('Building sampler')
+    model.build_sampler()
+    # Khoa:
+    discriminator.build_sampler()   
+    # Khoa.
+    
     if train_args.sample_freq > 0:
         log.info('Building sampler')
         model.build_sampler()
@@ -221,8 +307,12 @@ if __name__ == '__main__':
 
     # Build optimizer
     log.info('Building optimizer %s (initial lr=%.5f)' % (model_args.optimizer, model_args.lrate))
-    model.build_optimizer(data_loss, reg_loss, train_args.clip_c, dont_update=dont_update, debug=verbose)
-
+    model.build_optimizer(data_loss_generator, model.reward, reg_loss, train_args.clip_c, dont_update=dont_update, debug=verbose)
+   
+    # Khoa:
+    discriminator.build_optimizer(data_loss_discriminator, reg_loss, train_args.clip_c, dont_update=dont_update, debug=verbose)
+    # Khoa.
+    
     # Save graph
     if verbose:
         theano.printing.debugprint(model.train_batch, file=open('%s.graph' % log_file.replace(".log", ""), 'w'))
@@ -231,5 +321,10 @@ if __name__ == '__main__':
     np.random.seed(train_args.seed)
 
     # Create mainloop
-    loop = MainLoop(model, log, train_args, model_args)
+    # Khoa: Put discriminator
+    if train_args.model_language_model_type is not None:
+        loop = MainLoop(model,discriminator, language_model, log, train_args, model_args)
+    else:
+        loop = MainLoop(model,discriminator, None, log, train_args, model_args)
     loop.run()
+    # Khoa.

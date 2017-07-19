@@ -1,5 +1,1012 @@
-j' ai une douleur lancinante . 
-c' est le quinze août . 
-pourriez -vous envoyer ceci au Japon ? 
-le prix de la chambre s' élève à cent vingt dollars la nuitée . 
-quels journaux proposez -vous ? 
+j' ai une douleur lancinante .
+j' ai une douleur sourde .
+c' est le quinze août .
+le vingt-trois août .
+pourriez -vous envoyer ceci au Japon ?
+pourriez -vous envoyer ceci au Japon ?
+le prix de la chambre s' élève à cent vingt dollars la nuitée .
+le tarif est à cent vingt dollars la nuit .
+quels journaux proposez -vous ?
+que faites -vous en façon que vous avez -vous ?
+comment s' utilise un coffre-fort ?
+comment est -ce que je peux me servir de la voiture ?
+où se trouve la porte d' embarquement ?
+où est la porte d' embarquement ?
+tout ça , ce sont vos effets personnels ?
+est -ce que ce sont tous vos effets personnels ?
+voici de la soupe miso instantanée .
+c' est de la soupe des pommes de Westminster .
+nous atterrirons dans trois heures .
+nous arriverons en retard à trois heures .
+où se trouve l' arrêt de bus pour l' hôtel de ville ?
+où est l' arrêt de bus pour la ville de la ville ?
+je me sens beaucoup mieux maintenant .
+je me sens bien mieux .
+j' ai horreur des poivrons verts .
+j' ai mis de feu vert .
+pouvez -vous recommander un instructeur ?
+pouvez -vous me conseiller un interprète ?
+combien de temps cela prend -il à pied ?
+il faut combien de temps à pied ?
+je suis désolé . nous sommes contraints de refuser votre offre .
+je suis désolé , nous sommes tournez à gauche .
+à quelle heure a lieu l' enregistrement ?
+quand est -ce que j' adresse à l' heure ?
+je suis désolé .
+je suis désolé .
+puis -je ouvrir mon coffre-fort à tout moment ?
+est -ce que je peux ouvrir mon sac à main ?
+j' ai terriblement mal à la tête .
+j' ai mal à la tête .
+puis -je m' y rendre en bus ?
+puis -je m' y rendre en bus ?
+dix jours .
+dix jours .
+s' il vous plaît , recommandez -moi un bon généraliste .
+conseillez -moi une bonne affaire .
+je prendrai le plat du jour .
+je vais prendre du jour .
+c' est à vous ?
+est -ce que c' est à vous ?
+y a-t-il des messages pour moi ?
+est -ce qu' il y a des messages pour moi ?
+je recommande ce vin .
+je me conseillez ce vin .
+puis -je essayer ce tricot en coton ?
+est -ce que je peux essayer ce chemisier ?
+j' aimerais descendre à la Treizième Rue . lorsque nous y serons , pourriez -vous me le dire ?
+j' aimerais descendre à Wall Street . vous pouvez me dire où nous y arriverons ?
+c' est combien le prix du ticket ?
+combien coûte le tarif ?
+oh , là là .
+oh , j' ai fait ça .
+je vous y amènerai .
+je vais vous y emmener .
+je voudrais une chambre avec des lits jumeaux et une salle de bains , s' il vous plaît .
+une chambre double avec baignoire , s' il vous plaît .
+pouvez -vous changer des yens en dollars ?
+pouvez -vous changer des yens en dollars ?
+un voleur .
+un voleur .
+un M. Sato appelle .
+M. Sato , s' il vous plaît .
+trois verres de jus de melon , s' il vous plaît .
+trois verres de jus de jus d' orange , s' il vous plaît .
+du poulet rôti , s' il vous plaît .
+du poulet rôti , s' il vous plaît .
+y a-t-il un membre du personnel de bord qui parle japonais ?
+est -ce qu' il y a des guides qui parle japonais ?
+oui , Monsieur . patientez , je vous prie .
+oui , Monsieur . attendez , je vous prie .
+puis -je me garer ici un moment ?
+est -ce que je peux entrer ici pour un moment ?
+merci d' avoir attendu . voici la clé de votre chambre . vous êtes au troisième étage , chambre trois cent quatorze .
+dépêchez -vous . voici votre clé de votre chambre . vous y en êtes sur la troisième étage , chambre trois mille neuf .
+il a acheté des vêtements et me les a offerts en cadeau .
+il a acheté de ces vêtements et de l' avoir perdu , s' il vous plaît .
+où se trouve le grand magasin le plus célèbre ?
+où est le salon de la plus grand magasin ?
+juste un paquet de cigarettes ouvert .
+juste d' emballage de cigarettes .
+que mange la dame là-bas ?
+qu' est -ce qui s' agit d' ici ?
+prenez deux comprimés après chaque repas .
+prenez deux valises après chaque repas .
+où se trouve le guichet ?
+où est le bureau d' ascenseur ?
+je suis avec ma petite amie .
+je suis avec ma petite amie .
+combien j' en prends à la fois ?
+combien dois -je prendre pour une fois ?
+je vais aller en prendre .
+je vais y vais .
+votre nom et votre numéro de chambre , s' il vous plaît .
+votre nom et votre numéro de chambre , s' il vous plaît .
+je n' ai pas le temps .
+je n' ai pas de temps .
+je veux faire une réservation sur le vol JAL zéro zéro cinq à destination de Tokyo le douze .
+je veux réserver sur le vol JAL zéro cinq pour Tokyo le douze .
+avez -vous un guide japonais ?
+avez -vous un guide japonais ?
+pourriez -vous envoyer ceux-ci au Japon ?
+pourriez -vous envoyer ceci au Japon ?
+j' ai dit que je n' en avais pas besoin .
+j' ai dit que je n' en veux pas .
+par LT , s' il vous plaît .
+en recommandé , s' il vous plaît .
+le chasseur va vous montrer votre chambre . où sont vos bagages ?
+le chasseur va vous prenez votre chambre . où vous avez vos bagages ?
+notre Etat bénéficie des impôts les plus bas .
+notre technicien a la spécialité de taxes .
+s' il vous plaît , venez vous joindre à nous .
+pour vous joindre à nous , s' il vous plaît .
+l' addition , s' il vous plaît .
+vérifiez , s' il vous plaît .
+oui , eh bien , c' est notre spécialité .
+oui , bien , eh bien , c' est notre spécialité .
+que représente ce montant ?
+c' est combien pour ce montant ?
+mon climatiseur ne marche pas .
+mon père ne marche pas .
+je suis en route de Minneapolis à Chicago .
+je suis en route pour Chicago de l' Université de Chicago .
+allez -vous poinçonner ma carte ?
+vous pouvez me faire rembourser ?
+c' est par où , l' immigration ?
+par où est l' essence ?
+c' est superbe .
+c' est très beau .
+difficile à dire , mais probablement Rome . certainement , Rome .
+c' est difficile de dire , mais il vous plaît . mais allez -y .
+j' aimerais acheter des articles hors taxe . s' il vous plaît , faites -moi voir des montres .
+j' aimerais acheter des articles hors taxe . vous pouvez m' en montrer .
+je suis ennuyeux .
+je suis constipé .
+c' est combien ?
+combien est -ce que ça coûte ?
+non , nous n' emmenons pas beaucoup d' argent liquide dans ce pays . nous utilisons des chèques - voyages .
+non , nous n' en avons pas de change dans ce pays . on peut se mettre de chèques - voyages .
+où se trouve le poste de police ?
+où est la gare la plus proche ?
+un moment , s' il vous plaît . oui , Mme Minami , une chambre simple pour quatre nuitées .
+un instant , s' il vous plaît . oui , Mme Yamada , une chambre double pour quatre nuits .
+bon , ce n' est pas si grave .
+eh bien , pas ça fait .
+où se trouvent les toilettes pour dames ?
+où est la salle de location d' ici ?
+emmenez ces bagages à la gare routière , s' il vous plaît .
+prenez ces bagages au bus de bus , s' il vous plaît .
+aurai -je besoin de vaccins pour entrer dans votre pays ?
+est -ce qu' il faut que je dois faire du shopping pour entrer dans votre pays ?
+chez les Simpson .
+au voleur .
+où se trouve le distributeur automatique ?
+où est le rayon ?
+vous devriez prendre un taxi .
+vous devriez prendre un taxi .
+y a-t-il un endroit où l' on peut acheter quelque chose à boire par ici ?
+est -ce qu' il y a un endroit dans le verre d' ici ?
+c' est combien ?
+combien est -ce que ça coûte ?
+serait -ce possible de faire l' enregistrement plus tôt ?
+est-il possible d' enregistrer le plus tôt ?
+un verre de vin blanc , s' il vous plaît .
+un verre de vin blanc , s' il vous plaît .
+c' est cinquante centimes .
+c' est cinquante centimes .
+dites -moi comment l' utiliser , s' il vous plaît .
+dites -moi comment on se sert , s' il vous plaît .
+ce siège est-il pris ?
+est -ce que ce siège ?
+je vais le monter maintenant , madame .
+je vais le prendre tout de suite , je vous prie .
+je voudrais du café .
+je voudrais du café .
+bonjour . Mlle Ono ?
+bonjour . est -ce que c' est Mme Ono ?
+travaillez dur et vous serez promu .
+dur , et toi , on va se passe .
+j' aimerais voir cet appareil photo sur l' étagère .
+j' aimerais voir ce sac à l' étagère .
+voulez -vous me montrer cette montre ?
+vous pouvez me montrer cette montre ?
+c' est tellement vrai .
+c' est si vrai .
+je voudrais changer des yens en dollars , s' il vous plaît .
+je voudrais changer des yens en dollars , s' il vous plaît .
+s' il vous plaît , ne passez pas ceci aux rayons X .
+je vous en prie , s' il vous plaît .
+le pneu est crevé .
+la batterie est occupée .
+avez -vous un magasin au Japon où je peux faire réparer ceci ?
+avez -vous un magasin au Japon où je pourrais trouver ça ?
+j' aimerais faire agrandir ces photos .
+j' aimerais faire des photos pour les photos .
+je voudrais mettre mes objets de valeur dans le coffre-fort .
+j' aimerais déposer mes effets de valeur dans le coffre-fort de bains .
+désolé , mais nous sommes fermés demain .
+désolé , mais nous sommes complets demain .
+mon groupe sanguin est B .
+mon groupe sanguin est le vingt-huit .
+je veux quelque chose avec des manches plus courtes .
+je veux quelque chose de savon .
+avez -vous des décapotables ?
+avez -vous des écharpes ?
+un menu , s' il vous plaît .
+le menu , s' il vous plaît .
+j' aimerais reporter mon vol du huit au neuf juillet .
+j' aimerais changer mon vol du départ du neuf mai .
+nous voudrions une table au calme .
+nous aimerions une table là-bas .
+faites attention .
+prenez -moi .
+parle -t-il japonais ?
+est -ce qu' il parle japonais ?
+d' autres sacs , s' il vous plaît .
+encore des sacs , s' il vous plaît .
+où se trouve le comptoir de United Airlines ?
+où se trouve le comptoir d' enregistrement de la United Airlines ?
+enchanté !
+enchanté de faire votre connaissance .
+j' ai deux grandes sœurs et un petit frère .
+j' ai deux cartouches et un coca .
+non fumeur , s' il vous plaît .
+non fumeur , s' il vous plaît .
+je ne peux plus supporter ça .
+je ne peux plus rien d' ici .
+c' est juste à côté .
+c' est juste à l' angle .
+laissez -moi passer , s' il vous plaît .
+laissez -moi par moi , s' il vous plaît .
+nous attendrons dans le bar . pourriez -vous nous appeler , s' il vous plaît ?
+nous allons attendre au bar . vous pouvez appeler nous appeler s' il vous plaît ?
+mais c' est sale .
+mais c' est sale .
+non , c' est à base de pain .
+non , c' est à lèvres .
+je pense que c' est trop loin d' ici pour y aller à pied .
+je crois que c' est trop loin pour y à pied d' ici .
+vous êtes combien ?
+il y en a combien dans votre fête ?
+je veux reconfirmer ce billet .
+je veux reconfirmer ce billet .
+s' il vous plaît , attendez ici quelques minutes .
+attendez ici quelques minutes , je vous prie .
+je me demande pourquoi les CD sont beaucoup moins chers là-bas .
+je me demande aujourd'hui , il y a beaucoup de vêtements il y a beaucoup de moins cher .
+je voudrais le plat vietnamien le plus populaire , s' il vous plaît .
+j' aime la meilleure plus grand plat , s' il vous plaît .
+encore du café , s' il vous plaît .
+encore du café , s' il vous plaît .
+mes yeux sont injectés de sang .
+on m' a les yeux .
+mon ami a eu un accident de la circulation .
+mon ami a eu un accident de voiture .
+puis -je incliner mon siège ?
+puis -je mettre dans ma place ?
+merci !
+merci .
+deux hot dogs à emporter , s' il vous plaît .
+deux hot dogs à emporter , s' il vous plaît .
+un aller-retour pour Vichy , s' il vous plaît .
+un billet aller-retour pour Oxford , s' il vous plaît .
+appelez les secours , vite .
+pour vous , je vous en prie .
+je n' ai pas d' appétit .
+je n' ai pas d' appétit .
+tout comme à l' équinoxe de printemps , nous célébrons une messe en mémoire de nos ancêtres .
+comme possible , on dirait qu' à la réception , nous sommes à la Statue de notre travail .
+avez -vous des vols pour Tokyo tôt le matin ?
+est -ce qu' il y a un vol à Tokyo le matin ?
+merci d' avoir appelé , monsieur .
+merci de l' appel , Monsieur .
+ceci n' est pas mon manteau .
+ce n' est pas dans mon manteau .
+pouvez -vous me faire une réduction ?
+pouvez -vous me faire une remise ?
+non , j' aimerais aussi faire nettoyer une robe . et je veux faire enlever une tache sur une autre robe .
+non , j' aimerais également de prendre une robe . et je veux passer une tache d' autre chose à une autre vue .
+je m' en offrirai un nouveau en rentrant au Japon .
+je vais en prendre un en cas où je serai au Japon .
+les chiens japonais sont -ils grands ?
+est -ce que les Japonais sont des fruits de mer ?
+j' aimerais m' asseoir à côté de mon ami .
+j' aimerais m' asseoir à côté de mon ami .
+pour aller à un festival d' opéra .
+pour aller à une station de métro .
+y a-t-il un miroir ?
+est -ce qu' il y a un miroir ?
+quel est le numéro de téléphone ?
+quel est le numéro de téléphone ?
+ils vont tous bien , merci .
+ils sont tous tous , merci .
+pas question .
+non .
+génial .
+génial .
+je veux descendre à l' arrêt de bus Saks Fifth Avenue . pourriez -vous me le dire , au moment où nous y serons ?
+je veux descendre de la Cinquième Avenue avant de l' arrêt de bus . vous pouvez m' y rendre ?
+je voudrais toucher mes chèques - voyages .
+je veux encaisser un chèque - voyage .
+quel jour sommes -nous , aujourd'hui ?
+quel jour aujourd'hui , aujourd'hui ?
+la moitié , s' il vous plaît .
+en liquide , s' il vous plaît .
+d'accord , mais c' est quoi " Stealing Home " ?
+OK , mais est -ce que c' est " ou " ?
+sauce rouge relevée .
+à la fraise .
+vous devriez changer et prendre la ligne Chuo .
+vous devriez prendre une correspondance .
+j' ai perdu mes chèques - voyages .
+j' ai perdu mes chèques - voyages .
+c' est quand , la prochaine livraison ?
+quand est le prochain express ?
+tenez .
+tenez .
+j' aimerais appeler à Tokyo , au Japon . quelle heure est-il maintenant à Tokyo ?
+j' aimerais appeler Tokyo , au Japon . à quelle heure est en train de Tokyo ?
+vous , écoutez -moi .
+vous pouvez m' aider .
+où est le rayon parfumerie ?
+où est le grand rayon ?
+excusez -moi . pourriez -vous me dire comment faire pour aller au Musée Getty ?
+excusez -moi . pourriez -vous me dire comment me rendre au centre de l' île ?
+je travaille au service marketing chez Wow Chemicals .
+je travaille au centre grand rayon à la fraise .
+oui .
+oui .
+je vais goûter du gâteau .
+je vais essayer une tarte .
+puis -je utiliser ce chariot gratuitement ?
+est -ce que je peux me servir pour ça ?
+pourriez -vous le chercher , s' il vous plaît ?
+vous pouvez le prendre pour ça , s' il vous plaît ?
+cet homme est têtu .
+cet homme est occupée .
+où ? où êtes -vous ?
+où ? où allez -vous ?
+avez -vous un télécopieur ?
+avez -vous un fax ?
+félicitations pour votre promotion .
+félicitations pour votre santé .
+non , je ne le suis pas .
+non . je ne suis pas .
+j' aimerais d'abord regarder autour de moi . merci .
+j' aimerais bien voir . merci .
+dites -moi où se trouve la station la plus proche , s' il vous plaît .
+dites -moi où se trouve la gare la plus proche , s' il vous plaît .
+comme quoi , par exemple ?
+comme ce plat , pour le faire ?
+avez -vous vu qui l' a fait ?
+est -ce que vous en avez vu ?
+la même chose pour moi .
+la même chose pour moi .
+quatre-vingt-dix-neuf dollars en billets d' un dollar .
+quatre-vingt dix-neuf dollars en dollars .
+où est la station de métro la plus proche ?
+où est la station de métro la plus proche ?
+combien d' arrêts y a-t-il entre ici et le Musée d' art moderne ?
+il y a entre combien d' ici et le musée d' art ?
+s' il vous plaît , emmenez -moi au Vacation Hôtel .
+emmenez -moi au Sheraton , s' il vous plaît .
+où est l' Ambassade japonaise ?
+où se trouve l' ambassade du Japon ?
+quand part le prochain bus pour Baltimore ?
+quand est le prochain bus pour Oxford ?
+avez -vous un magazine ou quelque chose ?
+avez -vous un magazine ou autre chose ?
+le menu , s' il vous plaît .
+le menu , s' il vous plaît .
+où est le dentiste le plus proche ?
+où est la pharmacie la plus proche ?
+au revoir .
+au revoir .
+avez -vous quelque chose qui soit rapide ?
+vous n' avez rien de ce soir ?
+avez -vous ceci en noir ?
+avez -vous ceci en noir ?
+j' ai laissé quelque chose dans la chambre .
+j' ai laissé quelque chose dans la chambre .
+avez -vous déjà vu un film japonais ?
+avez -vous déjà vu un marché ?
+qu' est -ce que vous préférez , café ou thé ?
+que désirez -vous du café ou du thé ?
+où puis -je acheter des accessoires ?
+où puis -je acheter des raquettes ?
+où est le guichet ?
+où est le bureau d' ascenseur ?
+alors , où est la salle à manger ?
+alors , où est la salle à manger ?
+oh , les tarifs varient d' environ quatre-vingt-dix dollars à cent cinquante , hors taxe .
+oh , le taux de change d' entre quatre-vingt dollars pour cent et cinquante taxes , plus taxes .
+s' il vous plaît , appelez la police .
+appelez la police .
+puis -je continuer mon voyage ?
+puis -je garder mon voyage ?
+mon nom est Taro Yamada .
+je m' appelle Taro Yamada .
+alors , je souhaiterais dix timbres à quatre-vingt-dix centimes et deux timbres à quatre-vingt-quinze centimes .
+alors , j' aimerais dix timbres à vingt-cinq centimes de vingt-cinq centimes et deux billets de vingt-cinq cents dollars .
+où est le rayon papeterie ?
+où est la pharmacie de papeterie ?
+des gosses se promènent déguisés .
+il y a des choses à visiter à la mode .
+quand devrais -je l' apporter , monsieur ?
+quand dois -je le prendre , Monsieur ?
+s' il vous plaît , convertissez des dollars en livres .
+veuillez raccourcir ces dollars en livres .
+Permettez-moi de contrôler votre certificat de vaccination .
+laissez -moi vérifier votre déclaration de contact .
+merci beaucoup .
+merci beaucoup .
+vous comprenez , n' est -ce pas ?
+vous l' avez , c' est ça ?
+s' il vous plaît , montrez - m' en un plus léger .
+montrez -moi un dollar .
+allons -nous le commander ?
+est -ce qu' on peut le commande ?
+êtes -vous sûr que la durée du vol est de douze heures ?
+êtes -vous sûr que le vol est retardé de deux heures ?
+j' aimerais me teindre les cheveux .
+je voudrais une lampe pour les cheveux .
+pourrais -je voir M. Adams ?
+est -ce que je peux voir M. Brown ?
+elle n' est pas diplomate , n' est -ce pas ?
+elle n' est pas à fait un , c' est cassé ?
+indiquez -moi un bon café .
+Permettez-moi de m' indiquer une bonne affaire .
+vendez -vous des articles hors taxes ?
+vendez -vous des articles hors taxe ?
+j' ai des brûlures d' estomac .
+j' ai des frissons d' estomac .
+voici tous mes bagages personnels .
+ce sont tous mes effets personnels .
+oui .
+oui .
+vous pouvez commander jusqu' à dix heures .
+notre commande s' appelle à dix heures .
+je vous mets en communication .
+je vous écrirai .
+s' il vous plaît , réparez ça ou changez -le .
+s' il vous plaît , s' il vous plaît , s' il vous plaît .
+le programme d' aujourd'hui , c' est des chansons folkloriques .
+le service d' aujourd'hui a dit .
+j' aimerais réserver un siège côté fenêtre .
+j' aimerais réserver une place près de la fenêtre .
+s' il vous plaît , changez ceci en dollars .
+changez ceci en dollars .
+souhaiteriez -vous prendre une assurance ?
+désirez -vous une assurance ?
+il n' est pas là , pour l' instant .
+il n' y a pas à droite en ce moment .
+il y a quelque chose qui ne va pas avec mon oeil droit .
+il y a un problème dans ma faute .
+y a-t-il un hôtel dans les environs ?
+est -ce qu' il y a un hôtel dans le coin ?
+quel numéro appelez -vous ?
+quel numéro appelez -vous ?
+à quelle heure doit -on rendre la chambre ?
+à quelle heure est l' heure ?
+signez ici , s' il vous plaît .
+signez ici , s' il vous plaît .
+je voudrais un siège à côté de ma fille , s' il vous plaît .
+je voudrais une place à côté de ma chambre , s' il vous plaît .
+c' était fantastique . merci !
+c' était . merci . merci .
+arrêtez -vous ici , s' il vous plaît .
+arrêtez -vous ici , s' il vous plaît .
+je rentre chez moi le dix-sept . veuillez l' envoyer au Japon après cette date .
+je vais à la soirée du théâtre . veuillez l' envoyer au Japon après le Japon .
+à quelle heure part ce ferry ?
+à quelle heure commence ce mot ?
+je veux jouer au golf .
+je veux jouer au golf .
+ce film était intéressant , n' est -ce pas ?
+ce film était intéressant , n' est -ce pas ?
+je ne pense pas que ce restaurant soit cher .
+je ne crois pas que ce restaurant est cher .
+le voici .
+le voici .
+je ne me souviens pas de ce qui s' est passé .
+je ne me souviens pas .
+non , pas que je sache .
+non , rien pour ça .
+la tournée dure combien de temps ?
+combien de temps dure l' excursion ?
+je peux voir le menu ?
+puis -je voir le menu ?
+s' il vous plaît . montrez -moi des chaussures , je vous prie .
+s' il vous plaît . montrez -moi des chaussures , s' il vous plaît .
+voici une assiette . servez -vous .
+voici une bière . hum .
+puis -je avoir la note , s' il vous plaît .
+puis -je avoir l' addition , s' il vous plaît .
+les manches sont trop étroites .
+les manches sont trop lâche .
+où est le magasin d' artisanat ?
+où est le magasin de disques ?
+la nuit n' est pas très avancée .
+la nuit est en juillet .
+au grand magasin .
+pour le grand magasin .
+bonjour . la réception ?
+bonjour . à la réception ?
+ça commence à quelle heure ?
+à quelle heure commence -il ?
+je veux appeler chez moi .
+je veux appeler chez moi .
+oui , oui . donnez -moi un comprimé .
+hum . donnez -moi une lampe .
+où puis -je obtenir un plan du métro ?
+où puis -je trouver un plan du métro ?
+comment est -ce que je remplis ce formulaire de déclaration ?
+comment puis -je remplir ce formulaire de déclaration de douane ?
+puis -je avoir un certificat médical ?
+puis -je avoir un certificat médical ?
+s' il vous plaît , apportez mon petit déjeuner dans ma chambre .
+apportez mon petit déjeuner dans ma chambre , s' il vous plaît .
+êtes -vous prêts à commander ?
+est -ce que vous avez prêt pour commander ?
+une bière , s' il vous plaît .
+de la bière , s' il vous plaît .
+juste un moment . je vais vous le passer .
+juste un instant . je vais vous mettre .
+combien de jours ça va prendre pour arriver au Japon ?
+il faudra combien de temps pour le Japon ?
+vous voilà . comment ça s' est passé aujourd'hui ?
+tenez . ce sera tout aujourd'hui ?
+aimeriez -vous des frites ?
+désirez -vous des frites à lèvres ?
+je ne sens rien . êtes -vous sûr que c' est en marche ?
+je n' en ai pas . vous ne pouvez pas ?
+auriez -vous autre chose de moins cher ?
+vous n' avez rien de moins cher ?
+je souhaiterais faire une réservation pour un hôtel , s' il vous plaît .
+j' aimerais réserver pour un hôtel , s' il vous plaît .
+quatre heures trente . s' il vous plaît , ne soyez pas en retard .
+quatre heures trente . je vous en prie .
+ils serrent mes orteils .
+ils font mal à la gorge .
+je voudrais un peigne .
+je voudrais une lampe .
+oui . faites -moi voir ce chemisier -là .
+oui . je vais voir ce chemisier là-bas .
+j' en ai demandé cinq .
+j' ai demandé pour dix-sept heures .
+est -ce que je paie dans l' autobus ?
+est -ce que je dois payer le bus ?
+est -ce lavable en machine ?
+est -ce que c' est clair ?
+ces pattes d' oie , ça me tracasse .
+je me suis mis à la main .
+oui , bien sûr .
+oui , bien sûr .
+je peux m' asseoir là ?
+puis -je m' asseoir ici ?
+c' est tout .
+c' est tout .
+je me lève généralement à sept heures .
+à fait , je me souviens à sept heures .
+connaissez -vous un bon restaurant près d' ici ?
+vous connaissez un bon restaurant près d' ici ?
+je préfère m' asseoir à l' arrière de l' appareil .
+je préfère m' asseoir à côté de l' avion .
+j' aimerais rendre une voiture .
+j' aimerais rendre la voiture .
+voici mon billet de réclamation .
+voici l' étiquette d' enregistrement de mes bagages .
+quand y a-t-il des places disponibles ?
+quand est -ce qu' il y a des places disponibles ?
+ai -je besoin d' une réservation ?
+est -ce qu' il me faut une réservation ?
+je ne peux pas le faire . vous bénéficiez déjà d' une remise .
+je ne peux pas faire ça . c' est déjà en stock .
+c' est très gentil de votre part de m' inviter , mais je suis vraiment désolé . j' ai déjà un autre engagement pour cette soirée -là . s' il vous plaît , invitez -moi une autre fois .
+c' est très gentil de vous m' inviter , mais je me suis désolé que j' ai pris des problèmes pour cette soirée . pouvez -vous me laisser une autre fois où on peut m' en occuper d' une autre fois .
+je voudrais un présent pour ma mère .
+je voudrais un cadeau pour ma mère .
+comment voulez -vous l' argent ?
+comment voulez -vous l' argent ?
+pourriez -vous me prendre en photo ?
+vous pouvez prendre une photo de moi ?
+qu' est -ce que c' est ?
+qu' est -ce que c' est que ça ?
+je pense qu' il y a une erreur sur la note .
+je crois qu' il y a une erreur dans la note .
+avez -vous autre chose d' un peu plus petit ?
+vous n' avez rien d' un peu plus petit ?
+puis -je avoir une carte téléphonique de cinquante francs ?
+puis -je avoir une chambre avec une carte de crédit ?
+avez -vous une excursion matinale ?
+avez -vous une excursion du matin ?
+le Center Hôtel .
+l' Hôtel Museum .
+j' aimerais rendre la voiture à l' aéroport de San Francisco .
+j' aimerais rendre la voiture à San Francisco de San Francisco .
+où puis -je acheter le billet ?
+où puis -je acheter le billet ?
+excusez -moi . une serviette , rapidement s' il vous plaît .
+excusez -moi , s' il vous plaît .
+puis -je l' acheter hors taxes ?
+puis -je l' acheter de taxes ?
+comment je fais pour allumer le plafonnier ?
+comment est -ce qu' on allume le haut de la lumière ?
+je voudrais appeler Eddie Mascone en PCV de la part de Jack Walsh .
+j' ai acheté un appel en PCV à la Liberté que je vous prie .
+quel est le numéro de téléphone ?
+quel est le numéro de téléphone ?
+peu importe .
+n' importe bien .
+vous devriez vraiment faire quelque chose à ce sujet .
+vous avez vraiment fait de faire quelque chose pour ça .
+acceptez -vous cette carte de crédit ?
+est -ce que vous acceptez cette carte de crédit ?
+ce poulet n' est pas assez cuit .
+la poulet ne marche pas .
+quel est le tarif pour se rendre à l' Hôtel Savoy ?
+combien coûte le billet pour aller au Sheraton ?
+y a-t-il une voiture-bar sur ce train -là ?
+est -ce qu' il y a une voiture dans ce train ?
+à quelle heure fermez -vous ?
+à quelle heure est -ce que vous avez ouvert ?
+je vous y emmène .
+laissez -moi vous y emmener .
+êtes -vous de repos demain ?
+vous allez demain ?
+où puis -je acheter des cartes postales ?
+où puis -je acheter des cartes postales ?
+je prendrais cette chambre .
+je vais prendre cette chambre .
+c' est simplement un bifteck dans l' aloyau en sauce .
+le poste , c' est une permanente avec de la sauce au soja .
+quelle est la raison du retour ?
+est -ce qui est le bon pour aller ?
+cet officier -là peut vous aider .
+l' agent là-bas , vous pouvez .
+non , à moins que vous n' ayez un compte chez nous .
+non , vous n' avez pas à trouver une valise .
+où est l' arrêt de bus ?
+où est l' arrêt de bus ?
+où puis -je obtenir quelques timbres ?
+où puis -je trouver des timbres ?
+pardon ?
+excusez -moi , excusez -moi .
+à combien s' élève la différence entre la première classe et la deuxième classe ?
+combien coûte la première classe et en deuxième classe ?
+y a-t-il d' autres personnes qui conduiront ?
+est -ce qu' il y a d' autres personnes qui passe le dîner ?
+le prix de la course pour l' aéroport est-il fixe ou au compteur ?
+le prix de la course pour l' aéroport ou à Manhattan ?
+combien pour une nuit ?
+combien pour une nuit ?
+j' ai mal à l' estomac .
+j' ai mal à l' estomac .
+y a-t-il un salon de beauté dans cet hôtel ?
+est -ce qu' il y a un salon de beauté dans cet hôtel ?
+Wow . il est très beau .
+Ouah . il fait très mal à la mode .
+merci de m' avoir invité à la fête .
+merci de m' avoir invité .
+ce sont tous des effets personnels .
+ce sont tous mes effets personnels .
+combien de temps faudra -t-il ?
+il faudra combien de temps ?
+le plein , s' il vous plaît .
+le plein , je vous prie .
+quel type d' affaires faites -vous ?
+quel genre de vêtements allez -vous ?
+est -ce que je peux vous aider ?
+puis -je vous aider ?
+oui , il y en a.
+oui , il y en a .
+je suis malade .
+je ne me sens pas bien .
+y a-t-il un snack-bar dans le train ?
+est -ce qu' il y a un bar dans le train ?
+nous arriverons à l' Aéroport international d' Honolulu dans trente minutes .
+nous arriverons à l' hôtel B Hôtel dans trente minutes .
+je vais quitter l' hôtel , alors s' il vous plaît , préparez ma facture .
+je vais m' arrêter , merci de garder ma note , s' il vous plaît .
+j' aimerais un guide de voyage .
+je voudrais un guide de voyages .
+bien . attendez ici . je vais chercher la voiture et m' arrêter à la porte .
+bien . attendez ici . je vais vous rendre à la voiture et je vous en prie .
+avez -vous un docteur dans l' hôtel ?
+avez -vous un médecin d' hôtel ?
+quelle ligne pour Houston ?
+quelle ligne pour la matinée ?
+je n' ai pas bu ceci .
+je n' ai pas mangé .
+ce doit être mon jour de chance .
+ce doit être à la vie d' aujourd'hui .
+quel jour sommes -nous aujourd'hui ?
+quelle est la date d' aujourd'hui ?
+non , pas du tout .
+non , pas du tout .
+est -ce que ce sont de bons sièges ?
+est -ce que ce sont ces places ?
+s' il vous plaît , signez ici .
+veuillez signer ici .
+je vais à l' hôtel Savoy .
+je vais au Grand Hôtel .
+y a-t-il des excursions nocturnes ?
+il n' y a pas de nuit ?
+où puis -je trouver un grand magasin ?
+où puis -je trouver un grand grand magasin ?
+s' il vous plaît , appelez un taxi .
+appelez un taxi , je vous prie .
+j' ai été percuté par une voiture .
+j' ai été heurté par une voiture .
+où est le rayon des maillots de bain ?
+où est le grand rayon ?
+à combien s' élève le green fee ?
+combien coûte le supplément ?
+avec de la crème et du sucre , s' il vous plaît .
+avec de la crème et du sucre , s' il vous plaît .
+oui . le voici .
+oui . le voilà .
+cabinet d' avocats Smith and Grand . puis -je vous aider ?
+et la longueur des pommes de secours . puis -je vous aider ?
+c' est l' Est .
+c' est .
+il fait trop froid .
+c' est trop froid .
+je ne connais pas ma taille .
+je ne connais pas ma taille .
+où est le téléphone ?
+où est le téléphone ?
+j' en ai assez .
+ça me fait .
+puis -je me faire couper les cheveux , s' il vous plaît ?
+puis -je avoir les cheveux , s' il vous plaît ?
+est -ce fabriqué en Australie ? je ne veux pas de kangourous japonais .
+c' est en Amérique en Angleterre ? je ne veux pas les Japonais .
+je ne peux pas me déplacer seul .
+je n' arrive pas à changer pour moi .
+je me demande si ceci est votre agrafeuse .
+je me demande si c' est votre bouche .
+ça , c' est pour le service d' étage .
+c' est le service d' étage .
+je ne vous aime pas .
+je n' aime pas vous .
+combien de temps ça vous prend de les rééditer ?
+il faut combien de temps pour le faire ?
+combien cela coûte par jour ?
+combien est -ce par jour ?
+après tout , je m' en moque complètement .
+je n' aime vraiment rien à quoi .
+quelle déconvenue .
+c' est une garantie .
+puis -je avoir une remise ?
+puis -je avoir une remise ?
+oui , Monsieur .
+oui , Monsieur .
+je n' ai pas d' appétit .
+je n' ai pas d' appétit .
+puis -je rendre la voiture à l' arrivée ?
+puis -je rendre la voiture à destination du départ ?
+puis -je voir la voiture avant de la louer ?
+est -ce que je peux voir la voiture à l' intérieur de ma sortie ?
+que désirez -vous , thé ou café ?
+que préférez -vous , du thé ou du café ?
+je ne sais tout simplement pas comment vous remercier .
+je n' en sais pas ce que j' y merci .
+j' ai une douleur atroce à l' estomac .
+j' ai une douleur douleur à l' estomac .
+ça vous va ?
+est -ce que ça va ?
+quatorze jours .
+douze jours .
+vous voyez ces machines ?
+à consommer à peu de ces milles ?
+quelles sont les procédures de duty-free ?
+quels sont les spécialités de détaxe ?
+je veux quitter l' hôtel un jour à l' avance .
+je veux partir d' un jour du jour .
+est -ce que j' arriverais là-bas avant ce soir ?
+puis -je m' y rendre pour ce soir ?
+où est la salle à manger ?
+où est la salle à manger ?
+d' où êtes -vous ?
+qu' est -ce que vous allez ?
+quelle heure vous conviendrait le mieux ?
+à quelle heure faites -vous le mieux ?
+quel est le but de votre visite ?
+quel est le but de votre visite ?
+qu' est -ce que c' est ?
+qu' est -ce que ça ?
+combien faut -il payer en plus ?
+combien d' un supplément ?
+il part à onze heure trente .
+il part à onze heures trente .
+nous voudrions ceci et ceci , s' il vous plaît .
+nous voudrions ça et ça , s' il vous plaît .
+je n' ai jamais joué au tennis .
+je n' ai jamais eu au tennis .
+le bus d' excursion m' a oublié .
+l' excursion de bus me va .
+j' aimerais le rendre . pourrais -je être remboursé , s' il vous plaît ?
+je voudrais le retour . je peux me faire rembourser , s' il vous plaît ?
+ah , vous voici .
+ah , tenez .
+s' il vous plaît , envoyez -moi un chasseur pour mes bagages .
+faites venir le chasseur pour mes bagages , s' il vous plaît .
+service d' étage , s' il vous plaît .
+le service d' étage , s' il vous plaît .
+s' il vous plaît , prenez soin de vous .
+prenez de vous , je vous en prie .
+pourriez -vous me réveiller demain matin à huit heures ?
+vous pouvez me passer un appel - réveil à huit heures demain matin ?
+qui est -ce ?
+qui est vrai ?
+je voudrais une chambre double .
+je voudrais une chambre à deux lits .
+pourriez -vous m' apporter plus de couvertures ?
+vous pouvez m' apporter plus de contact ?
+nous ferions mieux de nous dépêcher .
+nous aimerions mieux de vous dépêcher .
+où est le rayon des appareils ménagers ?
+où se trouve le rayon femmes ?
+salut .
+à bientôt .
+très bien .
+très bien .
+avez -vous une chambre plus grande ?
+avez -vous une chambre plus grande ?
+où dois -je descendre pour l' hôtel de ville ?
+où dois -je descendre pour en ville de la ville ?
+d'accord .
+OK .
+où devrais -je laisser le chariot ?
+où dois -je laisser le contrat ?
+puis -je vous aider ?
+puis -je vous aider ?
+quels sont vos passe-temps ?
+quels sont vos passe-temps ?
+pas bon .
+pas bien .
+voudriez -vous porter ma valise dans ma chambre , s' il vous plaît ?
+est -ce que vous pourriez garder ma valise dans ma chambre , s' il vous plaît ?
+pourrions -nous avoir une cuillère , s' il vous plaît ?
+on peut avoir une cuillère , s' il vous plaît ?
+avez -vous du thé au jasmin ?
+avez -vous du thé au thé ?
+puis -je utiliser le flash ?
+puis -je utiliser le flash ?
+s' il vous plaît , remplacez -le .
+allongez -le , s' il vous plaît .
+excusez -moi , garçon .
+excusez -moi , bonjour .
+j' ai perdu mon passeport .
+j' ai perdu mon passeport .
+je voudrais acheter des porte-clés .
+j' aimerais acheter de la glace .
+où est -ce au Japon ?
+où est -ce que c' est au Japon ?
+juste une coupe de cheveux , s' il vous plaît .
+juste une coupe , s' il vous plaît .
+oui , nous pouvons . je peux avoir votre nom ?
+oui . puis -je avoir votre nom ?
+Monsieur Robinson .
+M. Smith .
+je suis réellement désolé .
+je suis vraiment désolé .
+je peux vous aider ? cherchez -vous quelque chose de spécial ?
+puis -je vous aider ? est -ce que vous pourriez prendre quelque chose de particulier ?
+quelle est l' annonce qu' ils viennent de faire ?
+qu' est -ce qu' il a dit qu' il a été fabriqué ?
+donc , je dois rester ici cette nuit , n' est -ce pas ? pouvez -vous me réserver une chambre d' hôtel ?
+donc , je dois rester ici ce soir , n' est -ce pas vous pouvez me réserver une chambre d' hôtel à mon hôtel ?
+à point , s' il vous plaît .
+à point , s' il vous plaît .
+le repas était vraiment délicieux .
+on dirait vraiment délicieux .
+ravi de vous rencontrer aussi . je m' appelle Sachiyo .
+enchanté de faire votre connaissance , moi aussi . j' ai la tête .
+où puis -je trouver un taxi ?
+où puis -je prendre un taxi ?
+la vue était époustouflante .
+la vue était de la mode .
+l' autobus d' excursion dispose -t-il de toilettes ?
+est -ce que le bus d' excursion dans les toilettes ?
+je n' ai absolument aucun souvenir d' avoir dit une telle chose .
+je n' ai pas bu de façon que ce soit comme ça .
+combien de temps ça prend pour aller de l' hôtel au centre-ville ?
+il faut combien de temps de l' hôtel du centre-ville ?
+acceptez -vous cette carte ?
+vous acceptez cette carte ?
+dois -je prendre un rendez-vous pour voir un médecin ?
+est -ce qu' il faut que j' aurai rendez-vous pour voir un médecin ?
+quelles cartes de crédit acceptez -vous ?
+quelles cartes de crédit voulez -vous ?
+vous voyez .
+vous voyez .
+pourriez -vous me donner une taille plus grande ?
+vous pouvez me trouver une plus grande taille ?
+je suis désolé , nous n' acceptons pas de cartes de crédit .
+je suis désolé , nous n' acceptons pas des cartes de crédit .
+j' ai une grave crise d' urticaire .
+j' ai des frissons .
+dois -je changer et prendre une correspondance pour m' y rendre ?
+est -ce que je dois prendre la correspondance pour y aller ?
+où puis -je faire l' enregistrement ?
+où puis -je m' enregistrer ?
+un Johnny Walker Black sec .
+il y a une boutique de sport sur ce droit droit .
+à quelle fréquence voyagez -vous ?
+à quelle heure vous allez -vous ?
+combien cela coûte -t-il d' envoyer ceci au Japon ?
+combien ça coûte pour l' envoyer au Japon ?
+par avion , s' il vous plaît .
+par avion , s' il vous plaît .
+que venez -vous de dire ?
+qu' est -ce que vous avez dit ?
+ce n' est pas trop long .
+ce n' est pas trop .
+je peux incliner mon siège , maintenant ?
+est -ce que je peux incliner mon siège maintenant ?
+juste une minute .
+une minute .
+je vais voir si vingt et vingt et un sont disponibles .
+je vais voir dix billets et vingt et demie .
+je dois me rendre à Long Beach aujourd'hui .
+il faut que je serai pour Hawaï aujourd'hui .
+je pense que ses vêtements sont tellement pratiques .
+je crois que ça me fait ça .
+qui allez -vous rencontrer ?
+qui es -tu lorsque on se retrouver ?
+ceci est votre ticket de réservation de siège .
+voici votre place de place , s' il vous plaît .
+comment faire pour y arriver ?
+comment est -ce qu' il y a là ?
+piste trois .
+trois .
+oh non . pourriez -vous leur dire d' être calmes , alors ?
+oh non . vous pouvez lui dire qu' on n' y en a pas de venir ?
+le numéro de ma chambre est cinq cent onze .
+mon numéro de chambre est le cinq cent onze .
+quel est le nom de ce cheval ?
+quel est le nom de ce tissu ?
+ça fera quatre cents dollars en tout . comment aimeriez -vous payer ?
+ce sera quatre cents dollars le tout . que voulez -vous payer ?
+pourrions -nous avoir une table près de la fenêtre , s' il vous plaît ?
+pourrions -nous avoir une table près de la fenêtre , s' il vous plaît ?
+ceci est de la soie pure , donc , s' il vous plaît , manipulez -la avec précaution .
+c' est de la pure laine , donc donc la climatisation , s' il vous plaît .
+veuillez répéter , s' il vous plaît .
+dites -le .
+avez -vous une table pour six ?
+avez -vous une table pour six ?
+j' ai une assurance voyage .
+j' ai une assurance d' assurance .
+police .
+police .
+je me suis enfermé dehors .
+je me suis enfermé à l' extérieur .
+où puis -je trouver des serviettes hygiéniques ?
+où puis -je trouver des robes ?
+à quelle heure arrivons -nous à New York ?
+à quelle heure arrive -t-on à New York ?
+puis -je y aller à pied ?
+puis -je m' y rendre à pied ?
+je veux être ton ami .
+je veux prendre chez mon ami .
+ça se garde pendant combien de temps ?
+il faudra combien de temps ?
+l' embarquement pour le vol Delta Airlines six cent vingt-trois est retardé .
+l' embarquement d' embarquement United Airlines numéro cent vingt et un .
+je raffole du jazz moderne .
+j' ai des frissons du jazz .
+combien en tout ?
+combien en tout ?
+emmenez -moi à l' hôpital , s' il vous plaît .
+emmenez -moi à l' hôpital , s' il vous plaît .
+elle est charmante .
+elle saigne .
+merci beaucoup pour le super repas .
+merci beaucoup pour le repas .
+je voudrais faire nettoyer ces vêtements .
+j' aimerais faire nettoyer ces vêtements .
+quel est le taux de change du yen aujourd'hui ?
+quel est le taux de change en yens aujourd'hui ?
+où est le bureau de poste ?
+où se trouve le bureau de poste ?
+si vous ne pouvez pas vous arrêter , laissez -vous tomber , c' est mieux .
+si vous ne pouvez pas vous arrêter à l' arrière , c' est possible .
+j' aime le jazz .
+j' aime le jazz .
+merci .
+merci .
+je conseillerais un collier .
+je vous conseillerais un accident .
+j' envisage d' aller à Liverpool .
+j' ai hâte d' aller au Mexique .
+je prendrai le petit déjeuner B .
+je vais prendre le soir .
+y a-t-il un marché aux puces ouvert , aujourd'hui ?
+est -ce qu' il y a de marché dans le marché d' aujourd'hui ?
+savez -vous où je peux trouver un médecin parlant japonais ?
+savez -vous où je peux trouver un guide japonais ?
+où puis -je louer une voiture ?
+où puis -je louer une voiture ?

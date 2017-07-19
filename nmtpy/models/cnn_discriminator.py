@@ -17,6 +17,8 @@ from ..sysutils   import fopen
 from ..iterators.iterator    import Iterator
 from ..iterators.homogeneous import HomogeneousData
 
+from theano.compile.nanguardmode import NanGuardMode
+
 #######################################
 ## For debugging function input outputs
 def inspect_inputs(i, node, fn):
@@ -168,7 +170,7 @@ class Model(BaseModel):
         # description string: #words x #samples
         x = tensor.matrix('x', dtype=INT)
         y = tensor.matrix('y', dtype=INT)
-        label = tensor.matrix('label', dtype=INT)
+        label = tensor.matrix('label', dtype=FLOAT)
         
         self.inputs = OrderedDict()
         self.inputs['x'] = x
@@ -300,16 +302,19 @@ class Model(BaseModel):
         # Khoa: Apply softmax 
         probs = tensor.nnet.softmax(logit.reshape([logit_shp[1], logit_shp[0]*logit_shp[2]]))
         
+        # Khoa: Avoid the error of nan in binary_crossentropy, probs could be 0. or 1. so log(0.), log(1.)
+        probs = tensor.clip(probs, 1e-7, 1.0 - 1e-7)
+        
         # Khoa: Get binary cross entropy
         cost = tensor.nnet.binary_crossentropy(probs, label)
-        # Khoa: The same value in both cols, so just take max
+        
+        # Khoa: The same value in cols, so just take max
         cost = cost.max(1)
         
-        self.get_probs_valid = theano.function(list(self.inputs.values()), probs, 
-                                         on_unused_input='ignore',allow_input_downcast=True)
-        self.get_cost = theano.function(list(self.inputs.values()), cost, 
-                                        on_unused_input='ignore',allow_input_downcast=True)
+        self.get_probs_valid = theano.function(list([x,y]), probs, on_unused_input='warn')
         
+        self.get_cost = theano.function(list(self.inputs.values()), cost, on_unused_input='warn')
+
         return cost
     
     def build_optimizer(self, cost, regcost, clip_c, dont_update=None, debug=False):
@@ -357,13 +362,11 @@ class Model(BaseModel):
         # Compile forward/backward function
         if debug:
             self.train_batch = theano.function(list(self.inputs.values()), norm_cost, updates=updates,
-                                               mode=theano.compile.MonitorMode(
-                                                   pre_func=inspect_inputs,
-                                                   post_func=inspect_outputs), 
-                                                       on_unused_input='ignore',allow_input_downcast=True)
+                                               mode=theano.compile.MonitorMode(pre_func=inspect_inputs, post_func=inspect_outputs), 
+                                            on_unused_input='warn')
         else:
             self.train_batch = theano.function(list(self.inputs.values()), norm_cost, updates=updates, 
-                                               on_unused_input='ignore',allow_input_downcast=True)
+                                               on_unused_input='warn')
     
     def build_sampler(self):
         # description string: #words x #samples
@@ -494,7 +497,7 @@ class Model(BaseModel):
         # Khoa: Apply softmax 
         probs = tensor.nnet.softmax(logit.reshape([logit_shp[1], logit_shp[0]*logit_shp[2]]))
         
-        self.get_probs = theano.function(list([x,y]), probs, on_unused_input='ignore')
+        self.get_probs = theano.function(list([x,y]), probs, on_unused_input='warn')
     
     # Khoa: Get the probability of a sentence being human-translated
     def get_discriminator_reward(self, x,y):
@@ -521,7 +524,7 @@ class Model(BaseModel):
         translated_sentences_shape = translated_sentences_.shape
         translated_sentences_ = translated_sentences_.reshape(translated_sentences_shape[0],translated_sentences_shape[1])
         
-        batch = self.get_batch(data_values[0],data_values[2])
+        batch = self.get_batch(data_values[0],data_values[2], label=None, maxlen = 50)
         batch[0] = np.concatenate([batch[0],batch[0]],axis=1)
         batch[1] = np.concatenate([batch[1],translated_sentences_],axis=1)
         
@@ -559,7 +562,7 @@ class Model(BaseModel):
         translated_sentences_ = translated_sentences_.reshape(translated_sentences_shape[0],translated_sentences_shape[1])
         
         
-        batch = self.get_batch(data_values[0],data_values[2],maxlen)
+        batch = self.get_batch(data_values[0],data_values[2], label=None, maxlen = 50)
         batch[0] = np.concatenate([batch[0],batch[0]],axis=1)
         batch[1] = np.concatenate([batch[1],translated_sentences_],axis=1)
         
@@ -574,7 +577,7 @@ class Model(BaseModel):
         return batch
         
     # Khoa: Modify (Increase and decrease) the size of batch into sentence length = 50 for convolution
-    def get_batch(self,x,y, maxlen=50):
+    def get_batch(self, x, y, label=None, maxlen=50):
         x = list(x)
         y = list(y)
                 
@@ -594,6 +597,9 @@ class Model(BaseModel):
         batch = []
         batch.append(np.array(x, dtype=INT))
         batch.append(np.array(y, dtype=INT))
+        
+        if label is not None:
+            batch.append(np.array(label, dtype=FLOAT))
             
         return list(batch)
 
@@ -622,8 +628,7 @@ class Model(BaseModel):
         prob_true = []
 
         for data in self.valid_iterator:
-            batch_discriminator = self.get_batch(list(data.values())[0],list(data.values())[2])
-            batch_discriminator.append(np.array(list(data.values())[4], dtype=INT)) 
+            batch_discriminator = self.get_batch(list(data.values())[0],list(data.values())[2], label=None)
             probs = self.get_probs_valid(*batch_discriminator)
             probs = np.array(probs)*np.array(list(data.values())[4])
             probs = probs.sum(0)

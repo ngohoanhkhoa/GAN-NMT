@@ -159,10 +159,10 @@ class MainLoop(object):
             self.uctr += 1
 
             # Forward/backward and get loss
-            
-            batch_discriminator = self.model.get_batch(list(data.values())[0],list(data.values())[2])
-            batch_discriminator.append(np.array(list(data.values())[4], dtype='int64')) 
-            
+            batch_discriminator = self.model.get_batch(x = list(data.values())[0],
+                                                       y = list(data.values())[2],
+                                                       label = list(data.values())[4])
+
             loss = self.model.train_batch(*batch_discriminator)
             batch_losses.append(loss)
             self.__send_stats(self.uctr, train_loss=loss)
@@ -180,9 +180,10 @@ class MainLoop(object):
             self.__update_lrate()
 
             # Do validation
-            # Remember to check early stop condition in self.__do_validation()
+            # Khoa: Remember to check early stop condition in self.__do_validation()
             if not self.epoch_valid and self.f_valid > 0 and self.uctr % self.f_valid == 0:
-                return self.__do_validation()
+                if not self.__do_validation():
+                    return False
 
             # Check stopping conditions
             if self.early_bad == self.patience:
@@ -198,7 +199,8 @@ class MainLoop(object):
 
         # Do validation
         if self.epoch_valid:
-            self.__do_validation()
+            if not self.__do_validation():
+                return False
 
         # Check whether maximum epoch is reached
         if self.ectr == self.max_epochs:
@@ -222,20 +224,19 @@ class MainLoop(object):
             
             # Add val_loss
             self.valid_metrics['loss'].append(cur_loss)
-
-    
+            
             # Print validation loss
             self.__print("Validation %2d - LOSS = %.3f (PPL: %.3f)" % (self.vctr, cur_loss, np.exp(cur_loss)))
             
             f_valid_out = None
             if self.valid_save_hyp:
                     f_valid_out = "{0}.{1:03d}".format(self.valid_save_prefix, self.vctr)
-                    
+   
             if is_last_best('loss', self.valid_metrics['loss']):
                 if self.valid_save_hyp:
                     # Create a link towards best hypothesis file
                     force_symlink(f_valid_out, '%s.BEST' % self.valid_save_prefix, relative=True)
-
+                    
                 self.__save_best_model()
                 self.early_bad = 0
             else:
@@ -243,11 +244,15 @@ class MainLoop(object):
                 self.__print("Early stopping patience: %d validation left" % (self.patience - self.early_bad))
                 
             self.__dump_val_summary()
-            
             # Khoa: Set the initial accuracy for Discriminator in GAN
             if cur_loss < (1 - self.max_acc):
                 self.__print("Reach maximum accuracy %.3f : Current Accuracy = %.3f " % (self.max_acc,1-cur_loss ))
                 return False
+            else:
+                return True
+            
+        return True
+            
 
     def __dump_val_summary(self):
         """Print validation summary."""

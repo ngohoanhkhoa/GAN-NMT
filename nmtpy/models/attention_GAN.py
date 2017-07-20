@@ -16,7 +16,6 @@ from ..iterators.text import TextIterator
 from ..iterators.bitext import BiTextIterator
 from .attention import Model as Attention
 from .cnn_discriminator import ClassificationIterator as ClassificationIterator
-
  
 #######################################
 ## For debugging function input outputs
@@ -872,42 +871,3 @@ class Model(Attention):
             final_alignments = None
 
         return final_sample, final_score, final_alignments
-
-    # Khoa: Reward for a sentence by using Monte Carlo search 
-    def get_reward_MC_research(self, discriminator, input_sentence, translated_sentence, rollout_num = 20, maxlen = 50, beam_size=12, base_value=0.1, directory = None):
-        final_reward = []
-        print('Input sentence: ', np.array(input_sentence).reshape((np.array(input_sentence).shape[0]) ) )
-        print('Output sentence: ', np.array(translated_sentence).reshape((np.array(translated_sentence).shape[0])))
-        
-        for token_index in range(len(translated_sentence)):
-            print('-----------------------------------------------------------')
-            print('Previous tokens: ', np.array(translated_sentence[0:token_index+1]).reshape((np.array(translated_sentence[0:token_index+1]).shape[0]) ) )
-            
-            if token_index == len(translated_sentence)-1:
-                batch = discriminator.get_batch(input_sentence,translated_sentence)
-                discriminator_reward = discriminator.get_discriminator_reward(batch[0],batch[1])
-                final_reward.append(discriminator_reward[0] - base_value)
-            else:
-                reward_research = []
-                reward = 0
-                max_sentence_len = maxlen - token_index - 1
-                for rollout_time  in range(rollout_num):
-                    sentence = self.monte_carlo_search(input_sentence,translated_sentence[token_index],[self.f_init],[self.f_next],beam_size,max_sentence_len)
-                    sentence_ = np.array(sentence)
-                    sentence_shape = sentence_.shape
-                    sentence_ = sentence_.reshape(sentence_shape[0],1)
-                    
-                    final_sentence = np.array(sentence_, dtype=INT)
-                    final_sentence = np.concatenate((translated_sentence[0:token_index+1], final_sentence), axis=0)
-                    
-                    batch = discriminator.get_batch(input_sentence,final_sentence)
-                    discriminator_reward = discriminator.get_discriminator_reward(batch[0],batch[1])
-                    
-                    print('-----------------')
-                    print('Generated tokens: ', np.array(final_sentence).reshape((np.array(final_sentence).shape[0]) ))
-                    print('Reward: ', discriminator_reward)
-                    reward_research.append(discriminator_reward)
-                    reward += (discriminator_reward[0] - base_value)
-                final_reward.append(reward/rollout_num)
-                print('-----------------------------------------------------------')
-        return np.array(final_reward,dtype=FLOAT)

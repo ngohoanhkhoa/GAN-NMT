@@ -8,6 +8,8 @@ import numpy as np
 import time
 import os
 
+import pickle as pickle
+
 class MainLoop(object):
     def __init__(self, model, discriminator, language_model, logger, train_args, model_args):
         # NOTE: model_args not used, if necessary they should be accessible
@@ -396,6 +398,9 @@ class MainLoop(object):
         generator_batch_losses = []
         discriminator_batch_losses = []
         
+        
+        file_string = []
+                
         #Iterate over batches
         for data in self.model.train_iterator:
             self.uctr += 1
@@ -412,6 +417,9 @@ class MainLoop(object):
                                                                              maxlen=self.maxlen)
                 
                 
+        
+                
+                
                 # Khoa: Get reward for each sentence in batch. 
 
                 # -------------------------------------------------------------
@@ -426,7 +434,7 @@ class MainLoop(object):
                         # rollout_num = 20, maxlen = 50, 
                         # beam_size=12, base_value=0.1)
                         
-                        reward = self.model.get_reward_MC_research(self.discriminator, 
+                        reward, reward_research = self.get_reward_MC_research(self.discriminator, self.model,
                                                    input_sentences[sentence_index], 
                                                    translated_sentences[sentence_index], 
                                                    rollout_num = self.rollnum, 
@@ -434,6 +442,13 @@ class MainLoop(object):
                                                    beam_size=1, 
                                                    base_value=0.5)
                         
+                        
+                        input_sentence_string = np.array(input_sentences[sentence_index]).reshape((np.array(input_sentences[sentence_index]).shape[0]) )
+                        output_sentence_string = np.array(translated_sentences[sentence_index]).reshape((np.array(translated_sentences[sentence_index]).shape[0]))
+                        reward_string = np.array(reward_research)
+                        file_string.append([input_sentence_string, output_sentence_string, reward_string])
+                        
+                        print('file_string', file_string)
 #                        reward = self.model.get_reward_MC(self.discriminator, 
 #                                                   input_sentences[sentence_index], 
 #                                                   translated_sentences[sentence_index], 
@@ -537,7 +552,24 @@ class MainLoop(object):
             if self.early_bad == self.patience:
                 self.__print("Early stopped.")
                 return False
-
+        #----------------------------------------------------------------------
+        directory = '/Users/macbook975/Documents/Stage/GAN_NMT_model/data_MC/'
+        
+        with open(directory + 'MC_file_' + str(self.ectr) +  '.txt', 'wb') as f:
+            pickle.dump(file_string, f)
+        
+        
+        
+        
+        #----------------------------------------------------------------------
+        
+        
+        
+        
+        
+        
+        
+        
         # An epoch is finished
         epoch_time = time.time() - start
 
@@ -561,146 +593,41 @@ class MainLoop(object):
 
         return True
 
-#        self.__print("--------------------------------------------------------")
-#        self.__print("Pre-train Generator")
-#        self.ectr = 0
-#        self.uctr = 0
-#        while self.__pre_train_generator():pass
-#        self.__print('Saving pre-trained Generator.')
-#        self.model.save("%s_pre_trained_Generator.npz" % self.model.save_path)
-    
-#        self.__print("--------------------------------------------------------")
-#        self.__print("Pre-train Discriminator")
-#        self.ectr = 0
-#        self.uctr = 0
-#        while self.__pre_train_discriminator():pass
-#        self.__print('Saving pre-trained Discriminator.')
-#        self.model.save("%s_pre_trained_Discriminator.npz" % self.model.save_path)
-#    
-#        self.__print("--------------------------------------------------------")
-#        self.__print("Train GAN")
-#        self.ectr = 0
-#        self.uctr = 0
+    # Khoa: Reward for a sentence by using Monte Carlo search 
+    def get_reward_MC_research(self, discriminator, generator, input_sentence, translated_sentence, rollout_num = 20, maxlen = 50, beam_size=12, base_value=0.1):
+        final_reward = []
+        final_reward_token = []
+        
+        for token_index in range(len(translated_sentence)):
+            
+            if token_index == len(translated_sentence)-1:
+                batch = discriminator.get_batch(input_sentence,translated_sentence)
+                discriminator_reward = discriminator.get_discriminator_reward(batch[0],batch[1])
+                final_reward.append(discriminator_reward[0] - base_value)
+                final_reward_token.append(discriminator_reward[0])
+            else:
+                reward_research = []
+                reward = 0
+                max_sentence_len = maxlen - token_index - 1
+                for rollout_time  in range(rollout_num):
+                    sentence = generator.monte_carlo_search(input_sentence,translated_sentence[token_index],
+                                                            [self.model.f_init],[self.model.f_next],
+                                                            beam_size,max_sentence_len)
+                    sentence_ = np.array(sentence)
+                    sentence_shape = sentence_.shape
+                    sentence_ = sentence_.reshape(sentence_shape[0],1)
+                    
+                    final_sentence = np.array(sentence_, dtype='int64')
+                    final_sentence = np.concatenate((translated_sentence[0:token_index+1], final_sentence), axis=0)
+                    
+                    batch = discriminator.get_batch(input_sentence,final_sentence)
+                    discriminator_reward = discriminator.get_discriminator_reward(batch[0],batch[1])
+                    
+                    reward_research.append(discriminator_reward[0])
+                    reward += (discriminator_reward[0] - base_value)
+                
+                final_reward.append(reward/rollout_num)
+                final_reward_token.append(reward_research)
+        
 
-#    def __pre_train_generator(self):
-#        self.ectr += 1
-#
-#        start = time.time()
-#        start_uctr = self.uctr
-#        self.__print('Starting Epoch %d' % self.ectr, True)
-#
-#        pretrain_generator_batch_losses = []
-#
-#        # Khoa: Pre-train Generator
-#        for data in self.model.train_iterator:
-#            self.uctr += 1
-#            
-#            loss_pretrain_generator = self.model.train_batch(*list(data.values()), 1)
-#            pretrain_generator_batch_losses.append(loss_pretrain_generator)
-#            
-#            # Verbose
-#            if self.uctr % self.f_verbose == 0:
-#                self.__print(" Pre-train Generator: Epoch: %6d, update: %7d, cost: %10.6f" % 
-#                             (self.ectr, self.uctr, loss_pretrain_generator))
-#               
-#            # Should we stop
-#            if self.uctr == self.max_updates:
-#                self.__print("Max iteration %d reached." % self.uctr)
-#                return False
-#
-#            # Update learning rate if requested
-#            self.__update_lrate()
-#
-#            # Do sampling
-#            self.__do_sampling(data)
-#
-#            # Do validation
-#            if not self.epoch_valid and self.f_valid > 0 and self.uctr % self.f_valid == 0:
-#                self.__do_validation()
-#
-#            # Check stopping conditions
-#            if self.early_bad == self.patience:
-#                self.__print("Early stopped.")
-#                return False
-#                
-#        # An epoch is finished
-#        epoch_time = time.time() - start
-#
-#        # Print epoch summary
-#        up_ctr = self.uctr - start_uctr
-#        self.__dump_epoch_summary(pretrain_generator_batch_losses, epoch_time, up_ctr)
-#
-#        # Do validation
-#        if self.epoch_valid:
-#            self.__do_validation()
-#
-#        # Check whether maximum epoch is reached
-#        if self.ectr == self.max_epochs:
-#            self.__print("Max epochs %d reached." % self.max_epochs)
-#            return False
-#
-#        return True
-#    
-#    # Khoa: Pre-train Discriminator
-#    def __pre_train_discriminator(self):
-#        self.ectr += 1
-#
-#        start = time.time()
-#        start_uctr = self.uctr
-#        self.__print('Starting Epoch %d' % self.ectr, True)
-#
-#        pretrain_discriminator_batch_losses = []
-#            
-#        for data in self.model.train_iterator:
-#            self.uctr += 1
-#            self.model.build_sampler()
-#            # Khoa: prepare_data(self, data_values, generator, maxlen=50)
-#            batch_discriminator = self.discriminator.prepare_data(list(data.values()), self.model)
-#                    
-#            # Update Discriminator
-#            loss_pretrain_discriminator = self.discriminator.train_batch(*batch_discriminator)
-#                    
-#            # Khoa: Get loss
-#            pretrain_discriminator_batch_losses.append(loss_pretrain_discriminator)
-#                
-#            # Verbose
-#            if self.uctr % self.f_verbose == 0:
-#                self.__print(" Pre-train Discriminator: Epoch: %6d, update: %7d, cost: %10.6f" % 
-#                             (self.ectr, self.uctr, loss_pretrain_discriminator))
-#               
-#            # Should we stop
-#            if self.uctr == self.max_updates:
-#                self.__print("Max iteration %d reached." % self.uctr)
-#                return False
-#
-#            # Update learning rate if requested
-#            self.__update_lrate()
-#
-#
-#            # Do validation
-#            if not self.epoch_valid and self.f_valid > 0 and self.uctr % self.f_valid == 0:
-#                self.__do_validation()
-#
-#            # Check stopping conditions
-#            if self.early_bad == self.patience:
-#                self.__print("Early stopped.")
-#                return False
-#                
-#        # An epoch is finished
-#        epoch_time = time.time() - start
-#
-#        # Print epoch summary
-#        up_ctr = self.uctr - start_uctr
-#        self.__dump_epoch_summary(pretrain_discriminator_batch_losses, epoch_time, up_ctr)
-#
-#        # Do validation
-#        if self.epoch_valid:
-#            self.__do_validation()
-#
-#        # Check whether maximum epoch is reached
-#        if self.ectr == self.max_epochs:
-#            self.__print("Max epochs %d reached." % self.max_epochs)
-#            return False
-#
-#        return True                
-#        
+        return np.array(final_reward,dtype='float32'), final_reward_token

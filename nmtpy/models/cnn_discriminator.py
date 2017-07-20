@@ -17,8 +17,6 @@ from ..sysutils   import fopen
 from ..iterators.iterator    import Iterator
 from ..iterators.homogeneous import HomogeneousData
 
-from theano.compile.nanguardmode import NanGuardMode
-
 #######################################
 ## For debugging function input outputs
 def inspect_inputs(i, node, fn):
@@ -311,7 +309,7 @@ class Model(BaseModel):
         # Khoa: The same value in cols, so just take max
         cost = cost.max(1)
         
-        self.get_probs_valid = theano.function(list([x,y]), probs, on_unused_input='warn')
+        self.get_probs_valid = theano.function(list(self.inputs.values()), probs, on_unused_input='ignore')
         
         self.get_cost = theano.function(list(self.inputs.values()), cost, on_unused_input='warn')
 
@@ -533,7 +531,7 @@ class Model(BaseModel):
             label.append([1,0])
         for i in range(int(batch[0].shape[1]/2),batch[0].shape[1]):
             label.append([0,1])
-        batch.append(np.array(label, dtype=INT)) 
+        batch.append(np.array(label, dtype=FLOAT)) 
         
         return batch
     
@@ -572,7 +570,7 @@ class Model(BaseModel):
             label.append([1,0])
         for i in range(int(batch[0].shape[1]/2),batch[0].shape[1]):
             label.append([0,1])
-        batch.append(np.array(label, dtype=INT)) 
+        batch.append(np.array(label, dtype=FLOAT)) 
         
         return batch
         
@@ -628,13 +626,13 @@ class Model(BaseModel):
         prob_true = []
 
         for data in self.valid_iterator:
-            batch_discriminator = self.get_batch(list(data.values())[0],list(data.values())[2], label=None)
+            batch_discriminator = self.get_batch(list(data.values())[0],list(data.values())[2],list(data.values())[4] )
             probs = self.get_probs_valid(*batch_discriminator)
+            probs_len = len(probs)
             probs = np.array(probs)*np.array(list(data.values())[4])
             probs = probs.sum(0)
             true_num= sum(1 for prob in probs if prob > 0.5)
-            prob_true.append(1 - (true_num/len(probs)))
-
+            prob_true.append(1 - (true_num/probs_len))
         if mean:
             return np.array(prob_true).mean()
         else:

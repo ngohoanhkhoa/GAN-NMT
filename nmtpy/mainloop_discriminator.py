@@ -166,6 +166,7 @@ class MainLoop(object):
             loss = self.model.train_batch(*batch_discriminator)
             batch_losses.append(loss)
             self.__send_stats(self.uctr, train_loss=loss)
+            
 
             # Verbose
             if self.uctr % self.f_verbose == 0:

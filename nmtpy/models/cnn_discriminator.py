@@ -307,10 +307,12 @@ class Model(BaseModel):
         probs = tensor.clip(probs, 1e-7, 1.0 - 1e-7)
         
         # Khoa: Get binary cross entropy
-        cost = tensor.nnet.binary_crossentropy(probs, label)
-        
+#        cost = tensor.nnet.binary_crossentropy(probs, label)
         # Khoa: The same value in cols, so just take max
-        cost = cost.max(1)
+#        cost = cost.max(1)
+
+        # Khoa: Get categorical crossentropy
+        cost = tensor.nnet.categorical_crossentropy(probs, label)
         
         self.get_probs_valid = theano.function(list(self.inputs.values()), probs, on_unused_input='ignore')
         
@@ -634,7 +636,7 @@ class Model(BaseModel):
             probs = self.get_probs_valid(*batch_discriminator)
             probs_len = len(probs)
             probs = np.array(probs)*np.array(list(data.values())[4])
-            probs = probs.sum(0)
+            probs = probs.sum(1)
             true_num= sum(1 for prob in probs if prob > 0.5)
             prob_true.append(1 - (true_num/probs_len))
         if mean:

@@ -166,7 +166,6 @@ class MainLoop(object):
             loss = self.model.train_batch(*batch_discriminator)
             batch_losses.append(loss)
             self.__send_stats(self.uctr, train_loss=loss)
-            
 
             # Verbose
             if self.uctr % self.f_verbose == 0:
@@ -219,15 +218,15 @@ class MainLoop(object):
             self.vctr += 1
 
             # Compute validation loss
-            self.model.set_dropout(False)
+#            self.model.set_dropout(False)
             cur_loss = self.model.val_loss()
-            self.model.set_dropout(True)
+#            self.model.set_dropout(True)
             
             # Add val_loss
             self.valid_metrics['loss'].append(cur_loss)
             
             # Print validation loss
-            self.__print("Validation %2d - LOSS = %.3f (PPL: %.3f)" % (self.vctr, cur_loss, np.exp(cur_loss)))
+            self.__print("Validation %2d - ACC = %.3f (LOSS: %.3f)" % (self.vctr, 1.0 - cur_loss, cur_loss) )
             
             f_valid_out = None
             if self.valid_save_hyp:

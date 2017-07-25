@@ -293,7 +293,8 @@ class Model(Attention):
         logit_shp = logit.shape
 
         # Apply logsoftmax (stable version)
-        log_probs = -tensor.nnet.logsoftmax(logit.reshape([logit_shp[0]*logit_shp[1], logit_shp[2]]))
+#        log_probs = -tensor.nnet.logsoftmax(logit.reshape([logit_shp[0]*logit_shp[1], logit_shp[2]]))
+        log_probs = -tensor.nnet.softmax(logit.reshape([logit_shp[0]*logit_shp[1], logit_shp[2]]))
 
         # cost
         y_flat = y.flatten()

@@ -321,7 +321,7 @@ class MainLoop(object):
     
             probs = self.discriminator.get_probs_valid(*batch_discriminator)
             probs = np.array(probs)*np.array(batch_discriminator[2])
-            probs = probs.sum(0)
+            probs = probs.sum(1)
             true_num= sum(1 for prob in probs if prob > 0.5)
             prob_true.append(1 - (true_num/len(probs)))
             

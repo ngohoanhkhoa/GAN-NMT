@@ -491,7 +491,7 @@ class Model(BaseModel):
             logit = tensor.dot(logit, self.tparams['Wemb_dec'].T)
 
         # compute the logsoftmax
-        next_log_probs = tensor.nnet.logsoftmax(logit)
+        next_log_probs = tensor.nnet.softmax(logit)
 
         # Sample from the softmax distribution
         # NOTE: We never use sampling and it incurs performance penalty
@@ -544,7 +544,7 @@ class Model(BaseModel):
 
             else:
                 # Multinomial sampling        
-                nw = next_log_p[0].argmax()
+                nw = next_log_p[0][0]
                                      
             next_word = np.array([nw], dtype=INT)
 

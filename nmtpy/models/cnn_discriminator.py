@@ -292,6 +292,9 @@ class Model(BaseModel):
                                                            conv_after_pooling_shape[1],
                                                         conv_after_pooling_shape[2]),ndim=3)
         
+        
+        # Khoa: Put into ff, from 50 to 1 -> sigmoid -> cost binary_crossentropy
+        # Khoa: Put into ff, from 50 to 2 -> softmqx -> cost categorical_crossentropy
         # Khoa: Put into ff, from 50 to 2
         logit = get_new_layer('ff')[1](self.tparams, conv_after_pooling_, prefix='ff_logit', activ='linear')
         logit_shp = logit.shape
@@ -312,6 +315,7 @@ class Model(BaseModel):
         self.get_probs_valid = theano.function(list(self.inputs.values()), probs, on_unused_input='ignore')
         
         self.get_cost = theano.function(list(self.inputs.values()), cost, on_unused_input='warn')
+
 
         return cost
     

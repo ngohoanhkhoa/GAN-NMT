@@ -144,7 +144,7 @@ class Model(Attention):
 
         # Get updates
         updates = opt(tparams, grads, self.inputs.values(), final_cost, lr0=self.learning_rate)
-
+        
         # Compile forward/backward function
         if debug:
             self.train_batch = theano.function(list(self.inputs.values())+[reward], norm_cost, updates=updates,
@@ -206,6 +206,7 @@ class Model(Attention):
         y = tensor.matrix('y', dtype=INT)
         y_mask = tensor.matrix('y_mask', dtype=FLOAT)
 
+        
         self.inputs = OrderedDict()
         self.inputs['x'] = x
         self.inputs['x_mask'] = x_mask
@@ -370,7 +371,6 @@ class Model(Attention):
         batch.append(data_values[1])
         batch.append(y)
         batch.append(y_mask)
-        batch = np.array(batch)
         
         return batch, discriminator_batch_rewards, professor_batch_rewards
 

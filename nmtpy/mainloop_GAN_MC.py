@@ -447,8 +447,7 @@ class MainLoop(object):
                         output_sentence_string = np.array(translated_sentences[sentence_index]).reshape((np.array(translated_sentences[sentence_index]).shape[0]))
                         reward_string = np.array(reward_research)
                         file_string.append([input_sentence_string, output_sentence_string, reward_string])
-                        
-                        print('file_string', file_string)
+
 #                        reward = self.model.get_reward_MC(self.discriminator, 
 #                                                   input_sentences[sentence_index], 
 #                                                   translated_sentences[sentence_index], 

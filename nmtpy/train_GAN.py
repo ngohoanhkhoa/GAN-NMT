@@ -280,6 +280,7 @@ if __name__ == '__main__':
     data_loss_generator = model.build()
     # Khoa:
     data_loss_discriminator = discriminator.build()
+    
     if train_args.model_language_model_type is not None:
         data_loss_language_model = language_model.build()
     # Khoa.

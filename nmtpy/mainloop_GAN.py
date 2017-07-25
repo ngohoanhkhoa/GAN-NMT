@@ -477,6 +477,7 @@ class MainLoop(object):
                 # -------------------------------------------------------------
                 # Khoa: Update Generator with Reward from Discriminator or/and Language Model 
                 # (Using machine-translated sentence)
+
                 loss_generator = self.model.train_batch(*batch_generator, rewards)
                 
                 # Khoa: Update Generator with Professor Forcing (Using human-translated sentence)

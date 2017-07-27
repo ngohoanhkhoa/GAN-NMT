@@ -7,13 +7,13 @@ Created on Thu Jul 13 17:42:08 2017
 """
 
 
-sf = open('/Users/macbook975/Documents/Stage/GAN_NMT_model/data_translate/out_train.en', 'r')
-machine_tf = open('/Users/macbook975/Documents/Stage/GAN_NMT_model/data_translate/out_train.fr', 'r')
-human_tf = open('/Users/macbook975/Documents/Stage/GAN_NMT_model/data_translate/out_train.fr', 'r')
+sf = open('/Users/macbook975/Documents/Stage/GAN_NMT_model/data_translate/test.en', 'r')
+machine_tf = open('/Users/macbook975/Documents/Stage/GAN_NMT_model/data_translate/out_test.fr', 'r')
+human_tf = open('/Users/macbook975/Documents/Stage/GAN_NMT_model/data_translate/test.fr', 'r')
 
-train_en = open('/Users/macbook975/Documents/Stage/GAN_NMT_model/data_translate/train.en', 'w')
-train_fr = open('/Users/macbook975/Documents/Stage/GAN_NMT_model/data_translate/train.fr', 'w')
-train_label = open('/Users/macbook975/Documents/Stage/GAN_NMT_model/data_translate/train.label', 'w')
+train_en = open('/Users/macbook975/Documents/Stage/GAN_NMT_model/data_discriminator/test.en', 'w')
+train_fr = open('/Users/macbook975/Documents/Stage/GAN_NMT_model/data_discriminator/test.fr', 'w')
+train_label = open('/Users/macbook975/Documents/Stage/GAN_NMT_model/data_discriminator/test.label', 'w')
 
 for idx, (sline, mline, hline) in enumerate(zip(sf, machine_tf, human_tf)):
     sline = sline.strip()

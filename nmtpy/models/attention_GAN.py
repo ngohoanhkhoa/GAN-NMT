@@ -293,8 +293,8 @@ class Model(Attention):
         logit_shp = logit.shape
 
         # Apply logsoftmax (stable version)
-#        log_probs = -tensor.nnet.logsoftmax(logit.reshape([logit_shp[0]*logit_shp[1], logit_shp[2]]))
-        log_probs = -tensor.nnet.softmax(logit.reshape([logit_shp[0]*logit_shp[1], logit_shp[2]]))
+        log_probs = -tensor.nnet.logsoftmax(logit.reshape([logit_shp[0]*logit_shp[1], logit_shp[2]]))
+#        log_probs = -tensor.nnet.softmax(logit.reshape([logit_shp[0]*logit_shp[1], logit_shp[2]]))
 
         # cost
         y_flat = y.flatten()
@@ -400,7 +400,9 @@ class Model(Attention):
         
         return language_model_batch_rewards
     
-    # Khoa: Reward for a sentence by using Monte Carlo search 
+    # Khoa: Reward for a sentence by using Monte Carlo search;
+    # Khoa: Number of reward and the number of token you count in translated_sentence are SOMETIME different. 
+    # Because this sentence has an end token [0] (not shown).
     def get_reward_MC(self, discriminator, input_sentence, translated_sentence, rollout_num = 20, maxlen = 50, beam_size=12, base_value=0.1):
         final_reward = []
         for token_index in range(len(translated_sentence)):

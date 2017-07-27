@@ -8,6 +8,8 @@ import numpy as np
 import time
 import os
 
+from nmtpy.nmtutils         import idx_to_sent
+
 import pickle as pickle
 
 class MainLoop(object):
@@ -323,7 +325,7 @@ class MainLoop(object):
     
             probs = self.discriminator.get_probs_valid(*batch_discriminator)
             probs = np.array(probs)*np.array(batch_discriminator[2])
-            probs = probs.sum(0)
+            probs = probs.sum(1)
             true_num= sum(1 for prob in probs if prob > 0.5)
             prob_true.append(1 - (true_num/len(probs)))
             
@@ -443,9 +445,18 @@ class MainLoop(object):
                                                    base_value=0.5)
                         
                         
-                        input_sentence_string = np.array(input_sentences[sentence_index]).reshape((np.array(input_sentences[sentence_index]).shape[0]) )
-                        output_sentence_string = np.array(translated_sentences[sentence_index]).reshape((np.array(translated_sentences[sentence_index]).shape[0]))
+                        input_sentence_string = []
+                        for token in np.array(input_sentences[sentence_index]):
+                            token_string = idx_to_sent(self.model.src_idict, token)
+                            input_sentence_string.append(token_string)
+                            
+                        output_sentence_string = []
+                        for token in np.array(translated_sentences[sentence_index]):
+                            token_string = idx_to_sent(self.model.trg_idict, token)
+                            output_sentence_string.append(token_string)
+                            
                         reward_string = np.array(reward_research)
+                        
                         file_string.append([input_sentence_string, output_sentence_string, reward_string])
 
 #                        reward = self.model.get_reward_MC(self.discriminator, 
@@ -551,6 +562,10 @@ class MainLoop(object):
             if self.early_bad == self.patience:
                 self.__print("Early stopped.")
                 return False
+            
+            
+            
+            
         #----------------------------------------------------------------------
         directory = '/Users/macbook975/Documents/Stage/GAN_NMT_model/data_MC/'
         
@@ -563,11 +578,7 @@ class MainLoop(object):
         #----------------------------------------------------------------------
         
         
-        
-        
-        
-        
-        
+
         
         # An epoch is finished
         epoch_time = time.time() - start
@@ -596,9 +607,8 @@ class MainLoop(object):
     def get_reward_MC_research(self, discriminator, generator, input_sentence, translated_sentence, rollout_num = 20, maxlen = 50, beam_size=12, base_value=0.1):
         final_reward = []
         final_reward_token = []
-        
+       
         for token_index in range(len(translated_sentence)):
-            
             if token_index == len(translated_sentence)-1:
                 batch = discriminator.get_batch(input_sentence,translated_sentence)
                 discriminator_reward = discriminator.get_discriminator_reward(batch[0],batch[1])
@@ -624,7 +634,7 @@ class MainLoop(object):
                     
                     reward_research.append(discriminator_reward[0])
                     reward += (discriminator_reward[0] - base_value)
-                
+                    
                 final_reward.append(reward/rollout_num)
                 final_reward_token.append(reward_research)
         

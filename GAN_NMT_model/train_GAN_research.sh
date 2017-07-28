@@ -4,4 +4,4 @@
 
 export THEANO_FLAGS=device=cpu,floatX=float32
 
-python ~/Documents/Stage/nmtpy/nmtpy/train_GAN_MC.py -c ~/Documents/Stage/GAN_NMT_model/model_conf/nmt_GAN_en_fr.conf
+python ~/Documents/Stage/nmtpy/nmtpy/train_GAN_MC.py -c ~/Documents/Stage/GAN_NMT_model/model_conf/nmt_GAN_en_fr_research.conf

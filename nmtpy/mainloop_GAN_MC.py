@@ -37,10 +37,13 @@ class MainLoop(object):
         self.discriminator_loop_num = train_args.discriminator_loop_num
         
         # Maximum - Minimum accuracy of Discriminator
-        
         self.max_acc = train_args.max_acc
         self.min_acc = train_args.min_acc
+        
+        self.mc_research_directory = train_args.mc_research
         # Khoa.
+        
+        
         
         # Khoa: The model of generator - Our main NMT model
         self.model          = model                         # The model instance that is trained
@@ -404,9 +407,12 @@ class MainLoop(object):
         file_string = []
                 
         #Iterate over batches
+        # Khoa:
+        batch_num = 0
+        # Khoa.
         for data in self.model.train_iterator:
             self.uctr += 1
-            
+            batch_num += 1
             if self.alpha < 1:
                 self.alpha += self.alpha_rate
             
@@ -537,6 +543,12 @@ class MainLoop(object):
                     # Khoa: Get loss
                     #self.__print('Loss Discriminaror: %10.6f' % loss_discriminator)
                     discriminator_batch_losses.append(loss_discriminator)
+            
+            #----------------------------------------------------------------------
+            with open(self.mc_research_directory + '/MC_file_' + str(self.ectr) +  '_' + str(batch_num)  + '.txt', 'wb') as f:
+                pickle.dump(file_string, f)
+            
+            #----------------------------------------------------------------------
 
             # Verbose
             if self.uctr % self.f_verbose == 0:
@@ -562,20 +574,6 @@ class MainLoop(object):
             if self.early_bad == self.patience:
                 self.__print("Early stopped.")
                 return False
-            
-            
-            
-            
-        #----------------------------------------------------------------------
-        directory = '/Users/macbook975/Documents/Stage/GAN_NMT_model/data_MC/'
-        
-        with open(directory + 'MC_file_' + str(self.ectr) +  '.txt', 'wb') as f:
-            pickle.dump(file_string, f)
-        
-        
-        
-        
-        #----------------------------------------------------------------------
         
         
 

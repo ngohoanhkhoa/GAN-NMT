@@ -422,32 +422,26 @@ class MainLoop(object):
             #Train the generator
             for it in range(self.generator_loop_num):
                 # Khoa: Generate samples
-                # Khoa: def translate(self, inputs, beam_size, maxlen)
-                input_sentences, translated_sentences = self.model.translate(list(data.values()),
-                                                                             beam_size=1,
+                # Khoa: def translate(self, inputs, beam_size = 1 , maxlen)
+                input_sentences, translated_sentences, translated_states = self.model.translate_beam_search(list(data.values()),
                                                                              maxlen=self.maxlen)
                 
                 
         
                 
                 
-                # Khoa: Get reward for each sentence in batch. 
+                 # Khoa: Get reward for each sentence in batch. 
 
                 # -------------------------------------------------------------
                 # Khoa: Reward from Discriminator
                 # There are two ways of Discriminator: 
                     # Monte Carlo search (MC) or Getting directly from Discriminator (not_MC)
                 discriminator_rewards_ = []
-                for sentence_index in range(len(translated_sentences)):
-                    if self.monte_carlo_search:
-                        # Khoa: get_reward_MC(self, discriminator, 
-                        #input_sentence, translated_sentence, 
-                        # rollout_num = 20, maxlen = 50, 
-                        # beam_size=12, base_value=0.1)
-                        
+                for (input_sentence, translated_sentence, translated_state)  in zip(input_sentences, translated_sentences, translated_states):
+                    if self.monte_carlo_search: 
                         reward, reward_research = self.get_reward_MC_research(self.discriminator, self.model,
-                                                   input_sentences[sentence_index], 
-                                                   translated_sentences[sentence_index], 
+                                                   input_sentence, 
+                                                   translated_sentence, 
                                                    rollout_num = self.rollnum, 
                                                    maxlen = self.maxlen, 
                                                    beam_size=1, 
@@ -455,12 +449,12 @@ class MainLoop(object):
                         
                         
                         input_sentence_string = []
-                        for token in np.array(input_sentences[sentence_index]):
+                        for token in np.array(input_sentence):
                             token_string = idx_to_sent(self.model.src_idict, token)
                             input_sentence_string.append(token_string)
                             
                         output_sentence_string = []
-                        for token in np.array(translated_sentences[sentence_index]):
+                        for token in np.array(translated_sentence):
                             token_string = idx_to_sent(self.model.trg_idict, token)
                             output_sentence_string.append(token_string)
                             
@@ -469,25 +463,25 @@ class MainLoop(object):
                         file_string.append([input_sentence_string, output_sentence_string, reward_string])
 
 #                        reward = self.model.get_reward_MC(self.discriminator, 
-#                                                   input_sentences[sentence_index], 
-#                                                   translated_sentences[sentence_index], 
+#                                                   input_sentence, 
+#                                                   translated_sentence,
+#                                                   translated_state,
 #                                                   rollout_num = self.rollnum, 
 #                                                   maxlen = self.maxlen, 
-#                                                   beam_size=1, 
 #                                                   base_value=0.5)
                     else:
                         # Khoa: def get_reward_not_MC(self, discriminator, 
                         # input_sentence, translated_sentence, base_value=0.1)
                         
                         reward = self.model.get_reward_not_MC(self.discriminator, 
-                                                   input_sentences[sentence_index], 
-                                                   translated_sentences[sentence_index],
+                                                   input_sentence, 
+                                                   translated_sentence,
                                                    base_value=0.5)
                     
                     discriminator_rewards_.append(reward)
                         
                         
-                # Khoa: get_batch(self,data_values, translated_sentences, 
+                # Khoa: def get_batch(self,data_values, translated_sentences, 
                 # discriminator_rewards, professor_rewards,language_model_rewards)
                 batch_generator, discriminator_rewards, professor_rewards = self.model.get_batch(
                                                                             list(data.values()), 
@@ -497,19 +491,22 @@ class MainLoop(object):
                 
                 # -------------------------------------------------------------
                 # Khoa: Reward of Language Model
+                # Reward for each token in sentence
                 language_model_rewards = []
                 if self.language_model is not None:
                     language_model_rewards_ = []
-                    for sentence_index in range(len(translated_sentences)):
+                    for translated_sentence in translated_sentences:
                         # Khoa: def get_reward_LM(self, language_model, translated_sentence, base_value=0.1)
-                        reward = self.model.get_reward_LM(self.language_model, 
-                                                        translated_sentences[sentence_index], 
+                        reward = self.model.get_reward_LM(language_model = self.language_model, 
+                                                        translated_sentence = translated_sentence, 
                                                         base_value=0.1)
+                        
                         language_model_rewards_.append(reward)
                         
+
                     language_model_rewards = self.model.get_batch_reward_for_lm(translated_sentences, 
                                                                                 language_model_rewards_)
-                    
+                
                 # -------------------------------------------------------------
                 if self.language_model is not None:
                     rewards = self.alpha*discriminator_rewards + (1-self.alpha)*language_model_rewards
@@ -525,7 +522,7 @@ class MainLoop(object):
                 loss_generator = self.model.train_batch(*list(data.values()), professor_rewards)
                 
                 # Khoa: Get loss
-                #self.__print('Loss Generator: %10.6f' % loss_generator)
+                self.__print('Loss Generator: %10.6f' % loss_generator)
                 generator_batch_losses.append(loss_generator)
                 self.__send_stats(self.uctr, train_loss=loss_generator)
 
@@ -534,17 +531,17 @@ class MainLoop(object):
             if self.__do_validation_check_accuracy_discriminator():
                 for it in range(self.discriminator_loop_num):
                     if self.monte_carlo_search:
-                        # Khoa: def prepare_data_MC(self, data_values, generator, beam_size=1, maxlen=50)
+                        # Khoa: def prepare_data_MC(self, data_values, generator, maxlen=50)
                         batch_discriminator = self.discriminator.prepare_data_MC(list(data.values()), self.model)
                     else:
-                        # Khoa: def prepare_data_not_MC(self, data_values, generator, beam_size = 1, maxlen=50)
+                        # Khoa: def prepare_data_not_MC(self, data_values, generator, maxlen=50)
                         batch_discriminator = self.discriminator.prepare_data_not_MC(list(data.values()), self.model)
                     
                     # Update Discriminator
                     loss_discriminator = self.discriminator.train_batch(*batch_discriminator)
                     
                     # Khoa: Get loss
-                    #self.__print('Loss Discriminaror: %10.6f' % loss_discriminator)
+                    self.__print('Loss Discriminaror: %10.6f' % loss_discriminator)
                     discriminator_batch_losses.append(loss_discriminator)
             
             #----------------------------------------------------------------------
@@ -577,10 +574,7 @@ class MainLoop(object):
             if self.early_bad == self.patience:
                 self.__print("Early stopped.")
                 return False
-        
-        
 
-        
         # An epoch is finished
         epoch_time = time.time() - start
 

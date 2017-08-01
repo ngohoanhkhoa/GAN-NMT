@@ -360,14 +360,12 @@ class MainLoop(object):
                     # Monte Carlo search (MC) or Getting directly from Discriminator (not_MC)
                 discriminator_rewards_ = []
                 for (input_sentence, translated_sentence, translated_state)  in zip(input_sentences, translated_sentences, translated_states):
-
                     if self.monte_carlo_search:
-    
                         # Khoa: get_reward_MC(self, discriminator, 
                         # input_sentence, translated_sentence, translated_states 
                         # rollout_num = 20, maxlen = 50, 
                         # beam_size=12, base_value=0.1)
-                        
+
                         reward = self.model.get_reward_MC(self.discriminator, 
                                                    input_sentence, 
                                                    translated_sentence,

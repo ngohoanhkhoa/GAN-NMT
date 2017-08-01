@@ -509,8 +509,8 @@ class Model(BaseModel):
         probs  = np.array(probs)
         return probs[:,0]
     
-    def prepare_data_MC(self, data_values, generator,beam_size=1, maxlen=50):
-        input_sentences, translated_sentences = generator.translate(data_values, beam_size, maxlen)
+    def prepare_data_MC(self, data_values, generator, maxlen=50):
+        input_sentences, translated_sentences = generator.translate_multinomial(data_values, maxlen)
         
         translated_sentences_ = []
         for sentence in translated_sentences:
@@ -541,8 +541,8 @@ class Model(BaseModel):
         
         return batch
     
-    def prepare_data_not_MC(self, data_values, generator, beam_size = 1, maxlen=50):
-        input_sentences, translated_sentences = generator.translate(data_values, beam_size, maxlen)
+    def prepare_data_not_MC(self, data_values, generator, maxlen=50):
+        input_sentences, translated_sentences = generator.translate_multinomial(data_values, maxlen)
         
         # Khoa: Select a part of a sentence for cnn_discriminator
         translated_sentences_ = []

@@ -16,7 +16,7 @@ from ..iterators.text import TextIterator
 from ..iterators.bitext import BiTextIterator
 from .attention import Model as Attention
 from .cnn_discriminator import ClassificationIterator as ClassificationIterator
- 
+
 #######################################
 ## For debugging function input outputs
 def inspect_inputs(i, node, fn):
@@ -315,7 +315,95 @@ class Model(Attention):
         # For alpha regularization
         # Khoa:
         return cost, log_probs_ouput
-    
+
+    def build_sampler(self):
+        x           = tensor.matrix('x', dtype=INT)
+        xr          = x[::-1]
+        n_timesteps = x.shape[0]
+        n_samples   = x.shape[1]
+
+        # word embedding (source), forward and backward
+        emb = self.tparams['Wemb_enc'][x.flatten()]
+        emb = emb.reshape([n_timesteps, n_samples, self.embedding_dim])
+
+        embr = self.tparams['Wemb_enc'][xr.flatten()]
+        embr = embr.reshape([n_timesteps, n_samples, self.embedding_dim])
+
+        # encoder
+        proj  = get_new_layer(self.enc_type)[1](self.tparams, emb, prefix='encoder', layernorm=self.lnorm)
+        projr = get_new_layer(self.enc_type)[1](self.tparams, embr, prefix='encoder_r', layernorm=self.lnorm)
+
+        # concatenate forward and backward rnn hidden states
+        ctx = [tensor.concatenate([proj[0], projr[0][::-1]], axis=proj[0].ndim-1)]
+
+        for i in range(1, self.n_enc_layers):
+            ctx = get_new_layer(self.enc_type)[1](self.tparams, ctx[0],
+                                                  prefix='deepencoder_%d' % i,
+                                                  layernorm=self.lnorm)
+
+        ctx = ctx[0]
+
+        if self.init_cgru == 'text' and 'ff_state_W' in self.tparams:
+            # get the input for decoder rnn initializer mlp
+            ctx_mean = ctx.mean(0)
+            init_state = get_new_layer('ff')[1](self.tparams, ctx_mean, prefix='ff_state', activ='tanh')
+        else:
+            # assume zero-initialized decoder
+            init_state = tensor.alloc(0., n_samples, self.rnn_dim)
+
+        outs = [init_state, ctx]
+        self.f_init = theano.function([x], outs, name='f_init')
+
+        # x: 1 x 1
+        y = tensor.vector('y_sampler', dtype=INT)
+        init_state = tensor.matrix('init_state', dtype=FLOAT)
+
+        # if it's the first word, emb should be all zero and it is indicated by -1
+        emb = tensor.switch(y[:, None] < 0,
+                            tensor.alloc(0., 1, self.tparams['Wemb_dec'].shape[1]),
+                            self.tparams['Wemb_dec'][y])
+
+        # apply one step of conditional gru with attention
+        # get the next hidden states
+        # get the weighted averages of contexts for this target word y
+        r = get_new_layer('gru_cond')[1](self.tparams, emb,
+                                         prefix='decoder',
+                                         mask=None, context=ctx,
+                                         one_step=True,
+                                         init_state=init_state, layernorm=False)
+
+        next_state = r[0]
+        ctxs = r[1]
+        alphas = r[2]
+
+        logit_prev = get_new_layer('ff')[1](self.tparams, emb,          prefix='ff_logit_prev',activ='linear')
+        logit_ctx  = get_new_layer('ff')[1](self.tparams, ctxs,         prefix='ff_logit_ctx', activ='linear')
+        logit_gru  = get_new_layer('ff')[1](self.tparams, next_state,   prefix='ff_logit_gru', activ='linear')
+
+        logit = tanh(logit_gru + logit_prev + logit_ctx)
+
+        if self.tied_trg_emb is False:
+            logit = get_new_layer('ff')[1](self.tparams, logit, prefix='ff_logit', activ='linear')
+        else:
+            logit = tensor.dot(logit, self.tparams['Wemb_dec'].T)
+
+        # compute the logsoftmax
+        next_log_probs = tensor.nnet.softmax(logit)
+
+        # Sample from the softmax distribution
+        # NOTE: We never use sampling and it incurs performance penalty
+        # let's disable it for now
+        next_word = self.trng.multinomial(pvals=next_log_probs).argmax(1)
+        
+        # compile a function to do the whole thing above
+        # next hidden state to be used
+        inputs = [y, init_state, ctx]
+
+        outs = [next_log_probs, next_state, alphas]
+        self.f_next = theano.function(inputs, outs, name='f_next') 
+        
+        self.next_word_multinomial = theano.function(inputs, next_word , name='next_word_multinomial')
+        
     
     # Khoa: Return the batch format of sentences and rewards for training
     def get_batch(self, data_values, translated_sentences, discriminator_rewards, professor_rewards):
@@ -403,9 +491,11 @@ class Model(Attention):
     # Khoa: Reward for a sentence by using Monte Carlo search;
     # Khoa: Number of reward and the number of token you count in translated_sentence are SOMETIME different. 
     # Because this sentence has an end token [0] (not shown).
-    def get_reward_MC(self, discriminator, input_sentence, translated_sentence, rollout_num = 20, maxlen = 50, beam_size=12, base_value=0.1):
+    def get_reward_MC(self, discriminator, input_sentence, translated_sentence, translated_states, rollout_num = 20, maxlen = 50, base_value=0.1):
         final_reward = []
+        
         for token_index in range(len(translated_sentence)):
+          
             if token_index == len(translated_sentence)-1:
                 batch = discriminator.get_batch(input_sentence,translated_sentence)
                 discriminator_reward = discriminator.get_discriminator_reward(batch[0],batch[1])
@@ -414,17 +504,25 @@ class Model(Attention):
                 reward = 0
                 max_sentence_len = maxlen - token_index - 1
                 for rollout_time  in range(rollout_num):
-                    sentence = self.monte_carlo_search(input_sentence,translated_sentence[token_index],[self.f_init],[self.f_next],beam_size,max_sentence_len)
+                    # def sampling_multinomial(self, inputs, f_init, f_next, token = None, state = None, maxlen = 50)
+                    sentence = self.sampling_multinomial(inputs = input_sentence, 
+                                                         token = translated_sentence[token_index], 
+                                                         state = translated_states[token_index], 
+                                                         f_init = self.f_init,
+                                                         f_next = self.f_next,
+                                                         maxlen = max_sentence_len)
+
                     sentence_ = np.array(sentence)
                     sentence_shape = sentence_.shape
                     sentence_ = sentence_.reshape(sentence_shape[0],1)
                     
                     final_sentence = np.array(sentence_, dtype=INT)
                     final_sentence = np.concatenate((translated_sentence[0:token_index+1], final_sentence), axis=0)
-                   
+                    
+                    
                     batch = discriminator.get_batch(input_sentence,final_sentence)
                     discriminator_reward = discriminator.get_discriminator_reward(batch[0],batch[1])
-                    
+
                     reward += (discriminator_reward[0] - base_value)
                 final_reward.append(reward/rollout_num)
         return np.array(final_reward,dtype=FLOAT)
@@ -446,7 +544,33 @@ class Model(Attention):
         return probs
     
     # Khoa: The translated sentences could have different sizes (Not ready for a batch)
-    def translate(self, inputs, beam_size, maxlen):
+    def translate_beam_search(self, inputs, beam_size = 1, maxlen = 50):
+        translated_sentences = []
+        translated_states = []
+        
+        input_sentences = np.array(inputs[0])
+        input_sentences = input_sentences.swapaxes(1,0)
+        input_sentences_shape = input_sentences.shape
+        input_sentences = input_sentences.reshape((input_sentences_shape[0],input_sentences_shape[1],1))
+        
+        for sentence in input_sentences:
+            # def beam_search_(self, inputs, f_inits, f_nexts, beam_size=1, maxlen=100, suppress_unks=False, **kwargs):
+            translated_sentence, states = self.beam_search_(inputs  = sentence,
+                                                            f_inits = [self.f_init],
+                                                            f_nexts = [self.f_next],
+                                                            beam_size = beam_size,
+                                                            maxlen = maxlen)
+
+            translated_sentence_ = np.array(translated_sentence[0])
+            translated_sentence_shape = translated_sentence_.shape
+            translated_sentence = translated_sentence_.reshape((translated_sentence_shape[0],1))
+            translated_sentences.append(translated_sentence)
+            
+            translated_states.append(states[0])
+        
+        return np.array(input_sentences), np.array(translated_sentences), np.array(translated_states)
+    
+    def translate_multinomial(self, inputs, maxlen = 50):
         translated_sentences = []
         
         input_sentences = np.array(inputs[0])
@@ -455,166 +579,63 @@ class Model(Attention):
         input_sentences = input_sentences.reshape((input_sentences_shape[0],input_sentences_shape[1],1))
         
         for sentence in input_sentences:
-            translated_sentence = self.beam_search_(sentence,[self.f_init],[self.f_next], beam_size, maxlen)
-            
-            translated_sentence_ = np.array(translated_sentence[0])
-            translated_sentence_shape = translated_sentence_.shape
-            translated_sentence = translated_sentence_.reshape((translated_sentence_shape[0],1))
+            # def sampling_multinomial(self, inputs, f_init, f_next, token = None, state = None, maxlen = 50)
+            translated_sentence = self.sampling_multinomial(inputs = sentence,
+                                                            f_init = self.f_init,
+                                                            f_next = self.f_next,
+                                                            token = None,
+                                                            state = None,
+                                                            maxlen = maxlen)
+    
             translated_sentences.append(translated_sentence)
         
         return np.array(input_sentences), np.array(translated_sentences)
     
-    # Khoa: Similar as Beam search but from any token, not just from the first token of a sentence.
-    def monte_carlo_search(self, inputs, token, f_inits, f_nexts, beam_size=12, maxlen=50, suppress_unks=False, **kwargs):
+    # Khoa: Sampling multinomial from any token.
+    def sampling_multinomial(self, inputs, f_init, f_next, token = None, state = None, maxlen = 50):
+        final_sample = []
         
-        # Final results and their scores
-        final_sample        = []
-        final_score         = []
-        final_alignments    = []
-        # Initially we have one empty hypothesis with a score of 0
-        hyp_alignments  = [[]]
-        hyp_samples     = [[]]
-        hyp_scores      = np.zeros(1, dtype=FLOAT)
-
-        # Number of models
-        n_models        = len(f_inits)
-
-        # Ensembling-aware lists
-        next_states     = [None] * n_models
-        text_ctxs       = [None] * n_models
-        aux_ctxs        = [[]] * n_models
-        tiled_ctxs      = [None] * n_models
-        next_log_ps     = [None] * n_models
-        alphas          = [None] * n_models
-
-        for i, f_init in enumerate(f_inits):
-            # Get next_state and initial contexts and save them
-            # text_ctx: the set of textual annotations
-            # aux_ctx: the set of auxiliary (ex: image) annotations
-            
-            # Khoa:
-#            result = list(f_init(*inputs))
-            result = list(f_init(inputs))
-            #Khoa.
-            
-            next_states[i], text_ctxs[i], aux_ctxs[i] = result[0], result[1], result[2:]
-            tiled_ctxs[i] = np.tile(text_ctxs[i], [1, 1])
-
-        # Beginning-of-sentence indicator is -1
-        # Khoa: Start sampling by using the input token
-        next_w = token
-        #Khoa.
+        # f_init outs = [init_state, ctx]
+        next_state, ctx0 = self.f_init(inputs)
+        next_word = [-1]
         
-        # FIXME: This will break if [0] is not the src sentence, e.g. im2txt modelss
-        maxlen = max(maxlen, inputs[0].shape[0] * 3)
-
-        # Initial beam size
-        live_beam = beam_size
-
-        for t in range(maxlen):
+        if state is not None:
+            next_state = [state]
+            
+        if token is not None:
+            next_word = token
+        
+        for ii in range(maxlen):
             # Get next states
-            # In the first iteration, we provide -1 and obtain the log_p's for the
-            # first word. In the following iterations tiled_ctx becomes a batch
-            # of duplicated left hypotheses. tiled_ctx is always the same except
-            # the size of the 2nd dimension as the context vectors of the source
-            # sequence is always the same regardless of the decoding process.
-            # next_state's shape is (live_beam, rnn_dim)
+            
+            next_log_p, next_state, alphas = self.f_next(*[next_word, next_state, ctx0])
+            next_word = self.next_word_multinomial(*[next_word, next_state, ctx0])
 
-            # We do this for each model
-            for m, f_next in enumerate(f_nexts):
-                next_log_ps[m], next_states[m], alphas[m] = f_next(*([next_w, next_states[m], tiled_ctxs[m]] + aux_ctxs[m]))
-
-                if suppress_unks:
-                    next_log_ps[m][:, 1] = -np.inf
-
-            # Compute sum of log_p's for the current hypotheses
-            cand_scores = hyp_scores[:, None] - sum(next_log_ps)
-
-            # Mean alphas for the mean model (n_models > 1)
-            mean_alphas = sum(alphas) / n_models
-
-            # Flatten by modifying .shape (faster)
-            cand_scores.shape = cand_scores.size
-
-            # Take the best live_beam hypotheses
-            # argpartition makes a partial sort which is faster than argsort
-            # (Idea taken from https://github.com/rsennrich/nematus)
-            ranks_flat = cand_scores.argpartition(live_beam-1)[:live_beam]
-
-            # Get the costs
-            costs = cand_scores[ranks_flat]
-
-            # New states, scores and samples
-            live_beam           = 0
-            new_hyp_scores      = []
-            new_hyp_samples     = []
-            new_hyp_alignments  = []
-
-            # This will be the new next states in the next iteration
-            hyp_states          = []
-
-            # Find out to which initial hypothesis idx this was belonging
-            # Find out the idx of the appended word
-            trans_idxs  = ranks_flat // next_log_ps[0].shape[1]
-            word_idxs   = ranks_flat % next_log_ps[0].shape[1]
-
-            # Iterate over the hypotheses and add them to new_* lists
-            for idx, [ti, wi] in enumerate(zip(trans_idxs, word_idxs)):
-                # Form the new hypothesis by appending new word to the left hyp
-                new_hyp = hyp_samples[ti] + [wi]
-                new_ali = hyp_alignments[ti] + [mean_alphas[ti]]
-
-                if wi == 0:
-                    # <eos> found, separate out finished hypotheses
-                    final_sample.append(new_hyp)
-                    final_score.append(costs[idx])
-                    final_alignments.append(new_ali)
-                else:
-                    # Add formed hypothesis to the new hypotheses list
-                    new_hyp_samples.append(new_hyp)
-                    # Cumulated cost of this hypothesis
-                    new_hyp_scores.append(costs[idx])
-                    new_hyp_alignments.append(new_ali)
-                    # Hidden state of the decoder for this hypothesis
-                    hyp_states.append([next_state[ti] for next_state in next_states])
-                    live_beam += 1
-
-            hyp_scores  = np.array(new_hyp_scores, dtype=FLOAT)
-            hyp_samples = new_hyp_samples
-            hyp_alignments = new_hyp_alignments
-
-            if live_beam == 0:
+            # Add the word idx
+            final_sample.append(next_word)
+            
+            # 0: <eos>
+            if next_word == [0]:
                 break
-
-            # Take the idxs of each hyp's last word
-            next_w      = np.array([w[-1] for w in hyp_samples])
-            next_states = [np.array(st, dtype=FLOAT) for st in zip(*hyp_states)]
-            tiled_ctxs  = [np.tile(ctx, [live_beam, 1]) for ctx in text_ctxs]
-
-        # dump every remaining hypotheses
-        for idx in range(live_beam):
-            final_sample.append(hyp_samples[idx])
-            final_score.append(hyp_scores[idx])
-            final_alignments.append(hyp_alignments[idx])
-
-        if not kwargs.get('get_att_alphas', False):
-            # Don't send back alignments for nothing
-            final_alignments = None
-
-        # Khoa: Return the last value of final_sample
-        return final_sample[-1]
+        
+        return final_sample
      
     
-    # Khoa: This beam search is modified and used for function translate() because the errors of f_init.
-    def beam_search_(self, inputs, f_inits, f_nexts, beam_size=12, maxlen=100, suppress_unks=False, **kwargs):
+    # Khoa: This beam search is modified and used for function translate_beam_search()
+    # Be careful with beam_size > 1
+    def beam_search_(self, inputs, f_inits, f_nexts, beam_size=1, maxlen=100, suppress_unks=False, **kwargs):
         # Final results and their scores
         final_sample        = []
-        final_score         = []
-        final_alignments    = []
+        final_states        = []
+
+        # final_score         = []
+        # final_alignments    = []
+
         # Initially we have one empty hypothesis with a score of 0
-        hyp_alignments  = [[]]
+        # hyp_alignments  = [[]]
         hyp_samples     = [[]]
         hyp_scores      = np.zeros(1, dtype=FLOAT)
+
 
         # Number of models
         n_models        = len(f_inits)
@@ -631,11 +652,9 @@ class Model(Attention):
             # Get next_state and initial contexts and save them
             # text_ctx: the set of textual annotations
             # aux_ctx: the set of auxiliary (ex: image) annotations
-            
-            #Khoa:
-#            result = list(f_init(*inputs))
+
+            # result = list(f_init(*inputs))
             result = list(f_init(inputs))
-            #Khoa.
             
             next_states[i], text_ctxs[i], aux_ctxs[i] = result[0], result[1], result[2:]
             tiled_ctxs[i] = np.tile(text_ctxs[i], [1, 1])
@@ -661,15 +680,15 @@ class Model(Attention):
             # We do this for each model
             for m, f_next in enumerate(f_nexts):
                 next_log_ps[m], next_states[m], alphas[m] = f_next(*([next_w, next_states[m], tiled_ctxs[m]] + aux_ctxs[m]))
-
+                
                 if suppress_unks:
                     next_log_ps[m][:, 1] = -np.inf
-
+            
             # Compute sum of log_p's for the current hypotheses
             cand_scores = hyp_scores[:, None] - sum(next_log_ps)
 
             # Mean alphas for the mean model (n_models > 1)
-            mean_alphas = sum(alphas) / n_models
+            # mean_alphas = sum(alphas) / n_models
 
             # Flatten by modifying .shape (faster)
             cand_scores.shape = cand_scores.size
@@ -680,13 +699,13 @@ class Model(Attention):
             ranks_flat = cand_scores.argpartition(live_beam-1)[:live_beam]
 
             # Get the costs
-            costs = cand_scores[ranks_flat]
+            # costs = cand_scores[ranks_flat]
 
             # New states, scores and samples
             live_beam           = 0
-            new_hyp_scores      = []
+            # new_hyp_scores      = []
             new_hyp_samples     = []
-            new_hyp_alignments  = []
+            # new_hyp_alignments  = []
 
             # This will be the new next states in the next iteration
             hyp_states          = []
@@ -700,46 +719,56 @@ class Model(Attention):
             for idx, [ti, wi] in enumerate(zip(trans_idxs, word_idxs)):
                 # Form the new hypothesis by appending new word to the left hyp
                 new_hyp = hyp_samples[ti] + [wi]
-                new_ali = hyp_alignments[ti] + [mean_alphas[ti]]
+                # new_ali = hyp_alignments[ti] + [mean_alphas[ti]]
 
                 if wi == 0:
                     # <eos> found, separate out finished hypotheses
                     final_sample.append(new_hyp)
-                    final_score.append(costs[idx])
-                    final_alignments.append(new_ali)
+                    # final_score.append(costs[idx])
+                    # final_alignments.append(new_ali)
+                    
                 else:
                     # Add formed hypothesis to the new hypotheses list
                     new_hyp_samples.append(new_hyp)
                     # Cumulated cost of this hypothesis
-                    new_hyp_scores.append(costs[idx])
-                    new_hyp_alignments.append(new_ali)
+                    # new_hyp_scores.append(costs[idx])
+                    # new_hyp_alignments.append(new_ali)
+                    
                     # Hidden state of the decoder for this hypothesis
                     hyp_states.append([next_state[ti] for next_state in next_states])
+                    
                     live_beam += 1
 
-            hyp_scores  = np.array(new_hyp_scores, dtype=FLOAT)
+            # hyp_scores  = np.array(new_hyp_scores, dtype=FLOAT)
             hyp_samples = new_hyp_samples
-            hyp_alignments = new_hyp_alignments
+            # hyp_alignments = new_hyp_alignments
 
             if live_beam == 0:
                 break
-
+            
             # Take the idxs of each hyp's last word
             next_w      = np.array([w[-1] for w in hyp_samples])
             next_states = [np.array(st, dtype=FLOAT) for st in zip(*hyp_states)]
             tiled_ctxs  = [np.tile(ctx, [live_beam, 1]) for ctx in text_ctxs]
-
+            
+            # Khoa: Get states
+            # Beam_size > 1 could cause error. Sometime next_states has different size (!= beam_size) 
+            # => final_states.append(next_states) has problem.
+            final_states.append(next_states)
+        
+        
+        final_states_ = np.array(final_states, dtype=FLOAT)
+        final_states_ = final_states_.swapaxes(0,2)
+        final_states_shape = final_states_.shape
+        final_states = final_states_.reshape((final_states_shape[0],final_states_shape[2], final_states_shape[3] ))
+        
         # dump every remaining hypotheses
         for idx in range(live_beam):
             final_sample.append(hyp_samples[idx])
-            final_score.append(hyp_scores[idx])
-            final_alignments.append(hyp_alignments[idx])
-
-        if not kwargs.get('get_att_alphas', False):
-            # Don't send back alignments for nothing
-            final_alignments = None
-
-        return final_sample
+            # final_score.append(hyp_scores[idx])
+            # final_alignments.append(hyp_alignments[idx])
+        
+        return final_sample, final_states
             
     # Khoa: The original Beam seach of nmtpy, this function is for nmt-translate (Validation step)
     def beam_search(self, inputs, f_inits, f_nexts, beam_size=12, maxlen=100, suppress_unks=False, **kwargs):

@@ -496,15 +496,22 @@ class Model(BaseModel):
         # Sample from the softmax distribution
         # NOTE: We never use sampling and it incurs performance penalty
         # let's disable it for now
-        #next_probs = tensor.exp(next_log_probs)
-        #next_word = self.trng.multinomial(pvals=next_probs).argmax(1)
-
+        # next_probs = tensor.exp(next_log_probs)
+        # next_word = self.trng.multinomial(pvals=next_probs).argmax(1)
+        
+        # Khoa:
+        next_word = self.trng.multinomial(pvals=next_log_probs).argmax(1)
+        
         # compile a function to do the whole thing above
         # next hidden state to be used
         inputs = [y, init_state, ctx]
 
         outs = [next_log_probs, next_state, alphas]
         self.f_next = theano.function(inputs, outs, name='f_next')
+        
+        # Khoa:
+        self.next_word_multinomial = theano.function(inputs, next_word , name='next_word_multinomial')
+        
 
     def gen_sample(self, input_dict, maxlen=100, argmax=False):
         """Generate samples, do greedy (argmax) decoding or forced decoding."""
@@ -544,8 +551,9 @@ class Model(BaseModel):
 
             else:
                 # Multinomial sampling        
-                nw = next_log_p[0][0]
-                                     
+                nw_ = self.next_word_multinomial(*[next_word, next_state, ctx0])
+                nw = nw_[0]
+                     
             next_word = np.array([nw], dtype=INT)
 
             # 0: <eos>

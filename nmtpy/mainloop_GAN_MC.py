@@ -404,7 +404,6 @@ class MainLoop(object):
         discriminator_batch_losses = []
         
         
-        file_string = []
                 
         #Iterate over batches
         # Khoa:
@@ -412,7 +411,10 @@ class MainLoop(object):
         # Khoa.
         for data in self.model.train_iterator:
             self.uctr += 1
+            # Khoa:
             batch_num += 1
+            file_string = []
+            # Khoa.
             if self.alpha < 1:
                 self.alpha += self.alpha_rate
             
@@ -547,7 +549,7 @@ class MainLoop(object):
             #----------------------------------------------------------------------
             with open(self.mc_research_directory + '/MC_file_' + str(self.ectr) +  '_' + str(batch_num)  + '.txt', 'wb') as f:
                 pickle.dump(file_string, f)
-            
+            print('file: ', '/MC_file_' + str(self.ectr) +  '_' + str(batch_num)  + '.txt')
             #----------------------------------------------------------------------
 
             # Verbose

@@ -130,8 +130,15 @@ class Model(BaseModel):
         cost = cost.reshape([x.shape[0], x.shape[1]])
         cost = (cost * x_mask)
 
+        
         #f_log_probs_detailled return the log probs array correponding to each word log probs
         self.f_log_probs_detailled = theano.function(list(self.inputs.values()), cost)
+        
+        # Khoa:
+        probs = tensor.exp(-cost)
+        self.probs_detailled = theano.function(list(self.inputs.values()), probs)
+        # Khoa.
+        
         cost = (cost * x_mask).sum(0)
 
         #f_log_probs return the sum of the sentence log probs
@@ -140,7 +147,7 @@ class Model(BaseModel):
         return cost.mean()
     
     def pred_probs(self, x, x_mask):
-        probs = self.f_log_probs(x, x_mask)
+        probs = self.probs_detailled(x, x_mask)
         return probs
     
     def get_batch(self, translated_sentence):

@@ -3,6 +3,7 @@ from collections import OrderedDict
 
 from nmtpy.metrics import is_last_best, find_best, comparators
 from nmtpy.sysutils import force_symlink
+from nmtpy.nmtutils import idx_to_sent
 
 import numpy as np
 import time
@@ -341,7 +342,7 @@ class MainLoop(object):
             
             if self.alpha != 1:
                 self.alpha += self.alpha_rate
-            
+
             #Train the generator
             for it in range(self.generator_loop_num):
                 # Khoa: Generate samples
@@ -349,7 +350,8 @@ class MainLoop(object):
                 input_sentences, translated_sentences, translated_states = self.model.translate_beam_search(list(data.values()),
                                                                              maxlen=self.maxlen)
                 
-              
+                
+                
                 # Khoa: Get reward for each sentence in batch. 
 
                 # -------------------------------------------------------------
@@ -358,7 +360,9 @@ class MainLoop(object):
                     # Monte Carlo search (MC) or Getting directly from Discriminator (not_MC)
                 discriminator_rewards_ = []
                 for (input_sentence, translated_sentence, translated_state)  in zip(input_sentences, translated_sentences, translated_states):
+
                     if self.monte_carlo_search:
+    
                         # Khoa: get_reward_MC(self, discriminator, 
                         # input_sentence, translated_sentence, translated_states 
                         # rollout_num = 20, maxlen = 50, 
@@ -382,7 +386,6 @@ class MainLoop(object):
                     
                     discriminator_rewards_.append(reward)
                         
-                        
                 # Khoa: def get_batch(self,data_values, translated_sentences, 
                 # discriminator_rewards, professor_rewards,language_model_rewards)
                 batch_generator, discriminator_rewards, professor_rewards = self.model.get_batch(
@@ -393,6 +396,7 @@ class MainLoop(object):
                 
                 # -------------------------------------------------------------
                 # Khoa: Reward of Language Model
+                # Reward for each token in sentence
                 language_model_rewards = []
                 if self.language_model is not None:
                     language_model_rewards_ = []
@@ -401,12 +405,13 @@ class MainLoop(object):
                         reward = self.model.get_reward_LM(language_model = self.language_model, 
                                                         translated_sentence = translated_sentence, 
                                                         base_value=0.1)
+                        
                         language_model_rewards_.append(reward)
                         
-                    #exp
+
                     language_model_rewards = self.model.get_batch_reward_for_lm(translated_sentences, 
                                                                                 language_model_rewards_)
-                    
+                
                 # -------------------------------------------------------------
                 if self.language_model is not None:
                     rewards = self.alpha*discriminator_rewards + (1-self.alpha)*language_model_rewards

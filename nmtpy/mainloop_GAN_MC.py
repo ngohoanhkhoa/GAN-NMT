@@ -3,12 +3,13 @@ from collections import OrderedDict
 
 from nmtpy.metrics import is_last_best, find_best, comparators
 from nmtpy.sysutils import force_symlink
+from nmtpy.nmtutils import idx_to_sent
 
 import numpy as np
 import time
 import os
 
-from nmtpy.nmtutils         import idx_to_sent
+
 
 import pickle as pickle
 

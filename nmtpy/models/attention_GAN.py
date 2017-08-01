@@ -16,6 +16,7 @@ from ..iterators.text import TextIterator
 from ..iterators.bitext import BiTextIterator
 from .attention import Model as Attention
 from .cnn_discriminator import ClassificationIterator as ClassificationIterator
+from nmtpy.nmtutils import idx_to_sent
 
 #######################################
 ## For debugging function input outputs
@@ -475,9 +476,9 @@ class Model(Attention):
         # Shape is (t_steps, samples)
         y = np.zeros((n_samples,maxlen,1)).astype(INT)
         language_model_batch_rewards = np.zeros_like(y).astype(FLOAT)
-
-        for idx, r in enumerate(translated_sentences):
-            language_model_batch_rewards[idx, :lengths[idx]] = language_model_rewards[idx]
+            
+        for idx, r in enumerate(language_model_rewards):
+            language_model_batch_rewards[idx, :lengths[idx]] = np.array(r).reshape(lengths[idx],1)
         
         # Khoa.
         
@@ -511,7 +512,8 @@ class Model(Attention):
                                                          f_init = self.f_init,
                                                          f_next = self.f_next,
                                                          maxlen = max_sentence_len)
-
+                    
+                    
                     sentence_ = np.array(sentence)
                     sentence_shape = sentence_.shape
                     sentence_ = sentence_.reshape(sentence_shape[0],1)
@@ -522,9 +524,10 @@ class Model(Attention):
                     
                     batch = discriminator.get_batch(input_sentence,final_sentence)
                     discriminator_reward = discriminator.get_discriminator_reward(batch[0],batch[1])
-
+                    
                     reward += (discriminator_reward[0] - base_value)
                 final_reward.append(reward/rollout_num)
+                
         return np.array(final_reward,dtype=FLOAT)
     
     # Khoa: Reward for a sentence: Discriminator directly assign reward for each parts of token
@@ -541,6 +544,9 @@ class Model(Attention):
     def get_reward_LM(self, language_model, translated_sentence, base_value=0.1):
         batch = language_model.get_batch(translated_sentence)
         probs = language_model.pred_probs(batch[0],batch[1])
+        probs_ = np.array(probs)
+        probs_shape = probs_.shape
+        probs = probs_.reshape(probs_shape[0])
         return probs
     
     # Khoa: The translated sentences could have different sizes (Not ready for a batch)
@@ -587,7 +593,7 @@ class Model(Attention):
                                                             state = None,
                                                             maxlen = maxlen)
     
-            translated_sentences.append(translated_sentence)
+            translated_sentences.append(np.array(translated_sentence))
         
         return np.array(input_sentences), np.array(translated_sentences)
     
@@ -612,7 +618,7 @@ class Model(Attention):
             next_word = self.next_word_multinomial(*[next_word, next_state, ctx0])
 
             # Add the word idx
-            final_sample.append(next_word)
+            final_sample.append(list(next_word))
             
             # 0: <eos>
             if next_word == [0]:

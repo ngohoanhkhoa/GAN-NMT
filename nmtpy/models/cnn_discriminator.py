@@ -543,16 +543,17 @@ class Model(BaseModel):
     
     def prepare_data_not_MC(self, data_values, generator, maxlen=50):
         input_sentences, translated_sentences = generator.translate_multinomial(data_values, maxlen)
-        
         # Khoa: Select a part of a sentence for cnn_discriminator
         translated_sentences_ = []
         for sentence in translated_sentences:
+            
             random_index = np.random.randint(0,len(sentence),2)
             if random_index[0] > random_index[1]:
                 random_index[0],random_index[1] = random_index[1],random_index[0]
             sentence = sentence[random_index[0]:random_index[1]]
             # Khoa: Modify (Increase and decrease) the size of translated_sentences_ into sentence lenght = 50 for convolution
             # Similar to get_batch; maxlen shoule be fixed as 50 (cnn_discriminator)
+            
             while len(sentence) < maxlen:
                 sentence = np.append(sentence, [[0]] , axis=0)
             if len(sentence) > maxlen:

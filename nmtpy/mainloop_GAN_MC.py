@@ -382,10 +382,9 @@ class MainLoop(object):
                                                     generator           = self.model,
                                                     input_sentence      = input_sentence,
                                                     translated_sentence = translated_sentence, 
-                                                    translated_states   = translated_states,
+                                                    translated_states   = translated_state,
                                                     rollout_num         = self.rollnum, 
-                                                    maxlen              = self.maxlen, 
-                                                    beam_size           = 1, 
+                                                    maxlen              = self.maxlen,
                                                     base_value          = 0.5)
                         
                         
@@ -558,8 +557,8 @@ class MainLoop(object):
                     sentence = generator.sampling_multinomial(inputs = input_sentence, 
                                                          token = translated_sentence[token_index], 
                                                          state = translated_states[token_index], 
-                                                         f_init = self.f_init,
-                                                         f_next = self.f_next,
+                                                         f_init = generator.f_init,
+                                                         f_next = generator.f_next,
                                                          maxlen = max_sentence_len)
                     sentence_ = np.array(sentence)
                     sentence_shape = sentence_.shape

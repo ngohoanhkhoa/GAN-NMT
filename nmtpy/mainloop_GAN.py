@@ -340,7 +340,7 @@ class MainLoop(object):
         for data in self.model.train_iterator:
             self.uctr += 1
             
-            if self.alpha != 1:
+            if self.alpha <= 1:
                 self.alpha += self.alpha_rate
 
             #Train the generator

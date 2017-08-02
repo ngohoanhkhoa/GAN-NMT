@@ -355,7 +355,7 @@ class MainLoop(object):
             batch_num += 1
             file_string = []
             # Khoa.
-            if self.alpha < 1:
+            if self.alpha <= 1:
                 self.alpha += self.alpha_rate
             
             #Train the generator

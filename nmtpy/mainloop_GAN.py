@@ -346,14 +346,13 @@ class MainLoop(object):
             #Train the generator
             for it in range(self.generator_loop_num):
                 # Khoa: Generate samples
-                # Khoa: def translate(self, inputs, beam_size = 1 , maxlen)
-                input_sentences, translated_sentences, translated_states = self.model.translate_beam_search(list(data.values()),
-                                                                             maxlen=self.maxlen)
-                
-                
+                # Khoa: def translate(self, inputs, beam_size = 1 , maxlen), Be careful with beam_size != 1 => Error
+                input_sentences, translated_sentences, translated_states = self.model.translate_beam_search(
+                                                                             inputs = list(data.values()),
+                                                                             maxlen = self.maxlen)
+
                 
                 # Khoa: Get reward for each sentence in batch. 
-
                 # -------------------------------------------------------------
                 # Khoa: Reward from Discriminator
                 # There are two ways of Discriminator: 
@@ -361,26 +360,27 @@ class MainLoop(object):
                 discriminator_rewards_ = []
                 for (input_sentence, translated_sentence, translated_state)  in zip(input_sentences, translated_sentences, translated_states):
                     if self.monte_carlo_search:
-                        # Khoa: get_reward_MC(self, discriminator, 
-                        # input_sentence, translated_sentence, translated_states 
-                        # rollout_num = 20, maxlen = 50, 
-                        # beam_size=12, base_value=0.1)
+                        # Khoa: def get_reward_MC(self, discriminator, 
+                        # input_sentence, translated_sentence, translated_states, 
+                        # rollout_num = 20, maxlen = 50, base_value=0.1)
 
-                        reward = self.model.get_reward_MC(self.discriminator, 
-                                                   input_sentence, 
-                                                   translated_sentence,
-                                                   translated_state,
-                                                   rollout_num = self.rollnum, 
-                                                   maxlen = self.maxlen, 
-                                                   base_value=0.5)
+                        reward = self.model.get_reward_MC(discriminator       = self.discriminator, 
+                                                          input_sentence      = input_sentence, 
+                                                          translated_sentence = translated_sentence,
+                                                          translated_states   = translated_state,
+                                                          rollout_num         = self.rollnum, 
+                                                          maxlen              = self.maxlen, 
+                                                          base_value          = 0.5)
+                        
+                        
                     else:
                         # Khoa: def get_reward_not_MC(self, discriminator, 
-                        # input_sentence, translated_sentence, base_value=0.1)
+                        # input_sentence, translated_sentence, base_value=0.1):
                         
-                        reward = self.model.get_reward_not_MC(self.discriminator, 
-                                                   input_sentence, 
-                                                   translated_sentence,
-                                                   base_value=0.5)
+                        reward = self.model.get_reward_not_MC(discriminator       = self.discriminator, 
+                                                              input_sentence      = input_sentence, 
+                                                              translated_sentence = translated_sentence,
+                                                              base_value          = 0.5)
                     
                     discriminator_rewards_.append(reward)
                         

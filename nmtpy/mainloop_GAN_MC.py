@@ -179,67 +179,6 @@ class MainLoop(object):
         pass
     
 
-    def __train_epoch(self):
-        """Train a full epoch."""
-        self.ectr += 1
-
-        start = time.time()
-        start_uctr = self.uctr
-        self.__print('Starting Epoch %d' % self.ectr, True)
-
-        batch_losses = []
-
-        # Iterate over batches
-        for data in self.model.train_iterator:
-            self.uctr += 1
-
-            # Forward/backward and get loss
-            loss = self.model.train_batch(*list(data.values()))
-            batch_losses.append(loss)
-            self.__send_stats(self.uctr, train_loss=loss)
-
-            # Verbose
-            if self.uctr % self.f_verbose == 0:
-                self.__print("Epoch: %6d, update: %7d, cost: %10.6f" % (self.ectr, self.uctr, loss))
-
-            # Should we stop
-            if self.uctr == self.max_updates:
-                self.__print("Max iteration %d reached." % self.uctr)
-                return False
-
-            # Update learning rate if requested
-            self.__update_lrate()
-
-            # Do sampling
-            self.__do_sampling(data)
-
-            # Do validation
-            if not self.epoch_valid and self.f_valid > 0 and self.uctr % self.f_valid == 0:
-                self.__do_validation()
-
-            # Check stopping conditions
-            if self.early_bad == self.patience:
-                self.__print("Early stopped.")
-                return False
-
-        # An epoch is finished
-        epoch_time = time.time() - start
-
-        # Print epoch summary
-        up_ctr = self.uctr - start_uctr
-        self.__dump_epoch_summary(batch_losses, epoch_time, up_ctr)
-
-        # Do validation
-        if self.epoch_valid:
-            self.__do_validation()
-
-        # Check whether maximum epoch is reached
-        if self.ectr == self.max_epochs:
-            self.__print("Max epochs %d reached." % self.max_epochs)
-            return False
-
-        return True
-
     def __do_sampling(self, data):
         """Generates samples and prints them."""
         if self.do_sampling and self.uctr % self.f_sample == 0:
@@ -423,15 +362,11 @@ class MainLoop(object):
             for it in range(self.generator_loop_num):
                 # Khoa: Generate samples
                 # Khoa: def translate(self, inputs, beam_size = 1 , maxlen)
-                input_sentences, translated_sentences, translated_states = self.model.translate_beam_search(list(data.values()),
+                input_sentences, translated_sentences, translated_states = self.model.translate_beam_search(
+                                                                             list(data.values()),
                                                                              maxlen=self.maxlen)
                 
-                
-        
-                
-                
                  # Khoa: Get reward for each sentence in batch. 
-
                 # -------------------------------------------------------------
                 # Khoa: Reward from Discriminator
                 # There are two ways of Discriminator: 
@@ -439,13 +374,19 @@ class MainLoop(object):
                 discriminator_rewards_ = []
                 for (input_sentence, translated_sentence, translated_state)  in zip(input_sentences, translated_sentences, translated_states):
                     if self.monte_carlo_search: 
-                        reward, reward_research = self.get_reward_MC_research(self.discriminator, self.model,
-                                                   input_sentence, 
-                                                   translated_sentence, 
-                                                   rollout_num = self.rollnum, 
-                                                   maxlen = self.maxlen, 
-                                                   beam_size=1, 
-                                                   base_value=0.5)
+                        # def get_reward_MC_research(self, discriminator, generator, 
+                        # input_sentence, translated_sentence, translated_states, 
+                        # rollout_num = 20, maxlen = 50, base_value=0.1):
+                        reward, reward_research = self.get_reward_MC_research(
+                                                    discriminator       = self.discriminator,
+                                                    generator           = self.model,
+                                                    input_sentence      = input_sentence,
+                                                    translated_sentence = translated_sentence, 
+                                                    translated_states   = translated_states,
+                                                    rollout_num         = self.rollnum, 
+                                                    maxlen              = self.maxlen, 
+                                                    beam_size           = 1, 
+                                                    base_value          = 0.5)
                         
                         
                         input_sentence_string = []
@@ -599,7 +540,7 @@ class MainLoop(object):
         return True
 
     # Khoa: Reward for a sentence by using Monte Carlo search 
-    def get_reward_MC_research(self, discriminator, generator, input_sentence, translated_sentence, rollout_num = 20, maxlen = 50, beam_size=12, base_value=0.1):
+    def get_reward_MC_research(self, discriminator, generator, input_sentence, translated_sentence, translated_states, rollout_num = 20, maxlen = 50, base_value=0.1):
         final_reward = []
         final_reward_token = []
        
@@ -614,9 +555,12 @@ class MainLoop(object):
                 reward = 0
                 max_sentence_len = maxlen - token_index - 1
                 for rollout_time  in range(rollout_num):
-                    sentence = generator.monte_carlo_search(input_sentence,translated_sentence[token_index],
-                                                            [self.model.f_init],[self.model.f_next],
-                                                            beam_size,max_sentence_len)
+                    sentence = generator.sampling_multinomial(inputs = input_sentence, 
+                                                         token = translated_sentence[token_index], 
+                                                         state = translated_states[token_index], 
+                                                         f_init = self.f_init,
+                                                         f_next = self.f_next,
+                                                         maxlen = max_sentence_len)
                     sentence_ = np.array(sentence)
                     sentence_shape = sentence_.shape
                     sentence_ = sentence_.reshape(sentence_shape[0],1)

@@ -629,7 +629,7 @@ class Model(Attention):
     
     # Khoa: This beam search is modified and used for function translate_beam_search()
     # Be careful with beam_size > 1
-    def beam_search_(self, inputs, f_inits, f_nexts, beam_size=1, maxlen=100, suppress_unks=False, **kwargs):
+    def beam_search_(self, inputs, f_inits, f_nexts, beam_size = 1, maxlen=100, suppress_unks=False, **kwargs):
         # Final results and their scores
         final_sample        = []
         final_states        = []
@@ -640,6 +640,7 @@ class Model(Attention):
         # Initially we have one empty hypothesis with a score of 0
         # hyp_alignments  = [[]]
         hyp_samples     = [[]]
+        hyp_states     = [[]]
         hyp_scores      = np.zeros(1, dtype=FLOAT)
 
 
@@ -686,7 +687,6 @@ class Model(Attention):
             # We do this for each model
             for m, f_next in enumerate(f_nexts):
                 next_log_ps[m], next_states[m], alphas[m] = f_next(*([next_w, next_states[m], tiled_ctxs[m]] + aux_ctxs[m]))
-                
                 if suppress_unks:
                     next_log_ps[m][:, 1] = -np.inf
             
@@ -711,10 +711,12 @@ class Model(Attention):
             live_beam           = 0
             # new_hyp_scores      = []
             new_hyp_samples     = []
+
             # new_hyp_alignments  = []
 
             # This will be the new next states in the next iteration
-            hyp_states          = []
+            # hyp_states          = []
+            new_hyp_states      = []
 
             # Find out to which initial hypothesis idx this was belonging
             # Find out the idx of the appended word
@@ -730,6 +732,8 @@ class Model(Attention):
                 if wi == 0:
                     # <eos> found, separate out finished hypotheses
                     final_sample.append(new_hyp)
+                    new_hyp_states_ = [next_states[0][ti]]
+                    final_states.append([new_hyp_states_])
                     # final_score.append(costs[idx])
                     # final_alignments.append(new_ali)
                     
@@ -741,12 +745,13 @@ class Model(Attention):
                     # new_hyp_alignments.append(new_ali)
                     
                     # Hidden state of the decoder for this hypothesis
-                    hyp_states.append([next_state[ti] for next_state in next_states])
+                    new_hyp_states.append([next_state[ti] for next_state in next_states])
                     
                     live_beam += 1
 
             # hyp_scores  = np.array(new_hyp_scores, dtype=FLOAT)
             hyp_samples = new_hyp_samples
+            hyp_states = new_hyp_states
             # hyp_alignments = new_hyp_alignments
 
             if live_beam == 0:
@@ -763,16 +768,18 @@ class Model(Attention):
             final_states.append(next_states)
         
         
-        final_states_ = np.array(final_states, dtype=FLOAT)
-        final_states_ = final_states_.swapaxes(0,2)
-        final_states_shape = final_states_.shape
-        final_states = final_states_.reshape((final_states_shape[0],final_states_shape[2], final_states_shape[3] ))
-        
         # dump every remaining hypotheses
         for idx in range(live_beam):
             final_sample.append(hyp_samples[idx])
             # final_score.append(hyp_scores[idx])
             # final_alignments.append(hyp_alignments[idx])
+            # final_states.append(hyp_states[idx])
+
+        
+        final_states_ = np.array(final_states, dtype=FLOAT)
+        final_states_ = final_states_.swapaxes(0,2)
+        final_states_shape = final_states_.shape
+        final_states = final_states_.reshape((final_states_shape[0],final_states_shape[2], final_states_shape[3] ))
         
         return final_sample, final_states
             

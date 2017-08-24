@@ -263,7 +263,7 @@ class MainLoop(object):
             probs = np.array(probs)*np.array(batch_discriminator[2])
             probs = probs.sum(1)
             true_num= sum(1 for prob in probs if prob > 0.5)
-            prob_true.append(1 - (true_num/len(probs)))
+            prob_true.append((true_num/len(probs)))
             
         mean_acc = np.array(prob_true).mean()
         
@@ -464,7 +464,7 @@ class MainLoop(object):
                     loss_discriminator = self.discriminator.train_batch(*batch_discriminator)
                     
                     # Khoa: Get loss
-                    self.__print('Loss Discriminaror: %10.6f' % loss_discriminator)
+                    self.__print('Loss Discriminator: %10.6f' % loss_discriminator)
                     discriminator_batch_losses.append(loss_discriminator)
 
             # Verbose

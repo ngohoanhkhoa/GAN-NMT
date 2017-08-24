@@ -6,3 +6,6 @@ Generative Adversarial Networks in Neural Machine Translation
 ○ Supervisor: Alexandre ALLAUZEN {allauzen@limsi.fr}
 ○ Technical Keywords: Generative Adversarial Network, Reinforcement Learning, Convolutional Neural Network, Recurrent Neural Network, Python
 ○ Description: The objective of this project is improving neural machine translation with generative adversarial nets. It is based on the paper "Improving Neural Machine Translation with Conditional Sequence Generative Adversarial Nets" [Yang et al] (https://arxiv.org/abs/1703.04887) and the framework of NMTPY (https://github.com/lium-lst/nmtpy).
+
+
+## How to run

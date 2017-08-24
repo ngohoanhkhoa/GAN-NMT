@@ -9,3 +9,8 @@ Generative Adversarial Networks in Neural Machine Translation
 
 
 ## How to run
+1: Setup NMTPY
+2: Replace "nmtpy" folder
+3: In model_conf, check config files (file.conf)
+4: In "GAN_NMT_model", run bash file (file.sh)
+Note: Remember to check the path

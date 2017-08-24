@@ -93,9 +93,13 @@ class Model(Attention):
         tparams = OrderedDict(self.tparams)
         
         # Khoa:
-        log_probs_ouput = cost[1]
+        log_probs_output = cost[1]
         cost = cost[0]
         # Khoa.
+        
+        
+        
+        
         
         # Filter out weights that we do not want to update during backprop
         if dont_update is not None:
@@ -106,12 +110,15 @@ class Model(Attention):
         
         # Our final cost
         # Khoa:
-        final_cost = (reward*log_probs_ouput).sum(0).mean()
+        final_cost = (reward*log_probs_output).sum(0).mean()
 #        if reward is not None:
 #            final_cost = (reward*log_probs_ouput).sum(0).mean()
 #        else:
 #            final_cost = cost.mean()
 #         Khoa.
+
+        self.final_cost = theano.function(list(self.inputs.values())+[reward], final_cost, on_unused_input='warn')
+        self.get_cost = theano.function(list(self.inputs.values())+[reward], cost.mean(), on_unused_input='warn')
         
         # If we have a regularization cost, add it
         if regcost is not None:
@@ -126,6 +133,8 @@ class Model(Attention):
                 norm_cost += regcost
         else:
             norm_cost = final_cost
+            
+        
         
         # Get gradients of cost with respect to variables
         # This uses final_cost which is not normalized w.r.t sentence lengths
@@ -153,6 +162,7 @@ class Model(Attention):
                                                    pre_func=inspect_inputs,
                                                    post_func=inspect_outputs), on_unused_input='warn')
         else:
+            # Khoa: norm_cost is different (norm_cost != loss_generator from self.model.train_batch() ) ?
             self.train_batch = theano.function(list(self.inputs.values())+[reward], norm_cost, updates=updates, 
                                                on_unused_input='warn')
             
@@ -295,7 +305,8 @@ class Model(Attention):
 
         # Apply logsoftmax (stable version)
         log_probs = -tensor.nnet.logsoftmax(logit.reshape([logit_shp[0]*logit_shp[1], logit_shp[2]]))
-#        log_probs = -tensor.nnet.softmax(logit.reshape([logit_shp[0]*logit_shp[1], logit_shp[2]]))
+        #log_probs = -tensor.log(tensor.nnet.softmax(logit.reshape([logit_shp[0]*logit_shp[1], logit_shp[2]])))
+        #log_probs = -tensor.nnet.softmax(logit.reshape([logit_shp[0]*logit_shp[1], logit_shp[2]]))
 
         # cost
         y_flat = y.flatten()
@@ -304,18 +315,18 @@ class Model(Attention):
         cost = log_probs.flatten()[y_flat_idx]
         cost = cost.reshape([n_timesteps_trg, n_samples])
         # Khoa:
-        log_probs_ouput = cost
+        log_probs_output = (cost * y_mask)
         # Khoa.
         
         cost = (cost * y_mask).sum(0)
 
-        self.log_probs_ouput = theano.function(list(self.inputs.values()), log_probs_ouput)
+        self.log_probs_output = theano.function(list(self.inputs.values()), log_probs_output)
         
         self.f_log_probs = theano.function(list(self.inputs.values()), cost)
 
         # For alpha regularization
         # Khoa:
-        return cost, log_probs_ouput
+        return cost, log_probs_output
 
     def build_sampler(self):
         x           = tensor.matrix('x', dtype=INT)

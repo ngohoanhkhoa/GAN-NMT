@@ -351,7 +351,9 @@ class MainLoop(object):
                                                                              inputs = list(data.values()),
                                                                              maxlen = self.maxlen)
 
-                
+#                print('true y', list(data.values())[2])
+#                print('pred y', translated_sentences)
+
                 # Khoa: Get reward for each sentence in batch. 
                 # -------------------------------------------------------------
                 # Khoa: Reward from Discriminator
@@ -370,7 +372,7 @@ class MainLoop(object):
                                                           translated_states   = translated_state,
                                                           rollout_num         = self.rollnum, 
                                                           maxlen              = self.maxlen, 
-                                                          base_value          = 0.5)
+                                                          base_value          = 0.0)
                         
                         
                     else:
@@ -380,7 +382,7 @@ class MainLoop(object):
                         reward = self.model.get_reward_not_MC(discriminator       = self.discriminator, 
                                                               input_sentence      = input_sentence, 
                                                               translated_sentence = translated_sentence,
-                                                              base_value          = 0.5)
+                                                              base_value          = 0.0)
                     
                     discriminator_rewards_.append(reward)
                         
@@ -402,7 +404,7 @@ class MainLoop(object):
                         # Khoa: def get_reward_LM(self, language_model, translated_sentence, base_value=0.1)
                         reward = self.model.get_reward_LM(language_model = self.language_model, 
                                                         translated_sentence = translated_sentence, 
-                                                        base_value=0.1)
+                                                        base_value=0.0)
                         
                         language_model_rewards_.append(reward)
                         
@@ -419,13 +421,31 @@ class MainLoop(object):
                 # -------------------------------------------------------------
                 # Khoa: Update Generator with Reward from Discriminator or/and Language Model 
                 # (Using machine-translated sentence)
+                
+#                a = self.model.log_probs_output(*batch_generator)
+#                b = a*rewards
+#                print('Reward: ', rewards)
+#                print('Not reward: ', a.sum(0).mean())
+#                print('Dis: ', b.sum(0).mean())
+#                
+#                a = self.model.log_probs_output(*list(data.values()))
+#                b = a*professor_rewards
+#                print('Pro: ', b.sum(0).mean())
+#                
+#                print('final_cost: ', self.model.final_cost(*list(data.values()), professor_rewards) )
+#                print('get_cost: ', self.model.get_cost(*list(data.values()), professor_rewards) )
+#                print('get_norm_cost: ', self.model.get_norm_cost(*list(data.values()), professor_rewards) )
+                
                 loss_generator = self.model.train_batch(*batch_generator, rewards)
+                self.__print('Loss Generator D: %f' % loss_generator)
+                generator_batch_losses.append(loss_generator)
+                self.__send_stats(self.uctr, train_loss=loss_generator)
                 
                 # Khoa: Update Generator with Professor Forcing (Using human-translated sentence)
                 loss_generator = self.model.train_batch(*list(data.values()), professor_rewards)
                 
                 # Khoa: Get loss
-                self.__print('Loss Generator: %10.6f' % loss_generator)
+                self.__print('Loss Generator P: %f' % loss_generator)
                 generator_batch_losses.append(loss_generator)
                 self.__send_stats(self.uctr, train_loss=loss_generator)
 

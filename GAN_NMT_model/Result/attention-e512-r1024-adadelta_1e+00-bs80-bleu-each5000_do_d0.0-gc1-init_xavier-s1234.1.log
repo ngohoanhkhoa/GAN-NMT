@@ -1,0 +1,3055 @@
+THEANO_FLAGS = device=cpu,floatX=float32
+Using device: auto (on machine m155)
+Theano version: 0.9.0.dev-c697eeab84e5b8a74908da654b66ec9eca4f1291
+Training options:
+-----------------------------------
+         clip_c : 1.0
+        decay_c : 0
+      device_id : auto
+           init : None
+     max_epochs : 1000000
+  max_iteration : 1000000
+     model_type : attention
+       patience : 10
+    sample_freq : 0
+    save_best_n : 4
+           seed : 1234
+  snapshot_freq : 0
+     valid_beam : 12
+     valid_freq : 5000
+   valid_metric : bleu
+    valid_njobs : 16
+ valid_save_hyp : False
+    valid_start : 2
+
+Model options:
+-----------------------------------
+     batch_size : 80
+       dec_type : gru_cond
+        dropout : 0.0
+  embedding_dim : 512
+       enc_type : gru
+     layer_norm : False
+          lrate : 1
+    n_words_src : 30000
+    n_words_trg : 30000
+          njobs : 15
+      norm_cost : False
+      optimizer : adadelta
+        rnn_dim : 1024
+      save_path : /people/ngoho/Documents/train_folder/GAN_NMT_model/models/attention_en_fr_small_data/attention-e512-r1024-adadelta_1e+00-bs80-bleu-each5000_do_d0.0-gc1-init_xavier-s1234.1
+   shuffle_mode : None
+   tied_trg_emb : True
+   valid_metric : bleu
+    weight_init : xavier
+          dicts =
+            src : /people/ngoho/Documents/train_folder/GAN_NMT_model/small_data/train.en.vocab.pkl
+            trg : /people/ngoho/Documents/train_folder/GAN_NMT_model/small_data/train.fr.vocab.pkl
+           data =
+      train_src : /people/ngoho/Documents/train_folder/GAN_NMT_model/small_data/train.en
+      train_trg : /people/ngoho/Documents/train_folder/GAN_NMT_model/small_data/train.fr
+      valid_src : /people/ngoho/Documents/train_folder/GAN_NMT_model/small_data/valid.en
+      valid_trg : /people/ngoho/Documents/train_folder/GAN_NMT_model/small_data/valid.fr
+
+Initializing parameters
+Creating shared variables
+Number of parameters: 42.4M
+Loading data
+Shuffle mode: None
+Source vocabulary size: 7751
+Target vocabulary size: 9067
+19972 training samples
+469 validation samples
+dropout (emb,ctx,out): 0.00, 0.00, 0.00
+Building model
+Input tensor order: 
+[x, x_mask, y, y_mask]
+Building optimizer adadelta (initial lr=1.00000)
+Starting Epoch 1
+----------------
+Epoch:      1, update:      10, cost:   6.751573
+Epoch:      1, update:      20, cost:   6.303940
+Epoch:      1, update:      30, cost:   6.024302
+Epoch:      1, update:      40, cost:   6.148303
+Epoch:      1, update:      50, cost:   5.895939
+Epoch:      1, update:      60, cost:   5.931703
+Epoch:      1, update:      70, cost:   5.932346
+Epoch:      1, update:      80, cost:   5.767141
+Epoch:      1, update:      90, cost:   5.781779
+Epoch:      1, update:     100, cost:   5.722023
+Epoch:      1, update:     110, cost:   5.408734
+Epoch:      1, update:     120, cost:   5.263173
+Epoch:      1, update:     130, cost:   5.374972
+Epoch:      1, update:     140, cost:   5.379006
+Epoch:      1, update:     150, cost:   5.142940
+Epoch:      1, update:     160, cost:   5.117162
+Epoch:      1, update:     170, cost:   5.327273
+Epoch:      1, update:     180, cost:   5.017691
+Epoch:      1, update:     190, cost:   5.199615
+Epoch:      1, update:     200, cost:   5.198068
+Epoch:      1, update:     210, cost:   5.007403
+Epoch:      1, update:     220, cost:   4.964396
+Epoch:      1, update:     230, cost:   5.032068
+Epoch:      1, update:     240, cost:   4.875551
+Epoch:      1, update:     250, cost:   4.691468
+--> Epoch 1 finished with mean loss 5.56594 (PPL: 261.37112)
+--> Epoch took 166.324 minutes, 39.918 sec/update
+Starting Epoch 2
+----------------
+Epoch:      2, update:     260, cost:   4.871219
+Epoch:      2, update:     270, cost:   4.829597
+Epoch:      2, update:     280, cost:   4.605118
+Epoch:      2, update:     290, cost:   4.717074
+Epoch:      2, update:     300, cost:   4.480987
+Epoch:      2, update:     310, cost:   4.484818
+Epoch:      2, update:     320, cost:   4.605496
+Epoch:      2, update:     330, cost:   4.418896
+Epoch:      2, update:     340, cost:   4.483182
+Epoch:      2, update:     350, cost:   4.389825
+Epoch:      2, update:     360, cost:   4.290599
+Epoch:      2, update:     370, cost:   4.289801
+Epoch:      2, update:     380, cost:   4.245656
+Epoch:      2, update:     390, cost:   4.237840
+Epoch:      2, update:     400, cost:   4.009920
+Epoch:      2, update:     410, cost:   3.906870
+Epoch:      2, update:     420, cost:   4.219084
+Epoch:      2, update:     430, cost:   3.874428
+Epoch:      2, update:     440, cost:   4.142911
+Epoch:      2, update:     450, cost:   4.248973
+Epoch:      2, update:     460, cost:   3.979132
+Epoch:      2, update:     470, cost:   4.049020
+Epoch:      2, update:     480, cost:   4.113978
+Epoch:      2, update:     490, cost:   3.956860
+Epoch:      2, update:     500, cost:   3.858179
+--> Epoch 2 finished with mean loss 4.30042 (PPL: 73.73046)
+--> Epoch took 164.986 minutes, 39.597 sec/update
+Starting Epoch 3
+----------------
+Epoch:      3, update:     510, cost:   4.026680
+Epoch:      3, update:     520, cost:   4.046921
+Epoch:      3, update:     530, cost:   3.807844
+Epoch:      3, update:     540, cost:   4.003230
+Epoch:      3, update:     550, cost:   3.900370
+Epoch:      3, update:     560, cost:   3.874291
+Epoch:      3, update:     570, cost:   3.980914
+Epoch:      3, update:     580, cost:   3.867935
+Epoch:      3, update:     590, cost:   3.909329
+Epoch:      3, update:     600, cost:   3.824625
+Epoch:      3, update:     610, cost:   3.718781
+Epoch:      3, update:     620, cost:   3.686860
+Epoch:      3, update:     630, cost:   3.686838
+Epoch:      3, update:     640, cost:   3.657416
+Epoch:      3, update:     650, cost:   3.547342
+Epoch:      3, update:     660, cost:   3.400528
+Epoch:      3, update:     670, cost:   3.722392
+Epoch:      3, update:     680, cost:   3.426421
+Epoch:      3, update:     690, cost:   3.667850
+Epoch:      3, update:     700, cost:   3.780747
+Epoch:      3, update:     710, cost:   3.508797
+Epoch:      3, update:     720, cost:   3.580410
+Epoch:      3, update:     730, cost:   3.605332
+Epoch:      3, update:     740, cost:   3.484074
+Epoch:      3, update:     750, cost:   3.487869
+--> Epoch 3 finished with mean loss 3.71349 (PPL: 40.99650)
+--> Epoch took 165.853 minutes, 39.805 sec/update
+Starting Epoch 4
+----------------
+Epoch:      4, update:     760, cost:   3.523054
+Epoch:      4, update:     770, cost:   3.573531
+Epoch:      4, update:     780, cost:   3.394829
+Epoch:      4, update:     790, cost:   3.594337
+Epoch:      4, update:     800, cost:   3.444028
+Epoch:      4, update:     810, cost:   3.430090
+Epoch:      4, update:     820, cost:   3.538517
+Epoch:      4, update:     830, cost:   3.413658
+Epoch:      4, update:     840, cost:   3.483141
+Epoch:      4, update:     850, cost:   3.438017
+Epoch:      4, update:     860, cost:   3.280823
+Epoch:      4, update:     870, cost:   3.308612
+Epoch:      4, update:     880, cost:   3.309459
+Epoch:      4, update:     890, cost:   3.265806
+Epoch:      4, update:     900, cost:   3.180752
+Epoch:      4, update:     910, cost:   3.034811
+Epoch:      4, update:     920, cost:   3.377693
+Epoch:      4, update:     930, cost:   3.063991
+Epoch:      4, update:     940, cost:   3.311460
+Epoch:      4, update:     950, cost:   3.405329
+Epoch:      4, update:     960, cost:   3.139930
+Epoch:      4, update:     970, cost:   3.198451
+Epoch:      4, update:     980, cost:   3.232782
+Epoch:      4, update:     990, cost:   3.152337
+Epoch:      4, update:    1000, cost:   3.205046
+--> Epoch 4 finished with mean loss 3.32770 (PPL: 27.87407)
+--> Epoch took 171.569 minutes, 41.176 sec/update
+Starting Epoch 5
+----------------
+Epoch:      5, update:    1010, cost:   3.194958
+Epoch:      5, update:    1020, cost:   3.267043
+Epoch:      5, update:    1030, cost:   3.088955
+Epoch:      5, update:    1040, cost:   3.299911
+Epoch:      5, update:    1050, cost:   3.163277
+Epoch:      5, update:    1060, cost:   3.119748
+Epoch:      5, update:    1070, cost:   3.266137
+Epoch:      5, update:    1080, cost:   3.099575
+Epoch:      5, update:    1090, cost:   3.172990
+Epoch:      5, update:    1100, cost:   3.059206
+Epoch:      5, update:    1110, cost:   2.955307
+Epoch:      5, update:    1120, cost:   2.960416
+Epoch:      5, update:    1130, cost:   3.036064
+Epoch:      5, update:    1140, cost:   2.961020
+Epoch:      5, update:    1150, cost:   2.880115
+Epoch:      5, update:    1160, cost:   2.761164
+Epoch:      5, update:    1170, cost:   3.048695
+Epoch:      5, update:    1180, cost:   2.762107
+Epoch:      5, update:    1190, cost:   3.020875
+Epoch:      5, update:    1200, cost:   3.083635
+Epoch:      5, update:    1210, cost:   2.856424
+Epoch:      5, update:    1220, cost:   2.889989
+Epoch:      5, update:    1230, cost:   2.930164
+Epoch:      5, update:    1240, cost:   2.858135
+Epoch:      5, update:    1250, cost:   2.874734
+--> Epoch 5 finished with mean loss 3.01562 (PPL: 20.40183)
+--> Epoch took 176.092 minutes, 42.262 sec/update
+Starting Epoch 6
+----------------
+Epoch:      6, update:    1260, cost:   2.918017
+Epoch:      6, update:    1270, cost:   2.942957
+Epoch:      6, update:    1280, cost:   2.787308
+Epoch:      6, update:    1290, cost:   3.069996
+Epoch:      6, update:    1300, cost:   2.870134
+Epoch:      6, update:    1310, cost:   2.820772
+Epoch:      6, update:    1320, cost:   2.981346
+Epoch:      6, update:    1330, cost:   2.769177
+Epoch:      6, update:    1340, cost:   2.879721
+Epoch:      6, update:    1350, cost:   2.771358
+Epoch:      6, update:    1360, cost:   2.654461
+Epoch:      6, update:    1370, cost:   2.638518
+Epoch:      6, update:    1380, cost:   2.738579
+Epoch:      6, update:    1390, cost:   2.644918
+Epoch:      6, update:    1400, cost:   2.640162
+Epoch:      6, update:    1410, cost:   2.487084
+Epoch:      6, update:    1420, cost:   2.767902
+Epoch:      6, update:    1430, cost:   2.501356
+Epoch:      6, update:    1440, cost:   2.720371
+Epoch:      6, update:    1450, cost:   2.814411
+Epoch:      6, update:    1460, cost:   2.624905
+Epoch:      6, update:    1470, cost:   2.547774
+Epoch:      6, update:    1480, cost:   2.643221
+Epoch:      6, update:    1490, cost:   2.526660
+Epoch:      6, update:    1500, cost:   2.531040
+--> Epoch 6 finished with mean loss 2.74404 (PPL: 15.54965)
+--> Epoch took 180.102 minutes, 43.225 sec/update
+Starting Epoch 7
+----------------
+Epoch:      7, update:    1510, cost:   2.694635
+Epoch:      7, update:    1520, cost:   2.696389
+Epoch:      7, update:    1530, cost:   2.534860
+Epoch:      7, update:    1540, cost:   2.793179
+Epoch:      7, update:    1550, cost:   2.604964
+Epoch:      7, update:    1560, cost:   2.589622
+Epoch:      7, update:    1570, cost:   2.715394
+Epoch:      7, update:    1580, cost:   2.522706
+Epoch:      7, update:    1590, cost:   2.642658
+Epoch:      7, update:    1600, cost:   2.499021
+Epoch:      7, update:    1610, cost:   2.401068
+Epoch:      7, update:    1620, cost:   2.479371
+Epoch:      7, update:    1630, cost:   2.545526
+Epoch:      7, update:    1640, cost:   2.541724
+Epoch:      7, update:    1650, cost:   2.419569
+Epoch:      7, update:    1660, cost:   2.293797
+Epoch:      7, update:    1670, cost:   2.581473
+Epoch:      7, update:    1680, cost:   2.266896
+Epoch:      7, update:    1690, cost:   2.483271
+Epoch:      7, update:    1700, cost:   2.625475
+Epoch:      7, update:    1710, cost:   2.413762
+Epoch:      7, update:    1720, cost:   2.358522
+Epoch:      7, update:    1730, cost:   2.414016
+Epoch:      7, update:    1740, cost:   2.338355
+Epoch:      7, update:    1750, cost:   2.313883
+--> Epoch 7 finished with mean loss 2.51111 (PPL: 12.31854)
+--> Epoch took 179.923 minutes, 43.181 sec/update
+Starting Epoch 8
+----------------
+Epoch:      8, update:    1760, cost:   2.538412
+Epoch:      8, update:    1770, cost:   2.470093
+Epoch:      8, update:    1780, cost:   2.295203
+Epoch:      8, update:    1790, cost:   2.626890
+Epoch:      8, update:    1800, cost:   2.391121
+Epoch:      8, update:    1810, cost:   2.390242
+Epoch:      8, update:    1820, cost:   2.478254
+Epoch:      8, update:    1830, cost:   2.274279
+Epoch:      8, update:    1840, cost:   2.402330
+Epoch:      8, update:    1850, cost:   2.323127
+Epoch:      8, update:    1860, cost:   2.206625
+Epoch:      8, update:    1870, cost:   2.209763
+Epoch:      8, update:    1880, cost:   2.327945
+Epoch:      8, update:    1890, cost:   2.248216
+Epoch:      8, update:    1900, cost:   2.261859
+Epoch:      8, update:    1910, cost:   2.085100
+Epoch:      8, update:    1920, cost:   2.362913
+Epoch:      8, update:    1930, cost:   2.109838
+Epoch:      8, update:    1940, cost:   2.322798
+Epoch:      8, update:    1950, cost:   2.366993
+Epoch:      8, update:    1960, cost:   2.194309
+Epoch:      8, update:    1970, cost:   2.101331
+Epoch:      8, update:    1980, cost:   2.211929
+Epoch:      8, update:    1990, cost:   2.079976
+Epoch:      8, update:    2000, cost:   2.071551
+--> Epoch 8 finished with mean loss 2.29372 (PPL: 9.91173)
+--> Epoch took 181.289 minutes, 43.509 sec/update
+Starting Epoch 9
+----------------
+Epoch:      9, update:    2010, cost:   2.329655
+Epoch:      9, update:    2020, cost:   2.312410
+Epoch:      9, update:    2030, cost:   2.095945
+Epoch:      9, update:    2040, cost:   2.408638
+Epoch:      9, update:    2050, cost:   2.221543
+Epoch:      9, update:    2060, cost:   2.184767
+Epoch:      9, update:    2070, cost:   2.328682
+Epoch:      9, update:    2080, cost:   2.098986
+Epoch:      9, update:    2090, cost:   2.238611
+Epoch:      9, update:    2100, cost:   2.130553
+Epoch:      9, update:    2110, cost:   1.990706
+Epoch:      9, update:    2120, cost:   1.968116
+Epoch:      9, update:    2130, cost:   2.119769
+Epoch:      9, update:    2140, cost:   2.075346
+Epoch:      9, update:    2150, cost:   2.086314
+Epoch:      9, update:    2160, cost:   1.890717
+Epoch:      9, update:    2170, cost:   2.181358
+Epoch:      9, update:    2180, cost:   1.903771
+Epoch:      9, update:    2190, cost:   2.166531
+Epoch:      9, update:    2200, cost:   2.185611
+Epoch:      9, update:    2210, cost:   2.058349
+Epoch:      9, update:    2220, cost:   1.966731
+Epoch:      9, update:    2230, cost:   2.055910
+Epoch:      9, update:    2240, cost:   1.937136
+Epoch:      9, update:    2250, cost:   1.872240
+--> Epoch 9 finished with mean loss 2.11277 (PPL: 8.27113)
+--> Epoch took 182.613 minutes, 43.827 sec/update
+Starting Epoch 10
+-----------------
+Epoch:     10, update:    2260, cost:   2.258973
+Epoch:     10, update:    2270, cost:   2.117885
+Epoch:     10, update:    2280, cost:   1.899248
+Epoch:     10, update:    2290, cost:   2.271529
+Epoch:     10, update:    2300, cost:   2.044238
+Epoch:     10, update:    2310, cost:   2.067196
+Epoch:     10, update:    2320, cost:   2.112218
+Epoch:     10, update:    2330, cost:   1.911752
+Epoch:     10, update:    2340, cost:   2.033996
+Epoch:     10, update:    2350, cost:   1.970170
+Epoch:     10, update:    2360, cost:   1.808915
+Epoch:     10, update:    2370, cost:   1.814073
+Epoch:     10, update:    2380, cost:   1.963584
+Epoch:     10, update:    2390, cost:   1.862185
+Epoch:     10, update:    2400, cost:   1.910284
+Epoch:     10, update:    2410, cost:   1.728119
+Epoch:     10, update:    2420, cost:   2.008948
+Epoch:     10, update:    2430, cost:   1.759605
+Epoch:     10, update:    2440, cost:   1.969485
+Epoch:     10, update:    2450, cost:   2.047775
+Epoch:     10, update:    2460, cost:   1.944468
+Epoch:     10, update:    2470, cost:   1.799833
+Epoch:     10, update:    2480, cost:   1.910930
+Epoch:     10, update:    2490, cost:   1.806221
+Epoch:     10, update:    2500, cost:   1.730311
+--> Epoch 10 finished with mean loss 1.95220 (PPL: 7.04418)
+--> Epoch took 182.164 minutes, 43.719 sec/update
+Starting Epoch 11
+-----------------
+Epoch:     11, update:    2510, cost:   2.050314
+Epoch:     11, update:    2520, cost:   1.974971
+Epoch:     11, update:    2530, cost:   1.739711
+Epoch:     11, update:    2540, cost:   2.187366
+Epoch:     11, update:    2550, cost:   1.878458
+Epoch:     11, update:    2560, cost:   1.879925
+Epoch:     11, update:    2570, cost:   1.999805
+Epoch:     11, update:    2580, cost:   1.729212
+Epoch:     11, update:    2590, cost:   1.894049
+Epoch:     11, update:    2600, cost:   1.851062
+Epoch:     11, update:    2610, cost:   1.677534
+Epoch:     11, update:    2620, cost:   1.657794
+Epoch:     11, update:    2630, cost:   1.830389
+Epoch:     11, update:    2640, cost:   1.737823
+Epoch:     11, update:    2650, cost:   1.741063
+Epoch:     11, update:    2660, cost:   1.612539
+Epoch:     11, update:    2670, cost:   1.870640
+Epoch:     11, update:    2680, cost:   1.657372
+Epoch:     11, update:    2690, cost:   1.822288
+Epoch:     11, update:    2700, cost:   1.883925
+Epoch:     11, update:    2710, cost:   1.777474
+Epoch:     11, update:    2720, cost:   1.640132
+Epoch:     11, update:    2730, cost:   1.855673
+Epoch:     11, update:    2740, cost:   1.650686
+Epoch:     11, update:    2750, cost:   1.610794
+--> Epoch 11 finished with mean loss 1.80763 (PPL: 6.09598)
+--> Epoch took 183.808 minutes, 44.114 sec/update
+Starting Epoch 12
+-----------------
+Epoch:     12, update:    2760, cost:   1.920902
+Epoch:     12, update:    2770, cost:   1.843426
+Epoch:     12, update:    2780, cost:   1.593598
+Epoch:     12, update:    2790, cost:   1.999746
+Epoch:     12, update:    2800, cost:   1.731015
+Epoch:     12, update:    2810, cost:   1.821712
+Epoch:     12, update:    2820, cost:   1.843913
+Epoch:     12, update:    2830, cost:   1.598365
+Epoch:     12, update:    2840, cost:   1.770221
+Epoch:     12, update:    2850, cost:   1.672588
+Epoch:     12, update:    2860, cost:   1.589744
+Epoch:     12, update:    2870, cost:   1.542279
+Epoch:     12, update:    2880, cost:   1.734919
+Epoch:     12, update:    2890, cost:   1.646879
+Epoch:     12, update:    2900, cost:   1.594301
+Epoch:     12, update:    2910, cost:   1.499818
+Epoch:     12, update:    2920, cost:   1.734087
+Epoch:     12, update:    2930, cost:   1.537371
+Epoch:     12, update:    2940, cost:   1.651929
+Epoch:     12, update:    2950, cost:   1.738135
+Epoch:     12, update:    2960, cost:   1.641384
+Epoch:     12, update:    2970, cost:   1.528995
+Epoch:     12, update:    2980, cost:   1.743831
+Epoch:     12, update:    2990, cost:   1.530425
+Epoch:     12, update:    3000, cost:   1.452419
+--> Epoch 12 finished with mean loss 1.67878 (PPL: 5.35899)
+--> Epoch took 183.000 minutes, 43.920 sec/update
+Starting Epoch 13
+-----------------
+Epoch:     13, update:    3010, cost:   1.825975
+Epoch:     13, update:    3020, cost:   1.733786
+Epoch:     13, update:    3030, cost:   1.497807
+Epoch:     13, update:    3040, cost:   1.861848
+Epoch:     13, update:    3050, cost:   1.590010
+Epoch:     13, update:    3060, cost:   1.711156
+Epoch:     13, update:    3070, cost:   1.722667
+Epoch:     13, update:    3080, cost:   1.450245
+Epoch:     13, update:    3090, cost:   1.633497
+Epoch:     13, update:    3100, cost:   1.593411
+Epoch:     13, update:    3110, cost:   1.423199
+Epoch:     13, update:    3120, cost:   1.492293
+Epoch:     13, update:    3130, cost:   1.617431
+Epoch:     13, update:    3140, cost:   1.497571
+Epoch:     13, update:    3150, cost:   1.466939
+Epoch:     13, update:    3160, cost:   1.383467
+Epoch:     13, update:    3170, cost:   1.632536
+Epoch:     13, update:    3180, cost:   1.443641
+Epoch:     13, update:    3190, cost:   1.578386
+Epoch:     13, update:    3200, cost:   1.621648
+Epoch:     13, update:    3210, cost:   1.552387
+Epoch:     13, update:    3220, cost:   1.454516
+Epoch:     13, update:    3230, cost:   1.611319
+Epoch:     13, update:    3240, cost:   1.408359
+Epoch:     13, update:    3250, cost:   1.317517
+--> Epoch 13 finished with mean loss 1.56099 (PPL: 4.76355)
+--> Epoch took 183.724 minutes, 44.094 sec/update
+Starting Epoch 14
+-----------------
+Epoch:     14, update:    3260, cost:   1.699797
+Epoch:     14, update:    3270, cost:   1.633335
+Epoch:     14, update:    3280, cost:   1.411530
+Epoch:     14, update:    3290, cost:   1.713107
+Epoch:     14, update:    3300, cost:   1.491617
+Epoch:     14, update:    3310, cost:   1.559481
+Epoch:     14, update:    3320, cost:   1.583291
+Epoch:     14, update:    3330, cost:   1.333878
+Epoch:     14, update:    3340, cost:   1.508211
+Epoch:     14, update:    3350, cost:   1.473646
+Epoch:     14, update:    3360, cost:   1.304368
+Epoch:     14, update:    3370, cost:   1.333621
+Epoch:     14, update:    3380, cost:   1.510867
+Epoch:     14, update:    3390, cost:   1.431310
+Epoch:     14, update:    3400, cost:   1.337406
+Epoch:     14, update:    3410, cost:   1.297440
+Epoch:     14, update:    3420, cost:   1.538960
+Epoch:     14, update:    3430, cost:   1.357551
+Epoch:     14, update:    3440, cost:   1.430693
+Epoch:     14, update:    3450, cost:   1.487597
+Epoch:     14, update:    3460, cost:   1.433964
+Epoch:     14, update:    3470, cost:   1.328428
+Epoch:     14, update:    3480, cost:   1.480521
+Epoch:     14, update:    3490, cost:   1.341332
+Epoch:     14, update:    3500, cost:   1.192997
+--> Epoch 14 finished with mean loss 1.44848 (PPL: 4.25666)
+--> Epoch took 184.670 minutes, 44.321 sec/update
+Starting Epoch 15
+-----------------
+Epoch:     15, update:    3510, cost:   1.608315
+Epoch:     15, update:    3520, cost:   1.512520
+Epoch:     15, update:    3530, cost:   1.300313
+Epoch:     15, update:    3540, cost:   1.603367
+Epoch:     15, update:    3550, cost:   1.350760
+Epoch:     15, update:    3560, cost:   1.433765
+Epoch:     15, update:    3570, cost:   1.457416
+Epoch:     15, update:    3580, cost:   1.221792
+Epoch:     15, update:    3590, cost:   1.429040
+Epoch:     15, update:    3600, cost:   1.378617
+Epoch:     15, update:    3610, cost:   1.214720
+Epoch:     15, update:    3620, cost:   1.224329
+Epoch:     15, update:    3630, cost:   1.416185
+Epoch:     15, update:    3640, cost:   1.297955
+Epoch:     15, update:    3650, cost:   1.246715
+Epoch:     15, update:    3660, cost:   1.177956
+Epoch:     15, update:    3670, cost:   1.456678
+Epoch:     15, update:    3680, cost:   1.245133
+Epoch:     15, update:    3690, cost:   1.329516
+Epoch:     15, update:    3700, cost:   1.386101
+Epoch:     15, update:    3710, cost:   1.334865
+Epoch:     15, update:    3720, cost:   1.233764
+Epoch:     15, update:    3730, cost:   1.370057
+Epoch:     15, update:    3740, cost:   1.234530
+Epoch:     15, update:    3750, cost:   1.088633
+--> Epoch 15 finished with mean loss 1.34847 (PPL: 3.85152)
+--> Epoch took 185.201 minutes, 44.448 sec/update
+Starting Epoch 16
+-----------------
+Epoch:     16, update:    3760, cost:   1.511000
+Epoch:     16, update:    3770, cost:   1.412529
+Epoch:     16, update:    3780, cost:   1.225666
+Epoch:     16, update:    3790, cost:   1.501980
+Epoch:     16, update:    3800, cost:   1.279856
+Epoch:     16, update:    3810, cost:   1.324625
+Epoch:     16, update:    3820, cost:   1.363882
+Epoch:     16, update:    3830, cost:   1.116763
+Epoch:     16, update:    3840, cost:   1.310467
+Epoch:     16, update:    3850, cost:   1.274992
+Epoch:     16, update:    3860, cost:   1.121414
+Epoch:     16, update:    3870, cost:   1.167386
+Epoch:     16, update:    3880, cost:   1.333749
+Epoch:     16, update:    3890, cost:   1.180200
+Epoch:     16, update:    3900, cost:   1.141182
+Epoch:     16, update:    3910, cost:   1.091281
+Epoch:     16, update:    3920, cost:   1.338598
+Epoch:     16, update:    3930, cost:   1.181528
+Epoch:     16, update:    3940, cost:   1.249122
+Epoch:     16, update:    3950, cost:   1.267690
+Epoch:     16, update:    3960, cost:   1.228043
+Epoch:     16, update:    3970, cost:   1.124375
+Epoch:     16, update:    3980, cost:   1.262882
+Epoch:     16, update:    3990, cost:   1.140978
+Epoch:     16, update:    4000, cost:   0.997515
+--> Epoch 16 finished with mean loss 1.25169 (PPL: 3.49624)
+--> Epoch took 186.120 minutes, 44.669 sec/update
+Starting Epoch 17
+-----------------
+Epoch:     17, update:    4010, cost:   1.402923
+Epoch:     17, update:    4020, cost:   1.321729
+Epoch:     17, update:    4030, cost:   1.117206
+Epoch:     17, update:    4040, cost:   1.371447
+Epoch:     17, update:    4050, cost:   1.233106
+Epoch:     17, update:    4060, cost:   1.232446
+Epoch:     17, update:    4070, cost:   1.270148
+Epoch:     17, update:    4080, cost:   1.015108
+Epoch:     17, update:    4090, cost:   1.237298
+Epoch:     17, update:    4100, cost:   1.174454
+Epoch:     17, update:    4110, cost:   1.040642
+Epoch:     17, update:    4120, cost:   1.087930
+Epoch:     17, update:    4130, cost:   1.256882
+Epoch:     17, update:    4140, cost:   1.128283
+Epoch:     17, update:    4150, cost:   1.074235
+Epoch:     17, update:    4160, cost:   1.020072
+Epoch:     17, update:    4170, cost:   1.256811
+Epoch:     17, update:    4180, cost:   1.100144
+Epoch:     17, update:    4190, cost:   1.154784
+Epoch:     17, update:    4200, cost:   1.163579
+Epoch:     17, update:    4210, cost:   1.184376
+Epoch:     17, update:    4220, cost:   1.039924
+Epoch:     17, update:    4230, cost:   1.154747
+Epoch:     17, update:    4240, cost:   1.074130
+Epoch:     17, update:    4250, cost:   0.914858
+--> Epoch 17 finished with mean loss 1.16391 (PPL: 3.20243)
+--> Epoch took 186.784 minutes, 44.828 sec/update
+Starting Epoch 18
+-----------------
+Epoch:     18, update:    4260, cost:   1.353083
+Epoch:     18, update:    4270, cost:   1.230632
+Epoch:     18, update:    4280, cost:   1.042505
+Epoch:     18, update:    4290, cost:   1.280316
+Epoch:     18, update:    4300, cost:   1.164384
+Epoch:     18, update:    4310, cost:   1.137795
+Epoch:     18, update:    4320, cost:   1.207030
+Epoch:     18, update:    4330, cost:   0.915670
+Epoch:     18, update:    4340, cost:   1.168534
+Epoch:     18, update:    4350, cost:   1.058339
+Epoch:     18, update:    4360, cost:   0.938475
+Epoch:     18, update:    4370, cost:   0.965966
+Epoch:     18, update:    4380, cost:   1.157759
+Epoch:     18, update:    4390, cost:   1.059717
+Epoch:     18, update:    4400, cost:   0.992087
+Epoch:     18, update:    4410, cost:   0.931621
+Epoch:     18, update:    4420, cost:   1.186872
+Epoch:     18, update:    4430, cost:   1.014601
+Epoch:     18, update:    4440, cost:   1.054987
+Epoch:     18, update:    4450, cost:   1.079661
+Epoch:     18, update:    4460, cost:   1.072105
+Epoch:     18, update:    4470, cost:   0.969993
+Epoch:     18, update:    4480, cost:   1.048955
+Epoch:     18, update:    4490, cost:   0.992062
+Epoch:     18, update:    4500, cost:   0.805731
+--> Epoch 18 finished with mean loss 1.08098 (PPL: 2.94756)
+--> Epoch took 188.192 minutes, 45.166 sec/update
+Starting Epoch 19
+-----------------
+Epoch:     19, update:    4510, cost:   1.297987
+Epoch:     19, update:    4520, cost:   1.169129
+Epoch:     19, update:    4530, cost:   0.978487
+Epoch:     19, update:    4540, cost:   1.175481
+Epoch:     19, update:    4550, cost:   1.047157
+Epoch:     19, update:    4560, cost:   1.010655
+Epoch:     19, update:    4570, cost:   1.112238
+Epoch:     19, update:    4580, cost:   0.850457
+Epoch:     19, update:    4590, cost:   1.081886
+Epoch:     19, update:    4600, cost:   0.975318
+Epoch:     19, update:    4610, cost:   0.856191
+Epoch:     19, update:    4620, cost:   0.888194
+Epoch:     19, update:    4630, cost:   1.100700
+Epoch:     19, update:    4640, cost:   0.998846
+Epoch:     19, update:    4650, cost:   0.900519
+Epoch:     19, update:    4660, cost:   0.854334
+Epoch:     19, update:    4670, cost:   1.069540
+Epoch:     19, update:    4680, cost:   0.937768
+Epoch:     19, update:    4690, cost:   1.027697
+Epoch:     19, update:    4700, cost:   0.963700
+Epoch:     19, update:    4710, cost:   0.982111
+Epoch:     19, update:    4720, cost:   0.874757
+Epoch:     19, update:    4730, cost:   0.967331
+Epoch:     19, update:    4740, cost:   0.910338
+Epoch:     19, update:    4750, cost:   0.738403
+--> Epoch 19 finished with mean loss 1.00157 (PPL: 2.72255)
+--> Epoch took 188.687 minutes, 45.285 sec/update
+Starting Epoch 20
+-----------------
+Epoch:     20, update:    4760, cost:   1.210837
+Epoch:     20, update:    4770, cost:   1.089714
+Epoch:     20, update:    4780, cost:   0.898211
+Epoch:     20, update:    4790, cost:   1.100703
+Epoch:     20, update:    4800, cost:   1.030616
+Epoch:     20, update:    4810, cost:   0.929355
+Epoch:     20, update:    4820, cost:   1.003066
+Epoch:     20, update:    4830, cost:   0.765324
+Epoch:     20, update:    4840, cost:   1.038696
+Epoch:     20, update:    4850, cost:   0.882117
+Epoch:     20, update:    4860, cost:   0.788937
+Epoch:     20, update:    4870, cost:   0.811621
+Epoch:     20, update:    4880, cost:   1.005463
+Epoch:     20, update:    4890, cost:   0.915764
+Epoch:     20, update:    4900, cost:   0.807856
+Epoch:     20, update:    4910, cost:   0.779147
+Epoch:     20, update:    4920, cost:   1.008600
+Epoch:     20, update:    4930, cost:   0.845476
+Epoch:     20, update:    4940, cost:   0.924007
+Epoch:     20, update:    4950, cost:   0.854542
+Epoch:     20, update:    4960, cost:   0.900269
+Epoch:     20, update:    4970, cost:   0.815956
+Epoch:     20, update:    4980, cost:   0.899856
+Epoch:     20, update:    4990, cost:   0.842712
+Epoch:     20, update:    5000, cost:   0.666583
+Validation  1 - LOSS = 1.664 (PPL: 5.279)
+Calling beam-search process
+Beam-search ended, took 2.77666 minutes.
+Validation  1 - BLEU = 38.85, 64.0/44.2/33.2/24.9 (BP=0.994, ratio=0.994, hyp_len=3999, ref_len=4023)
+Saving model with best validation BLEU
+--> Current BEST BLEU = 38.850 at validation 1
+--> Current BEST LOSS = 1.664 (PPL: 5.279) at validation 1
+--> This is model: attention-e512-r1024-adadelta_1e+00-bs80-bleu-each5000_do_d0.0-gc1-init_xavier-s1234.1
+--> Epoch 20 finished with mean loss 0.92463 (PPL: 2.52093)
+--> Epoch took 192.732 minutes, 46.256 sec/update
+Starting Epoch 21
+-----------------
+Epoch:     21, update:    5010, cost:   1.142673
+Epoch:     21, update:    5020, cost:   0.999927
+Epoch:     21, update:    5030, cost:   0.871394
+Epoch:     21, update:    5040, cost:   1.045027
+Epoch:     21, update:    5050, cost:   0.903272
+Epoch:     21, update:    5060, cost:   0.855176
+Epoch:     21, update:    5070, cost:   0.939745
+Epoch:     21, update:    5080, cost:   0.683796
+Epoch:     21, update:    5090, cost:   0.925362
+Epoch:     21, update:    5100, cost:   0.833347
+Epoch:     21, update:    5110, cost:   0.721824
+Epoch:     21, update:    5120, cost:   0.725738
+Epoch:     21, update:    5130, cost:   0.941860
+Epoch:     21, update:    5140, cost:   0.830156
+Epoch:     21, update:    5150, cost:   0.729557
+Epoch:     21, update:    5160, cost:   0.701847
+Epoch:     21, update:    5170, cost:   0.900474
+Epoch:     21, update:    5180, cost:   0.777686
+Epoch:     21, update:    5190, cost:   0.859898
+Epoch:     21, update:    5200, cost:   0.802244
+Epoch:     21, update:    5210, cost:   0.839388
+Epoch:     21, update:    5220, cost:   0.725291
+Epoch:     21, update:    5230, cost:   0.821804
+Epoch:     21, update:    5240, cost:   0.759405
+Epoch:     21, update:    5250, cost:   0.577915
+--> Epoch 21 finished with mean loss 0.85358 (PPL: 2.34805)
+--> Epoch took 189.509 minutes, 45.482 sec/update
+Starting Epoch 22
+-----------------
+Epoch:     22, update:    5260, cost:   1.063094
+Epoch:     22, update:    5270, cost:   0.930427
+Epoch:     22, update:    5280, cost:   0.876414
+Epoch:     22, update:    5290, cost:   0.978444
+Epoch:     22, update:    5300, cost:   0.848533
+Epoch:     22, update:    5310, cost:   0.771736
+Epoch:     22, update:    5320, cost:   0.879713
+Epoch:     22, update:    5330, cost:   0.626546
+Epoch:     22, update:    5340, cost:   0.865239
+Epoch:     22, update:    5350, cost:   0.753154
+Epoch:     22, update:    5360, cost:   0.696568
+Epoch:     22, update:    5370, cost:   0.691678
+Epoch:     22, update:    5380, cost:   0.868178
+Epoch:     22, update:    5390, cost:   0.752822
+Epoch:     22, update:    5400, cost:   0.669365
+Epoch:     22, update:    5410, cost:   0.661744
+Epoch:     22, update:    5420, cost:   0.828299
+Epoch:     22, update:    5430, cost:   0.712657
+Epoch:     22, update:    5440, cost:   0.791465
+Epoch:     22, update:    5450, cost:   0.737122
+Epoch:     22, update:    5460, cost:   0.757938
+Epoch:     22, update:    5470, cost:   0.661302
+Epoch:     22, update:    5480, cost:   0.715288
+Epoch:     22, update:    5490, cost:   0.699392
+Epoch:     22, update:    5500, cost:   0.517464
+--> Epoch 22 finished with mean loss 0.78673 (PPL: 2.19619)
+--> Epoch took 190.359 minutes, 45.686 sec/update
+Starting Epoch 23
+-----------------
+Epoch:     23, update:    5510, cost:   1.002657
+Epoch:     23, update:    5520, cost:   0.969078
+Epoch:     23, update:    5530, cost:   0.769620
+Epoch:     23, update:    5540, cost:   0.889880
+Epoch:     23, update:    5550, cost:   0.746558
+Epoch:     23, update:    5560, cost:   0.704377
+Epoch:     23, update:    5570, cost:   0.882082
+Epoch:     23, update:    5580, cost:   0.562732
+Epoch:     23, update:    5590, cost:   0.777065
+Epoch:     23, update:    5600, cost:   0.693234
+Epoch:     23, update:    5610, cost:   0.635322
+Epoch:     23, update:    5620, cost:   0.619254
+Epoch:     23, update:    5630, cost:   0.803221
+Epoch:     23, update:    5640, cost:   0.687743
+Epoch:     23, update:    5650, cost:   0.605891
+Epoch:     23, update:    5660, cost:   0.602252
+Epoch:     23, update:    5670, cost:   0.759500
+Epoch:     23, update:    5680, cost:   0.670797
+Epoch:     23, update:    5690, cost:   0.703699
+Epoch:     23, update:    5700, cost:   0.670054
+Epoch:     23, update:    5710, cost:   0.693525
+Epoch:     23, update:    5720, cost:   0.620357
+Epoch:     23, update:    5730, cost:   0.660900
+Epoch:     23, update:    5740, cost:   0.639558
+Epoch:     23, update:    5750, cost:   0.437595
+--> Epoch 23 finished with mean loss 0.72306 (PPL: 2.06074)
+--> Epoch took 190.943 minutes, 45.826 sec/update
+Starting Epoch 24
+-----------------
+Epoch:     24, update:    5760, cost:   0.919999
+Epoch:     24, update:    5770, cost:   0.847228
+Epoch:     24, update:    5780, cost:   0.707434
+Epoch:     24, update:    5790, cost:   0.826700
+Epoch:     24, update:    5800, cost:   0.681947
+Epoch:     24, update:    5810, cost:   0.639233
+Epoch:     24, update:    5820, cost:   0.787016
+Epoch:     24, update:    5830, cost:   0.504761
+Epoch:     24, update:    5840, cost:   0.701314
+Epoch:     24, update:    5850, cost:   0.653408
+Epoch:     24, update:    5860, cost:   0.586198
+Epoch:     24, update:    5870, cost:   0.586083
+Epoch:     24, update:    5880, cost:   0.737089
+Epoch:     24, update:    5890, cost:   0.627470
+Epoch:     24, update:    5900, cost:   0.547191
+Epoch:     24, update:    5910, cost:   0.586362
+Epoch:     24, update:    5920, cost:   0.701683
+Epoch:     24, update:    5930, cost:   0.642822
+Epoch:     24, update:    5940, cost:   0.633899
+Epoch:     24, update:    5950, cost:   0.586010
+Epoch:     24, update:    5960, cost:   0.625218
+Epoch:     24, update:    5970, cost:   0.538344
+Epoch:     24, update:    5980, cost:   0.603676
+Epoch:     24, update:    5990, cost:   0.626882
+Epoch:     24, update:    6000, cost:   0.367203
+--> Epoch 24 finished with mean loss 0.66227 (PPL: 1.93920)
+--> Epoch took 191.463 minutes, 45.951 sec/update
+Starting Epoch 25
+-----------------
+Epoch:     25, update:    6010, cost:   0.844799
+Epoch:     25, update:    6020, cost:   0.765481
+Epoch:     25, update:    6030, cost:   0.641296
+Epoch:     25, update:    6040, cost:   0.754373
+Epoch:     25, update:    6050, cost:   0.619439
+Epoch:     25, update:    6060, cost:   0.586142
+Epoch:     25, update:    6070, cost:   0.717390
+Epoch:     25, update:    6080, cost:   0.440304
+Epoch:     25, update:    6090, cost:   0.651359
+Epoch:     25, update:    6100, cost:   0.652403
+Epoch:     25, update:    6110, cost:   0.529666
+Epoch:     25, update:    6120, cost:   0.504543
+Epoch:     25, update:    6130, cost:   0.676115
+Epoch:     25, update:    6140, cost:   0.557419
+Epoch:     25, update:    6150, cost:   0.477409
+Epoch:     25, update:    6160, cost:   0.560571
+Epoch:     25, update:    6170, cost:   0.659181
+Epoch:     25, update:    6180, cost:   0.586688
+Epoch:     25, update:    6190, cost:   0.583174
+Epoch:     25, update:    6200, cost:   0.521965
+Epoch:     25, update:    6210, cost:   0.559212
+Epoch:     25, update:    6220, cost:   0.476091
+Epoch:     25, update:    6230, cost:   0.537839
+Epoch:     25, update:    6240, cost:   0.569508
+Epoch:     25, update:    6250, cost:   0.306463
+--> Epoch 25 finished with mean loss 0.60232 (PPL: 1.82635)
+--> Epoch took 192.330 minutes, 46.159 sec/update
+Starting Epoch 26
+-----------------
+Epoch:     26, update:    6260, cost:   0.756329
+Epoch:     26, update:    6270, cost:   0.700485
+Epoch:     26, update:    6280, cost:   0.580604
+Epoch:     26, update:    6290, cost:   0.694884
+Epoch:     26, update:    6300, cost:   0.574008
+Epoch:     26, update:    6310, cost:   0.534916
+Epoch:     26, update:    6320, cost:   0.653113
+Epoch:     26, update:    6330, cost:   0.389746
+Epoch:     26, update:    6340, cost:   0.599623
+Epoch:     26, update:    6350, cost:   0.563956
+Epoch:     26, update:    6360, cost:   0.481207
+Epoch:     26, update:    6370, cost:   0.477703
+Epoch:     26, update:    6380, cost:   0.597219
+Epoch:     26, update:    6390, cost:   0.496541
+Epoch:     26, update:    6400, cost:   0.427845
+Epoch:     26, update:    6410, cost:   0.515392
+Epoch:     26, update:    6420, cost:   0.581657
+Epoch:     26, update:    6430, cost:   0.519637
+Epoch:     26, update:    6440, cost:   0.515769
+Epoch:     26, update:    6450, cost:   0.462911
+Epoch:     26, update:    6460, cost:   0.508965
+Epoch:     26, update:    6470, cost:   0.417618
+Epoch:     26, update:    6480, cost:   0.476183
+Epoch:     26, update:    6490, cost:   0.514684
+Epoch:     26, update:    6500, cost:   0.246797
+--> Epoch 26 finished with mean loss 0.54633 (PPL: 1.72691)
+--> Epoch took 192.782 minutes, 46.268 sec/update
+Starting Epoch 27
+-----------------
+Epoch:     27, update:    6510, cost:   0.695831
+Epoch:     27, update:    6520, cost:   0.629477
+Epoch:     27, update:    6530, cost:   0.536589
+Epoch:     27, update:    6540, cost:   0.639643
+Epoch:     27, update:    6550, cost:   0.527986
+Epoch:     27, update:    6560, cost:   0.477882
+Epoch:     27, update:    6570, cost:   0.611705
+Epoch:     27, update:    6580, cost:   0.350280
+Epoch:     27, update:    6590, cost:   0.562486
+Epoch:     27, update:    6600, cost:   0.507111
+Epoch:     27, update:    6610, cost:   0.432262
+Epoch:     27, update:    6620, cost:   0.443067
+Epoch:     27, update:    6630, cost:   0.599812
+Epoch:     27, update:    6640, cost:   0.462935
+Epoch:     27, update:    6650, cost:   0.387316
+Epoch:     27, update:    6660, cost:   0.461155
+Epoch:     27, update:    6670, cost:   0.530816
+Epoch:     27, update:    6680, cost:   0.461564
+Epoch:     27, update:    6690, cost:   0.466587
+Epoch:     27, update:    6700, cost:   0.418419
+Epoch:     27, update:    6710, cost:   0.461555
+Epoch:     27, update:    6720, cost:   0.366162
+Epoch:     27, update:    6730, cost:   0.411268
+Epoch:     27, update:    6740, cost:   0.458617
+Epoch:     27, update:    6750, cost:   0.205189
+--> Epoch 27 finished with mean loss 0.49787 (PPL: 1.64521)
+--> Epoch took 193.315 minutes, 46.396 sec/update
+Starting Epoch 28
+-----------------
+Epoch:     28, update:    6760, cost:   0.608060
+Epoch:     28, update:    6770, cost:   0.554491
+Epoch:     28, update:    6780, cost:   0.500786
+Epoch:     28, update:    6790, cost:   0.593353
+Epoch:     28, update:    6800, cost:   0.441526
+Epoch:     28, update:    6810, cost:   0.432869
+Epoch:     28, update:    6820, cost:   0.556032
+Epoch:     28, update:    6830, cost:   0.288957
+Epoch:     28, update:    6840, cost:   0.530909
+Epoch:     28, update:    6850, cost:   0.448455
+Epoch:     28, update:    6860, cost:   0.435265
+Epoch:     28, update:    6870, cost:   0.397769
+Epoch:     28, update:    6880, cost:   0.702745
+Epoch:     28, update:    6890, cost:   0.421202
+Epoch:     28, update:    6900, cost:   0.349767
+Epoch:     28, update:    6910, cost:   0.416105
+Epoch:     28, update:    6920, cost:   0.460901
+Epoch:     28, update:    6930, cost:   0.420722
+Epoch:     28, update:    6940, cost:   0.434919
+Epoch:     28, update:    6950, cost:   0.357520
+Epoch:     28, update:    6960, cost:   0.420945
+Epoch:     28, update:    6970, cost:   0.335474
+Epoch:     28, update:    6980, cost:   0.368812
+Epoch:     28, update:    6990, cost:   0.411657
+Epoch:     28, update:    7000, cost:   0.173496
+--> Epoch 28 finished with mean loss 0.44931 (PPL: 1.56723)
+--> Epoch took 194.361 minutes, 46.647 sec/update
+Starting Epoch 29
+-----------------
+Epoch:     29, update:    7010, cost:   0.560590
+Epoch:     29, update:    7020, cost:   0.488695
+Epoch:     29, update:    7030, cost:   0.479005
+Epoch:     29, update:    7040, cost:   0.552455
+Epoch:     29, update:    7050, cost:   0.402423
+Epoch:     29, update:    7060, cost:   0.392833
+Epoch:     29, update:    7070, cost:   0.499164
+Epoch:     29, update:    7080, cost:   0.265138
+Epoch:     29, update:    7090, cost:   0.465839
+Epoch:     29, update:    7100, cost:   0.389542
+Epoch:     29, update:    7110, cost:   0.392242
+Epoch:     29, update:    7120, cost:   0.360044
+Epoch:     29, update:    7130, cost:   0.581962
+Epoch:     29, update:    7140, cost:   0.378346
+Epoch:     29, update:    7150, cost:   0.301478
+Epoch:     29, update:    7160, cost:   0.382285
+Epoch:     29, update:    7170, cost:   0.451591
+Epoch:     29, update:    7180, cost:   0.359969
+Epoch:     29, update:    7190, cost:   0.441030
+Epoch:     29, update:    7200, cost:   0.304469
+Epoch:     29, update:    7210, cost:   0.394100
+Epoch:     29, update:    7220, cost:   0.277898
+Epoch:     29, update:    7230, cost:   0.319120
+Epoch:     29, update:    7240, cost:   0.365553
+Epoch:     29, update:    7250, cost:   0.138773
+--> Epoch 29 finished with mean loss 0.40603 (PPL: 1.50084)
+--> Epoch took 194.828 minutes, 46.759 sec/update
+Starting Epoch 30
+-----------------
+Epoch:     30, update:    7260, cost:   0.510741
+Epoch:     30, update:    7270, cost:   0.470954
+Epoch:     30, update:    7280, cost:   0.437795
+Epoch:     30, update:    7290, cost:   0.504522
+Epoch:     30, update:    7300, cost:   0.375415
+Epoch:     30, update:    7310, cost:   0.362396
+Epoch:     30, update:    7320, cost:   0.428857
+Epoch:     30, update:    7330, cost:   0.225985
+Epoch:     30, update:    7340, cost:   0.427868
+Epoch:     30, update:    7350, cost:   0.357327
+Epoch:     30, update:    7360, cost:   0.325207
+Epoch:     30, update:    7370, cost:   0.301263
+Epoch:     30, update:    7380, cost:   0.513507
+Epoch:     30, update:    7390, cost:   0.345910
+Epoch:     30, update:    7400, cost:   0.261962
+Epoch:     30, update:    7410, cost:   0.332867
+Epoch:     30, update:    7420, cost:   0.393102
+Epoch:     30, update:    7430, cost:   0.330791
+Epoch:     30, update:    7440, cost:   0.368929
+Epoch:     30, update:    7450, cost:   0.272700
+Epoch:     30, update:    7460, cost:   0.344290
+Epoch:     30, update:    7470, cost:   0.241396
+Epoch:     30, update:    7480, cost:   0.297617
+Epoch:     30, update:    7490, cost:   0.319376
+Epoch:     30, update:    7500, cost:   0.112012
+--> Epoch 30 finished with mean loss 0.36519 (PPL: 1.44078)
+--> Epoch took 194.367 minutes, 46.648 sec/update
+Starting Epoch 31
+-----------------
+Epoch:     31, update:    7510, cost:   0.441524
+Epoch:     31, update:    7520, cost:   0.395827
+Epoch:     31, update:    7530, cost:   0.388166
+Epoch:     31, update:    7540, cost:   0.464899
+Epoch:     31, update:    7550, cost:   0.343183
+Epoch:     31, update:    7560, cost:   0.344397
+Epoch:     31, update:    7570, cost:   0.377571
+Epoch:     31, update:    7580, cost:   0.194270
+Epoch:     31, update:    7590, cost:   0.394635
+Epoch:     31, update:    7600, cost:   0.325587
+Epoch:     31, update:    7610, cost:   0.297510
+Epoch:     31, update:    7620, cost:   0.266629
+Epoch:     31, update:    7630, cost:   0.470688
+Epoch:     31, update:    7640, cost:   0.298881
+Epoch:     31, update:    7650, cost:   0.238765
+Epoch:     31, update:    7660, cost:   0.289502
+Epoch:     31, update:    7670, cost:   0.376950
+Epoch:     31, update:    7680, cost:   0.289104
+Epoch:     31, update:    7690, cost:   0.313861
+Epoch:     31, update:    7700, cost:   0.247305
+Epoch:     31, update:    7710, cost:   0.316671
+Epoch:     31, update:    7720, cost:   0.225158
+Epoch:     31, update:    7730, cost:   0.265883
+Epoch:     31, update:    7740, cost:   0.287448
+Epoch:     31, update:    7750, cost:   0.092200
+--> Epoch 31 finished with mean loss 0.32733 (PPL: 1.38725)
+--> Epoch took 195.749 minutes, 46.980 sec/update
+Starting Epoch 32
+-----------------
+Epoch:     32, update:    7760, cost:   0.419160
+Epoch:     32, update:    7770, cost:   0.351633
+Epoch:     32, update:    7780, cost:   0.375272
+Epoch:     32, update:    7790, cost:   0.407248
+Epoch:     32, update:    7800, cost:   0.307198
+Epoch:     32, update:    7810, cost:   0.317236
+Epoch:     32, update:    7820, cost:   0.341712
+Epoch:     32, update:    7830, cost:   0.188236
+Epoch:     32, update:    7840, cost:   0.351690
+Epoch:     32, update:    7850, cost:   0.276255
+Epoch:     32, update:    7860, cost:   0.255404
+Epoch:     32, update:    7870, cost:   0.232048
+Epoch:     32, update:    7880, cost:   0.422868
+Epoch:     32, update:    7890, cost:   0.262470
+Epoch:     32, update:    7900, cost:   0.210538
+Epoch:     32, update:    7910, cost:   0.282802
+Epoch:     32, update:    7920, cost:   0.311009
+Epoch:     32, update:    7930, cost:   0.236670
+Epoch:     32, update:    7940, cost:   0.282227
+Epoch:     32, update:    7950, cost:   0.216773
+Epoch:     32, update:    7960, cost:   0.290246
+Epoch:     32, update:    7970, cost:   0.196590
+Epoch:     32, update:    7980, cost:   0.233709
+Epoch:     32, update:    7990, cost:   0.237199
+Epoch:     32, update:    8000, cost:   0.074437
+--> Epoch 32 finished with mean loss 0.29088 (PPL: 1.33760)
+--> Epoch took 196.193 minutes, 47.086 sec/update
+Starting Epoch 33
+-----------------
+Epoch:     33, update:    8010, cost:   0.378814
+Epoch:     33, update:    8020, cost:   0.325215
+Epoch:     33, update:    8030, cost:   0.318792
+Epoch:     33, update:    8040, cost:   0.360354
+Epoch:     33, update:    8050, cost:   0.272383
+Epoch:     33, update:    8060, cost:   0.272696
+Epoch:     33, update:    8070, cost:   0.292374
+Epoch:     33, update:    8080, cost:   0.157987
+Epoch:     33, update:    8090, cost:   0.300801
+Epoch:     33, update:    8100, cost:   0.241159
+Epoch:     33, update:    8110, cost:   0.217274
+Epoch:     33, update:    8120, cost:   0.188806
+Epoch:     33, update:    8130, cost:   0.376740
+Epoch:     33, update:    8140, cost:   0.260783
+Epoch:     33, update:    8150, cost:   0.173615
+Epoch:     33, update:    8160, cost:   0.242459
+Epoch:     33, update:    8170, cost:   0.310200
+Epoch:     33, update:    8180, cost:   0.218620
+Epoch:     33, update:    8190, cost:   0.262770
+Epoch:     33, update:    8200, cost:   0.199949
+Epoch:     33, update:    8210, cost:   0.287606
+Epoch:     33, update:    8220, cost:   0.277306
+Epoch:     33, update:    8230, cost:   0.194843
+Epoch:     33, update:    8240, cost:   0.215919
+Epoch:     33, update:    8250, cost:   0.067450
+--> Epoch 33 finished with mean loss 0.25911 (PPL: 1.29577)
+--> Epoch took 196.226 minutes, 47.094 sec/update
+Starting Epoch 34
+-----------------
+Epoch:     34, update:    8260, cost:   0.363042
+Epoch:     34, update:    8270, cost:   0.292820
+Epoch:     34, update:    8280, cost:   0.272364
+Epoch:     34, update:    8290, cost:   0.325237
+Epoch:     34, update:    8300, cost:   0.252539
+Epoch:     34, update:    8310, cost:   0.229269
+Epoch:     34, update:    8320, cost:   0.261126
+Epoch:     34, update:    8330, cost:   0.140166
+Epoch:     34, update:    8340, cost:   0.263209
+Epoch:     34, update:    8350, cost:   0.205062
+Epoch:     34, update:    8360, cost:   0.180746
+Epoch:     34, update:    8370, cost:   0.174596
+Epoch:     34, update:    8380, cost:   0.328014
+Epoch:     34, update:    8390, cost:   0.222556
+Epoch:     34, update:    8400, cost:   0.153505
+Epoch:     34, update:    8410, cost:   0.224450
+Epoch:     34, update:    8420, cost:   0.265506
+Epoch:     34, update:    8430, cost:   0.192201
+Epoch:     34, update:    8440, cost:   0.217268
+Epoch:     34, update:    8450, cost:   0.160012
+Epoch:     34, update:    8460, cost:   0.260842
+Epoch:     34, update:    8470, cost:   0.174586
+Epoch:     34, update:    8480, cost:   0.159538
+Epoch:     34, update:    8490, cost:   0.185982
+Epoch:     34, update:    8500, cost:   0.055351
+--> Epoch 34 finished with mean loss 0.23120 (PPL: 1.26011)
+--> Epoch took 196.667 minutes, 47.200 sec/update
+Starting Epoch 35
+-----------------
+Epoch:     35, update:    8510, cost:   0.315272
+Epoch:     35, update:    8520, cost:   0.272711
+Epoch:     35, update:    8530, cost:   0.228141
+Epoch:     35, update:    8540, cost:   0.270176
+Epoch:     35, update:    8550, cost:   0.243228
+Epoch:     35, update:    8560, cost:   0.195053
+Epoch:     35, update:    8570, cost:   0.220197
+Epoch:     35, update:    8580, cost:   0.126902
+Epoch:     35, update:    8590, cost:   0.223223
+Epoch:     35, update:    8600, cost:   0.181499
+Epoch:     35, update:    8610, cost:   0.169838
+Epoch:     35, update:    8620, cost:   0.138073
+Epoch:     35, update:    8630, cost:   0.300511
+Epoch:     35, update:    8640, cost:   0.195335
+Epoch:     35, update:    8650, cost:   0.153654
+Epoch:     35, update:    8660, cost:   0.193630
+Epoch:     35, update:    8670, cost:   0.223690
+Epoch:     35, update:    8680, cost:   0.200483
+Epoch:     35, update:    8690, cost:   0.205328
+Epoch:     35, update:    8700, cost:   0.139930
+Epoch:     35, update:    8710, cost:   0.231157
+Epoch:     35, update:    8720, cost:   0.145114
+Epoch:     35, update:    8730, cost:   0.158160
+Epoch:     35, update:    8740, cost:   0.176109
+Epoch:     35, update:    8750, cost:   0.045234
+--> Epoch 35 finished with mean loss 0.20540 (PPL: 1.22801)
+--> Epoch took 196.616 minutes, 47.188 sec/update
+Starting Epoch 36
+-----------------
+Epoch:     36, update:    8760, cost:   0.264471
+Epoch:     36, update:    8770, cost:   0.222210
+Epoch:     36, update:    8780, cost:   0.219754
+Epoch:     36, update:    8790, cost:   0.222387
+Epoch:     36, update:    8800, cost:   0.211795
+Epoch:     36, update:    8810, cost:   0.187454
+Epoch:     36, update:    8820, cost:   0.200821
+Epoch:     36, update:    8830, cost:   0.113104
+Epoch:     36, update:    8840, cost:   0.201917
+Epoch:     36, update:    8850, cost:   0.169164
+Epoch:     36, update:    8860, cost:   0.142029
+Epoch:     36, update:    8870, cost:   0.122417
+Epoch:     36, update:    8880, cost:   0.260922
+Epoch:     36, update:    8890, cost:   0.196400
+Epoch:     36, update:    8900, cost:   0.150922
+Epoch:     36, update:    8910, cost:   0.170540
+Epoch:     36, update:    8920, cost:   0.205501
+Epoch:     36, update:    8930, cost:   0.171131
+Epoch:     36, update:    8940, cost:   0.183635
+Epoch:     36, update:    8950, cost:   0.123683
+Epoch:     36, update:    8960, cost:   0.221872
+Epoch:     36, update:    8970, cost:   0.127586
+Epoch:     36, update:    8980, cost:   0.152699
+Epoch:     36, update:    8990, cost:   0.155687
+Epoch:     36, update:    9000, cost:   0.039241
+--> Epoch 36 finished with mean loss 0.18454 (PPL: 1.20267)
+--> Epoch took 197.297 minutes, 47.351 sec/update
+Starting Epoch 37
+-----------------
+Epoch:     37, update:    9010, cost:   0.238911
+Epoch:     37, update:    9020, cost:   0.204186
+Epoch:     37, update:    9030, cost:   0.181106
+Epoch:     37, update:    9040, cost:   0.208143
+Epoch:     37, update:    9050, cost:   0.179185
+Epoch:     37, update:    9060, cost:   0.166815
+Epoch:     37, update:    9070, cost:   0.179688
+Epoch:     37, update:    9080, cost:   0.089181
+Epoch:     37, update:    9090, cost:   0.174161
+Epoch:     37, update:    9100, cost:   0.144464
+Epoch:     37, update:    9110, cost:   0.123201
+Epoch:     37, update:    9120, cost:   0.133329
+Epoch:     37, update:    9130, cost:   0.237909
+Epoch:     37, update:    9140, cost:   0.165272
+Epoch:     37, update:    9150, cost:   0.126338
+Epoch:     37, update:    9160, cost:   0.151859
+Epoch:     37, update:    9170, cost:   0.173266
+Epoch:     37, update:    9180, cost:   0.169403
+Epoch:     37, update:    9190, cost:   0.162427
+Epoch:     37, update:    9200, cost:   0.093105
+Epoch:     37, update:    9210, cost:   0.184694
+Epoch:     37, update:    9220, cost:   0.102344
+Epoch:     37, update:    9230, cost:   0.137981
+Epoch:     37, update:    9240, cost:   0.124165
+Epoch:     37, update:    9250, cost:   0.033123
+--> Epoch 37 finished with mean loss 0.16353 (PPL: 1.17766)
+--> Epoch took 197.461 minutes, 47.391 sec/update
+Starting Epoch 38
+-----------------
+Epoch:     38, update:    9260, cost:   0.205683
+Epoch:     38, update:    9270, cost:   0.178685
+Epoch:     38, update:    9280, cost:   0.186721
+Epoch:     38, update:    9290, cost:   0.185874
+Epoch:     38, update:    9300, cost:   0.160567
+Epoch:     38, update:    9310, cost:   0.146843
+Epoch:     38, update:    9320, cost:   0.156532
+Epoch:     38, update:    9330, cost:   0.073904
+Epoch:     38, update:    9340, cost:   0.151341
+Epoch:     38, update:    9350, cost:   0.118142
+Epoch:     38, update:    9360, cost:   0.098641
+Epoch:     38, update:    9370, cost:   0.109994
+Epoch:     38, update:    9380, cost:   0.200203
+Epoch:     38, update:    9390, cost:   0.137549
+Epoch:     38, update:    9400, cost:   0.110076
+Epoch:     38, update:    9410, cost:   0.122759
+Epoch:     38, update:    9420, cost:   0.139527
+Epoch:     38, update:    9430, cost:   0.172429
+Epoch:     38, update:    9440, cost:   0.139888
+Epoch:     38, update:    9450, cost:   0.086568
+Epoch:     38, update:    9460, cost:   0.185771
+Epoch:     38, update:    9470, cost:   0.090794
+Epoch:     38, update:    9480, cost:   0.120868
+Epoch:     38, update:    9490, cost:   0.114477
+Epoch:     38, update:    9500, cost:   0.025291
+--> Epoch 38 finished with mean loss 0.14282 (PPL: 1.15353)
+--> Epoch took 197.768 minutes, 47.464 sec/update
+Starting Epoch 39
+-----------------
+Epoch:     39, update:    9510, cost:   0.185580
+Epoch:     39, update:    9520, cost:   0.165575
+Epoch:     39, update:    9530, cost:   0.133883
+Epoch:     39, update:    9540, cost:   0.166581
+Epoch:     39, update:    9550, cost:   0.134569
+Epoch:     39, update:    9560, cost:   0.120093
+Epoch:     39, update:    9570, cost:   0.124056
+Epoch:     39, update:    9580, cost:   0.070518
+Epoch:     39, update:    9590, cost:   0.125092
+Epoch:     39, update:    9600, cost:   0.104387
+Epoch:     39, update:    9610, cost:   0.085812
+Epoch:     39, update:    9620, cost:   0.086515
+Epoch:     39, update:    9630, cost:   0.161245
+Epoch:     39, update:    9640, cost:   0.118421
+Epoch:     39, update:    9650, cost:   0.096703
+Epoch:     39, update:    9660, cost:   0.122372
+Epoch:     39, update:    9670, cost:   0.135150
+Epoch:     39, update:    9680, cost:   0.140022
+Epoch:     39, update:    9690, cost:   0.127784
+Epoch:     39, update:    9700, cost:   0.079110
+Epoch:     39, update:    9710, cost:   0.167382
+Epoch:     39, update:    9720, cost:   0.076595
+Epoch:     39, update:    9730, cost:   0.096661
+Epoch:     39, update:    9740, cost:   0.137889
+Epoch:     39, update:    9750, cost:   0.028622
+--> Epoch 39 finished with mean loss 0.12779 (PPL: 1.13631)
+--> Epoch took 198.151 minutes, 47.556 sec/update
+Starting Epoch 40
+-----------------
+Epoch:     40, update:    9760, cost:   0.177712
+Epoch:     40, update:    9770, cost:   0.162811
+Epoch:     40, update:    9780, cost:   0.126243
+Epoch:     40, update:    9790, cost:   0.147001
+Epoch:     40, update:    9800, cost:   0.122649
+Epoch:     40, update:    9810, cost:   0.115291
+Epoch:     40, update:    9820, cost:   0.098784
+Epoch:     40, update:    9830, cost:   0.059609
+Epoch:     40, update:    9840, cost:   0.129223
+Epoch:     40, update:    9850, cost:   0.108392
+Epoch:     40, update:    9860, cost:   0.086155
+Epoch:     40, update:    9870, cost:   0.078986
+Epoch:     40, update:    9880, cost:   0.146001
+Epoch:     40, update:    9890, cost:   0.117021
+Epoch:     40, update:    9900, cost:   0.079849
+Epoch:     40, update:    9910, cost:   0.118635
+Epoch:     40, update:    9920, cost:   0.105388
+Epoch:     40, update:    9930, cost:   0.139436
+Epoch:     40, update:    9940, cost:   0.124731
+Epoch:     40, update:    9950, cost:   0.075870
+Epoch:     40, update:    9960, cost:   0.154557
+Epoch:     40, update:    9970, cost:   0.077999
+Epoch:     40, update:    9980, cost:   0.086706
+Epoch:     40, update:    9990, cost:   0.115029
+Epoch:     40, update:   10000, cost:   0.021793
+Validation  2 - LOSS = 2.043 (PPL: 7.710)
+Calling beam-search process
+Beam-search ended, took 2.63529 minutes.
+Validation  2 - BLEU = 39.88, 65.3/45.3/34.1/25.9 (BP=0.991, ratio=0.991, hyp_len=3987, ref_len=4023)
+Saving model with best validation BLEU
+--> Current BEST BLEU = 39.880 at validation 2
+--> Current BEST LOSS = 1.664 (PPL: 5.279) at validation 1
+--> This is model: attention-e512-r1024-adadelta_1e+00-bs80-bleu-each5000_do_d0.0-gc1-init_xavier-s1234.1
+--> Epoch 40 finished with mean loss 0.11460 (PPL: 1.12143)
+--> Epoch took 201.829 minutes, 48.439 sec/update
+Starting Epoch 41
+-----------------
+Epoch:     41, update:   10010, cost:   0.148984
+Epoch:     41, update:   10020, cost:   0.146180
+Epoch:     41, update:   10030, cost:   0.111591
+Epoch:     41, update:   10040, cost:   0.113812
+Epoch:     41, update:   10050, cost:   0.099818
+Epoch:     41, update:   10060, cost:   0.115967
+Epoch:     41, update:   10070, cost:   0.088223
+Epoch:     41, update:   10080, cost:   0.074374
+Epoch:     41, update:   10090, cost:   0.095826
+Epoch:     41, update:   10100, cost:   0.094705
+Epoch:     41, update:   10110, cost:   0.075775
+Epoch:     41, update:   10120, cost:   0.066224
+Epoch:     41, update:   10130, cost:   0.134081
+Epoch:     41, update:   10140, cost:   0.098023
+Epoch:     41, update:   10150, cost:   0.081482
+Epoch:     41, update:   10160, cost:   0.110983
+Epoch:     41, update:   10170, cost:   0.095621
+Epoch:     41, update:   10180, cost:   0.121860
+Epoch:     41, update:   10190, cost:   0.096709
+Epoch:     41, update:   10200, cost:   0.063692
+Epoch:     41, update:   10210, cost:   0.129246
+Epoch:     41, update:   10220, cost:   0.063664
+Epoch:     41, update:   10230, cost:   0.070183
+Epoch:     41, update:   10240, cost:   0.080885
+Epoch:     41, update:   10250, cost:   0.024225
+--> Epoch 41 finished with mean loss 0.10187 (PPL: 1.10724)
+--> Epoch took 198.292 minutes, 47.590 sec/update
+Starting Epoch 42
+-----------------
+Epoch:     42, update:   10260, cost:   0.139830
+Epoch:     42, update:   10270, cost:   0.120327
+Epoch:     42, update:   10280, cost:   0.095153
+Epoch:     42, update:   10290, cost:   0.097219
+Epoch:     42, update:   10300, cost:   0.094649
+Epoch:     42, update:   10310, cost:   0.113007
+Epoch:     42, update:   10320, cost:   0.086793
+Epoch:     42, update:   10330, cost:   0.059930
+Epoch:     42, update:   10340, cost:   0.079760
+Epoch:     42, update:   10350, cost:   0.080610
+Epoch:     42, update:   10360, cost:   0.068260
+Epoch:     42, update:   10370, cost:   0.067889
+Epoch:     42, update:   10380, cost:   0.113741
+Epoch:     42, update:   10390, cost:   0.101062
+Epoch:     42, update:   10400, cost:   0.080128
+Epoch:     42, update:   10410, cost:   0.094189
+Epoch:     42, update:   10420, cost:   0.085747
+Epoch:     42, update:   10430, cost:   0.105504
+Epoch:     42, update:   10440, cost:   0.089928
+Epoch:     42, update:   10450, cost:   0.052682
+Epoch:     42, update:   10460, cost:   0.121485
+Epoch:     42, update:   10470, cost:   0.047363
+Epoch:     42, update:   10480, cost:   0.081887
+Epoch:     42, update:   10490, cost:   0.085758
+Epoch:     42, update:   10500, cost:   0.019057
+--> Epoch 42 finished with mean loss 0.09161 (PPL: 1.09594)
+--> Epoch took 198.416 minutes, 47.620 sec/update
+Starting Epoch 43
+-----------------
+Epoch:     43, update:   10510, cost:   0.126897
+Epoch:     43, update:   10520, cost:   0.101420
+Epoch:     43, update:   10530, cost:   0.070781
+Epoch:     43, update:   10540, cost:   0.090587
+Epoch:     43, update:   10550, cost:   0.079050
+Epoch:     43, update:   10560, cost:   0.098434
+Epoch:     43, update:   10570, cost:   0.087749
+Epoch:     43, update:   10580, cost:   0.075684
+Epoch:     43, update:   10590, cost:   0.062464
+Epoch:     43, update:   10600, cost:   0.068523
+Epoch:     43, update:   10610, cost:   0.052414
+Epoch:     43, update:   10620, cost:   0.054066
+Epoch:     43, update:   10630, cost:   0.119108
+Epoch:     43, update:   10640, cost:   0.090327
+Epoch:     43, update:   10650, cost:   0.057842
+Epoch:     43, update:   10660, cost:   0.101802
+Epoch:     43, update:   10670, cost:   0.085185
+Epoch:     43, update:   10680, cost:   0.107659
+Epoch:     43, update:   10690, cost:   0.088600
+Epoch:     43, update:   10700, cost:   0.056246
+Epoch:     43, update:   10710, cost:   0.124798
+Epoch:     43, update:   10720, cost:   0.048356
+Epoch:     43, update:   10730, cost:   0.065467
+Epoch:     43, update:   10740, cost:   0.071660
+Epoch:     43, update:   10750, cost:   0.026276
+--> Epoch 43 finished with mean loss 0.08438 (PPL: 1.08805)
+--> Epoch took 198.971 minutes, 47.753 sec/update
+Starting Epoch 44
+-----------------
+Epoch:     44, update:   10760, cost:   0.101753
+Epoch:     44, update:   10770, cost:   0.090889
+Epoch:     44, update:   10780, cost:   0.065982
+Epoch:     44, update:   10790, cost:   0.082163
+Epoch:     44, update:   10800, cost:   0.073299
+Epoch:     44, update:   10810, cost:   0.078548
+Epoch:     44, update:   10820, cost:   0.074771
+Epoch:     44, update:   10830, cost:   0.045720
+Epoch:     44, update:   10840, cost:   0.059715
+Epoch:     44, update:   10850, cost:   0.052061
+Epoch:     44, update:   10860, cost:   0.052528
+Epoch:     44, update:   10870, cost:   0.083093
+Epoch:     44, update:   10880, cost:   0.103056
+Epoch:     44, update:   10890, cost:   0.077922
+Epoch:     44, update:   10900, cost:   0.059051
+Epoch:     44, update:   10910, cost:   0.088153
+Epoch:     44, update:   10920, cost:   0.081182
+Epoch:     44, update:   10930, cost:   0.104851
+Epoch:     44, update:   10940, cost:   0.094524
+Epoch:     44, update:   10950, cost:   0.053115
+Epoch:     44, update:   10960, cost:   0.100749
+Epoch:     44, update:   10970, cost:   0.048449
+Epoch:     44, update:   10980, cost:   0.056318
+Epoch:     44, update:   10990, cost:   0.073585
+Epoch:     44, update:   11000, cost:   0.020988
+--> Epoch 44 finished with mean loss 0.07835 (PPL: 1.08150)
+--> Epoch took 198.905 minutes, 47.737 sec/update
+Starting Epoch 45
+-----------------
+Epoch:     45, update:   11010, cost:   0.134402
+Epoch:     45, update:   11020, cost:   0.087689
+Epoch:     45, update:   11030, cost:   0.055852
+Epoch:     45, update:   11040, cost:   0.082493
+Epoch:     45, update:   11050, cost:   0.062436
+Epoch:     45, update:   11060, cost:   0.073663
+Epoch:     45, update:   11070, cost:   0.059276
+Epoch:     45, update:   11080, cost:   0.040158
+Epoch:     45, update:   11090, cost:   0.051074
+Epoch:     45, update:   11100, cost:   0.062741
+Epoch:     45, update:   11110, cost:   0.082852
+Epoch:     45, update:   11120, cost:   0.055664
+Epoch:     45, update:   11130, cost:   0.080781
+Epoch:     45, update:   11140, cost:   0.065107
+Epoch:     45, update:   11150, cost:   0.062814
+Epoch:     45, update:   11160, cost:   0.076624
+Epoch:     45, update:   11170, cost:   0.071184
+Epoch:     45, update:   11180, cost:   0.077005
+Epoch:     45, update:   11190, cost:   0.097356
+Epoch:     45, update:   11200, cost:   0.064970
+Epoch:     45, update:   11210, cost:   0.086052
+Epoch:     45, update:   11220, cost:   0.042898
+Epoch:     45, update:   11230, cost:   0.057970
+Epoch:     45, update:   11240, cost:   0.066302
+Epoch:     45, update:   11250, cost:   0.026636
+--> Epoch 45 finished with mean loss 0.07166 (PPL: 1.07429)
+--> Epoch took 199.086 minutes, 47.781 sec/update
+Starting Epoch 46
+-----------------
+Epoch:     46, update:   11260, cost:   0.094549
+Epoch:     46, update:   11270, cost:   0.090817
+Epoch:     46, update:   11280, cost:   0.054557
+Epoch:     46, update:   11290, cost:   0.070173
+Epoch:     46, update:   11300, cost:   0.050848
+Epoch:     46, update:   11310, cost:   0.067360
+Epoch:     46, update:   11320, cost:   0.054140
+Epoch:     46, update:   11330, cost:   0.037824
+Epoch:     46, update:   11340, cost:   0.053561
+Epoch:     46, update:   11350, cost:   0.052707
+Epoch:     46, update:   11360, cost:   0.056385
+Epoch:     46, update:   11370, cost:   0.043428
+Epoch:     46, update:   11380, cost:   0.077329
+Epoch:     46, update:   11390, cost:   0.068777
+Epoch:     46, update:   11400, cost:   0.040026
+Epoch:     46, update:   11410, cost:   0.066697
+Epoch:     46, update:   11420, cost:   0.067179
+Epoch:     46, update:   11430, cost:   0.064504
+Epoch:     46, update:   11440, cost:   0.085566
+Epoch:     46, update:   11450, cost:   0.046320
+Epoch:     46, update:   11460, cost:   0.084773
+Epoch:     46, update:   11470, cost:   0.044364
+Epoch:     46, update:   11480, cost:   0.046968
+Epoch:     46, update:   11490, cost:   0.056092
+Epoch:     46, update:   11500, cost:   0.018622
+--> Epoch 46 finished with mean loss 0.06599 (PPL: 1.06821)
+--> Epoch took 199.399 minutes, 47.856 sec/update
+Starting Epoch 47
+-----------------
+Epoch:     47, update:   11510, cost:   0.082062
+Epoch:     47, update:   11520, cost:   0.086429
+Epoch:     47, update:   11530, cost:   0.045117
+Epoch:     47, update:   11540, cost:   0.064347
+Epoch:     47, update:   11550, cost:   0.050285
+Epoch:     47, update:   11560, cost:   0.055742
+Epoch:     47, update:   11570, cost:   0.064124
+Epoch:     47, update:   11580, cost:   0.038216
+Epoch:     47, update:   11590, cost:   0.053968
+Epoch:     47, update:   11600, cost:   0.048132
+Epoch:     47, update:   11610, cost:   0.050919
+Epoch:     47, update:   11620, cost:   0.051711
+Epoch:     47, update:   11630, cost:   0.064459
+Epoch:     47, update:   11640, cost:   0.056046
+Epoch:     47, update:   11650, cost:   0.047668
+Epoch:     47, update:   11660, cost:   0.058248
+Epoch:     47, update:   11670, cost:   0.061817
+Epoch:     47, update:   11680, cost:   0.057247
+Epoch:     47, update:   11690, cost:   0.089188
+Epoch:     47, update:   11700, cost:   0.046620
+Epoch:     47, update:   11710, cost:   0.078215
+Epoch:     47, update:   11720, cost:   0.038287
+Epoch:     47, update:   11730, cost:   0.040776
+Epoch:     47, update:   11740, cost:   0.056301
+Epoch:     47, update:   11750, cost:   0.019724
+--> Epoch 47 finished with mean loss 0.06120 (PPL: 1.06312)
+--> Epoch took 199.718 minutes, 47.932 sec/update
+Starting Epoch 48
+-----------------
+Epoch:     48, update:   11760, cost:   0.104021
+Epoch:     48, update:   11770, cost:   0.069970
+Epoch:     48, update:   11780, cost:   0.045336
+Epoch:     48, update:   11790, cost:   0.059169
+Epoch:     48, update:   11800, cost:   0.045976
+Epoch:     48, update:   11810, cost:   0.063986
+Epoch:     48, update:   11820, cost:   0.064717
+Epoch:     48, update:   11830, cost:   0.029330
+Epoch:     48, update:   11840, cost:   0.046572
+Epoch:     48, update:   11850, cost:   0.052560
+Epoch:     48, update:   11860, cost:   0.054181
+Epoch:     48, update:   11870, cost:   0.033287
+Epoch:     48, update:   11880, cost:   0.085254
+Epoch:     48, update:   11890, cost:   0.060387
+Epoch:     48, update:   11900, cost:   0.031817
+Epoch:     48, update:   11910, cost:   0.065708
+Epoch:     48, update:   11920, cost:   0.052553
+Epoch:     48, update:   11930, cost:   0.046173
+Epoch:     48, update:   11940, cost:   0.060416
+Epoch:     48, update:   11950, cost:   0.045858
+Epoch:     48, update:   11960, cost:   0.078310
+Epoch:     48, update:   11970, cost:   0.033096
+Epoch:     48, update:   11980, cost:   0.034086
+Epoch:     48, update:   11990, cost:   0.050579
+Epoch:     48, update:   12000, cost:   0.021748
+--> Epoch 48 finished with mean loss 0.05675 (PPL: 1.05839)
+--> Epoch took 199.443 minutes, 47.866 sec/update
+Starting Epoch 49
+-----------------
+Epoch:     49, update:   12010, cost:   0.076606
+Epoch:     49, update:   12020, cost:   0.084044
+Epoch:     49, update:   12030, cost:   0.041013
+Epoch:     49, update:   12040, cost:   0.069606
+Epoch:     49, update:   12050, cost:   0.052131
+Epoch:     49, update:   12060, cost:   0.062627
+Epoch:     49, update:   12070, cost:   0.065664
+Epoch:     49, update:   12080, cost:   0.025319
+Epoch:     49, update:   12090, cost:   0.047917
+Epoch:     49, update:   12100, cost:   0.040844
+Epoch:     49, update:   12110, cost:   0.038924
+Epoch:     49, update:   12120, cost:   0.045389
+Epoch:     49, update:   12130, cost:   0.064482
+Epoch:     49, update:   12140, cost:   0.057816
+Epoch:     49, update:   12150, cost:   0.031781
+Epoch:     49, update:   12160, cost:   0.045811
+Epoch:     49, update:   12170, cost:   0.048948
+Epoch:     49, update:   12180, cost:   0.049990
+Epoch:     49, update:   12190, cost:   0.057683
+Epoch:     49, update:   12200, cost:   0.039376
+Epoch:     49, update:   12210, cost:   0.081524
+Epoch:     49, update:   12220, cost:   0.040051
+Epoch:     49, update:   12230, cost:   0.039452
+Epoch:     49, update:   12240, cost:   0.063595
+Epoch:     49, update:   12250, cost:   0.017146
+--> Epoch 49 finished with mean loss 0.05373 (PPL: 1.05520)
+--> Epoch took 199.238 minutes, 47.817 sec/update
+Starting Epoch 50
+-----------------
+Epoch:     50, update:   12260, cost:   0.078827
+Epoch:     50, update:   12270, cost:   0.068598
+Epoch:     50, update:   12280, cost:   0.042031
+Epoch:     50, update:   12290, cost:   0.063809
+Epoch:     50, update:   12300, cost:   0.044269
+Epoch:     50, update:   12310, cost:   0.053422
+Epoch:     50, update:   12320, cost:   0.050313
+Epoch:     50, update:   12330, cost:   0.026172
+Epoch:     50, update:   12340, cost:   0.041761
+Epoch:     50, update:   12350, cost:   0.034013
+Epoch:     50, update:   12360, cost:   0.029188
+Epoch:     50, update:   12370, cost:   0.035172
+Epoch:     50, update:   12380, cost:   0.060434
+Epoch:     50, update:   12390, cost:   0.045247
+Epoch:     50, update:   12400, cost:   0.027120
+Epoch:     50, update:   12410, cost:   0.035778
+Epoch:     50, update:   12420, cost:   0.054259
+Epoch:     50, update:   12430, cost:   0.046281
+Epoch:     50, update:   12440, cost:   0.061546
+Epoch:     50, update:   12450, cost:   0.039935
+Epoch:     50, update:   12460, cost:   0.070647
+Epoch:     50, update:   12470, cost:   0.030741
+Epoch:     50, update:   12480, cost:   0.042712
+Epoch:     50, update:   12490, cost:   0.051137
+Epoch:     50, update:   12500, cost:   0.013390
+--> Epoch 50 finished with mean loss 0.04881 (PPL: 1.05002)
+--> Epoch took 199.320 minutes, 47.837 sec/update
+Starting Epoch 51
+-----------------
+Epoch:     51, update:   12510, cost:   0.059496
+Epoch:     51, update:   12520, cost:   0.068004
+Epoch:     51, update:   12530, cost:   0.044672
+Epoch:     51, update:   12540, cost:   0.063066
+Epoch:     51, update:   12550, cost:   0.043508
+Epoch:     51, update:   12560, cost:   0.050691
+Epoch:     51, update:   12570, cost:   0.050781
+Epoch:     51, update:   12580, cost:   0.021259
+Epoch:     51, update:   12590, cost:   0.034586
+Epoch:     51, update:   12600, cost:   0.034449
+Epoch:     51, update:   12610, cost:   0.029481
+Epoch:     51, update:   12620, cost:   0.054866
+Epoch:     51, update:   12630, cost:   0.061579
+Epoch:     51, update:   12640, cost:   0.047249
+Epoch:     51, update:   12650, cost:   0.028113
+Epoch:     51, update:   12660, cost:   0.061323
+Epoch:     51, update:   12670, cost:   0.042564
+Epoch:     51, update:   12680, cost:   0.031709
+Epoch:     51, update:   12690, cost:   0.050784
+Epoch:     51, update:   12700, cost:   0.038260
+Epoch:     51, update:   12710, cost:   0.055995
+Epoch:     51, update:   12720, cost:   0.028977
+Epoch:     51, update:   12730, cost:   0.037369
+Epoch:     51, update:   12740, cost:   0.044909
+Epoch:     51, update:   12750, cost:   0.011162
+--> Epoch 51 finished with mean loss 0.04718 (PPL: 1.04832)
+--> Epoch took 198.264 minutes, 47.583 sec/update
+Starting Epoch 52
+-----------------
+Epoch:     52, update:   12760, cost:   0.061965
+Epoch:     52, update:   12770, cost:   0.050619
+Epoch:     52, update:   12780, cost:   0.037075
+Epoch:     52, update:   12790, cost:   0.056511
+Epoch:     52, update:   12800, cost:   0.037169
+Epoch:     52, update:   12810, cost:   0.067037
+Epoch:     52, update:   12820, cost:   0.044880
+Epoch:     52, update:   12830, cost:   0.032943
+Epoch:     52, update:   12840, cost:   0.040361
+Epoch:     52, update:   12850, cost:   0.032975
+Epoch:     52, update:   12860, cost:   0.036862
+Epoch:     52, update:   12870, cost:   0.041738
+Epoch:     52, update:   12880, cost:   0.057655
+Epoch:     52, update:   12890, cost:   0.037804
+Epoch:     52, update:   12900, cost:   0.027134
+Epoch:     52, update:   12910, cost:   0.038808
+Epoch:     52, update:   12920, cost:   0.039805
+Epoch:     52, update:   12930, cost:   0.030941
+Epoch:     52, update:   12940, cost:   0.057048
+Epoch:     52, update:   12950, cost:   0.034626
+Epoch:     52, update:   12960, cost:   0.070609
+Epoch:     52, update:   12970, cost:   0.042367
+Epoch:     52, update:   12980, cost:   0.030873
+Epoch:     52, update:   12990, cost:   0.044266
+Epoch:     52, update:   13000, cost:   0.014566
+--> Epoch 52 finished with mean loss 0.04462 (PPL: 1.04563)
+--> Epoch took 200.218 minutes, 48.052 sec/update
+Starting Epoch 53
+-----------------
+Epoch:     53, update:   13010, cost:   0.049859
+Epoch:     53, update:   13020, cost:   0.044038
+Epoch:     53, update:   13030, cost:   0.045581
+Epoch:     53, update:   13040, cost:   0.046248
+Epoch:     53, update:   13050, cost:   0.029856
+Epoch:     53, update:   13060, cost:   0.054248
+Epoch:     53, update:   13070, cost:   0.038001
+Epoch:     53, update:   13080, cost:   0.030838
+Epoch:     53, update:   13090, cost:   0.034188
+Epoch:     53, update:   13100, cost:   0.034568
+Epoch:     53, update:   13110, cost:   0.031486
+Epoch:     53, update:   13120, cost:   0.041312
+Epoch:     53, update:   13130, cost:   0.050591
+Epoch:     53, update:   13140, cost:   0.047584
+Epoch:     53, update:   13150, cost:   0.039345
+Epoch:     53, update:   13160, cost:   0.049278
+Epoch:     53, update:   13170, cost:   0.030388
+Epoch:     53, update:   13180, cost:   0.025308
+Epoch:     53, update:   13190, cost:   0.040046
+Epoch:     53, update:   13200, cost:   0.029652
+Epoch:     53, update:   13210, cost:   0.055130
+Epoch:     53, update:   13220, cost:   0.037220
+Epoch:     53, update:   13230, cost:   0.057246
+Epoch:     53, update:   13240, cost:   0.038442
+Epoch:     53, update:   13250, cost:   0.009846
+--> Epoch 53 finished with mean loss 0.04184 (PPL: 1.04272)
+--> Epoch took 269.950 minutes, 64.788 sec/update
+Starting Epoch 54
+-----------------
+Epoch:     54, update:   13260, cost:   0.057369
+Epoch:     54, update:   13270, cost:   0.040095
+Epoch:     54, update:   13280, cost:   0.037475
+Epoch:     54, update:   13290, cost:   0.043500
+Epoch:     54, update:   13300, cost:   0.029233
+Epoch:     54, update:   13310, cost:   0.042552
+Epoch:     54, update:   13320, cost:   0.039000
+Epoch:     54, update:   13330, cost:   0.028264
+Epoch:     54, update:   13340, cost:   0.034016
+Epoch:     54, update:   13350, cost:   0.033059
+Epoch:     54, update:   13360, cost:   0.028453
+Epoch:     54, update:   13370, cost:   0.029803
+Epoch:     54, update:   13380, cost:   0.042773
+Epoch:     54, update:   13390, cost:   0.039851
+Epoch:     54, update:   13400, cost:   0.023556
+Epoch:     54, update:   13410, cost:   0.032519
+Epoch:     54, update:   13420, cost:   0.031203
+Epoch:     54, update:   13430, cost:   0.028293
+Epoch:     54, update:   13440, cost:   0.036802
+Epoch:     54, update:   13450, cost:   0.025786
+Epoch:     54, update:   13460, cost:   0.057696
+Epoch:     54, update:   13470, cost:   0.027357
+Epoch:     54, update:   13480, cost:   0.021873
+Epoch:     54, update:   13490, cost:   0.040961
+Epoch:     54, update:   13500, cost:   0.012434
+--> Epoch 54 finished with mean loss 0.03779 (PPL: 1.03852)
+--> Epoch took 267.351 minutes, 64.164 sec/update
+Starting Epoch 55
+-----------------
+Epoch:     55, update:   13510, cost:   0.039802
+Epoch:     55, update:   13520, cost:   0.057101
+Epoch:     55, update:   13530, cost:   0.037162
+Epoch:     55, update:   13540, cost:   0.054522
+Epoch:     55, update:   13550, cost:   0.041251
+Epoch:     55, update:   13560, cost:   0.058196
+Epoch:     55, update:   13570, cost:   0.036203
+Epoch:     55, update:   13580, cost:   0.026472
+Epoch:     55, update:   13590, cost:   0.030867
+Epoch:     55, update:   13600, cost:   0.023634
+Epoch:     55, update:   13610, cost:   0.035516
+Epoch:     55, update:   13620, cost:   0.055901
+Epoch:     55, update:   13630, cost:   0.046637
+Epoch:     55, update:   13640, cost:   0.045013
+Epoch:     55, update:   13650, cost:   0.022815
+Epoch:     55, update:   13660, cost:   0.028617
+Epoch:     55, update:   13670, cost:   0.041446
+Epoch:     55, update:   13680, cost:   0.031200
+Epoch:     55, update:   13690, cost:   0.037675
+Epoch:     55, update:   13700, cost:   0.034323
+Epoch:     55, update:   13710, cost:   0.052324
+Epoch:     55, update:   13720, cost:   0.018784
+Epoch:     55, update:   13730, cost:   0.020128
+Epoch:     55, update:   13740, cost:   0.033349
+Epoch:     55, update:   13750, cost:   0.010054
+--> Epoch 55 finished with mean loss 0.03726 (PPL: 1.03796)
+--> Epoch took 198.586 minutes, 47.661 sec/update
+Starting Epoch 56
+-----------------
+Epoch:     56, update:   13760, cost:   0.047720
+Epoch:     56, update:   13770, cost:   0.045934
+Epoch:     56, update:   13780, cost:   0.034723
+Epoch:     56, update:   13790, cost:   0.050865
+Epoch:     56, update:   13800, cost:   0.039747
+Epoch:     56, update:   13810, cost:   0.038446
+Epoch:     56, update:   13820, cost:   0.033330
+Epoch:     56, update:   13830, cost:   0.021734
+Epoch:     56, update:   13840, cost:   0.023526
+Epoch:     56, update:   13850, cost:   0.033713
+Epoch:     56, update:   13860, cost:   0.030453
+Epoch:     56, update:   13870, cost:   0.027123
+Epoch:     56, update:   13880, cost:   0.073892
+Epoch:     56, update:   13890, cost:   0.030442
+Epoch:     56, update:   13900, cost:   0.023373
+Epoch:     56, update:   13910, cost:   0.047361
+Epoch:     56, update:   13920, cost:   0.032361
+Epoch:     56, update:   13930, cost:   0.027003
+Epoch:     56, update:   13940, cost:   0.027392
+Epoch:     56, update:   13950, cost:   0.024522
+Epoch:     56, update:   13960, cost:   0.048051
+Epoch:     56, update:   13970, cost:   0.032462
+Epoch:     56, update:   13980, cost:   0.023106
+Epoch:     56, update:   13990, cost:   0.037217
+Epoch:     56, update:   14000, cost:   0.008777
+--> Epoch 56 finished with mean loss 0.03683 (PPL: 1.03752)
+--> Epoch took 198.477 minutes, 47.634 sec/update
+Starting Epoch 57
+-----------------
+Epoch:     57, update:   14010, cost:   0.044161
+Epoch:     57, update:   14020, cost:   0.046376
+Epoch:     57, update:   14030, cost:   0.039756
+Epoch:     57, update:   14040, cost:   0.037691
+Epoch:     57, update:   14050, cost:   0.031797
+Epoch:     57, update:   14060, cost:   0.037692
+Epoch:     57, update:   14070, cost:   0.026626
+Epoch:     57, update:   14080, cost:   0.018785
+Epoch:     57, update:   14090, cost:   0.025260
+Epoch:     57, update:   14100, cost:   0.032640
+Epoch:     57, update:   14110, cost:   0.025211
+Epoch:     57, update:   14120, cost:   0.029483
+Epoch:     57, update:   14130, cost:   0.077446
+Epoch:     57, update:   14140, cost:   0.034896
+Epoch:     57, update:   14150, cost:   0.043592
+Epoch:     57, update:   14160, cost:   0.021386
+Epoch:     57, update:   14170, cost:   0.041415
+Epoch:     57, update:   14180, cost:   0.026859
+Epoch:     57, update:   14190, cost:   0.039292
+Epoch:     57, update:   14200, cost:   0.026852
+Epoch:     57, update:   14210, cost:   0.036341
+Epoch:     57, update:   14220, cost:   0.022164
+Epoch:     57, update:   14230, cost:   0.017908
+Epoch:     57, update:   14240, cost:   0.041382
+Epoch:     57, update:   14250, cost:   0.025229
+--> Epoch 57 finished with mean loss 0.03597 (PPL: 1.03663)
+--> Epoch took 197.486 minutes, 47.397 sec/update
+Starting Epoch 58
+-----------------
+Epoch:     58, update:   14260, cost:   0.040581
+Epoch:     58, update:   14270, cost:   0.056598
+Epoch:     58, update:   14280, cost:   0.037642
+Epoch:     58, update:   14290, cost:   0.033472
+Epoch:     58, update:   14300, cost:   0.027661
+Epoch:     58, update:   14310, cost:   0.052164
+Epoch:     58, update:   14320, cost:   0.024026
+Epoch:     58, update:   14330, cost:   0.013928
+Epoch:     58, update:   14340, cost:   0.026500
+Epoch:     58, update:   14350, cost:   0.025151
+Epoch:     58, update:   14360, cost:   0.028226
+Epoch:     58, update:   14370, cost:   0.030582
+Epoch:     58, update:   14380, cost:   0.054347
+Epoch:     58, update:   14390, cost:   0.026596
+Epoch:     58, update:   14400, cost:   0.019979
+Epoch:     58, update:   14410, cost:   0.023754
+Epoch:     58, update:   14420, cost:   0.041960
+Epoch:     58, update:   14430, cost:   0.025281
+Epoch:     58, update:   14440, cost:   0.041077
+Epoch:     58, update:   14450, cost:   0.024787
+Epoch:     58, update:   14460, cost:   0.036641
+Epoch:     58, update:   14470, cost:   0.018053
+Epoch:     58, update:   14480, cost:   0.017184
+Epoch:     58, update:   14490, cost:   0.029585
+Epoch:     58, update:   14500, cost:   0.006942
+--> Epoch 58 finished with mean loss 0.03327 (PPL: 1.03383)
+--> Epoch took 197.996 minutes, 47.519 sec/update
+Starting Epoch 59
+-----------------
+Epoch:     59, update:   14510, cost:   0.042059
+Epoch:     59, update:   14520, cost:   0.047017
+Epoch:     59, update:   14530, cost:   0.026124
+Epoch:     59, update:   14540, cost:   0.032018
+Epoch:     59, update:   14550, cost:   0.023038
+Epoch:     59, update:   14560, cost:   0.032199
+Epoch:     59, update:   14570, cost:   0.031156
+Epoch:     59, update:   14580, cost:   0.016277
+Epoch:     59, update:   14590, cost:   0.026489
+Epoch:     59, update:   14600, cost:   0.020563
+Epoch:     59, update:   14610, cost:   0.027439
+Epoch:     59, update:   14620, cost:   0.022581
+Epoch:     59, update:   14630, cost:   0.038192
+Epoch:     59, update:   14640, cost:   0.039058
+Epoch:     59, update:   14650, cost:   0.016617
+Epoch:     59, update:   14660, cost:   0.030324
+Epoch:     59, update:   14670, cost:   0.028719
+Epoch:     59, update:   14680, cost:   0.021934
+Epoch:     59, update:   14690, cost:   0.034031
+Epoch:     59, update:   14700, cost:   0.018730
+Epoch:     59, update:   14710, cost:   0.032005
+Epoch:     59, update:   14720, cost:   0.035611
+Epoch:     59, update:   14730, cost:   0.018421
+Epoch:     59, update:   14740, cost:   0.045112
+Epoch:     59, update:   14750, cost:   0.014888
+--> Epoch 59 finished with mean loss 0.03076 (PPL: 1.03124)
+--> Epoch took 198.266 minutes, 47.584 sec/update
+Starting Epoch 60
+-----------------
+Epoch:     60, update:   14760, cost:   0.042869
+Epoch:     60, update:   14770, cost:   0.045135
+Epoch:     60, update:   14780, cost:   0.023256
+Epoch:     60, update:   14790, cost:   0.039521
+Epoch:     60, update:   14800, cost:   0.035828
+Epoch:     60, update:   14810, cost:   0.039801
+Epoch:     60, update:   14820, cost:   0.046105
+Epoch:     60, update:   14830, cost:   0.023058
+Epoch:     60, update:   14840, cost:   0.020372
+Epoch:     60, update:   14850, cost:   0.018983
+Epoch:     60, update:   14860, cost:   0.020374
+Epoch:     60, update:   14870, cost:   0.028678
+Epoch:     60, update:   14880, cost:   0.043166
+Epoch:     60, update:   14890, cost:   0.044822
+Epoch:     60, update:   14900, cost:   0.018873
+Epoch:     60, update:   14910, cost:   0.024607
+Epoch:     60, update:   14920, cost:   0.022884
+Epoch:     60, update:   14930, cost:   0.021853
+Epoch:     60, update:   14940, cost:   0.031772
+Epoch:     60, update:   14950, cost:   0.017925
+Epoch:     60, update:   14960, cost:   0.037055
+Epoch:     60, update:   14970, cost:   0.018623
+Epoch:     60, update:   14980, cost:   0.019045
+Epoch:     60, update:   14990, cost:   0.042249
+Epoch:     60, update:   15000, cost:   0.013757
+Validation  3 - LOSS = 2.276 (PPL: 9.742)
+Calling beam-search process
+Beam-search ended, took 2.68794 minutes.
+Validation  3 - BLEU = 43.09, 69.1/49.0/37.8/29.4 (BP=0.978, ratio=0.978, hyp_len=4129, ref_len=4220)
+Saving model with best validation BLEU
+--> Current BEST BLEU = 43.090 at validation 3
+--> Current BEST LOSS = 1.664 (PPL: 5.279) at validation 1
+--> This is model: attention-e512-r1024-adadelta_1e+00-bs80-bleu-each5000_do_d0.0-gc1-init_xavier-s1234.1
+--> Epoch 60 finished with mean loss 0.02905 (PPL: 1.02947)
+--> Epoch took 202.268 minutes, 48.544 sec/update
+Starting Epoch 61
+-----------------
+Epoch:     61, update:   15010, cost:   0.034939
+Epoch:     61, update:   15020, cost:   0.037096
+Epoch:     61, update:   15030, cost:   0.031283
+Epoch:     61, update:   15040, cost:   0.034394
+Epoch:     61, update:   15050, cost:   0.024940
+Epoch:     61, update:   15060, cost:   0.029871
+Epoch:     61, update:   15070, cost:   0.025787
+Epoch:     61, update:   15080, cost:   0.020525
+Epoch:     61, update:   15090, cost:   0.022293
+Epoch:     61, update:   15100, cost:   0.032297
+Epoch:     61, update:   15110, cost:   0.020784
+Epoch:     61, update:   15120, cost:   0.017882
+Epoch:     61, update:   15130, cost:   0.037690
+Epoch:     61, update:   15140, cost:   0.031139
+Epoch:     61, update:   15150, cost:   0.015736
+Epoch:     61, update:   15160, cost:   0.028319
+Epoch:     61, update:   15170, cost:   0.024078
+Epoch:     61, update:   15180, cost:   0.018336
+Epoch:     61, update:   15190, cost:   0.033971
+Epoch:     61, update:   15200, cost:   0.029113
+Epoch:     61, update:   15210, cost:   0.043949
+Epoch:     61, update:   15220, cost:   0.017645
+Epoch:     61, update:   15230, cost:   0.024313
+Epoch:     61, update:   15240, cost:   0.034628
+Epoch:     61, update:   15250, cost:   0.007789
+--> Epoch 61 finished with mean loss 0.02901 (PPL: 1.02943)
+--> Epoch took 198.926 minutes, 47.742 sec/update
+Starting Epoch 62
+-----------------
+Epoch:     62, update:   15260, cost:   0.040370
+Epoch:     62, update:   15270, cost:   0.053586
+Epoch:     62, update:   15280, cost:   0.025116
+Epoch:     62, update:   15290, cost:   0.036602
+Epoch:     62, update:   15300, cost:   0.022171
+Epoch:     62, update:   15310, cost:   0.037597
+Epoch:     62, update:   15320, cost:   0.021823
+Epoch:     62, update:   15330, cost:   0.021092
+Epoch:     62, update:   15340, cost:   0.018534
+Epoch:     62, update:   15350, cost:   0.024640
+Epoch:     62, update:   15360, cost:   0.027314
+Epoch:     62, update:   15370, cost:   0.025843
+Epoch:     62, update:   15380, cost:   0.028097
+Epoch:     62, update:   15390, cost:   0.021826
+Epoch:     62, update:   15400, cost:   0.016397
+Epoch:     62, update:   15410, cost:   0.023389
+Epoch:     62, update:   15420, cost:   0.025460
+Epoch:     62, update:   15430, cost:   0.022568
+Epoch:     62, update:   15440, cost:   0.023324
+Epoch:     62, update:   15450, cost:   0.019229
+Epoch:     62, update:   15460, cost:   0.044086
+Epoch:     62, update:   15470, cost:   0.017992
+Epoch:     62, update:   15480, cost:   0.017180
+Epoch:     62, update:   15490, cost:   0.029786
+Epoch:     62, update:   15500, cost:   0.006564
+--> Epoch 62 finished with mean loss 0.02823 (PPL: 1.02864)
+--> Epoch took 198.623 minutes, 47.669 sec/update
+Starting Epoch 63
+-----------------
+Epoch:     63, update:   15510, cost:   0.041493
+Epoch:     63, update:   15520, cost:   0.046502
+Epoch:     63, update:   15530, cost:   0.021039
+Epoch:     63, update:   15540, cost:   0.047720
+Epoch:     63, update:   15550, cost:   0.020074
+Epoch:     63, update:   15560, cost:   0.021893
+Epoch:     63, update:   15570, cost:   0.019323
+Epoch:     63, update:   15580, cost:   0.023882
+Epoch:     63, update:   15590, cost:   0.019688
+Epoch:     63, update:   15600, cost:   0.032476
+Epoch:     63, update:   15610, cost:   0.019852
+Epoch:     63, update:   15620, cost:   0.021735
+Epoch:     63, update:   15630, cost:   0.038634
+Epoch:     63, update:   15640, cost:   0.022877
+Epoch:     63, update:   15650, cost:   0.016944
+Epoch:     63, update:   15660, cost:   0.018307
+Epoch:     63, update:   15670, cost:   0.028927
+Epoch:     63, update:   15680, cost:   0.022324
+Epoch:     63, update:   15690, cost:   0.033463
+Epoch:     63, update:   15700, cost:   0.019141
+Epoch:     63, update:   15710, cost:   0.039513
+Epoch:     63, update:   15720, cost:   0.021622
+Epoch:     63, update:   15730, cost:   0.017586
+Epoch:     63, update:   15740, cost:   0.034424
+Epoch:     63, update:   15750, cost:   0.011709
+--> Epoch 63 finished with mean loss 0.02631 (PPL: 1.02666)
+--> Epoch took 198.864 minutes, 47.727 sec/update
+Starting Epoch 64
+-----------------
+Epoch:     64, update:   15760, cost:   0.031466
+Epoch:     64, update:   15770, cost:   0.036768
+Epoch:     64, update:   15780, cost:   0.030273
+Epoch:     64, update:   15790, cost:   0.026442
+Epoch:     64, update:   15800, cost:   0.017255
+Epoch:     64, update:   15810, cost:   0.028910
+Epoch:     64, update:   15820, cost:   0.021801
+Epoch:     64, update:   15830, cost:   0.015240
+Epoch:     64, update:   15840, cost:   0.018731
+Epoch:     64, update:   15850, cost:   0.024081
+Epoch:     64, update:   15860, cost:   0.021572
+Epoch:     64, update:   15870, cost:   0.024539
+Epoch:     64, update:   15880, cost:   0.034904
+Epoch:     64, update:   15890, cost:   0.017534
+Epoch:     64, update:   15900, cost:   0.013027
+Epoch:     64, update:   15910, cost:   0.032245
+Epoch:     64, update:   15920, cost:   0.021362
+Epoch:     64, update:   15930, cost:   0.019236
+Epoch:     64, update:   15940, cost:   0.028223
+Epoch:     64, update:   15950, cost:   0.014455
+Epoch:     64, update:   15960, cost:   0.026680
+Epoch:     64, update:   15970, cost:   0.015494
+Epoch:     64, update:   15980, cost:   0.014907
+Epoch:     64, update:   15990, cost:   0.029513
+Epoch:     64, update:   16000, cost:   0.011853
+--> Epoch 64 finished with mean loss 0.02560 (PPL: 1.02593)
+--> Epoch took 200.311 minutes, 48.075 sec/update
+Starting Epoch 65
+-----------------
+Epoch:     65, update:   16010, cost:   0.073016
+Epoch:     65, update:   16020, cost:   0.028702
+Epoch:     65, update:   16030, cost:   0.022612
+Epoch:     65, update:   16040, cost:   0.038680
+Epoch:     65, update:   16050, cost:   0.023094
+Epoch:     65, update:   16060, cost:   0.021182
+Epoch:     65, update:   16070, cost:   0.017903
+Epoch:     65, update:   16080, cost:   0.023243
+Epoch:     65, update:   16090, cost:   0.016061
+Epoch:     65, update:   16100, cost:   0.020838
+Epoch:     65, update:   16110, cost:   0.027220
+Epoch:     65, update:   16120, cost:   0.025922
+Epoch:     65, update:   16130, cost:   0.032030
+Epoch:     65, update:   16140, cost:   0.023187
+Epoch:     65, update:   16150, cost:   0.019838
+Epoch:     65, update:   16160, cost:   0.021186
+Epoch:     65, update:   16170, cost:   0.026379
+Epoch:     65, update:   16180, cost:   0.019896
+Epoch:     65, update:   16190, cost:   0.026131
+Epoch:     65, update:   16200, cost:   0.017338
+Epoch:     65, update:   16210, cost:   0.024978
+Epoch:     65, update:   16220, cost:   0.013561
+Epoch:     65, update:   16230, cost:   0.016751
+Epoch:     65, update:   16240, cost:   0.018408
+Epoch:     65, update:   16250, cost:   0.033432
+--> Epoch 65 finished with mean loss 0.02509 (PPL: 1.02541)
+--> Epoch took 200.364 minutes, 48.087 sec/update
+Starting Epoch 66
+-----------------
+Epoch:     66, update:   16260, cost:   0.032596
+Epoch:     66, update:   16270, cost:   0.040013
+Epoch:     66, update:   16280, cost:   0.018324
+Epoch:     66, update:   16290, cost:   0.033132
+Epoch:     66, update:   16300, cost:   0.020080
+Epoch:     66, update:   16310, cost:   0.028758
+Epoch:     66, update:   16320, cost:   0.026068
+Epoch:     66, update:   16330, cost:   0.015228
+Epoch:     66, update:   16340, cost:   0.018039
+Epoch:     66, update:   16350, cost:   0.027834
+Epoch:     66, update:   16360, cost:   0.027849
+Epoch:     66, update:   16370, cost:   0.018479
+Epoch:     66, update:   16380, cost:   0.024115
+Epoch:     66, update:   16390, cost:   0.019886
+Epoch:     66, update:   16400, cost:   0.013727
+Epoch:     66, update:   16410, cost:   0.017544
+Epoch:     66, update:   16420, cost:   0.018430
+Epoch:     66, update:   16430, cost:   0.014222
+Epoch:     66, update:   16440, cost:   0.023973
+Epoch:     66, update:   16450, cost:   0.011752
+Epoch:     66, update:   16460, cost:   0.032918
+Epoch:     66, update:   16470, cost:   0.014743
+Epoch:     66, update:   16480, cost:   0.014337
+Epoch:     66, update:   16490, cost:   0.023107
+Epoch:     66, update:   16500, cost:   0.009947
+--> Epoch 66 finished with mean loss 0.02450 (PPL: 1.02480)
+--> Epoch took 200.740 minutes, 48.178 sec/update
+Starting Epoch 67
+-----------------
+Epoch:     67, update:   16510, cost:   0.048370
+Epoch:     67, update:   16520, cost:   0.045062
+Epoch:     67, update:   16530, cost:   0.021939
+Epoch:     67, update:   16540, cost:   0.020882
+Epoch:     67, update:   16550, cost:   0.025445
+Epoch:     67, update:   16560, cost:   0.029033
+Epoch:     67, update:   16570, cost:   0.023924
+Epoch:     67, update:   16580, cost:   0.015826
+Epoch:     67, update:   16590, cost:   0.014552
+Epoch:     67, update:   16600, cost:   0.020579
+Epoch:     67, update:   16610, cost:   0.014231
+Epoch:     67, update:   16620, cost:   0.018992
+Epoch:     67, update:   16630, cost:   0.031339
+Epoch:     67, update:   16640, cost:   0.018584
+Epoch:     67, update:   16650, cost:   0.015578
+Epoch:     67, update:   16660, cost:   0.017872
+Epoch:     67, update:   16670, cost:   0.020023
+Epoch:     67, update:   16680, cost:   0.015396
+Epoch:     67, update:   16690, cost:   0.023712
+Epoch:     67, update:   16700, cost:   0.018582
+Epoch:     67, update:   16710, cost:   0.030992
+Epoch:     67, update:   16720, cost:   0.014955
+Epoch:     67, update:   16730, cost:   0.014247
+Epoch:     67, update:   16740, cost:   0.029992
+Epoch:     67, update:   16750, cost:   0.006212
+--> Epoch 67 finished with mean loss 0.02330 (PPL: 1.02357)
+--> Epoch took 200.421 minutes, 48.101 sec/update
+Starting Epoch 68
+-----------------
+Epoch:     68, update:   16760, cost:   0.031484
+Epoch:     68, update:   16770, cost:   0.030563
+Epoch:     68, update:   16780, cost:   0.018534
+Epoch:     68, update:   16790, cost:   0.024774
+Epoch:     68, update:   16800, cost:   0.041216
+Epoch:     68, update:   16810, cost:   0.022763
+Epoch:     68, update:   16820, cost:   0.013327
+Epoch:     68, update:   16830, cost:   0.025487
+Epoch:     68, update:   16840, cost:   0.013304
+Epoch:     68, update:   16850, cost:   0.024060
+Epoch:     68, update:   16860, cost:   0.019588
+Epoch:     68, update:   16870, cost:   0.025301
+Epoch:     68, update:   16880, cost:   0.031781
+Epoch:     68, update:   16890, cost:   0.014848
+Epoch:     68, update:   16900, cost:   0.015252
+Epoch:     68, update:   16910, cost:   0.017010
+Epoch:     68, update:   16920, cost:   0.016163
+Epoch:     68, update:   16930, cost:   0.011577
+Epoch:     68, update:   16940, cost:   0.030621
+Epoch:     68, update:   16950, cost:   0.016511
+Epoch:     68, update:   16960, cost:   0.022229
+Epoch:     68, update:   16970, cost:   0.011612
+Epoch:     68, update:   16980, cost:   0.014209
+Epoch:     68, update:   16990, cost:   0.036259
+Epoch:     68, update:   17000, cost:   0.009960
+--> Epoch 68 finished with mean loss 0.02342 (PPL: 1.02370)
+--> Epoch took 201.091 minutes, 48.262 sec/update
+Starting Epoch 69
+-----------------
+Epoch:     69, update:   17010, cost:   0.033597
+Epoch:     69, update:   17020, cost:   0.026267
+Epoch:     69, update:   17030, cost:   0.020941
+Epoch:     69, update:   17040, cost:   0.022147
+Epoch:     69, update:   17050, cost:   0.019426
+Epoch:     69, update:   17060, cost:   0.020321
+Epoch:     69, update:   17070, cost:   0.018271
+Epoch:     69, update:   17080, cost:   0.019791
+Epoch:     69, update:   17090, cost:   0.016362
+Epoch:     69, update:   17100, cost:   0.019071
+Epoch:     69, update:   17110, cost:   0.023481
+Epoch:     69, update:   17120, cost:   0.017565
+Epoch:     69, update:   17130, cost:   0.034067
+Epoch:     69, update:   17140, cost:   0.020048
+Epoch:     69, update:   17150, cost:   0.013913
+Epoch:     69, update:   17160, cost:   0.016982
+Epoch:     69, update:   17170, cost:   0.018916
+Epoch:     69, update:   17180, cost:   0.012910
+Epoch:     69, update:   17190, cost:   0.026165
+Epoch:     69, update:   17200, cost:   0.013383
+Epoch:     69, update:   17210, cost:   0.023961
+Epoch:     69, update:   17220, cost:   0.016467
+Epoch:     69, update:   17230, cost:   0.023700
+Epoch:     69, update:   17240, cost:   0.024621
+Epoch:     69, update:   17250, cost:   0.005024
+--> Epoch 69 finished with mean loss 0.02309 (PPL: 1.02336)
+--> Epoch took 200.961 minutes, 48.231 sec/update
+Starting Epoch 70
+-----------------
+Epoch:     70, update:   17260, cost:   0.044501
+Epoch:     70, update:   17270, cost:   0.033167
+Epoch:     70, update:   17280, cost:   0.017063
+Epoch:     70, update:   17290, cost:   0.021786
+Epoch:     70, update:   17300, cost:   0.017484
+Epoch:     70, update:   17310, cost:   0.015811
+Epoch:     70, update:   17320, cost:   0.014899
+Epoch:     70, update:   17330, cost:   0.015322
+Epoch:     70, update:   17340, cost:   0.015301
+Epoch:     70, update:   17350, cost:   0.015718
+Epoch:     70, update:   17360, cost:   0.015171
+Epoch:     70, update:   17370, cost:   0.020261
+Epoch:     70, update:   17380, cost:   0.036030
+Epoch:     70, update:   17390, cost:   0.023193
+Epoch:     70, update:   17400, cost:   0.010881
+Epoch:     70, update:   17410, cost:   0.014141
+Epoch:     70, update:   17420, cost:   0.033649
+Epoch:     70, update:   17430, cost:   0.012395
+Epoch:     70, update:   17440, cost:   0.016634
+Epoch:     70, update:   17450, cost:   0.018295
+Epoch:     70, update:   17460, cost:   0.020223
+Epoch:     70, update:   17470, cost:   0.012297
+Epoch:     70, update:   17480, cost:   0.014754
+Epoch:     70, update:   17490, cost:   0.038138
+Epoch:     70, update:   17500, cost:   0.006286
+--> Epoch 70 finished with mean loss 0.02239 (PPL: 1.02265)
+--> Epoch took 200.715 minutes, 48.172 sec/update
+Starting Epoch 71
+-----------------
+Epoch:     71, update:   17510, cost:   0.035721
+Epoch:     71, update:   17520, cost:   0.039752
+Epoch:     71, update:   17530, cost:   0.030153
+Epoch:     71, update:   17540, cost:   0.018788
+Epoch:     71, update:   17550, cost:   0.016186
+Epoch:     71, update:   17560, cost:   0.017825
+Epoch:     71, update:   17570, cost:   0.023470
+Epoch:     71, update:   17580, cost:   0.016372
+Epoch:     71, update:   17590, cost:   0.049707
+Epoch:     71, update:   17600, cost:   0.013472
+Epoch:     71, update:   17610, cost:   0.011604
+Epoch:     71, update:   17620, cost:   0.016237
+Epoch:     71, update:   17630, cost:   0.039436
+Epoch:     71, update:   17640, cost:   0.022744
+Epoch:     71, update:   17650, cost:   0.011075
+Epoch:     71, update:   17660, cost:   0.013267
+Epoch:     71, update:   17670, cost:   0.021706
+Epoch:     71, update:   17680, cost:   0.018282
+Epoch:     71, update:   17690, cost:   0.021846
+Epoch:     71, update:   17700, cost:   0.011372
+Epoch:     71, update:   17710, cost:   0.016901
+Epoch:     71, update:   17720, cost:   0.011215
+Epoch:     71, update:   17730, cost:   0.012013
+Epoch:     71, update:   17740, cost:   0.019505
+Epoch:     71, update:   17750, cost:   0.005372
+--> Epoch 71 finished with mean loss 0.02128 (PPL: 1.02151)
+--> Epoch took 201.554 minutes, 48.373 sec/update
+Starting Epoch 72
+-----------------
+Epoch:     72, update:   17760, cost:   0.033490
+Epoch:     72, update:   17770, cost:   0.030441
+Epoch:     72, update:   17780, cost:   0.022889
+Epoch:     72, update:   17790, cost:   0.020074
+Epoch:     72, update:   17800, cost:   0.021570
+Epoch:     72, update:   17810, cost:   0.013648
+Epoch:     72, update:   17820, cost:   0.013262
+Epoch:     72, update:   17830, cost:   0.012313
+Epoch:     72, update:   17840, cost:   0.014116
+Epoch:     72, update:   17850, cost:   0.014133
+Epoch:     72, update:   17860, cost:   0.015151
+Epoch:     72, update:   17870, cost:   0.022021
+Epoch:     72, update:   17880, cost:   0.028977
+Epoch:     72, update:   17890, cost:   0.017180
+Epoch:     72, update:   17900, cost:   0.009568
+Epoch:     72, update:   17910, cost:   0.031060
+Epoch:     72, update:   17920, cost:   0.022663
+Epoch:     72, update:   17930, cost:   0.010299
+Epoch:     72, update:   17940, cost:   0.026013
+Epoch:     72, update:   17950, cost:   0.008944
+Epoch:     72, update:   17960, cost:   0.016563
+Epoch:     72, update:   17970, cost:   0.012867
+Epoch:     72, update:   17980, cost:   0.014392
+Epoch:     72, update:   17990, cost:   0.013205
+Epoch:     72, update:   18000, cost:   0.005000
+--> Epoch 72 finished with mean loss 0.02070 (PPL: 1.02091)
+--> Epoch took 200.925 minutes, 48.222 sec/update
+Starting Epoch 73
+-----------------
+Epoch:     73, update:   18010, cost:   0.019824
+Epoch:     73, update:   18020, cost:   0.025543
+Epoch:     73, update:   18030, cost:   0.015516
+Epoch:     73, update:   18040, cost:   0.017487
+Epoch:     73, update:   18050, cost:   0.019411
+Epoch:     73, update:   18060, cost:   0.012232
+Epoch:     73, update:   18070, cost:   0.013005
+Epoch:     73, update:   18080, cost:   0.012591
+Epoch:     73, update:   18090, cost:   0.021075
+Epoch:     73, update:   18100, cost:   0.018990
+Epoch:     73, update:   18110, cost:   0.014028
+Epoch:     73, update:   18120, cost:   0.016871
+Epoch:     73, update:   18130, cost:   0.023870
+Epoch:     73, update:   18140, cost:   0.018081
+Epoch:     73, update:   18150, cost:   0.010563
+Epoch:     73, update:   18160, cost:   0.013662
+Epoch:     73, update:   18170, cost:   0.025707
+Epoch:     73, update:   18180, cost:   0.020682
+Epoch:     73, update:   18190, cost:   0.021460
+Epoch:     73, update:   18200, cost:   0.009399
+Epoch:     73, update:   18210, cost:   0.015752
+Epoch:     73, update:   18220, cost:   0.010507
+Epoch:     73, update:   18230, cost:   0.016207
+Epoch:     73, update:   18240, cost:   0.042752
+Epoch:     73, update:   18250, cost:   0.005700
+--> Epoch 73 finished with mean loss 0.01969 (PPL: 1.01989)
+--> Epoch took 201.114 minutes, 48.267 sec/update
+Starting Epoch 74
+-----------------
+Epoch:     74, update:   18260, cost:   0.018400
+Epoch:     74, update:   18270, cost:   0.050790
+Epoch:     74, update:   18280, cost:   0.026220
+Epoch:     74, update:   18290, cost:   0.023178
+Epoch:     74, update:   18300, cost:   0.024579
+Epoch:     74, update:   18310, cost:   0.028219
+Epoch:     74, update:   18320, cost:   0.013580
+Epoch:     74, update:   18330, cost:   0.010799
+Epoch:     74, update:   18340, cost:   0.016739
+Epoch:     74, update:   18350, cost:   0.010313
+Epoch:     74, update:   18360, cost:   0.011390
+Epoch:     74, update:   18370, cost:   0.015355
+Epoch:     74, update:   18380, cost:   0.035184
+Epoch:     74, update:   18390, cost:   0.032938
+Epoch:     74, update:   18400, cost:   0.012137
+Epoch:     74, update:   18410, cost:   0.011587
+Epoch:     74, update:   18420, cost:   0.026472
+Epoch:     74, update:   18430, cost:   0.012890
+Epoch:     74, update:   18440, cost:   0.041017
+Epoch:     74, update:   18450, cost:   0.009732
+Epoch:     74, update:   18460, cost:   0.023960
+Epoch:     74, update:   18470, cost:   0.025360
+Epoch:     74, update:   18480, cost:   0.018577
+Epoch:     74, update:   18490, cost:   0.013175
+Epoch:     74, update:   18500, cost:   0.005573
+--> Epoch 74 finished with mean loss 0.01881 (PPL: 1.01898)
+--> Epoch took 202.655 minutes, 48.637 sec/update
+Starting Epoch 75
+-----------------
+Epoch:     75, update:   18510, cost:   0.016209
+Epoch:     75, update:   18520, cost:   0.030880
+Epoch:     75, update:   18530, cost:   0.015332
+Epoch:     75, update:   18540, cost:   0.023360
+Epoch:     75, update:   18550, cost:   0.017347
+Epoch:     75, update:   18560, cost:   0.015666
+Epoch:     75, update:   18570, cost:   0.014782
+Epoch:     75, update:   18580, cost:   0.009952
+Epoch:     75, update:   18590, cost:   0.013833
+Epoch:     75, update:   18600, cost:   0.018445
+Epoch:     75, update:   18610, cost:   0.013535
+Epoch:     75, update:   18620, cost:   0.015678
+Epoch:     75, update:   18630, cost:   0.025230
+Epoch:     75, update:   18640, cost:   0.012573
+Epoch:     75, update:   18650, cost:   0.012534
+Epoch:     75, update:   18660, cost:   0.018427
+Epoch:     75, update:   18670, cost:   0.016956
+Epoch:     75, update:   18680, cost:   0.008809
+Epoch:     75, update:   18690, cost:   0.038488
+Epoch:     75, update:   18700, cost:   0.020396
+Epoch:     75, update:   18710, cost:   0.026624
+Epoch:     75, update:   18720, cost:   0.012071
+Epoch:     75, update:   18730, cost:   0.015192
+Epoch:     75, update:   18740, cost:   0.019262
+Epoch:     75, update:   18750, cost:   0.015066
+--> Epoch 75 finished with mean loss 0.01887 (PPL: 1.01905)
+--> Epoch took 204.029 minutes, 48.967 sec/update
+Starting Epoch 76
+-----------------
+Epoch:     76, update:   18760, cost:   0.021590
+Epoch:     76, update:   18770, cost:   0.025115
+Epoch:     76, update:   18780, cost:   0.016262
+Epoch:     76, update:   18790, cost:   0.017144
+Epoch:     76, update:   18800, cost:   0.014587
+Epoch:     76, update:   18810, cost:   0.024616
+Epoch:     76, update:   18820, cost:   0.015926
+Epoch:     76, update:   18830, cost:   0.007758
+Epoch:     76, update:   18840, cost:   0.008745
+Epoch:     76, update:   18850, cost:   0.011564
+Epoch:     76, update:   18860, cost:   0.018053
+Epoch:     76, update:   18870, cost:   0.016280
+Epoch:     76, update:   18880, cost:   0.022710
+Epoch:     76, update:   18890, cost:   0.014646
+Epoch:     76, update:   18900, cost:   0.012174
+Epoch:     76, update:   18910, cost:   0.016901
+Epoch:     76, update:   18920, cost:   0.023184
+Epoch:     76, update:   18930, cost:   0.007812
+Epoch:     76, update:   18940, cost:   0.023232
+Epoch:     76, update:   18950, cost:   0.017202
+Epoch:     76, update:   18960, cost:   0.014768
+Epoch:     76, update:   18970, cost:   0.012849
+Epoch:     76, update:   18980, cost:   0.009359
+Epoch:     76, update:   18990, cost:   0.011532
+Epoch:     76, update:   19000, cost:   0.009503
+--> Epoch 76 finished with mean loss 0.01830 (PPL: 1.01846)
+--> Epoch took 200.808 minutes, 48.194 sec/update
+Starting Epoch 77
+-----------------
+Epoch:     77, update:   19010, cost:   0.024988
+Epoch:     77, update:   19020, cost:   0.031320
+Epoch:     77, update:   19030, cost:   0.021822
+Epoch:     77, update:   19040, cost:   0.031025
+Epoch:     77, update:   19050, cost:   0.015064
+Epoch:     77, update:   19060, cost:   0.019966
+Epoch:     77, update:   19070, cost:   0.012553
+Epoch:     77, update:   19080, cost:   0.017485
+Epoch:     77, update:   19090, cost:   0.014929
+Epoch:     77, update:   19100, cost:   0.019358
+Epoch:     77, update:   19110, cost:   0.026170
+Epoch:     77, update:   19120, cost:   0.012866
+Epoch:     77, update:   19130, cost:   0.018176
+Epoch:     77, update:   19140, cost:   0.012670
+Epoch:     77, update:   19150, cost:   0.010586
+Epoch:     77, update:   19160, cost:   0.016770
+Epoch:     77, update:   19170, cost:   0.016357
+Epoch:     77, update:   19180, cost:   0.008160
+Epoch:     77, update:   19190, cost:   0.031366
+Epoch:     77, update:   19200, cost:   0.014921
+Epoch:     77, update:   19210, cost:   0.015655
+Epoch:     77, update:   19220, cost:   0.009933
+Epoch:     77, update:   19230, cost:   0.010229
+Epoch:     77, update:   19240, cost:   0.019043
+Epoch:     77, update:   19250, cost:   0.019781
+--> Epoch 77 finished with mean loss 0.01871 (PPL: 1.01889)
+--> Epoch took 200.526 minutes, 48.126 sec/update
+Starting Epoch 78
+-----------------
+Epoch:     78, update:   19260, cost:   0.021165
+Epoch:     78, update:   19270, cost:   0.026023
+Epoch:     78, update:   19280, cost:   0.028206
+Epoch:     78, update:   19290, cost:   0.013293
+Epoch:     78, update:   19300, cost:   0.034214
+Epoch:     78, update:   19310, cost:   0.014510
+Epoch:     78, update:   19320, cost:   0.009466
+Epoch:     78, update:   19330, cost:   0.008664
+Epoch:     78, update:   19340, cost:   0.011277
+Epoch:     78, update:   19350, cost:   0.013902
+Epoch:     78, update:   19360, cost:   0.018593
+Epoch:     78, update:   19370, cost:   0.011662
+Epoch:     78, update:   19380, cost:   0.016822
+Epoch:     78, update:   19390, cost:   0.010150
+Epoch:     78, update:   19400, cost:   0.009545
+Epoch:     78, update:   19410, cost:   0.024422
+Epoch:     78, update:   19420, cost:   0.014657
+Epoch:     78, update:   19430, cost:   0.012864
+Epoch:     78, update:   19440, cost:   0.033625
+Epoch:     78, update:   19450, cost:   0.008244
+Epoch:     78, update:   19460, cost:   0.024922
+Epoch:     78, update:   19470, cost:   0.009889
+Epoch:     78, update:   19480, cost:   0.009298
+Epoch:     78, update:   19490, cost:   0.016090
+Epoch:     78, update:   19500, cost:   0.005159
+--> Epoch 78 finished with mean loss 0.01822 (PPL: 1.01838)
+--> Epoch took 200.712 minutes, 48.171 sec/update
+Starting Epoch 79
+-----------------
+Epoch:     79, update:   19510, cost:   0.040511
+Epoch:     79, update:   19520, cost:   0.022021
+Epoch:     79, update:   19530, cost:   0.041562
+Epoch:     79, update:   19540, cost:   0.014090
+Epoch:     79, update:   19550, cost:   0.034454
+Epoch:     79, update:   19560, cost:   0.014279
+Epoch:     79, update:   19570, cost:   0.015970
+Epoch:     79, update:   19580, cost:   0.014961
+Epoch:     79, update:   19590, cost:   0.010479
+Epoch:     79, update:   19600, cost:   0.012132
+Epoch:     79, update:   19610, cost:   0.009121
+Epoch:     79, update:   19620, cost:   0.009208
+Epoch:     79, update:   19630, cost:   0.017107
+Epoch:     79, update:   19640, cost:   0.019562
+Epoch:     79, update:   19650, cost:   0.008665
+Epoch:     79, update:   19660, cost:   0.013764
+Epoch:     79, update:   19670, cost:   0.020746
+Epoch:     79, update:   19680, cost:   0.007306
+Epoch:     79, update:   19690, cost:   0.018749
+Epoch:     79, update:   19700, cost:   0.010560
+Epoch:     79, update:   19710, cost:   0.016280
+Epoch:     79, update:   19720, cost:   0.010431
+Epoch:     79, update:   19730, cost:   0.013407
+Epoch:     79, update:   19740, cost:   0.021901
+Epoch:     79, update:   19750, cost:   0.005084
+--> Epoch 79 finished with mean loss 0.01817 (PPL: 1.01834)
+--> Epoch took 201.370 minutes, 48.329 sec/update
+Starting Epoch 80
+-----------------
+Epoch:     80, update:   19760, cost:   0.022249
+Epoch:     80, update:   19770, cost:   0.023505
+Epoch:     80, update:   19780, cost:   0.032481
+Epoch:     80, update:   19790, cost:   0.014744
+Epoch:     80, update:   19800, cost:   0.016336
+Epoch:     80, update:   19810, cost:   0.018467
+Epoch:     80, update:   19820, cost:   0.009808
+Epoch:     80, update:   19830, cost:   0.013693
+Epoch:     80, update:   19840, cost:   0.018553
+Epoch:     80, update:   19850, cost:   0.015995
+Epoch:     80, update:   19860, cost:   0.013945
+Epoch:     80, update:   19870, cost:   0.011360
+Epoch:     80, update:   19880, cost:   0.015366
+Epoch:     80, update:   19890, cost:   0.021172
+Epoch:     80, update:   19900, cost:   0.009317
+Epoch:     80, update:   19910, cost:   0.016996
+Epoch:     80, update:   19920, cost:   0.012080
+Epoch:     80, update:   19930, cost:   0.009981
+Epoch:     80, update:   19940, cost:   0.025226
+Epoch:     80, update:   19950, cost:   0.021507
+Epoch:     80, update:   19960, cost:   0.025390
+Epoch:     80, update:   19970, cost:   0.007079
+Epoch:     80, update:   19980, cost:   0.006867
+Epoch:     80, update:   19990, cost:   0.017428
+Epoch:     80, update:   20000, cost:   0.006987
+Validation  4 - LOSS = 2.439 (PPL: 11.459)
+Calling beam-search process
+Beam-search ended, took 2.81923 minutes.
+Validation  4 - BLEU = 43.56, 69.2/49.3/38.5/30.3 (BP=0.975, ratio=0.975, hyp_len=4115, ref_len=4220)
+Saving model with best validation BLEU
+--> Current BEST BLEU = 43.560 at validation 4
+--> Current BEST LOSS = 1.664 (PPL: 5.279) at validation 1
+--> This is model: attention-e512-r1024-adadelta_1e+00-bs80-bleu-each5000_do_d0.0-gc1-init_xavier-s1234.1
+--> Epoch 80 finished with mean loss 0.01676 (PPL: 1.01690)
+--> Epoch took 204.786 minutes, 49.149 sec/update
+Starting Epoch 81
+-----------------
+Epoch:     81, update:   20010, cost:   0.022613
+Epoch:     81, update:   20020, cost:   0.029320
+Epoch:     81, update:   20030, cost:   0.021926
+Epoch:     81, update:   20040, cost:   0.014288
+Epoch:     81, update:   20050, cost:   0.017989
+Epoch:     81, update:   20060, cost:   0.015250
+Epoch:     81, update:   20070, cost:   0.011339
+Epoch:     81, update:   20080, cost:   0.007056
+Epoch:     81, update:   20090, cost:   0.011308
+Epoch:     81, update:   20100, cost:   0.016585
+Epoch:     81, update:   20110, cost:   0.010357
+Epoch:     81, update:   20120, cost:   0.012771
+Epoch:     81, update:   20130, cost:   0.015239
+Epoch:     81, update:   20140, cost:   0.020465
+Epoch:     81, update:   20150, cost:   0.010652
+Epoch:     81, update:   20160, cost:   0.015247
+Epoch:     81, update:   20170, cost:   0.016593
+Epoch:     81, update:   20180, cost:   0.011275
+Epoch:     81, update:   20190, cost:   0.020778
+Epoch:     81, update:   20200, cost:   0.010979
+Epoch:     81, update:   20210, cost:   0.016690
+Epoch:     81, update:   20220, cost:   0.013304
+Epoch:     81, update:   20230, cost:   0.008175
+Epoch:     81, update:   20240, cost:   0.016029
+Epoch:     81, update:   20250, cost:   0.021448
+--> Epoch 81 finished with mean loss 0.01645 (PPL: 1.01658)
+--> Epoch took 201.399 minutes, 48.336 sec/update
+Starting Epoch 82
+-----------------
+Epoch:     82, update:   20260, cost:   0.020647
+Epoch:     82, update:   20270, cost:   0.019745
+Epoch:     82, update:   20280, cost:   0.016957
+Epoch:     82, update:   20290, cost:   0.011117
+Epoch:     82, update:   20300, cost:   0.017249
+Epoch:     82, update:   20310, cost:   0.035889
+Epoch:     82, update:   20320, cost:   0.012480
+Epoch:     82, update:   20330, cost:   0.017629
+Epoch:     82, update:   20340, cost:   0.016166
+Epoch:     82, update:   20350, cost:   0.029607
+Epoch:     82, update:   20360, cost:   0.012935
+Epoch:     82, update:   20370, cost:   0.022388
+Epoch:     82, update:   20380, cost:   0.021061
+Epoch:     82, update:   20390, cost:   0.022323
+Epoch:     82, update:   20400, cost:   0.011810
+Epoch:     82, update:   20410, cost:   0.015631
+Epoch:     82, update:   20420, cost:   0.013860
+Epoch:     82, update:   20430, cost:   0.009133
+Epoch:     82, update:   20440, cost:   0.020119
+Epoch:     82, update:   20450, cost:   0.017735
+Epoch:     82, update:   20460, cost:   0.013395
+Epoch:     82, update:   20470, cost:   0.010678
+Epoch:     82, update:   20480, cost:   0.010839
+Epoch:     82, update:   20490, cost:   0.015052
+Epoch:     82, update:   20500, cost:   0.017211
+--> Epoch 82 finished with mean loss 0.01669 (PPL: 1.01683)
+--> Epoch took 200.787 minutes, 48.189 sec/update
+Starting Epoch 83
+-----------------
+Epoch:     83, update:   20510, cost:   0.016319
+Epoch:     83, update:   20520, cost:   0.045229
+Epoch:     83, update:   20530, cost:   0.021302
+Epoch:     83, update:   20540, cost:   0.012430
+Epoch:     83, update:   20550, cost:   0.018531
+Epoch:     83, update:   20560, cost:   0.019298
+Epoch:     83, update:   20570, cost:   0.019770
+Epoch:     83, update:   20580, cost:   0.013788
+Epoch:     83, update:   20590, cost:   0.011117
+Epoch:     83, update:   20600, cost:   0.017612
+Epoch:     83, update:   20610, cost:   0.017220
+Epoch:     83, update:   20620, cost:   0.008883
+Epoch:     83, update:   20630, cost:   0.021092
+Epoch:     83, update:   20640, cost:   0.021070
+Epoch:     83, update:   20650, cost:   0.009332
+Epoch:     83, update:   20660, cost:   0.010749
+Epoch:     83, update:   20670, cost:   0.023257
+Epoch:     83, update:   20680, cost:   0.010863
+Epoch:     83, update:   20690, cost:   0.015313
+Epoch:     83, update:   20700, cost:   0.011283
+Epoch:     83, update:   20710, cost:   0.017537
+Epoch:     83, update:   20720, cost:   0.014563
+Epoch:     83, update:   20730, cost:   0.009978
+Epoch:     83, update:   20740, cost:   0.014941
+Epoch:     83, update:   20750, cost:   0.006120
+--> Epoch 83 finished with mean loss 0.01596 (PPL: 1.01609)
+--> Epoch took 201.359 minutes, 48.326 sec/update
+Starting Epoch 84
+-----------------
+Epoch:     84, update:   20760, cost:   0.019812
+Epoch:     84, update:   20770, cost:   0.030774
+Epoch:     84, update:   20780, cost:   0.010430
+Epoch:     84, update:   20790, cost:   0.036214
+Epoch:     84, update:   20800, cost:   0.019618
+Epoch:     84, update:   20810, cost:   0.017852
+Epoch:     84, update:   20820, cost:   0.010720
+Epoch:     84, update:   20830, cost:   0.009736
+Epoch:     84, update:   20840, cost:   0.016947
+Epoch:     84, update:   20850, cost:   0.013108
+Epoch:     84, update:   20860, cost:   0.013347
+Epoch:     84, update:   20870, cost:   0.016558
+Epoch:     84, update:   20880, cost:   0.016931
+Epoch:     84, update:   20890, cost:   0.011360
+Epoch:     84, update:   20900, cost:   0.009515
+Epoch:     84, update:   20910, cost:   0.014435
+Epoch:     84, update:   20920, cost:   0.028049
+Epoch:     84, update:   20930, cost:   0.006705
+Epoch:     84, update:   20940, cost:   0.018967
+Epoch:     84, update:   20950, cost:   0.010659
+Epoch:     84, update:   20960, cost:   0.020264
+Epoch:     84, update:   20970, cost:   0.012360
+Epoch:     84, update:   20980, cost:   0.009390
+Epoch:     84, update:   20990, cost:   0.021674
+Epoch:     84, update:   21000, cost:   0.004618
+--> Epoch 84 finished with mean loss 0.01605 (PPL: 1.01618)
+--> Epoch took 201.107 minutes, 48.266 sec/update
+Starting Epoch 85
+-----------------
+Epoch:     85, update:   21010, cost:   0.022072
+Epoch:     85, update:   21020, cost:   0.018194
+Epoch:     85, update:   21030, cost:   0.011967
+Epoch:     85, update:   21040, cost:   0.016249
+Epoch:     85, update:   21050, cost:   0.019962
+Epoch:     85, update:   21060, cost:   0.009881
+Epoch:     85, update:   21070, cost:   0.009313
+Epoch:     85, update:   21080, cost:   0.009366
+Epoch:     85, update:   21090, cost:   0.011944
+Epoch:     85, update:   21100, cost:   0.013851
+Epoch:     85, update:   21110, cost:   0.010420
+Epoch:     85, update:   21120, cost:   0.009988
+Epoch:     85, update:   21130, cost:   0.013606
+Epoch:     85, update:   21140, cost:   0.015320
+Epoch:     85, update:   21150, cost:   0.007017
+Epoch:     85, update:   21160, cost:   0.008642
+Epoch:     85, update:   21170, cost:   0.010246
+Epoch:     85, update:   21180, cost:   0.012017
+Epoch:     85, update:   21190, cost:   0.017885
+Epoch:     85, update:   21200, cost:   0.010975
+Epoch:     85, update:   21210, cost:   0.010874
+Epoch:     85, update:   21220, cost:   0.016954
+Epoch:     85, update:   21230, cost:   0.009987
+Epoch:     85, update:   21240, cost:   0.013146
+Epoch:     85, update:   21250, cost:   0.005298
+--> Epoch 85 finished with mean loss 0.01528 (PPL: 1.01540)
+--> Epoch took 201.178 minutes, 48.283 sec/update
+Starting Epoch 86
+-----------------
+Epoch:     86, update:   21260, cost:   0.017912
+Epoch:     86, update:   21270, cost:   0.014674
+Epoch:     86, update:   21280, cost:   0.010823
+Epoch:     86, update:   21290, cost:   0.012121
+Epoch:     86, update:   21300, cost:   0.009889
+Epoch:     86, update:   21310, cost:   0.022743
+Epoch:     86, update:   21320, cost:   0.016682
+Epoch:     86, update:   21330, cost:   0.016403
+Epoch:     86, update:   21340, cost:   0.012605
+Epoch:     86, update:   21350, cost:   0.010004
+Epoch:     86, update:   21360, cost:   0.020631
+Epoch:     86, update:   21370, cost:   0.020550
+Epoch:     86, update:   21380, cost:   0.017998
+Epoch:     86, update:   21390, cost:   0.010911
+Epoch:     86, update:   21400, cost:   0.006060
+Epoch:     86, update:   21410, cost:   0.011647
+Epoch:     86, update:   21420, cost:   0.009197
+Epoch:     86, update:   21430, cost:   0.005582
+Epoch:     86, update:   21440, cost:   0.025277
+Epoch:     86, update:   21450, cost:   0.023094
+Epoch:     86, update:   21460, cost:   0.013895
+Epoch:     86, update:   21470, cost:   0.009701
+Epoch:     86, update:   21480, cost:   0.008125
+Epoch:     86, update:   21490, cost:   0.020103
+Epoch:     86, update:   21500, cost:   0.003651
+--> Epoch 86 finished with mean loss 0.01516 (PPL: 1.01528)
+--> Epoch took 201.777 minutes, 48.427 sec/update
+Starting Epoch 87
+-----------------
+Epoch:     87, update:   21510, cost:   0.036683
+Epoch:     87, update:   21520, cost:   0.039036
+Epoch:     87, update:   21530, cost:   0.012084
+Epoch:     87, update:   21540, cost:   0.017070
+Epoch:     87, update:   21550, cost:   0.012366
+Epoch:     87, update:   21560, cost:   0.017579
+Epoch:     87, update:   21570, cost:   0.007702
+Epoch:     87, update:   21580, cost:   0.014611
+Epoch:     87, update:   21590, cost:   0.006466
+Epoch:     87, update:   21600, cost:   0.006566
+Epoch:     87, update:   21610, cost:   0.011534
+Epoch:     87, update:   21620, cost:   0.013402
+Epoch:     87, update:   21630, cost:   0.014915
+Epoch:     87, update:   21640, cost:   0.013488
+Epoch:     87, update:   21650, cost:   0.006426
+Epoch:     87, update:   21660, cost:   0.018166
+Epoch:     87, update:   21670, cost:   0.015634
+Epoch:     87, update:   21680, cost:   0.008296
+Epoch:     87, update:   21690, cost:   0.025058
+Epoch:     87, update:   21700, cost:   0.022948
+Epoch:     87, update:   21710, cost:   0.012049
+Epoch:     87, update:   21720, cost:   0.010823
+Epoch:     87, update:   21730, cost:   0.007608
+Epoch:     87, update:   21740, cost:   0.010039
+Epoch:     87, update:   21750, cost:   0.005021
+--> Epoch 87 finished with mean loss 0.01497 (PPL: 1.01508)
+--> Epoch took 202.078 minutes, 48.499 sec/update
+Starting Epoch 88
+-----------------
+Epoch:     88, update:   21760, cost:   0.023949
+Epoch:     88, update:   21770, cost:   0.047411
+Epoch:     88, update:   21780, cost:   0.010040
+Epoch:     88, update:   21790, cost:   0.010426
+Epoch:     88, update:   21800, cost:   0.024605
+Epoch:     88, update:   21810, cost:   0.031179
+Epoch:     88, update:   21820, cost:   0.012488
+Epoch:     88, update:   21830, cost:   0.009934
+Epoch:     88, update:   21840, cost:   0.007362
+Epoch:     88, update:   21850, cost:   0.005715
+Epoch:     88, update:   21860, cost:   0.012305
+Epoch:     88, update:   21870, cost:   0.014055
+Epoch:     88, update:   21880, cost:   0.012793
+Epoch:     88, update:   21890, cost:   0.030337
+Epoch:     88, update:   21900, cost:   0.009168
+Epoch:     88, update:   21910, cost:   0.008161
+Epoch:     88, update:   21920, cost:   0.010905
+Epoch:     88, update:   21930, cost:   0.008582
+Epoch:     88, update:   21940, cost:   0.015225
+Epoch:     88, update:   21950, cost:   0.007752
+Epoch:     88, update:   21960, cost:   0.012003
+Epoch:     88, update:   21970, cost:   0.018871
+Epoch:     88, update:   21980, cost:   0.010165
+Epoch:     88, update:   21990, cost:   0.031704
+Epoch:     88, update:   22000, cost:   0.012477
+--> Epoch 88 finished with mean loss 0.01427 (PPL: 1.01437)
+--> Epoch took 201.217 minutes, 48.292 sec/update
+Starting Epoch 89
+-----------------
+Epoch:     89, update:   22010, cost:   0.020831
+Epoch:     89, update:   22020, cost:   0.035537
+Epoch:     89, update:   22030, cost:   0.015987
+Epoch:     89, update:   22040, cost:   0.019571
+Epoch:     89, update:   22050, cost:   0.010185
+Epoch:     89, update:   22060, cost:   0.016805
+Epoch:     89, update:   22070, cost:   0.008520
+Epoch:     89, update:   22080, cost:   0.009577
+Epoch:     89, update:   22090, cost:   0.015504
+Epoch:     89, update:   22100, cost:   0.014042
+Epoch:     89, update:   22110, cost:   0.010023
+Epoch:     89, update:   22120, cost:   0.008359
+Epoch:     89, update:   22130, cost:   0.019858
+Epoch:     89, update:   22140, cost:   0.012770
+Epoch:     89, update:   22150, cost:   0.006055
+Epoch:     89, update:   22160, cost:   0.012563
+Epoch:     89, update:   22170, cost:   0.023227
+Epoch:     89, update:   22180, cost:   0.014434
+Epoch:     89, update:   22190, cost:   0.030145
+Epoch:     89, update:   22200, cost:   0.026932
+Epoch:     89, update:   22210, cost:   0.019271
+Epoch:     89, update:   22220, cost:   0.008313
+Epoch:     89, update:   22230, cost:   0.006100
+Epoch:     89, update:   22240, cost:   0.009549
+Epoch:     89, update:   22250, cost:   0.007064
+--> Epoch 89 finished with mean loss 0.01456 (PPL: 1.01467)
+--> Epoch took 201.531 minutes, 48.367 sec/update
+Starting Epoch 90
+-----------------
+Epoch:     90, update:   22260, cost:   0.016060
+Epoch:     90, update:   22270, cost:   0.022025
+Epoch:     90, update:   22280, cost:   0.012129
+Epoch:     90, update:   22290, cost:   0.041053
+Epoch:     90, update:   22300, cost:   0.008286
+Epoch:     90, update:   22310, cost:   0.013512
+Epoch:     90, update:   22320, cost:   0.009091
+Epoch:     90, update:   22330, cost:   0.006436
+Epoch:     90, update:   22340, cost:   0.011389
+Epoch:     90, update:   22350, cost:   0.012205
+Epoch:     90, update:   22360, cost:   0.009796
+Epoch:     90, update:   22370, cost:   0.006774
+Epoch:     90, update:   22380, cost:   0.019061
+Epoch:     90, update:   22390, cost:   0.009034
+Epoch:     90, update:   22400, cost:   0.007929
+Epoch:     90, update:   22410, cost:   0.008237
+Epoch:     90, update:   22420, cost:   0.015997
+Epoch:     90, update:   22430, cost:   0.006825
+Epoch:     90, update:   22440, cost:   0.027593
+Epoch:     90, update:   22450, cost:   0.009163
+Epoch:     90, update:   22460, cost:   0.011871
+Epoch:     90, update:   22470, cost:   0.022138
+Epoch:     90, update:   22480, cost:   0.008879
+Epoch:     90, update:   22490, cost:   0.014458
+Epoch:     90, update:   22500, cost:   0.002404
+--> Epoch 90 finished with mean loss 0.01387 (PPL: 1.01396)
+--> Epoch took 201.851 minutes, 48.444 sec/update
+Starting Epoch 91
+-----------------
+Epoch:     91, update:   22510, cost:   0.011632
+Epoch:     91, update:   22520, cost:   0.014342
+Epoch:     91, update:   22530, cost:   0.010388
+Epoch:     91, update:   22540, cost:   0.011911
+Epoch:     91, update:   22550, cost:   0.011683
+Epoch:     91, update:   22560, cost:   0.012030
+Epoch:     91, update:   22570, cost:   0.010260
+Epoch:     91, update:   22580, cost:   0.006412
+Epoch:     91, update:   22590, cost:   0.009812
+Epoch:     91, update:   22600, cost:   0.016996
+Epoch:     91, update:   22610, cost:   0.005864
+Epoch:     91, update:   22620, cost:   0.008018
+Epoch:     91, update:   22630, cost:   0.027259
+Epoch:     91, update:   22640, cost:   0.016874
+Epoch:     91, update:   22650, cost:   0.003808
+Epoch:     91, update:   22660, cost:   0.010768
+Epoch:     91, update:   22670, cost:   0.009974
+Epoch:     91, update:   22680, cost:   0.013725
+Epoch:     91, update:   22690, cost:   0.032971
+Epoch:     91, update:   22700, cost:   0.005854
+Epoch:     91, update:   22710, cost:   0.011950
+Epoch:     91, update:   22720, cost:   0.009231
+Epoch:     91, update:   22730, cost:   0.039213
+Epoch:     91, update:   22740, cost:   0.019443
+Epoch:     91, update:   22750, cost:   0.005729
+--> Epoch 91 finished with mean loss 0.01322 (PPL: 1.01331)
+--> Epoch took 201.577 minutes, 48.378 sec/update
+Starting Epoch 92
+-----------------
+Epoch:     92, update:   22760, cost:   0.013839
+Epoch:     92, update:   22770, cost:   0.017655
+Epoch:     92, update:   22780, cost:   0.013213
+Epoch:     92, update:   22790, cost:   0.016942
+Epoch:     92, update:   22800, cost:   0.007521
+Epoch:     92, update:   22810, cost:   0.015995
+Epoch:     92, update:   22820, cost:   0.009215
+Epoch:     92, update:   22830, cost:   0.006099
+Epoch:     92, update:   22840, cost:   0.014353
+Epoch:     92, update:   22850, cost:   0.017206
+Epoch:     92, update:   22860, cost:   0.007620
+Epoch:     92, update:   22870, cost:   0.010000
+Epoch:     92, update:   22880, cost:   0.025879
+Epoch:     92, update:   22890, cost:   0.018423
+Epoch:     92, update:   22900, cost:   0.004674
+Epoch:     92, update:   22910, cost:   0.009640
+Epoch:     92, update:   22920, cost:   0.009936
+Epoch:     92, update:   22930, cost:   0.006016
+Epoch:     92, update:   22940, cost:   0.031352
+Epoch:     92, update:   22950, cost:   0.017613
+Epoch:     92, update:   22960, cost:   0.014272
+Epoch:     92, update:   22970, cost:   0.007135
+Epoch:     92, update:   22980, cost:   0.008612
+Epoch:     92, update:   22990, cost:   0.010532
+Epoch:     92, update:   23000, cost:   0.004441
+--> Epoch 92 finished with mean loss 0.01319 (PPL: 1.01328)
+--> Epoch took 201.888 minutes, 48.453 sec/update
+Starting Epoch 93
+-----------------
+Epoch:     93, update:   23010, cost:   0.022857
+Epoch:     93, update:   23020, cost:   0.021708
+Epoch:     93, update:   23030, cost:   0.011962
+Epoch:     93, update:   23040, cost:   0.015846
+Epoch:     93, update:   23050, cost:   0.012613
+Epoch:     93, update:   23060, cost:   0.013551
+Epoch:     93, update:   23070, cost:   0.017013
+Epoch:     93, update:   23080, cost:   0.005129
+Epoch:     93, update:   23090, cost:   0.008238
+Epoch:     93, update:   23100, cost:   0.021791
+Epoch:     93, update:   23110, cost:   0.006494
+Epoch:     93, update:   23120, cost:   0.008684
+Epoch:     93, update:   23130, cost:   0.018264
+Epoch:     93, update:   23140, cost:   0.015139
+Epoch:     93, update:   23150, cost:   0.007298
+Epoch:     93, update:   23160, cost:   0.011463
+Epoch:     93, update:   23170, cost:   0.008370
+Epoch:     93, update:   23180, cost:   0.008936
+Epoch:     93, update:   23190, cost:   0.018723
+Epoch:     93, update:   23200, cost:   0.005303
+Epoch:     93, update:   23210, cost:   0.014545
+Epoch:     93, update:   23220, cost:   0.010647
+Epoch:     93, update:   23230, cost:   0.021788
+Epoch:     93, update:   23240, cost:   0.033815
+Epoch:     93, update:   23250, cost:   0.008620
+--> Epoch 93 finished with mean loss 0.01317 (PPL: 1.01326)
+--> Epoch took 201.808 minutes, 48.434 sec/update
+Starting Epoch 94
+-----------------
+Epoch:     94, update:   23260, cost:   0.030968
+Epoch:     94, update:   23270, cost:   0.044344
+Epoch:     94, update:   23280, cost:   0.020521
+Epoch:     94, update:   23290, cost:   0.013809
+Epoch:     94, update:   23300, cost:   0.031417
+Epoch:     94, update:   23310, cost:   0.020500
+Epoch:     94, update:   23320, cost:   0.009780
+Epoch:     94, update:   23330, cost:   0.009673
+Epoch:     94, update:   23340, cost:   0.013955
+Epoch:     94, update:   23350, cost:   0.007701
+Epoch:     94, update:   23360, cost:   0.009797
+Epoch:     94, update:   23370, cost:   0.006104
+Epoch:     94, update:   23380, cost:   0.013440
+Epoch:     94, update:   23390, cost:   0.024390
+Epoch:     94, update:   23400, cost:   0.005058
+Epoch:     94, update:   23410, cost:   0.009417
+Epoch:     94, update:   23420, cost:   0.017761
+Epoch:     94, update:   23430, cost:   0.005432
+Epoch:     94, update:   23440, cost:   0.020652
+Epoch:     94, update:   23450, cost:   0.005011
+Epoch:     94, update:   23460, cost:   0.009527
+Epoch:     94, update:   23470, cost:   0.013506
+Epoch:     94, update:   23480, cost:   0.010078
+Epoch:     94, update:   23490, cost:   0.012573
+Epoch:     94, update:   23500, cost:   0.004147
+--> Epoch 94 finished with mean loss 0.01406 (PPL: 1.01415)
+--> Epoch took 202.029 minutes, 48.487 sec/update
+Starting Epoch 95
+-----------------
+Epoch:     95, update:   23510, cost:   0.026147
+Epoch:     95, update:   23520, cost:   0.015956
+Epoch:     95, update:   23530, cost:   0.041544
+Epoch:     95, update:   23540, cost:   0.009177
+Epoch:     95, update:   23550, cost:   0.017492
+Epoch:     95, update:   23560, cost:   0.009441
+Epoch:     95, update:   23570, cost:   0.008236
+Epoch:     95, update:   23580, cost:   0.010714
+Epoch:     95, update:   23590, cost:   0.006096
+Epoch:     95, update:   23600, cost:   0.006528
+Epoch:     95, update:   23610, cost:   0.008238
+Epoch:     95, update:   23620, cost:   0.011741
+Epoch:     95, update:   23630, cost:   0.010577
+Epoch:     95, update:   23640, cost:   0.012843
+Epoch:     95, update:   23650, cost:   0.014778
+Epoch:     95, update:   23660, cost:   0.009452
+Epoch:     95, update:   23670, cost:   0.014812
+Epoch:     95, update:   23680, cost:   0.007977
+Epoch:     95, update:   23690, cost:   0.016651
+Epoch:     95, update:   23700, cost:   0.005752
+Epoch:     95, update:   23710, cost:   0.014303
+Epoch:     95, update:   23720, cost:   0.008429
+Epoch:     95, update:   23730, cost:   0.004998
+Epoch:     95, update:   23740, cost:   0.009558
+Epoch:     95, update:   23750, cost:   0.005512
+--> Epoch 95 finished with mean loss 0.01297 (PPL: 1.01306)
+--> Epoch took 202.501 minutes, 48.600 sec/update
+Starting Epoch 96
+-----------------
+Epoch:     96, update:   23760, cost:   0.035472
+Epoch:     96, update:   23770, cost:   0.014893
+Epoch:     96, update:   23780, cost:   0.025573
+Epoch:     96, update:   23790, cost:   0.007437
+Epoch:     96, update:   23800, cost:   0.011495
+Epoch:     96, update:   23810, cost:   0.007927
+Epoch:     96, update:   23820, cost:   0.007548
+Epoch:     96, update:   23830, cost:   0.011737
+Epoch:     96, update:   23840, cost:   0.004634
+Epoch:     96, update:   23850, cost:   0.030480
+Epoch:     96, update:   23860, cost:   0.007297
+Epoch:     96, update:   23870, cost:   0.011604
+Epoch:     96, update:   23880, cost:   0.010779
+Epoch:     96, update:   23890, cost:   0.005732
+Epoch:     96, update:   23900, cost:   0.006075
+Epoch:     96, update:   23910, cost:   0.006249
+Epoch:     96, update:   23920, cost:   0.005769
+Epoch:     96, update:   23930, cost:   0.008452
+Epoch:     96, update:   23940, cost:   0.017184
+Epoch:     96, update:   23950, cost:   0.004881
+Epoch:     96, update:   23960, cost:   0.007560
+Epoch:     96, update:   23970, cost:   0.009015
+Epoch:     96, update:   23980, cost:   0.009107
+Epoch:     96, update:   23990, cost:   0.010673
+Epoch:     96, update:   24000, cost:   0.003911
+--> Epoch 96 finished with mean loss 0.01213 (PPL: 1.01220)
+--> Epoch took 203.498 minutes, 48.840 sec/update
+Starting Epoch 97
+-----------------
+Epoch:     97, update:   24010, cost:   0.042570
+Epoch:     97, update:   24020, cost:   0.020619
+Epoch:     97, update:   24030, cost:   0.021834
+Epoch:     97, update:   24040, cost:   0.010018
+Epoch:     97, update:   24050, cost:   0.008762
+Epoch:     97, update:   24060, cost:   0.010828
+Epoch:     97, update:   24070, cost:   0.008354
+Epoch:     97, update:   24080, cost:   0.009875
+Epoch:     97, update:   24090, cost:   0.006252
+Epoch:     97, update:   24100, cost:   0.011649
+Epoch:     97, update:   24110, cost:   0.007424
+Epoch:     97, update:   24120, cost:   0.009346
+Epoch:     97, update:   24130, cost:   0.011338
+Epoch:     97, update:   24140, cost:   0.008263
+Epoch:     97, update:   24150, cost:   0.005473
+Epoch:     97, update:   24160, cost:   0.009092
+Epoch:     97, update:   24170, cost:   0.006083
+Epoch:     97, update:   24180, cost:   0.005462
+Epoch:     97, update:   24190, cost:   0.016968
+Epoch:     97, update:   24200, cost:   0.008512
+Epoch:     97, update:   24210, cost:   0.009539
+Epoch:     97, update:   24220, cost:   0.005274
+Epoch:     97, update:   24230, cost:   0.010135
+Epoch:     97, update:   24240, cost:   0.009951
+Epoch:     97, update:   24250, cost:   0.004525
+--> Epoch 97 finished with mean loss 0.01181 (PPL: 1.01188)
+--> Epoch took 203.137 minutes, 48.753 sec/update
+Starting Epoch 98
+-----------------
+Epoch:     98, update:   24260, cost:   0.020568
+Epoch:     98, update:   24270, cost:   0.043074
+Epoch:     98, update:   24280, cost:   0.011129
+Epoch:     98, update:   24290, cost:   0.008943
+Epoch:     98, update:   24300, cost:   0.011531
+Epoch:     98, update:   24310, cost:   0.008378
+Epoch:     98, update:   24320, cost:   0.021092
+Epoch:     98, update:   24330, cost:   0.008528
+Epoch:     98, update:   24340, cost:   0.005382
+Epoch:     98, update:   24350, cost:   0.006169
+Epoch:     98, update:   24360, cost:   0.021566
+Epoch:     98, update:   24370, cost:   0.026222
+Epoch:     98, update:   24380, cost:   0.010632
+Epoch:     98, update:   24390, cost:   0.007063
+Epoch:     98, update:   24400, cost:   0.004406
+Epoch:     98, update:   24410, cost:   0.011936
+Epoch:     98, update:   24420, cost:   0.010278
+Epoch:     98, update:   24430, cost:   0.014695
+Epoch:     98, update:   24440, cost:   0.035713
+Epoch:     98, update:   24450, cost:   0.014506
+Epoch:     98, update:   24460, cost:   0.009568
+Epoch:     98, update:   24470, cost:   0.005908
+Epoch:     98, update:   24480, cost:   0.007747
+Epoch:     98, update:   24490, cost:   0.008112
+Epoch:     98, update:   24500, cost:   0.009301
+--> Epoch 98 finished with mean loss 0.01224 (PPL: 1.01231)
+--> Epoch took 202.487 minutes, 48.597 sec/update
+Starting Epoch 99
+-----------------
+Epoch:     99, update:   24510, cost:   0.015804
+Epoch:     99, update:   24520, cost:   0.031181
+Epoch:     99, update:   24530, cost:   0.009413
+Epoch:     99, update:   24540, cost:   0.015728
+Epoch:     99, update:   24550, cost:   0.006606
+Epoch:     99, update:   24560, cost:   0.012406
+Epoch:     99, update:   24570, cost:   0.010745
+Epoch:     99, update:   24580, cost:   0.016076
+Epoch:     99, update:   24590, cost:   0.008491
+Epoch:     99, update:   24600, cost:   0.005755
+Epoch:     99, update:   24610, cost:   0.010309
+Epoch:     99, update:   24620, cost:   0.016694
+Epoch:     99, update:   24630, cost:   0.020533
+Epoch:     99, update:   24640, cost:   0.013252
+Epoch:     99, update:   24650, cost:   0.005433
+Epoch:     99, update:   24660, cost:   0.005210
+Epoch:     99, update:   24670, cost:   0.008437
+Epoch:     99, update:   24680, cost:   0.039447
+Epoch:     99, update:   24690, cost:   0.016844
+Epoch:     99, update:   24700, cost:   0.008003
+Epoch:     99, update:   24710, cost:   0.013631
+Epoch:     99, update:   24720, cost:   0.006941
+Epoch:     99, update:   24730, cost:   0.010870
+Epoch:     99, update:   24740, cost:   0.006620
+Epoch:     99, update:   24750, cost:   0.010642
+--> Epoch 99 finished with mean loss 0.01178 (PPL: 1.01185)
+--> Epoch took 202.972 minutes, 48.713 sec/update
+Starting Epoch 100
+------------------
+Epoch:    100, update:   24760, cost:   0.014006
+Epoch:    100, update:   24770, cost:   0.034912
+Epoch:    100, update:   24780, cost:   0.019793
+Epoch:    100, update:   24790, cost:   0.020314
+Epoch:    100, update:   24800, cost:   0.005568
+Epoch:    100, update:   24810, cost:   0.007145
+Epoch:    100, update:   24820, cost:   0.007764
+Epoch:    100, update:   24830, cost:   0.006654
+Epoch:    100, update:   24840, cost:   0.005442
+Epoch:    100, update:   24850, cost:   0.004474
+Epoch:    100, update:   24860, cost:   0.010953
+Epoch:    100, update:   24870, cost:   0.008993
+Epoch:    100, update:   24880, cost:   0.009292
+Epoch:    100, update:   24890, cost:   0.012090
+Epoch:    100, update:   24900, cost:   0.006050
+Epoch:    100, update:   24910, cost:   0.006411
+Epoch:    100, update:   24920, cost:   0.007816
+Epoch:    100, update:   24930, cost:   0.010996
+Epoch:    100, update:   24940, cost:   0.017911
+Epoch:    100, update:   24950, cost:   0.006932
+Epoch:    100, update:   24960, cost:   0.009554
+Epoch:    100, update:   24970, cost:   0.007037
+Epoch:    100, update:   24980, cost:   0.012777
+Epoch:    100, update:   24990, cost:   0.004813
+Epoch:    100, update:   25000, cost:   0.004671
+Validation  5 - LOSS = 2.581 (PPL: 13.213)
+Calling beam-search process
+Beam-search ended, took 2.77723 minutes.
+Validation  5 - BLEU = 43.48, 69.7/49.4/38.3/29.9 (BP=0.976, ratio=0.976, hyp_len=4119, ref_len=4220)
+Early stopping patience: 9 validation left
+--> Current BEST BLEU = 43.560 at validation 4
+--> Current BEST LOSS = 1.664 (PPL: 5.279) at validation 1
+--> This is model: attention-e512-r1024-adadelta_1e+00-bs80-bleu-each5000_do_d0.0-gc1-init_xavier-s1234.1
+--> Epoch 100 finished with mean loss 0.01103 (PPL: 1.01109)
+--> Epoch took 205.214 minutes, 49.251 sec/update
+Starting Epoch 101
+------------------
+Epoch:    101, update:   25010, cost:   0.010159
+Epoch:    101, update:   25020, cost:   0.027362
+Epoch:    101, update:   25030, cost:   0.005364
+Epoch:    101, update:   25040, cost:   0.008286
+Epoch:    101, update:   25050, cost:   0.009526
+Epoch:    101, update:   25060, cost:   0.013343
+Epoch:    101, update:   25070, cost:   0.006301
+Epoch:    101, update:   25080, cost:   0.006415
+Epoch:    101, update:   25090, cost:   0.011009
+Epoch:    101, update:   25100, cost:   0.019251
+Epoch:    101, update:   25110, cost:   0.008426
+Epoch:    101, update:   25120, cost:   0.005986
+Epoch:    101, update:   25130, cost:   0.009603
+Epoch:    101, update:   25140, cost:   0.008374
+Epoch:    101, update:   25150, cost:   0.013671
+Epoch:    101, update:   25160, cost:   0.023692
+Epoch:    101, update:   25170, cost:   0.019040
+Epoch:    101, update:   25180, cost:   0.016813
+Epoch:    101, update:   25190, cost:   0.014024
+Epoch:    101, update:   25200, cost:   0.007284
+Epoch:    101, update:   25210, cost:   0.014186
+Epoch:    101, update:   25220, cost:   0.007580
+Epoch:    101, update:   25230, cost:   0.012147
+Epoch:    101, update:   25240, cost:   0.006464
+Epoch:    101, update:   25250, cost:   0.003531
+--> Epoch 101 finished with mean loss 0.01208 (PPL: 1.01215)
+--> Epoch took 200.748 minutes, 48.180 sec/update
+Starting Epoch 102
+------------------
+Epoch:    102, update:   25260, cost:   0.034859
+Epoch:    102, update:   25270, cost:   0.028886
+Epoch:    102, update:   25280, cost:   0.006941
+Epoch:    102, update:   25290, cost:   0.009173
+Epoch:    102, update:   25300, cost:   0.008671
+Epoch:    102, update:   25310, cost:   0.006801
+Epoch:    102, update:   25320, cost:   0.026863
+Epoch:    102, update:   25330, cost:   0.006427
+Epoch:    102, update:   25340, cost:   0.005044
+Epoch:    102, update:   25350, cost:   0.018639
+Epoch:    102, update:   25360, cost:   0.006209
+Epoch:    102, update:   25370, cost:   0.005892
+Epoch:    102, update:   25380, cost:   0.011692
+Epoch:    102, update:   25390, cost:   0.010416
+Epoch:    102, update:   25400, cost:   0.003581
+Epoch:    102, update:   25410, cost:   0.005175
+Epoch:    102, update:   25420, cost:   0.007834

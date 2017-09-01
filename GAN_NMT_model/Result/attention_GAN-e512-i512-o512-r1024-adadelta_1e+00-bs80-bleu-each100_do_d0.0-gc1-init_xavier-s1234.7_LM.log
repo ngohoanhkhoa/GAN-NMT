@@ -1,0 +1,399 @@
+THEANO_FLAGS = device=gpu,floatX=float32
+Using device: auto (on machine n4)
+Theano version: 0.9.0.dev-RELEASE
+Training options:
+-----------------------------------
+                alpha_init : 0.5
+                alpha_rate : 0.001
+                    clip_c : 1.0
+                   decay_c : 0
+                 device_id : auto
+    discriminator_loop_num : 1
+        generator_loop_num : 1
+                      init : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/attention-e512-r1024-adadelta_1e+00-bs80-bleu-each5000_do_d0.0-gc1-init_xavier-s1234.1-val001-bleu_38.850.npz
+                   initdis : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/models/discriminator_en_fr/cnn_discriminator-e512-adadelta_1e+00-bs80-bleu-each50-gc1-init_xavier-s1234.1-val002-loss_0.218.npz
+                    initlm : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/rnnlm-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each5000_do_d0.0-gc1-init_xavier-s1234.3-val002-loss_6.638.npz
+                   max_acc : 0.85
+                max_epochs : 1000000
+             max_iteration : 1000000
+                    maxlen : 50
+                   min_acc : 0.75
+  model_discriminator_type : cnn_discriminator
+ model_language_model_type : rnnlm
+                model_type : attention_GAN
+        monte_carlo_search : True
+                  patience : 1000
+                   rollnum : 20
+               sample_freq : 0
+               save_best_n : 4
+                      seed : 1234
+             snapshot_freq : 0
+                valid_beam : 12
+                valid_freq : 100
+              valid_metric : bleu
+               valid_njobs : 16
+            valid_save_hyp : False
+               valid_start : 1
+
+Model options:
+-----------------------------------
+                batch_size : 80
+                  dec_type : gru_cond
+                   dropout : 0.0
+             embedding_dim : 512
+                  enc_type : gru
+                in_emb_dim : 512
+                layer_norm : False
+                     lrate : 1
+                   n_words : 30000
+               n_words_src : 30000
+               n_words_trg : 30000
+                     njobs : 15
+                 norm_cost : False
+                 optimizer : adadelta
+               out_emb_dim : 512
+                   rnn_dim : 1024
+                 save_path : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/models/nmt_GAN_en_fr_LM/attention_GAN-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each100_do_d0.0-gc1-init_xavier-s1234.7
+              shuffle_mode : None
+              tied_trg_emb : True
+              valid_metric : bleu
+               weight_init : xavier
+                     dicts =
+                       src : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/train.en.vocab.pkl
+                    src_lm : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/train.fr.vocab.pkl
+                       trg : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/train.fr.vocab.pkl
+                      data =
+                 train_src : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/train.en
+                 train_trg : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/train.fr
+                 valid_src : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/valid.en
+                 valid_trg : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/valid.fr
+
+Initializing parameters
+Creating shared variables
+Will override parameters from pre-trained weights init Generator
+  attention-e512-r1024-adadelta_1e+00-bs80-bleu-each5000_do_d0.0-gc1-init_xavier-s1234.1-val001-bleu_38.850.npz
+Will override parameters from pre-trained weights init Discriminator
+  cnn_discriminator-e512-adadelta_1e+00-bs80-bleu-each50-gc1-init_xavier-s1234.1-val002-loss_0.218.npz
+Will override parameters from pre-trained weights init Language Model
+  rnnlm-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each5000_do_d0.0-gc1-init_xavier-s1234.3-val002-loss_6.638.npz
+Number of parameters generator    : 42.4M
+Number of parameters discriminator: 8.7M
+Number of parameters language model: 14.8M
+Loading data
+Shuffle mode: None
+Source vocabulary size: 7751
+Target vocabulary size: 9067
+19972 training samples
+506 validation samples
+dropout (emb,ctx,out): 0.00, 0.00, 0.00
+Building model
+Input tensor order: 
+[x, x_mask, y, y_mask]
+Building sampler
+Building optimizer adadelta (initial lr=1.00000)
+Starting Epoch 1
+----------------
+Loss Generator:   1.327416
+Discriminator: Epoch:      1, update:       1, cost:   0.391305
+Loss Generator:   1.198823
+Discriminator: Epoch:      1, update:       2, cost:   0.378205
+Loss Generator:   1.104484
+Discriminator: Epoch:      1, update:       3, cost:   0.445388
+Loss Generator:   1.150080
+Discriminator: Epoch:      1, update:       4, cost:   0.311999
+Loss Generator:   0.985992
+Discriminator: Epoch:      1, update:       5, cost:   0.424031
+Loss Generator:   1.159316
+Discriminator: Epoch:      1, update:       6, cost:   0.374278
+Loss Generator:   1.175810
+Discriminator: Epoch:      1, update:       7, cost:   0.342666
+Loss Generator:   1.029896
+Discriminator: Epoch:      1, update:       8, cost:   0.381473
+Loss Generator:   1.377990
+Discriminator: Epoch:      1, update:       9, cost:   0.343954
+Loss Generator:   1.410330
+Discriminator: Epoch:      1, update:      10, cost:   0.373108
+Generator    : Epoch:      1, update:      10, cost:   1.410330
+Loss Generator:   1.347887
+Discriminator: Epoch:      1, update:      11, cost:   0.288323
+Loss Generator:   1.319808
+Loss Generator:   1.427382
+Discriminator: Epoch:      1, update:      13, cost:   0.342620
+Loss Generator:   1.309369
+Loss Generator:   1.137027
+Discriminator: Epoch:      1, update:      15, cost:   0.270252
+Loss Generator:   0.891799
+Discriminator: Epoch:      1, update:      16, cost:   0.261048
+Loss Generator:   1.322453
+Loss Generator:   1.200357
+Loss Generator:   1.262757
+Loss Generator:   1.299582
+Discriminator: Epoch:      1, update:      20, cost:   0.281751
+Generator    : Epoch:      1, update:      20, cost:   1.299582
+Loss Generator:   1.135487
+Loss Generator:   1.137343
+Discriminator: Epoch:      1, update:      22, cost:   0.311037
+Loss Generator:   1.034236
+Loss Generator:   1.439549
+Loss Generator:   1.318948
+Loss Generator:   1.164560
+Loss Generator:   1.044533
+Loss Generator:   1.168583
+Loss Generator:   1.187116
+Loss Generator:   1.195472
+Generator    : Epoch:      1, update:      30, cost:   1.195472
+Loss Generator:   1.003422
+Loss Generator:   1.017873
+Discriminator: Epoch:      1, update:      32, cost:   0.314569
+Loss Generator:   1.473010
+Discriminator: Epoch:      1, update:      33, cost:   0.343630
+Loss Generator:   1.463560
+Discriminator: Epoch:      1, update:      34, cost:   0.328676
+Loss Generator:   1.241922
+Discriminator: Epoch:      1, update:      35, cost:   0.287442
+Loss Generator:   1.192583
+Loss Generator:   1.024593
+Loss Generator:   1.251941
+Discriminator: Epoch:      1, update:      38, cost:   0.313096
+Loss Generator:   1.215931
+Discriminator: Epoch:      1, update:      39, cost:   0.343223
+Loss Generator:   1.470033
+Generator    : Epoch:      1, update:      40, cost:   1.470033
+Loss Generator:   1.182483
+Discriminator: Epoch:      1, update:      41, cost:   0.297695
+Loss Generator:   1.216923
+Discriminator: Epoch:      1, update:      42, cost:   0.272661
+Loss Generator:   1.217063
+Loss Generator:   1.207101
+Discriminator: Epoch:      1, update:      44, cost:   0.308156
+Loss Generator:   1.401036
+Loss Generator:   1.443023
+Discriminator: Epoch:      1, update:      46, cost:   0.311988
+Loss Generator:   1.157076
+Discriminator: Epoch:      1, update:      47, cost:   0.337969
+Loss Generator:   1.292425
+Discriminator: Epoch:      1, update:      48, cost:   0.275832
+Loss Generator:   1.511097
+Loss Generator:   1.222155
+Generator    : Epoch:      1, update:      50, cost:   1.222155
+Loss Generator:   1.353240
+Loss Generator:   1.569329
+Loss Generator:   1.141111
+Discriminator: Epoch:      1, update:      53, cost:   0.337211
+Loss Generator:   1.382323
+Discriminator: Epoch:      1, update:      54, cost:   0.367235
+Loss Generator:   1.339484
+Discriminator: Epoch:      1, update:      55, cost:   0.310557
+Loss Generator:   1.121571
+Loss Generator:   1.142005
+Discriminator: Epoch:      1, update:      57, cost:   0.332101
+Loss Generator:   1.250550
+Discriminator: Epoch:      1, update:      58, cost:   0.320342
+Loss Generator:   1.176045
+Discriminator: Epoch:      1, update:      59, cost:   0.327172
+Loss Generator:   1.362971
+Generator    : Epoch:      1, update:      60, cost:   1.362971
+Loss Generator:   1.220723
+Discriminator: Epoch:      1, update:      61, cost:   0.349792
+Loss Generator:   1.554463
+Discriminator: Epoch:      1, update:      62, cost:   0.362086
+Loss Generator:   1.188683
+Discriminator: Epoch:      1, update:      63, cost:   0.276726
+Loss Generator:   1.161177
+Discriminator: Epoch:      1, update:      64, cost:   0.383520
+Loss Generator:   1.287333
+Discriminator: Epoch:      1, update:      65, cost:   0.320224
+Loss Generator:   1.223706
+Loss Generator:   1.060496
+Discriminator: Epoch:      1, update:      67, cost:   0.268253
+Loss Generator:   1.264419
+Loss Generator:   1.264234
+Loss Generator:   1.367645
+Generator    : Epoch:      1, update:      70, cost:   1.367645
+Loss Generator:   1.071342
+Loss Generator:   1.087531
+Loss Generator:   1.331349
+Discriminator: Epoch:      1, update:      73, cost:   0.306075
+Loss Generator:   1.368312
+Loss Generator:   1.129901
+Loss Generator:   1.167300
+Loss Generator:   1.192153
+Loss Generator:   1.305650
+Loss Generator:   0.975607
+Loss Generator:   0.938953
+Discriminator: Epoch:      1, update:      80, cost:   0.322664
+Generator    : Epoch:      1, update:      80, cost:   0.938953
+Loss Generator:   1.111216
+Loss Generator:   1.104863
+Loss Generator:   1.002452
+Loss Generator:   0.878020
+Loss Generator:   0.886910
+Loss Generator:   0.911198
+Loss Generator:   1.105423
+Discriminator: Epoch:      1, update:      87, cost:   0.308158
+Loss Generator:   1.204338
+Loss Generator:   1.088612
+Loss Generator:   1.254968
+Discriminator: Epoch:      1, update:      90, cost:   0.410659
+Generator    : Epoch:      1, update:      90, cost:   1.254968
+Loss Generator:   1.114300
+Discriminator: Epoch:      1, update:      91, cost:   0.326487
+Loss Generator:   1.426579
+Discriminator: Epoch:      1, update:      92, cost:   0.292235
+Loss Generator:   1.041166
+Discriminator: Epoch:      1, update:      93, cost:   0.286353
+Loss Generator:   1.000621
+Loss Generator:   1.166988
+Discriminator: Epoch:      1, update:      95, cost:   0.271772
+Loss Generator:   1.258123
+Discriminator: Epoch:      1, update:      96, cost:   0.220386
+Loss Generator:   1.035509
+Loss Generator:   0.994943
+Discriminator: Epoch:      1, update:      98, cost:   0.285314
+Loss Generator:   1.192470
+Discriminator: Epoch:      1, update:      99, cost:   0.281715
+Loss Generator:   1.261240
+Discriminator: Epoch:      1, update:     100, cost:   0.332918
+Generator    : Epoch:      1, update:     100, cost:   1.261240
+Validation  1 - LOSS = 1.686 (PPL: 5.395)
+Calling beam-search process
+Beam-search ended, took 2.58197 minutes.
+Validation  1 - BLEU = 7.26, 14.2/8.8/5.8/3.8 (BP=1.000, ratio=4.099, hyp_len=17299, ref_len=4220)
+Saving model with best validation BLEU
+--> Current BEST BLEU = 7.260 at validation 1
+--> Current BEST LOSS = 1.686 (PPL: 5.395) at validation 1
+--> This is model: attention_GAN-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each100_do_d0.0-gc1-init_xavier-s1234.7
+Loss Generator:   1.263118
+Loss Generator:   1.254217
+Loss Generator:   1.050064
+Loss Generator:   1.070563
+Loss Generator:   0.953377
+Loss Generator:   1.343213
+Loss Generator:   1.111271
+Loss Generator:   1.041113
+Loss Generator:   1.190344
+Loss Generator:   1.073686
+Generator    : Epoch:      1, update:     110, cost:   1.073686
+Loss Generator:   1.364016
+Loss Generator:   1.171127
+Loss Generator:   1.102338
+Loss Generator:   1.037983
+Loss Generator:   1.269529
+Loss Generator:   1.389533
+Discriminator: Epoch:      1, update:     116, cost:   0.332675
+Loss Generator:   0.969132
+Discriminator: Epoch:      1, update:     117, cost:   0.293170
+Loss Generator:   1.315704
+Discriminator: Epoch:      1, update:     118, cost:   0.288773
+Loss Generator:   1.141246
+Discriminator: Epoch:      1, update:     119, cost:   0.177055
+Loss Generator:   1.084524
+Generator    : Epoch:      1, update:     120, cost:   1.084524
+Loss Generator:   1.265343
+Loss Generator:   1.218965
+Loss Generator:   1.213234
+Loss Generator:   1.297474
+Loss Generator:   1.342694
+Loss Generator:   1.208300
+Loss Generator:   1.250797
+Loss Generator:   1.361516
+Loss Generator:   1.186626
+Loss Generator:   1.295477
+Generator    : Epoch:      1, update:     130, cost:   1.295477
+Loss Generator:   1.023288
+Loss Generator:   1.087281
+Loss Generator:   1.039093
+Loss Generator:   1.349137
+Loss Generator:   1.265319
+Loss Generator:   1.014772
+Loss Generator:   1.168262
+Loss Generator:   0.985089
+Loss Generator:   1.250901
+Loss Generator:   1.227422
+Generator    : Epoch:      1, update:     140, cost:   1.227422
+Loss Generator:   1.058863
+Loss Generator:   1.210822
+Loss Generator:   1.411541
+Loss Generator:   1.307981
+Loss Generator:   1.361579
+Loss Generator:   1.524977
+Loss Generator:   1.124138
+Loss Generator:   1.057162
+Loss Generator:   1.058549
+Loss Generator:   1.101366
+Generator    : Epoch:      1, update:     150, cost:   1.101366
+Loss Generator:   1.249590
+Loss Generator:   1.229446
+Discriminator: Epoch:      1, update:     152, cost:   0.417339
+Loss Generator:   1.232480
+Loss Generator:   1.184383
+Discriminator: Epoch:      1, update:     154, cost:   0.335544
+Loss Generator:   1.301495
+Discriminator: Epoch:      1, update:     155, cost:   0.307317
+Loss Generator:   1.096731
+Discriminator: Epoch:      1, update:     156, cost:   0.263793
+Loss Generator:   1.091861
+Discriminator: Epoch:      1, update:     157, cost:   0.298201
+Loss Generator:   1.139978
+Discriminator: Epoch:      1, update:     158, cost:   0.333353
+Loss Generator:   0.939295
+Loss Generator:   1.042207
+Discriminator: Epoch:      1, update:     160, cost:   0.487986
+Generator    : Epoch:      1, update:     160, cost:   1.042207
+Loss Generator:   1.123271
+Discriminator: Epoch:      1, update:     161, cost:   0.582612
+Loss Generator:   1.409485
+Loss Generator:   1.320953
+Loss Generator:   1.381370
+Discriminator: Epoch:      1, update:     164, cost:   0.335392
+Loss Generator:   1.362865
+Discriminator: Epoch:      1, update:     165, cost:   0.340628
+Loss Generator:   1.583717
+Loss Generator:   1.370029
+Discriminator: Epoch:      1, update:     167, cost:   0.337736
+Loss Generator:   1.268296
+Loss Generator:   1.260092
+Loss Generator:   1.315825
+Generator    : Epoch:      1, update:     170, cost:   1.315825
+Loss Generator:   1.049557
+Loss Generator:   1.069088
+Loss Generator:   1.227259
+Loss Generator:   1.037302
+Loss Generator:   1.091560
+Loss Generator:   1.162276
+Loss Generator:   1.493470
+Loss Generator:   1.606215
+Loss Generator:   1.375445
+Loss Generator:   1.179541
+Generator    : Epoch:      1, update:     180, cost:   1.179541
+Loss Generator:   1.225984
+Loss Generator:   1.311952
+Loss Generator:   1.314950
+Loss Generator:   1.562885
+Loss Generator:   1.369322
+Loss Generator:   1.179307
+Loss Generator:   1.194135
+Loss Generator:   1.332677
+Loss Generator:   1.397664
+Loss Generator:   1.311532
+Generator    : Epoch:      1, update:     190, cost:   1.311532
+Loss Generator:   1.431696
+Loss Generator:   1.247589
+Loss Generator:   1.578311
+Loss Generator:   1.599023
+Loss Generator:   1.017947
+Loss Generator:   1.390182
+Loss Generator:   1.311406
+Loss Generator:   1.281648
+Loss Generator:   1.335146
+Loss Generator:   1.238310
+Generator    : Epoch:      1, update:     200, cost:   1.238310
+Validation  2 - LOSS = 1.675 (PPL: 5.339)
+Calling beam-search process
+Beam-search ended, took 3.04451 minutes.
+Validation  2 - BLEU = 3.86, 7.8/4.7/3.1/2.0 (BP=1.000, ratio=6.641, hyp_len=28023, ref_len=4220)
+Early stopping patience: 999 validation left
+--> Current BEST BLEU = 7.260 at validation 1
+--> Current BEST LOSS = 1.675 (PPL: 5.339) at validation 2
+--> This is model: attention_GAN-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each100_do_d0.0-gc1-init_xavier-s1234.7
+Loss Generator:   1.138485

@@ -1,0 +1,4413 @@
+THEANO_FLAGS = device=gpu,floatX=float32
+Using device: auto (on machine n3)
+Theano version: 0.9.0.dev-RELEASE
+Training options:
+-----------------------------------
+                alpha_init : 0
+                alpha_rate : 0.001
+                    clip_c : 1.0
+                   decay_c : 0
+                 device_id : auto
+    discriminator_loop_num : 1
+        generator_loop_num : 1
+                      init : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/attention-e512-r1024-adadelta_1e+00-bs80-bleu-each5000_do_d0.0-gc1-init_xavier-s1234.1-val001-bleu_38.850.npz
+                   initdis : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/models/discriminator_en_fr/cnn_discriminator-e512-adadelta_1e+00-bs80-bleu-each50-gc1-init_xavier-s1234.1-val002-loss_0.218.npz
+                    initlm : None
+                   max_acc : 0.85
+                max_epochs : 1000000
+             max_iteration : 1000000
+                    maxlen : 50
+                   min_acc : 0.8
+  model_discriminator_type : cnn_discriminator
+ model_language_model_type : None
+                model_type : attention_test
+        monte_carlo_search : False
+                  patience : 1000
+                   rollnum : 20
+               sample_freq : 0
+               save_best_n : 4
+                      seed : 1234
+             snapshot_freq : 0
+                valid_beam : 12
+                valid_freq : 100
+              valid_metric : bleu
+               valid_njobs : 16
+            valid_save_hyp : False
+               valid_start : 1
+
+Model options:
+-----------------------------------
+                batch_size : 80
+                  dec_type : gru_cond
+                   dropout : 0.0
+             embedding_dim : 512
+                  enc_type : gru
+                in_emb_dim : 512
+                layer_norm : False
+                     lrate : 1
+                   n_words : 30000
+               n_words_src : 30000
+               n_words_trg : 30000
+                     njobs : 15
+                 norm_cost : False
+                 optimizer : adadelta
+               out_emb_dim : 512
+                   rnn_dim : 1024
+                 save_path : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/models/nmt_GAN_test/attention_test-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each100_do_d0.0-gc1-init_xavier-s1234.8
+              shuffle_mode : None
+              tied_trg_emb : True
+              valid_metric : bleu
+               weight_init : xavier
+                     dicts =
+                       src : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/train.en.vocab.pkl
+                    src_lm : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/train.fr.vocab.pkl
+                       trg : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/train.fr.vocab.pkl
+                      data =
+                 train_src : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/train.en
+                 train_trg : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/train.fr
+                 valid_src : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/valid.en
+                 valid_trg : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/valid.fr
+
+Initializing parameters
+Creating shared variables
+Will override parameters from pre-trained weights init Generator
+  attention-e512-r1024-adadelta_1e+00-bs80-bleu-each5000_do_d0.0-gc1-init_xavier-s1234.1-val001-bleu_38.850.npz
+Will override parameters from pre-trained weights init Discriminator
+  cnn_discriminator-e512-adadelta_1e+00-bs80-bleu-each50-gc1-init_xavier-s1234.1-val002-loss_0.218.npz
+Number of parameters generator    : 42.4M
+Number of parameters discriminator: 8.7M
+No language model
+Loading data
+Shuffle mode: None
+Source vocabulary size: 7751
+Target vocabulary size: 9067
+19972 training samples
+506 validation samples
+dropout (emb,ctx,out): 0.00, 0.00, 0.00
+Building model
+Input tensor order: 
+[x, x_mask, y, y_mask]
+Building sampler
+Building optimizer adadelta (initial lr=1.00000)
+Starting Epoch 1
+----------------
+Grad Dis: 11.438631
+Grad Pro: 12.540766
+Loss Generator D:   7.123084
+Loss Generator G:   1.310677
+Loss Discriminaror:   0.348296
+Grad Dis: 6.856688
+Grad Pro: 10.264229
+Loss Generator D:   7.712443
+Loss Generator G:   1.147469
+Loss Discriminaror:   0.309084
+Grad Dis: 8.665598
+Grad Pro: 13.660263
+Loss Generator D:   8.385828
+Loss Generator G:   1.068132
+Loss Discriminaror:   0.277228
+Grad Dis: 8.447948
+Grad Pro: 12.515701
+Loss Generator D:   7.743630
+Loss Generator G:   1.235069
+Loss Discriminaror:   0.208935
+Grad Dis: 4.746772
+Grad Pro: 10.713147
+Loss Generator D:   8.963411
+Loss Generator G:   0.922826
+Loss Discriminaror:   0.281999
+Grad Dis: 8.996046
+Grad Pro: 11.067613
+Loss Generator D:   6.802386
+Loss Generator G:   1.108040
+Loss Discriminaror:   0.442574
+Grad Dis: 7.240645
+Grad Pro: 10.950662
+Loss Generator D:   7.644884
+Loss Generator G:   1.155425
+Loss Discriminaror:   0.244305
+Grad Dis: 6.470985
+Grad Pro: 9.274237
+Loss Generator D:   6.655467
+Loss Generator G:   1.030473
+Loss Discriminaror:   0.246089
+Grad Dis: 7.546046
+Grad Pro: 14.652374
+Loss Generator D:   7.387559
+Loss Generator G:   1.335831
+Loss Discriminaror:   0.274828
+Grad Dis: 9.194303
+Grad Pro: 15.210607
+Loss Generator D:   6.914050
+Loss Generator G:   1.427377
+Loss Discriminaror:   0.227096
+Generator    : Epoch:      1, update:      10, cost:   1.427377
+Discriminator: Epoch:      1, update:      10, cost:   0.227096
+Grad Dis: 5.845912
+Grad Pro: 14.067401
+Loss Generator D:   7.939764
+Loss Generator G:   1.348468
+Loss Discriminaror:   0.266690
+Grad Dis: 6.686845
+Grad Pro: 12.589434
+Loss Generator D:   6.242875
+Loss Generator G:   1.249861
+Loss Discriminaror:   0.203856
+Grad Dis: 7.131521
+Grad Pro: 15.208527
+Loss Generator D:   6.225228
+Loss Generator G:   1.356997
+Loss Discriminaror:   0.237150
+Grad Dis: 10.237295
+Grad Pro: 15.954358
+Loss Generator D:   7.264987
+Loss Generator G:   1.304397
+Loss Discriminaror:   0.176428
+Grad Dis: 5.999700
+Grad Pro: 11.230799
+Loss Generator D:   7.077685
+Loss Generator G:   1.056869
+Loss Discriminaror:   0.180210
+Grad Dis: 6.185886
+Grad Pro: 8.667886
+Loss Generator D:   5.502294
+Loss Generator G:   1.034033
+Loss Discriminaror:   0.125267
+Grad Dis: 7.609765
+Grad Pro: 10.665039
+Loss Generator D:   6.375554
+Loss Generator G:   1.084676
+Loss Discriminaror:   0.165998
+Grad Dis: 9.681509
+Grad Pro: 13.409948
+Loss Generator D:   5.888031
+Loss Generator G:   1.063026
+Loss Discriminaror:   0.193346
+Grad Dis: 6.638093
+Grad Pro: 12.138941
+Loss Generator D:   5.676370
+Loss Generator G:   1.202231
+Loss Discriminaror:   0.207917
+Grad Dis: 10.016056
+Grad Pro: 14.954099
+Loss Generator D:   5.786514
+Loss Generator G:   1.231056
+Loss Discriminaror:   0.138030
+Generator    : Epoch:      1, update:      20, cost:   1.231056
+Discriminator: Epoch:      1, update:      20, cost:   0.138030
+Grad Dis: 5.511482
+Grad Pro: 11.398841
+Loss Generator D:   6.414453
+Loss Generator G:   1.137971
+Loss Discriminaror:   0.206087
+Grad Dis: 13.963243
+Grad Pro: 11.040923
+Loss Generator D:   5.076302
+Loss Generator G:   1.020805
+Loss Discriminaror:   0.151838
+Grad Dis: 4.730676
+Grad Pro: 10.339542
+Loss Generator D:   5.565745
+Loss Generator G:   0.953121
+Loss Discriminaror:   0.236778
+Grad Dis: 4.065919
+Grad Pro: 17.330891
+Loss Generator D:   5.750754
+Loss Generator G:   1.310279
+Loss Discriminaror:   0.183374
+Grad Dis: 5.944161
+Grad Pro: 16.890234
+Loss Generator D:   5.223092
+Loss Generator G:   1.189522
+Loss Discriminaror:   0.344841
+Grad Dis: 2.690529
+Grad Pro: 11.937727
+Loss Generator D:   5.797646
+Loss Generator G:   1.136748
+Loss Discriminaror:   0.189794
+Grad Dis: 5.565917
+Grad Pro: 8.516881
+Loss Generator D:   4.708817
+Loss Generator G:   0.943565
+Loss Discriminaror:   0.228298
+Grad Dis: 5.982356
+Grad Pro: 11.003551
+Loss Generator D:   4.290386
+Loss Generator G:   1.069948
+Loss Discriminaror:   0.218776
+Grad Dis: 6.306562
+Grad Pro: 10.901514
+Loss Generator D:   5.654330
+Loss Generator G:   1.031812
+Loss Discriminaror:   0.139186
+Grad Dis: 4.773509
+Grad Pro: 11.294909
+Loss Generator D:   6.117950
+Loss Generator G:   1.019075
+Loss Discriminaror:   0.179504
+Generator    : Epoch:      1, update:      30, cost:   1.019075
+Discriminator: Epoch:      1, update:      30, cost:   0.179504
+Grad Dis: 4.924834
+Grad Pro: 11.008809
+Loss Generator D:   5.766635
+Loss Generator G:   0.982203
+Loss Discriminaror:   0.141198
+Grad Dis: 5.045455
+Grad Pro: 9.975032
+Loss Generator D:   5.655952
+Loss Generator G:   1.063142
+Loss Discriminaror:   0.217710
+Grad Dis: 4.290428
+Grad Pro: 15.344667
+Loss Generator D:   6.145736
+Loss Generator G:   1.325894
+Loss Discriminaror:   0.218030
+Grad Dis: 6.203037
+Grad Pro: 16.159607
+Loss Generator D:   4.691849
+Loss Generator G:   1.376293
+Loss Discriminaror:   0.197802
+Grad Dis: 2.968030
+Grad Pro: 12.687532
+Loss Generator D:   6.406358
+Loss Generator G:   1.068998
+Loss Discriminaror:   0.211890
+Grad Dis: 4.389562
+Grad Pro: 11.847031
+Loss Generator D:   4.995631
+Loss Generator G:   1.032191
+Loss Discriminaror:   0.225698
+Grad Dis: 5.332763
+Grad Pro: 10.863405
+Loss Generator D:   5.866117
+Loss Generator G:   0.942669
+Loss Discriminaror:   0.169717
+Grad Dis: 7.613132
+Grad Pro: 11.517988
+Loss Generator D:   5.513922
+Loss Generator G:   1.061615
+Loss Discriminaror:   0.157772
+Grad Dis: 3.533618
+Grad Pro: 11.096864
+Loss Generator D:   5.322913
+Loss Generator G:   1.109862
+Loss Discriminaror:   0.206560
+Grad Dis: 6.212009
+Grad Pro: 15.480578
+Loss Generator D:   5.904907
+Loss Generator G:   1.354416
+Loss Discriminaror:   0.208793
+Generator    : Epoch:      1, update:      40, cost:   1.354416
+Discriminator: Epoch:      1, update:      40, cost:   0.208793
+Grad Dis: 3.753149
+Grad Pro: 12.917239
+Loss Generator D:   5.713639
+Loss Generator G:   1.119850
+Loss Discriminaror:   0.196594
+Grad Dis: 7.248003
+Grad Pro: 11.423643
+Loss Generator D:   6.573499
+Loss Generator G:   0.970624
+Loss Discriminaror:   0.176753
+Grad Dis: 5.540145
+Grad Pro: 12.479380
+Loss Generator D:   6.547323
+Loss Generator G:   1.067129
+Loss Discriminaror:   0.177208
+Grad Dis: 3.757498
+Grad Pro: 10.554277
+Loss Generator D:   7.218866
+Loss Generator G:   1.038952
+Loss Discriminaror:   0.189703
+Grad Dis: 6.001575
+Grad Pro: 14.766817
+Loss Generator D:   6.597922
+Loss Generator G:   1.257367
+Loss Discriminaror:   0.202123
+Grad Dis: 4.228053
+Grad Pro: 13.574966
+Loss Generator D:   6.513670
+Loss Generator G:   1.215768
+Loss Discriminaror:   0.173920
+Grad Dis: 3.165825
+Grad Pro: 11.622797
+Loss Generator D:   7.078977
+Loss Generator G:   1.179973
+Loss Discriminaror:   0.192697
+Grad Dis: 3.771537
+Grad Pro: 14.697787
+Loss Generator D:   5.484717
+Loss Generator G:   1.177774
+Loss Discriminaror:   0.210661
+Grad Dis: 5.768949
+Grad Pro: 17.827408
+Loss Generator D:   6.978317
+Loss Generator G:   1.433732
+Loss Discriminaror:   0.242640
+Grad Dis: 5.623121
+Grad Pro: 13.060252
+Loss Generator D:   7.089385
+Loss Generator G:   1.106389
+Loss Discriminaror:   0.187391
+Generator    : Epoch:      1, update:      50, cost:   1.106389
+Discriminator: Epoch:      1, update:      50, cost:   0.187391
+Grad Dis: 7.387229
+Grad Pro: 13.071240
+Loss Generator D:   5.940145
+Loss Generator G:   1.238046
+Loss Discriminaror:   0.113816
+Grad Dis: 5.354686
+Grad Pro: 15.977190
+Loss Generator D:   5.247560
+Loss Generator G:   1.208737
+Loss Discriminaror:   0.137609
+Grad Dis: 2.539214
+Grad Pro: 10.384416
+Loss Generator D:   5.653344
+Loss Generator G:   1.037277
+Loss Discriminaror:   0.197005
+Grad Dis: 2.879905
+Grad Pro: 17.713612
+Loss Generator D:   7.937837
+Loss Generator G:   1.319403
+Loss Discriminaror:   0.162474
+Grad Dis: 8.594818
+Grad Pro: 16.765396
+Loss Generator D:   6.016160
+Loss Generator G:   1.238278
+Loss Discriminaror:   0.187655
+Grad Dis: 2.523380
+Grad Pro: 11.468719
+Loss Generator D:   7.501996
+Loss Generator G:   1.118128
+Loss Discriminaror:   0.211907
+Grad Dis: 6.810687
+Grad Pro: 10.367102
+Loss Generator D:   4.726127
+Loss Generator G:   1.030585
+Loss Discriminaror:   0.211578
+Grad Dis: 1.891935
+Grad Pro: 11.093549
+Loss Generator D:   8.585746
+Loss Generator G:   1.066953
+Loss Discriminaror:   0.174439
+Grad Dis: 4.255954
+Grad Pro: 12.090067
+Loss Generator D:   6.580916
+Loss Generator G:   1.082528
+Loss Discriminaror:   0.203105
+Grad Dis: 5.113998
+Grad Pro: 13.753298
+Loss Generator D:   7.134837
+Loss Generator G:   1.081694
+Loss Discriminaror:   0.224052
+Generator    : Epoch:      1, update:      60, cost:   1.081694
+Discriminator: Epoch:      1, update:      60, cost:   0.224052
+Grad Dis: 1.047643
+Grad Pro: 12.450624
+Loss Generator D:   6.953364
+Loss Generator G:   1.142219
+Loss Discriminaror:   0.211923
+Grad Dis: 4.792195
+Grad Pro: 17.317944
+Loss Generator D:   5.797366
+Loss Generator G:   1.393107
+Loss Discriminaror:   0.166573
+Grad Dis: 3.250113
+Grad Pro: 11.542326
+Loss Generator D:   5.924667
+Loss Generator G:   1.002108
+Loss Discriminaror:   0.187941
+Grad Dis: 2.869208
+Grad Pro: 12.123482
+Loss Generator D:   5.816226
+Loss Generator G:   1.090784
+Loss Discriminaror:   0.191417
+Grad Dis: 3.625249
+Grad Pro: 13.881144
+Loss Generator D:   4.706378
+Loss Generator G:   1.141515
+Loss Discriminaror:   0.157540
+Grad Dis: 4.868295
+Grad Pro: 11.701467
+Loss Generator D:   4.476938
+Loss Generator G:   1.141644
+Loss Discriminaror:   0.163835
+Grad Dis: 3.323701
+Grad Pro: 12.856100
+Loss Generator D:   6.608335
+Loss Generator G:   1.173884
+Loss Discriminaror:   0.139345
+Grad Dis: 2.575602
+Grad Pro: 12.304996
+Loss Generator D:   5.955913
+Loss Generator G:   1.160501
+Loss Discriminaror:   0.192437
+Grad Dis: 4.248001
+Grad Pro: 16.687881
+Loss Generator D:   5.262020
+Loss Generator G:   1.401069
+Loss Discriminaror:   0.181855
+Grad Dis: 2.898408
+Grad Pro: 12.957003
+Loss Generator D:   5.804173
+Loss Generator G:   1.174342
+Loss Discriminaror:   0.195576
+Generator    : Epoch:      1, update:      70, cost:   1.174342
+Discriminator: Epoch:      1, update:      70, cost:   0.195576
+Grad Dis: 2.141168
+Grad Pro: 10.939282
+Loss Generator D:   6.449561
+Loss Generator G:   0.973137
+Loss Discriminaror:   0.116948
+Grad Dis: 3.897464
+Grad Pro: 10.410153
+Loss Generator D:   5.949722
+Loss Generator G:   0.983458
+Loss Discriminaror:   0.174529
+Grad Dis: 6.017565
+Grad Pro: 11.289443
+Loss Generator D:   6.143645
+Loss Generator G:   1.157955
+Loss Discriminaror:   0.125574
+Grad Dis: 2.908425
+Grad Pro: 12.929062
+Loss Generator D:   5.348769
+Loss Generator G:   1.252379
+Loss Discriminaror:   0.159712
+Grad Dis: 6.152334
+Grad Pro: 10.425440
+Loss Generator D:   6.879224
+Loss Generator G:   1.103420
+Loss Discriminaror:   0.214930
+Grad Dis: 3.810996
+Grad Pro: 11.096866
+Loss Generator D:   3.911856
+Loss Generator G:   1.031626
+Loss Discriminaror:   0.158836
+Grad Dis: 3.598930
+Grad Pro: 13.034998
+Loss Generator D:   6.675208
+Loss Generator G:   1.066133
+Loss Discriminaror:   0.249154
+Grad Dis: 2.622299
+Grad Pro: 13.601560
+Loss Generator D:   6.661723
+Loss Generator G:   1.217811
+Loss Discriminaror:   0.112991
+Grad Dis: 3.405637
+Grad Pro: 7.935032
+Loss Generator D:   4.459501
+Loss Generator G:   0.891281
+Loss Discriminaror:   0.109013
+Grad Dis: 3.265736
+Grad Pro: 8.052862
+Loss Generator D:   4.559611
+Loss Generator G:   0.906913
+Loss Discriminaror:   0.117394
+Generator    : Epoch:      1, update:      80, cost:   0.906913
+Discriminator: Epoch:      1, update:      80, cost:   0.117394
+Grad Dis: 2.724877
+Grad Pro: 10.896378
+Loss Generator D:   5.252756
+Loss Generator G:   0.940190
+Loss Discriminaror:   0.135021
+Grad Dis: 3.401638
+Grad Pro: 9.473387
+Loss Generator D:   5.909050
+Loss Generator G:   0.950037
+Loss Discriminaror:   0.090760
+Grad Dis: 2.264090
+Grad Pro: 9.503082
+Loss Generator D:   5.000022
+Loss Generator G:   0.964650
+Loss Discriminaror:   0.099329
+Grad Dis: 2.317249
+Grad Pro: 8.430291
+Loss Generator D:   5.183605
+Loss Generator G:   0.878183
+Loss Discriminaror:   0.167085
+Grad Dis: 3.175309
+Grad Pro: 8.704515
+Loss Generator D:   5.604438
+Loss Generator G:   0.853280
+Loss Discriminaror:   0.198116
+Grad Dis: 2.637433
+Grad Pro: 8.455790
+Loss Generator D:   4.746233
+Loss Generator G:   0.890260
+Loss Discriminaror:   0.124419
+Grad Dis: 1.432395
+Grad Pro: 11.044226
+Loss Generator D:   5.537476
+Loss Generator G:   0.917884
+Loss Discriminaror:   0.128699
+Grad Dis: 4.221178
+Grad Pro: 11.748004
+Loss Generator D:   5.690932
+Loss Generator G:   1.236562
+Loss Discriminaror:   0.106941
+Grad Dis: 2.555747
+Grad Pro: 10.245612
+Loss Generator D:   5.483366
+Loss Generator G:   1.015055
+Loss Discriminaror:   0.096173
+Grad Dis: 2.376704
+Grad Pro: 13.425634
+Loss Generator D:   5.272351
+Loss Generator G:   1.176510
+Loss Discriminaror:   0.206810
+Generator    : Epoch:      1, update:      90, cost:   1.176510
+Discriminator: Epoch:      1, update:      90, cost:   0.206810
+Grad Dis: 2.020385
+Grad Pro: 10.441927
+Loss Generator D:   4.686353
+Loss Generator G:   1.021636
+Loss Discriminaror:   0.145175
+Grad Dis: 4.290264
+Grad Pro: 15.029303
+Loss Generator D:   4.916762
+Loss Generator G:   1.272227
+Loss Discriminaror:   0.145646
+Grad Dis: 2.183532
+Grad Pro: 9.959860
+Loss Generator D:   5.041040
+Loss Generator G:   1.007669
+Loss Discriminaror:   0.176320
+Grad Dis: 2.208382
+Grad Pro: 8.902374
+Loss Generator D:   4.277395
+Loss Generator G:   0.930609
+Loss Discriminaror:   0.125605
+Grad Dis: 1.857838
+Grad Pro: 11.233889
+Loss Generator D:   4.492045
+Loss Generator G:   1.032199
+Loss Discriminaror:   0.091195
+Grad Dis: 2.218898
+Grad Pro: 12.780752
+Loss Generator D:   6.427933
+Loss Generator G:   1.101820
+Loss Discriminaror:   0.134454
+Grad Dis: 1.435863
+Grad Pro: 10.342463
+Loss Generator D:   6.706767
+Loss Generator G:   0.936067
+Loss Discriminaror:   0.178802
+Grad Dis: 2.627470
+Grad Pro: 8.800479
+Loss Generator D:   5.136305
+Loss Generator G:   0.868698
+Loss Discriminaror:   0.128230
+Grad Dis: 2.153291
+Grad Pro: 11.247597
+Loss Generator D:   6.013879
+Loss Generator G:   0.964517
+Loss Discriminaror:   0.186255
+Grad Dis: 1.918362
+Grad Pro: 12.401771
+Loss Generator D:   5.849926
+Loss Generator G:   1.160362
+Loss Discriminaror:   0.143416
+Generator    : Epoch:      1, update:     100, cost:   1.160362
+Discriminator: Epoch:      1, update:     100, cost:   0.143416
+Validation  1 - LOSS = 1.648 (PPL: 5.195)
+Calling beam-search process
+Beam-search ended, took 2.51300 minutes.
+Validation  1 - BLEU = 7.93, 15.1/9.6/6.4/4.2 (BP=1.000, ratio=4.055, hyp_len=17112, ref_len=4220)
+Saving model with best validation BLEU
+--> Current BEST BLEU = 7.930 at validation 1
+--> Current BEST LOSS = 1.648 (PPL: 5.195) at validation 1
+--> This is model: attention_test-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each100_do_d0.0-gc1-init_xavier-s1234.8
+Grad Dis: 2.258512
+Grad Pro: 14.393239
+Loss Generator D:   6.677452
+Loss Generator G:   1.190249
+Loss Discriminaror:   0.195524
+Grad Dis: 1.357197
+Grad Pro: 12.174265
+Loss Generator D:   5.169225
+Loss Generator G:   1.160792
+Loss Discriminaror:   0.139685
+Grad Dis: 0.966006
+Grad Pro: 10.344546
+Loss Generator D:   5.027837
+Loss Generator G:   0.902315
+Loss Discriminaror:   0.081944
+Grad Dis: 2.058603
+Grad Pro: 11.373941
+Loss Generator D:   4.910315
+Loss Generator G:   0.989595
+Loss Discriminaror:   0.103869
+Grad Dis: 6.121329
+Grad Pro: 8.106009
+Loss Generator D:   4.282489
+Loss Generator G:   0.821505
+Loss Discriminaror:   0.153471
+Grad Dis: 1.995907
+Grad Pro: 12.434159
+Loss Generator D:   4.795313
+Loss Generator G:   1.131099
+Loss Discriminaror:   0.143188
+Grad Dis: 2.896940
+Grad Pro: 8.436972
+Loss Generator D:   4.489228
+Loss Generator G:   0.843768
+Loss Discriminaror:   0.213993
+Grad Dis: 1.643861
+Grad Pro: 9.964802
+Loss Generator D:   5.685580
+Loss Generator G:   0.989695
+Loss Discriminaror:   0.127576
+Grad Dis: 2.157483
+Grad Pro: 13.457087
+Loss Generator D:   4.899309
+Loss Generator G:   1.058317
+Loss Discriminaror:   0.123408
+Grad Dis: 1.925219
+Grad Pro: 9.748430
+Loss Generator D:   4.894639
+Loss Generator G:   0.985727
+Loss Discriminaror:   0.237384
+Generator    : Epoch:      1, update:     110, cost:   0.985727
+Discriminator: Epoch:      1, update:     110, cost:   0.237384
+Grad Dis: 2.649464
+Grad Pro: 12.454112
+Loss Generator D:   3.985438
+Loss Generator G:   1.186496
+Loss Discriminaror:   0.140000
+Grad Dis: 2.461874
+Grad Pro: 10.826770
+Loss Generator D:   4.529635
+Loss Generator G:   0.979660
+Loss Discriminaror:   0.175496
+Grad Dis: 3.085807
+Grad Pro: 10.318578
+Loss Generator D:   5.454216
+Loss Generator G:   1.048488
+Loss Discriminaror:   0.208956
+Grad Dis: 2.053076
+Grad Pro: 8.439896
+Loss Generator D:   4.553117
+Loss Generator G:   0.852807
+Loss Discriminaror:   0.156148
+Grad Dis: 1.573048
+Grad Pro: 14.126902
+Loss Generator D:   5.616181
+Loss Generator G:   1.251759
+Loss Discriminaror:   0.096449
+Grad Dis: 2.898261
+Grad Pro: 12.718717
+Loss Generator D:   5.040575
+Loss Generator G:   1.158035
+Loss Discriminaror:   0.178238
+Grad Dis: 2.666790
+Grad Pro: 8.911589
+Loss Generator D:   4.733193
+Loss Generator G:   0.814730
+Loss Discriminaror:   0.163269
+Grad Dis: 1.608400
+Grad Pro: 13.420126
+Loss Generator D:   6.465912
+Loss Generator G:   1.170210
+Loss Discriminaror:   0.123082
+Grad Dis: 4.521232
+Grad Pro: 10.217279
+Loss Generator D:   6.031352
+Loss Generator G:   0.932904
+Loss Discriminaror:   0.138400
+Grad Dis: 1.973925
+Grad Pro: 11.503065
+Loss Generator D:   5.629594
+Loss Generator G:   0.953823
+Loss Discriminaror:   0.189777
+Generator    : Epoch:      1, update:     120, cost:   0.953823
+Discriminator: Epoch:      1, update:     120, cost:   0.189777
+Grad Dis: 2.878148
+Grad Pro: 12.176226
+Loss Generator D:   5.116073
+Loss Generator G:   1.120945
+Loss Discriminaror:   0.111361
+Grad Dis: 2.230568
+Grad Pro: 12.482946
+Loss Generator D:   4.376401
+Loss Generator G:   1.087701
+Loss Discriminaror:   0.145718
+Grad Dis: 1.860956
+Grad Pro: 13.510373
+Loss Generator D:   5.255969
+Loss Generator G:   1.154905
+Loss Discriminaror:   0.115394
+Grad Dis: 2.482459
+Grad Pro: 12.741624
+Loss Generator D:   5.614912
+Loss Generator G:   1.012554
+Loss Discriminaror:   0.103901
+Grad Dis: 2.490372
+Grad Pro: 14.652156
+Loss Generator D:   4.179904
+Loss Generator G:   1.217174
+Loss Discriminaror:   0.150642
+Grad Dis: 3.352938
+Grad Pro: 13.117407
+Loss Generator D:   4.384091
+Loss Generator G:   1.044258
+Loss Discriminaror:   0.130426
+Grad Dis: 2.703134
+Grad Pro: 12.114527
+Loss Generator D:   4.730615
+Loss Generator G:   1.205301
+Loss Discriminaror:   0.117848
+Grad Dis: 3.423679
+Grad Pro: 12.851758
+Loss Generator D:   5.685596
+Loss Generator G:   1.162763
+Loss Discriminaror:   0.156959
+Grad Dis: 1.636382
+Grad Pro: 16.962584
+Loss Generator D:   6.084045
+Loss Generator G:   1.169009
+Loss Discriminaror:   0.121633
+Grad Dis: 4.384730
+Grad Pro: 13.500051
+Loss Generator D:   5.070323
+Loss Generator G:   1.141226
+Loss Discriminaror:   0.145770
+Generator    : Epoch:      1, update:     130, cost:   1.141226
+Discriminator: Epoch:      1, update:     130, cost:   0.145770
+Grad Dis: 2.721689
+Grad Pro: 10.716451
+Loss Generator D:   4.611140
+Loss Generator G:   0.959519
+Loss Discriminaror:   0.117400
+Grad Dis: 2.374453
+Grad Pro: 11.657834
+Loss Generator D:   5.110635
+Loss Generator G:   1.051288
+Loss Discriminaror:   0.138075
+Grad Dis: 1.686712
+Grad Pro: 8.727645
+Loss Generator D:   4.310726
+Loss Generator G:   0.835953
+Loss Discriminaror:   0.186294
+Grad Dis: 1.948749
+Grad Pro: 15.361483
+Loss Generator D:   4.965573
+Loss Generator G:   1.150027
+Loss Discriminaror:   0.159813
+Grad Dis: 1.865052
+Grad Pro: 10.814723
+Loss Generator D:   4.663131
+Loss Generator G:   1.030405
+Loss Discriminaror:   0.107157
+Grad Dis: 1.896276
+Grad Pro: 10.263597
+Loss Generator D:   5.598207
+Loss Generator G:   0.826506
+Loss Discriminaror:   0.091955
+Grad Dis: 1.599405
+Grad Pro: 11.512362
+Loss Generator D:   4.491706
+Loss Generator G:   1.046510
+Loss Discriminaror:   0.096891
+Grad Dis: 1.242063
+Grad Pro: 10.146833
+Loss Generator D:   5.762223
+Loss Generator G:   0.845574
+Loss Discriminaror:   0.075632
+Grad Dis: 1.220824
+Grad Pro: 14.616272
+Loss Generator D:   6.246208
+Loss Generator G:   1.246124
+Loss Discriminaror:   0.093292
+Grad Dis: 2.560371
+Grad Pro: 11.667492
+Loss Generator D:   5.545763
+Loss Generator G:   1.018841
+Loss Discriminaror:   0.112301
+Generator    : Epoch:      1, update:     140, cost:   1.018841
+Discriminator: Epoch:      1, update:     140, cost:   0.112301
+Grad Dis: 3.760226
+Grad Pro: 9.797215
+Loss Generator D:   5.384433
+Loss Generator G:   0.873483
+Loss Discriminaror:   0.143965
+Grad Dis: 2.222990
+Grad Pro: 11.537310
+Loss Generator D:   5.958189
+Loss Generator G:   1.031111
+Loss Discriminaror:   0.189592
+Grad Dis: 2.545317
+Grad Pro: 13.921808
+Loss Generator D:   5.554692
+Loss Generator G:   1.169755
+Loss Discriminaror:   0.102114
+Grad Dis: 1.303722
+Grad Pro: 13.323550
+Loss Generator D:   6.622810
+Loss Generator G:   1.097921
+Loss Discriminaror:   0.095263
+Grad Dis: 2.569239
+Grad Pro: 16.759924
+Loss Generator D:   5.790956
+Loss Generator G:   1.283664
+Loss Discriminaror:   0.108832
+Grad Dis: 5.773204
+Grad Pro: 16.460567
+Loss Generator D:   4.613802
+Loss Generator G:   1.376676
+Loss Discriminaror:   0.144067
+Grad Dis: 2.530814
+Grad Pro: 8.915425
+Loss Generator D:   5.345376
+Loss Generator G:   0.838572
+Loss Discriminaror:   0.142294
+Grad Dis: 3.198426
+Grad Pro: 10.592938
+Loss Generator D:   4.836161
+Loss Generator G:   0.890648
+Loss Discriminaror:   0.127174
+Grad Dis: 2.277857
+Grad Pro: 10.989841
+Loss Generator D:   4.696019
+Loss Generator G:   0.857985
+Loss Discriminaror:   0.165416
+Grad Dis: 2.102787
+Grad Pro: 10.111216
+Loss Generator D:   4.485153
+Loss Generator G:   0.934229
+Loss Discriminaror:   0.120452
+Generator    : Epoch:      1, update:     150, cost:   0.934229
+Discriminator: Epoch:      1, update:     150, cost:   0.120452
+Grad Dis: 1.527747
+Grad Pro: 12.841052
+Loss Generator D:   5.193254
+Loss Generator G:   1.131933
+Loss Discriminaror:   0.181831
+Grad Dis: 4.162850
+Grad Pro: 13.398880
+Loss Generator D:   5.187578
+Loss Generator G:   1.121797
+Loss Discriminaror:   0.207420
+Grad Dis: 4.398936
+Grad Pro: 12.181269
+Loss Generator D:   5.060730
+Loss Generator G:   1.036553
+Loss Discriminaror:   0.158760
+Grad Dis: 2.113125
+Grad Pro: 11.134229
+Loss Generator D:   5.314806
+Loss Generator G:   1.067777
+Loss Discriminaror:   0.167013
+Grad Dis: 2.678586
+Grad Pro: 13.984790
+Loss Generator D:   5.954990
+Loss Generator G:   1.243800
+Loss Discriminaror:   0.164539
+Grad Dis: 1.255838
+Grad Pro: 10.086732
+Loss Generator D:   4.523401
+Loss Generator G:   0.940864
+Loss Discriminaror:   0.198097
+Grad Dis: 2.999695
+Grad Pro: 11.261499
+Loss Generator D:   6.125836
+Loss Generator G:   0.985932
+Loss Discriminaror:   0.162445
+Grad Dis: 0.989408
+Grad Pro: 9.544062
+Loss Generator D:   5.479945
+Loss Generator G:   0.944351
+Loss Discriminaror:   0.142708
+Grad Dis: 3.807111
+Grad Pro: 8.667117
+Loss Generator D:   5.091944
+Loss Generator G:   0.841541
+Loss Discriminaror:   0.106332
+Grad Dis: 2.589641
+Grad Pro: 10.873310
+Loss Generator D:   5.114324
+Loss Generator G:   0.986952
+Loss Discriminaror:   0.179059
+Generator    : Epoch:      1, update:     160, cost:   0.986952
+Discriminator: Epoch:      1, update:     160, cost:   0.179059
+Grad Dis: 1.310603
+Grad Pro: 9.516071
+Loss Generator D:   5.078664
+Loss Generator G:   0.895071
+Loss Discriminaror:   0.180225
+Grad Dis: 2.024290
+Grad Pro: 14.270218
+Loss Generator D:   6.347377
+Loss Generator G:   1.201572
+Loss Discriminaror:   0.169467
+Grad Dis: 3.983022
+Grad Pro: 13.660477
+Loss Generator D:   5.893857
+Loss Generator G:   1.194109
+Loss Discriminaror:   0.087535
+Grad Dis: 1.527422
+Grad Pro: 15.170627
+Loss Generator D:   6.242161
+Loss Generator G:   1.266205
+Loss Discriminaror:   0.112474
+Grad Dis: 3.009478
+Grad Pro: 18.894665
+Loss Generator D:   5.956407
+Loss Generator G:   1.359898
+Loss Discriminaror:   0.145137
+Grad Dis: 5.694047
+Grad Pro: 16.703724
+Loss Generator D:   5.897508
+Loss Generator G:   1.235598
+Loss Discriminaror:   0.134072
+Grad Dis: 2.336701
+Grad Pro: 15.794873
+Loss Generator D:   6.724228
+Loss Generator G:   1.271319
+Loss Discriminaror:   0.227151
+Grad Dis: 1.961924
+Grad Pro: 11.107312
+Loss Generator D:   6.432358
+Loss Generator G:   1.035593
+Loss Discriminaror:   0.090517
+Grad Dis: 2.169368
+Grad Pro: 13.112246
+Loss Generator D:   6.903628
+Loss Generator G:   1.102387
+Loss Discriminaror:   0.267171
+Grad Dis: 2.613558
+Grad Pro: 12.776500
+Loss Generator D:   5.170258
+Loss Generator G:   1.211434
+Loss Discriminaror:   0.166576
+Generator    : Epoch:      1, update:     170, cost:   1.211434
+Discriminator: Epoch:      1, update:     170, cost:   0.166576
+Grad Dis: 1.956178
+Grad Pro: 9.342900
+Loss Generator D:   5.338786
+Loss Generator G:   0.927256
+Loss Discriminaror:   0.196415
+Grad Dis: 1.231676
+Grad Pro: 10.255377
+Loss Generator D:   6.056912
+Loss Generator G:   0.898627
+Loss Discriminaror:   0.144846
+Grad Dis: 2.539902
+Grad Pro: 12.900807
+Loss Generator D:   7.118903
+Loss Generator G:   1.037540
+Loss Discriminaror:   0.086380
+Grad Dis: 5.595587
+Grad Pro: 9.765248
+Loss Generator D:   5.936934
+Loss Generator G:   0.881756
+Loss Discriminaror:   0.158454
+Grad Dis: 1.870011
+Grad Pro: 9.988386
+Loss Generator D:   5.220721
+Loss Generator G:   0.957992
+Loss Discriminaror:   0.113994
+Grad Dis: 3.197953
+Grad Pro: 12.569217
+Loss Generator D:   7.887178
+Loss Generator G:   1.025413
+Loss Discriminaror:   0.098342
+Grad Dis: 3.826945
+Grad Pro: 17.226433
+Loss Generator D:   4.787601
+Loss Generator G:   1.240137
+Loss Discriminaror:   0.088286
+Grad Dis: 3.704213
+Grad Pro: 17.231167
+Loss Generator D:   5.362870
+Loss Generator G:   1.355269
+Loss Discriminaror:   0.185611
+Grad Dis: 2.712326
+Grad Pro: 15.662822
+Loss Generator D:   5.858389
+Loss Generator G:   1.258140
+Loss Discriminaror:   0.147652
+Grad Dis: 2.736228
+Grad Pro: 10.410383
+Loss Generator D:   7.184567
+Loss Generator G:   0.896767
+Loss Discriminaror:   0.312997
+Generator    : Epoch:      1, update:     180, cost:   0.896767
+Discriminator: Epoch:      1, update:     180, cost:   0.312997
+Grad Dis: 1.393451
+Grad Pro: 12.783392
+Loss Generator D:   5.649582
+Loss Generator G:   1.043218
+Loss Discriminaror:   0.213133
+Grad Dis: 2.398789
+Grad Pro: 11.887699
+Loss Generator D:   6.094167
+Loss Generator G:   1.145974
+Loss Discriminaror:   0.244940
+Grad Dis: 0.982693
+Grad Pro: 11.943476
+Loss Generator D:   5.497546
+Loss Generator G:   1.090286
+Loss Discriminaror:   0.124197
+Grad Dis: 1.247147
+Grad Pro: 15.246643
+Loss Generator D:   6.674033
+Loss Generator G:   1.283214
+Loss Discriminaror:   0.136413
+Grad Dis: 1.077826
+Grad Pro: 14.270517
+Loss Generator D:   6.746622
+Loss Generator G:   1.142334
+Loss Discriminaror:   0.081786
+Grad Dis: 0.991041
+Grad Pro: 11.324626
+Loss Generator D:   7.101973
+Loss Generator G:   1.001760
+Loss Discriminaror:   0.099782
+Grad Dis: 2.188887
+Grad Pro: 11.417184
+Loss Generator D:   4.709215
+Loss Generator G:   1.038746
+Loss Discriminaror:   0.167741
+Grad Dis: 1.836361
+Grad Pro: 14.087458
+Loss Generator D:   6.762494
+Loss Generator G:   1.143306
+Loss Discriminaror:   0.247653
+Grad Dis: 1.556120
+Grad Pro: 12.786766
+Loss Generator D:   6.629611
+Loss Generator G:   1.130908
+Loss Discriminaror:   0.135219
+Grad Dis: 1.106438
+Grad Pro: 11.952218
+Loss Generator D:   5.631301
+Loss Generator G:   1.047826
+Loss Discriminaror:   0.160945
+Generator    : Epoch:      1, update:     190, cost:   1.047826
+Discriminator: Epoch:      1, update:     190, cost:   0.160945
+Grad Dis: 3.054131
+Grad Pro: 14.191646
+Loss Generator D:   6.003270
+Loss Generator G:   1.454231
+Loss Discriminaror:   0.216895
+Grad Dis: 0.713869
+Grad Pro: 12.069422
+Loss Generator D:   7.010831
+Loss Generator G:   1.046521
+Loss Discriminaror:   0.101697
+Grad Dis: 2.057250
+Grad Pro: 17.769123
+Loss Generator D:   5.595094
+Loss Generator G:   1.512003
+Loss Discriminaror:   0.253438
+Grad Dis: 2.425206
+Grad Pro: 15.823616
+Loss Generator D:   5.539941
+Loss Generator G:   1.377682
+Loss Discriminaror:   0.117046
+Grad Dis: 2.520364
+Grad Pro: 8.772348
+Loss Generator D:   4.652972
+Loss Generator G:   0.886648
+Loss Discriminaror:   0.120353
+Grad Dis: 1.582519
+Grad Pro: 14.124722
+Loss Generator D:   6.016309
+Loss Generator G:   1.214379
+Loss Discriminaror:   0.118044
+Grad Dis: 4.445960
+Grad Pro: 13.952829
+Loss Generator D:   5.804528
+Loss Generator G:   1.120518
+Loss Discriminaror:   0.172035
+Grad Dis: 1.397038
+Grad Pro: 14.025726
+Loss Generator D:   4.127208
+Loss Generator G:   1.200468
+Loss Discriminaror:   0.169116
+Grad Dis: 2.708683
+Grad Pro: 13.888556
+Loss Generator D:   4.054571
+Loss Generator G:   1.175560
+Loss Discriminaror:   0.107879
+Grad Dis: 2.343501
+Grad Pro: 11.496999
+Loss Generator D:   5.192807
+Loss Generator G:   1.060975
+Loss Discriminaror:   0.135129
+Generator    : Epoch:      1, update:     200, cost:   1.060975
+Discriminator: Epoch:      1, update:     200, cost:   0.135129
+Validation  2 - LOSS = 1.681 (PPL: 5.373)
+Calling beam-search process
+Beam-search ended, took 2.14631 minutes.
+Validation  2 - BLEU = 10.46, 20.9/12.7/8.3/5.4 (BP=1.000, ratio=2.907, hyp_len=12267, ref_len=4220)
+Saving model with best validation BLEU
+--> Current BEST BLEU = 10.460 at validation 2
+--> Current BEST LOSS = 1.648 (PPL: 5.195) at validation 1
+--> This is model: attention_test-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each100_do_d0.0-gc1-init_xavier-s1234.8
+Grad Dis: 1.191799
+Grad Pro: 11.593276
+Loss Generator D:   5.965778
+Loss Generator G:   1.141043
+Loss Discriminaror:   0.104200
+Grad Dis: 1.708672
+Grad Pro: 12.081647
+Loss Generator D:   4.942500
+Loss Generator G:   1.095306
+Loss Discriminaror:   0.098245
+Grad Dis: 1.333169
+Grad Pro: 11.009771
+Loss Generator D:   5.281968
+Loss Generator G:   1.052156
+Loss Discriminaror:   0.125450
+Grad Dis: 1.622617
+Grad Pro: 10.583040
+Loss Generator D:   5.790776
+Loss Generator G:   1.014449
+Loss Discriminaror:   0.062598
+Grad Dis: 1.569860
+Grad Pro: 9.836515
+Loss Generator D:   5.085320
+Loss Generator G:   0.956388
+Loss Discriminaror:   0.059097
+Grad Dis: 1.309164
+Grad Pro: 9.207281
+Loss Generator D:   6.068250
+Loss Generator G:   0.929034
+Loss Discriminaror:   0.090012
+Grad Dis: 1.269156
+Grad Pro: 12.668701
+Loss Generator D:   5.775405
+Loss Generator G:   1.155494
+Loss Discriminaror:   0.104847
+Grad Dis: 2.147770
+Grad Pro: 13.883400
+Loss Generator D:   5.974780
+Loss Generator G:   1.123007
+Loss Discriminaror:   0.123093
+Grad Dis: 2.193810
+Grad Pro: 11.000669
+Loss Generator D:   5.476562
+Loss Generator G:   1.058128
+Loss Discriminaror:   0.084111
+Grad Dis: 2.373944
+Grad Pro: 13.699022
+Loss Generator D:   5.790295
+Loss Generator G:   1.015448
+Loss Discriminaror:   0.076853
+Generator    : Epoch:      1, update:     210, cost:   1.015448
+Discriminator: Epoch:      1, update:     210, cost:   0.076853
+Grad Dis: 1.005064
+Grad Pro: 14.565863
+Loss Generator D:   5.447259
+Loss Generator G:   1.232135
+Loss Discriminaror:   0.197958
+Grad Dis: 2.059822
+Grad Pro: 13.787186
+Loss Generator D:   4.239371
+Loss Generator G:   1.225134
+Loss Discriminaror:   0.117394
+Grad Dis: 1.381754
+Grad Pro: 13.115008
+Loss Generator D:   6.091212
+Loss Generator G:   1.215264
+Loss Discriminaror:   0.090592
+Grad Dis: 1.897277
+Grad Pro: 8.435781
+Loss Generator D:   4.128547
+Loss Generator G:   0.864120
+Loss Discriminaror:   0.054996
+Grad Dis: 1.009702
+Grad Pro: 14.297460
+Loss Generator D:   6.062476
+Loss Generator G:   1.126806
+Loss Discriminaror:   0.140591
+Grad Dis: 1.432865
+Grad Pro: 11.985431
+Loss Generator D:   5.873074
+Loss Generator G:   1.131105
+Loss Discriminaror:   0.112696
+Grad Dis: 3.613730
+Grad Pro: 13.117983
+Loss Generator D:   5.032008
+Loss Generator G:   1.087981
+Loss Discriminaror:   0.107158
+Grad Dis: 2.870349
+Grad Pro: 10.904653
+Loss Generator D:   4.974660
+Loss Generator G:   0.964880
+Loss Discriminaror:   0.209615
+Grad Dis: 4.141353
+Grad Pro: 10.774535
+Loss Generator D:   4.737510
+Loss Generator G:   0.928882
+Loss Discriminaror:   0.094520
+Grad Dis: 2.234370
+Grad Pro: 8.973372
+Loss Generator D:   4.518298
+Loss Generator G:   0.913795
+Loss Discriminaror:   0.159967
+Generator    : Epoch:      1, update:     220, cost:   0.913795
+Discriminator: Epoch:      1, update:     220, cost:   0.159967
+Grad Dis: 3.601162
+Grad Pro: 11.667706
+Loss Generator D:   4.989714
+Loss Generator G:   1.013802
+Loss Discriminaror:   0.095734
+Grad Dis: 4.799053
+Grad Pro: 11.359208
+Loss Generator D:   4.294028
+Loss Generator G:   1.025360
+Loss Discriminaror:   0.083806
+Grad Dis: 2.051274
+Grad Pro: 13.999377
+Loss Generator D:   5.571930
+Loss Generator G:   1.116025
+Loss Discriminaror:   0.143153
+Grad Dis: 1.107133
+Grad Pro: 10.340603
+Loss Generator D:   4.590269
+Loss Generator G:   0.935188
+Loss Discriminaror:   0.113702
+Grad Dis: 4.364802
+Grad Pro: 10.632341
+Loss Generator D:   3.667555
+Loss Generator G:   1.049472
+Loss Discriminaror:   0.126329
+Grad Dis: 2.040025
+Grad Pro: 9.896204
+Loss Generator D:   4.250060
+Loss Generator G:   1.009603
+Loss Discriminaror:   0.168466
+Grad Dis: 1.127956
+Grad Pro: 10.310637
+Loss Generator D:   4.206763
+Loss Generator G:   0.974141
+Loss Discriminaror:   0.085405
+Grad Dis: 2.087090
+Grad Pro: 11.820554
+Loss Generator D:   5.222985
+Loss Generator G:   0.968918
+Loss Discriminaror:   0.123924
+Grad Dis: 1.704877
+Grad Pro: 11.426178
+Loss Generator D:   5.257243
+Loss Generator G:   1.035381
+Loss Discriminaror:   0.108521
+Grad Dis: 1.672785
+Grad Pro: 11.360358
+Loss Generator D:   5.272854
+Loss Generator G:   1.011983
+Loss Discriminaror:   0.124776
+Generator    : Epoch:      1, update:     230, cost:   1.011983
+Discriminator: Epoch:      1, update:     230, cost:   0.124776
+Grad Dis: 4.061902
+Grad Pro: 13.675351
+Loss Generator D:   4.932680
+Loss Generator G:   1.203086
+Loss Discriminaror:   0.123875
+Grad Dis: 4.536836
+Grad Pro: 12.979151
+Loss Generator D:   4.854112
+Loss Generator G:   1.147388
+Loss Discriminaror:   0.203270
+Grad Dis: 0.589873
+Grad Pro: 18.967552
+Loss Generator D:   4.897695
+Loss Generator G:   1.203673
+Loss Discriminaror:   0.197855
+Grad Dis: 2.618861
+Grad Pro: 8.016382
+Loss Generator D:   3.972561
+Loss Generator G:   0.782641
+Loss Discriminaror:   0.092555
+Grad Dis: 3.879406
+Grad Pro: 10.278348
+Loss Generator D:   4.494567
+Loss Generator G:   0.932542
+Loss Discriminaror:   0.128939
+Grad Dis: 2.630872
+Grad Pro: 10.170736
+Loss Generator D:   4.297249
+Loss Generator G:   1.016022
+Loss Discriminaror:   0.176245
+Grad Dis: 1.468631
+Grad Pro: 9.106908
+Loss Generator D:   4.535372
+Loss Generator G:   0.869309
+Loss Discriminaror:   0.065454
+Grad Dis: 2.673122
+Grad Pro: 11.518124
+Loss Generator D:   3.870016
+Loss Generator G:   1.042569
+Loss Discriminaror:   0.147682
+Grad Dis: 2.088084
+Grad Pro: 10.988096
+Loss Generator D:   5.162521
+Loss Generator G:   1.067773
+Loss Discriminaror:   0.097600
+Grad Dis: 1.081395
+Grad Pro: 11.070882
+Loss Generator D:   5.994345
+Loss Generator G:   0.976506
+Loss Discriminaror:   0.078531
+Generator    : Epoch:      1, update:     240, cost:   0.976506
+Discriminator: Epoch:      1, update:     240, cost:   0.078531
+Grad Dis: 1.219178
+Grad Pro: 12.434004
+Loss Generator D:   5.733401
+Loss Generator G:   1.049889
+Loss Discriminaror:   0.117716
+Grad Dis: 0.951154
+Grad Pro: 10.558449
+Loss Generator D:   5.334767
+Loss Generator G:   0.984819
+Loss Discriminaror:   0.238301
+Grad Dis: 1.662496
+Grad Pro: 9.790670
+Loss Generator D:   5.519826
+Loss Generator G:   0.939137
+Loss Discriminaror:   0.065067
+Grad Dis: 3.293759
+Grad Pro: 10.989693
+Loss Generator D:   4.146705
+Loss Generator G:   0.991845
+Loss Discriminaror:   0.074839
+Grad Dis: 2.089776
+Grad Pro: 12.763233
+Loss Generator D:   6.116002
+Loss Generator G:   1.168893
+Loss Discriminaror:   0.080658
+Grad Dis: 1.802053
+Grad Pro: 12.524617
+Loss Generator D:   5.586298
+Loss Generator G:   1.012658
+Loss Discriminaror:   0.104927
+Grad Dis: 2.937034
+Grad Pro: 9.604840
+Loss Generator D:   5.158361
+Loss Generator G:   0.916063
+Loss Discriminaror:   0.088828
+Grad Dis: 1.197660
+Grad Pro: 9.518785
+Loss Generator D:   7.172091
+Loss Generator G:   0.936167
+Loss Discriminaror:   0.139145
+Grad Dis: 1.434549
+Grad Pro: 12.595350
+Loss Generator D:   6.330084
+Loss Generator G:   1.038363
+Loss Discriminaror:   0.093446
+Grad Dis: 1.475617
+Grad Pro: 8.201056
+Loss Generator D:   7.721361
+Loss Generator G:   0.872950
+Loss Discriminaror:   0.113737
+Generator    : Epoch:      1, update:     250, cost:   0.872950
+Discriminator: Epoch:      1, update:     250, cost:   0.113737
+---------------------------------------------------------
+Epoch summary of Generator    :
+--> Epoch 1 finished with mean loss 1.08245 (PPL: 2.95189)
+--> Epoch took 457.117 minutes, 109.708 sec/update
+Epoch summary of Discriminator:
+--> Epoch 1 finished with mean loss 0.15731 (PPL: 1.17036)
+--> Epoch took 457.117 minutes, 109.708 sec/update
+---------------------------------------------------------
+Starting Epoch 2
+----------------
+Grad Dis: 1.297272
+Grad Pro: 14.492104
+Loss Generator D:   6.612146
+Loss Generator G:   1.327861
+Loss Discriminaror:   0.122102
+Grad Dis: 1.727932
+Grad Pro: 11.539642
+Loss Generator D:   6.696190
+Loss Generator G:   1.156741
+Loss Discriminaror:   0.075642
+Grad Dis: 1.186097
+Grad Pro: 14.873770
+Loss Generator D:   8.687531
+Loss Generator G:   1.086316
+Loss Discriminaror:   0.095376
+Grad Dis: 1.085973
+Grad Pro: 13.564227
+Loss Generator D:   6.314027
+Loss Generator G:   1.176094
+Loss Discriminaror:   0.066446
+Grad Dis: 1.597161
+Grad Pro: 11.603673
+Loss Generator D:   7.625318
+Loss Generator G:   1.002743
+Loss Discriminaror:   0.154062
+Grad Dis: 1.123526
+Grad Pro: 11.617073
+Loss Generator D:   4.819603
+Loss Generator G:   1.073694
+Loss Discriminaror:   0.111056
+Grad Dis: 1.262278
+Grad Pro: 11.360460
+Loss Generator D:   5.405276
+Loss Generator G:   1.125273
+Loss Discriminaror:   0.093175
+Grad Dis: 1.165327
+Grad Pro: 9.810204
+Loss Generator D:   5.470164
+Loss Generator G:   0.985207
+Loss Discriminaror:   0.092915
+Grad Dis: 1.459942
+Grad Pro: 15.907069
+Loss Generator D:   5.139214
+Loss Generator G:   1.200708
+Loss Discriminaror:   0.136843
+Grad Dis: 1.069691
+Grad Pro: 15.443037
+Loss Generator D:   5.579301
+Loss Generator G:   1.318460
+Loss Discriminaror:   0.089672
+Generator    : Epoch:      2, update:     260, cost:   1.318460
+Discriminator: Epoch:      2, update:     260, cost:   0.089672
+Grad Dis: 0.703472
+Grad Pro: 13.382460
+Loss Generator D:   6.218588
+Loss Generator G:   1.219670
+Loss Discriminaror:   0.037571
+Grad Dis: 1.720748
+Grad Pro: 12.590220
+Loss Generator D:   5.883744
+Loss Generator G:   1.104160
+Loss Discriminaror:   0.144937
+Grad Dis: 0.896070
+Grad Pro: 15.622663
+Loss Generator D:   5.060854
+Loss Generator G:   1.255107
+Loss Discriminaror:   0.099504
+Grad Dis: 1.923538
+Grad Pro: 16.905172
+Loss Generator D:   6.264462
+Loss Generator G:   1.246088
+Loss Discriminaror:   0.081015
+Grad Dis: 1.251265
+Grad Pro: 11.483643
+Loss Generator D:   5.230620
+Loss Generator G:   0.959700
+Loss Discriminaror:   0.086319
+Grad Dis: 0.285350
+Grad Pro: 8.494078
+Loss Generator D:   6.458427
+Loss Generator G:   0.803318
+Loss Discriminaror:   0.049583
+Grad Dis: 0.481435
+Grad Pro: 10.394950
+Loss Generator D:   6.406711
+Loss Generator G:   1.083026
+Loss Discriminaror:   0.100688
+Grad Dis: 1.590975
+Grad Pro: 12.632276
+Loss Generator D:   6.382692
+Loss Generator G:   0.920863
+Loss Discriminaror:   0.090575
+Grad Dis: 0.932164
+Grad Pro: 12.167250
+Loss Generator D:   5.384549
+Loss Generator G:   1.085572
+Loss Discriminaror:   0.064857
+Grad Dis: 1.665304
+Grad Pro: 14.469302
+Loss Generator D:   4.937962
+Loss Generator G:   1.148919
+Loss Discriminaror:   0.119064
+Generator    : Epoch:      2, update:     270, cost:   1.148919
+Discriminator: Epoch:      2, update:     270, cost:   0.119064
+Grad Dis: 1.060454
+Grad Pro: 11.311625
+Loss Generator D:   5.856597
+Loss Generator G:   1.093034
+Loss Discriminaror:   0.123831
+Grad Dis: 2.871952
+Grad Pro: 10.575850
+Loss Generator D:   5.438768
+Loss Generator G:   0.997728
+Loss Discriminaror:   0.189817
+Grad Dis: 0.809299
+Grad Pro: 9.977785
+Loss Generator D:   5.805138
+Loss Generator G:   0.949707
+Loss Discriminaror:   0.074045
+Grad Dis: 1.303063
+Grad Pro: 18.147915
+Loss Generator D:   6.302064
+Loss Generator G:   1.243558
+Loss Discriminaror:   0.163793
+Grad Dis: 2.294114
+Grad Pro: 14.707858
+Loss Generator D:   6.083006
+Loss Generator G:   1.160793
+Loss Discriminaror:   0.105625
+Grad Dis: 1.621981
+Grad Pro: 11.390465
+Loss Generator D:   6.056602
+Loss Generator G:   1.041663
+Loss Discriminaror:   0.089230
+Grad Dis: 1.396817
+Grad Pro: 8.821288
+Loss Generator D:   4.303937
+Loss Generator G:   0.843138
+Loss Discriminaror:   0.050176
+Grad Dis: 0.656204
+Grad Pro: 10.761034
+Loss Generator D:   4.617529
+Loss Generator G:   1.036201
+Loss Discriminaror:   0.078056
+Grad Dis: 1.802914
+Grad Pro: 10.450424
+Loss Generator D:   4.702557
+Loss Generator G:   0.925122
+Loss Discriminaror:   0.116619
+Grad Dis: 2.102981
+Grad Pro: 11.143903
+Loss Generator D:   5.421309
+Loss Generator G:   1.009767
+Loss Discriminaror:   0.053119
+Generator    : Epoch:      2, update:     280, cost:   1.009767
+Discriminator: Epoch:      2, update:     280, cost:   0.053119
+Grad Dis: 0.406959
+Grad Pro: 9.957187
+Loss Generator D:   5.455289
+Loss Generator G:   0.894433
+Loss Discriminaror:   0.105243
+Grad Dis: 1.297785
+Grad Pro: 9.247704
+Loss Generator D:   4.729784
+Loss Generator G:   0.854802
+Loss Discriminaror:   0.180189
+Grad Dis: 1.078665
+Grad Pro: 14.564026
+Loss Generator D:   5.799278
+Loss Generator G:   1.176293
+Loss Discriminaror:   0.152986
+Grad Dis: 1.657756
+Grad Pro: 15.280569
+Loss Generator D:   4.715735
+Loss Generator G:   1.156338
+Loss Discriminaror:   0.057508
+Grad Dis: 2.032436
+Grad Pro: 11.827894
+Loss Generator D:   6.071779
+Loss Generator G:   0.974741
+Loss Discriminaror:   0.125834
+Grad Dis: 1.239509
+Grad Pro: 11.761375
+Loss Generator D:   4.995245
+Loss Generator G:   0.954826
+Loss Discriminaror:   0.118846
+Grad Dis: 1.446072
+Grad Pro: 9.970288
+Loss Generator D:   5.480683
+Loss Generator G:   0.841468
+Loss Discriminaror:   0.143906
+Grad Dis: 0.503290
+Grad Pro: 10.985211
+Loss Generator D:   6.320998
+Loss Generator G:   1.019270
+Loss Discriminaror:   0.065779
+Grad Dis: 1.324006
+Grad Pro: 10.789182
+Loss Generator D:   4.676317
+Loss Generator G:   0.967568
+Loss Discriminaror:   0.104471
+Grad Dis: 0.953611
+Grad Pro: 14.354365
+Loss Generator D:   6.778617
+Loss Generator G:   1.201501
+Loss Discriminaror:   0.110384
+Generator    : Epoch:      2, update:     290, cost:   1.201501
+Discriminator: Epoch:      2, update:     290, cost:   0.110384
+Grad Dis: 1.204713
+Grad Pro: 12.271305
+Loss Generator D:   5.187577
+Loss Generator G:   1.005404
+Loss Discriminaror:   0.080271
+Grad Dis: 1.258786
+Grad Pro: 11.345358
+Loss Generator D:   6.341235
+Loss Generator G:   0.946734
+Loss Discriminaror:   0.135306
+Grad Dis: 0.991084
+Grad Pro: 13.037659
+Loss Generator D:   6.240036
+Loss Generator G:   1.064628
+Loss Discriminaror:   0.097203
+Grad Dis: 0.545548
+Grad Pro: 9.450108
+Loss Generator D:   6.384803
+Loss Generator G:   0.986166
+Loss Discriminaror:   0.071051
+Grad Dis: 1.234447
+Grad Pro: 14.714708
+Loss Generator D:   6.238042
+Loss Generator G:   1.174013
+Loss Discriminaror:   0.195270
+Grad Dis: 1.113292
+Grad Pro: 13.114899
+Loss Generator D:   6.595394
+Loss Generator G:   1.150020
+Loss Discriminaror:   0.089651
+Grad Dis: 1.536678
+Grad Pro: 12.383815
+Loss Generator D:   6.355661
+Loss Generator G:   0.993074
+Loss Discriminaror:   0.174342
+Grad Dis: 2.865869
+Grad Pro: 13.318136
+Loss Generator D:   6.027139
+Loss Generator G:   1.081166
+Loss Discriminaror:   0.145330
+Grad Dis: 1.348304
+Grad Pro: 17.403660
+Loss Generator D:   5.891857
+Loss Generator G:   1.315937
+Loss Discriminaror:   0.149289
+Grad Dis: 1.529710
+Grad Pro: 12.727692
+Loss Generator D:   4.879716
+Loss Generator G:   1.096118
+Loss Discriminaror:   0.091638
+Generator    : Epoch:      2, update:     300, cost:   1.096118
+Discriminator: Epoch:      2, update:     300, cost:   0.091638
+Validation  3 - LOSS = 1.698 (PPL: 5.464)
+Calling beam-search process
+Beam-search ended, took 1.80827 minutes.
+Validation  3 - BLEU = 15.36, 29.4/18.1/12.4/8.4 (BP=1.000, ratio=2.047, hyp_len=8638, ref_len=4220)
+Saving model with best validation BLEU
+--> Current BEST BLEU = 15.360 at validation 3
+--> Current BEST LOSS = 1.648 (PPL: 5.195) at validation 1
+--> This is model: attention_test-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each100_do_d0.0-gc1-init_xavier-s1234.8
+Grad Dis: 2.456610
+Grad Pro: 13.514316
+Loss Generator D:   5.487304
+Loss Generator G:   1.215606
+Loss Discriminaror:   0.085512
+Grad Dis: 3.026247
+Grad Pro: 13.920712
+Loss Generator D:   5.982317
+Loss Generator G:   1.110944
+Loss Discriminaror:   0.070361
+Grad Dis: 3.432027
+Grad Pro: 9.766876
+Loss Generator D:   4.563799
+Loss Generator G:   0.919769
+Loss Discriminaror:   0.112118
+Grad Dis: 2.307592
+Grad Pro: 16.432562
+Loss Generator D:   6.111484
+Loss Generator G:   1.228413
+Loss Discriminaror:   0.061707
+Grad Dis: 1.614228
+Grad Pro: 13.783178
+Loss Generator D:   5.014487
+Loss Generator G:   1.090576
+Loss Discriminaror:   0.072872
+Grad Dis: 1.944344
+Grad Pro: 11.327719
+Loss Generator D:   4.825065
+Loss Generator G:   0.961227
+Loss Discriminaror:   0.072312
+Grad Dis: 2.096874
+Grad Pro: 9.968284
+Loss Generator D:   4.347430
+Loss Generator G:   0.950563
+Loss Discriminaror:   0.076129
+Grad Dis: 1.582752
+Grad Pro: 10.891548
+Loss Generator D:   5.942479
+Loss Generator G:   1.011239
+Loss Discriminaror:   0.098407
+Grad Dis: 3.554361
+Grad Pro: 11.300136
+Loss Generator D:   5.453372
+Loss Generator G:   1.014088
+Loss Discriminaror:   0.112987
+Grad Dis: 1.848907
+Grad Pro: 13.264575
+Loss Generator D:   4.644415
+Loss Generator G:   1.053201
+Loss Discriminaror:   0.090683
+Generator    : Epoch:      2, update:     310, cost:   1.053201
+Discriminator: Epoch:      2, update:     310, cost:   0.090683
+Grad Dis: 2.456568
+Grad Pro: 12.103079
+Loss Generator D:   5.531466
+Loss Generator G:   1.043797
+Loss Discriminaror:   0.063748
+Grad Dis: 3.172595
+Grad Pro: 16.806423
+Loss Generator D:   5.235695
+Loss Generator G:   1.315938
+Loss Discriminaror:   0.132210
+Grad Dis: 2.115682
+Grad Pro: 11.925285
+Loss Generator D:   4.828753
+Loss Generator G:   0.967350
+Loss Discriminaror:   0.068645
+Grad Dis: 3.245950
+Grad Pro: 12.688970
+Loss Generator D:   5.617301
+Loss Generator G:   1.141879
+Loss Discriminaror:   0.134948
+Grad Dis: 1.389753
+Grad Pro: 12.523577
+Loss Generator D:   4.884814
+Loss Generator G:   1.029325
+Loss Discriminaror:   0.093063
+Grad Dis: 3.318064
+Grad Pro: 11.362793
+Loss Generator D:   4.521678
+Loss Generator G:   1.052332
+Loss Discriminaror:   0.059234
+Grad Dis: 3.130235
+Grad Pro: 13.175119
+Loss Generator D:   4.954175
+Loss Generator G:   1.118230
+Loss Discriminaror:   0.073631
+Grad Dis: 0.642118
+Grad Pro: 12.208285
+Loss Generator D:   4.646984
+Loss Generator G:   1.135504
+Loss Discriminaror:   0.076409
+Grad Dis: 1.637063
+Grad Pro: 17.294676
+Loss Generator D:   3.657050
+Loss Generator G:   1.209748
+Loss Discriminaror:   0.243320
+Grad Dis: 1.243778
+Grad Pro: 12.939758
+Loss Generator D:   4.530080
+Loss Generator G:   1.189498
+Loss Discriminaror:   0.132297
+Generator    : Epoch:      2, update:     320, cost:   1.189498
+Discriminator: Epoch:      2, update:     320, cost:   0.132297
+Grad Dis: 1.775713
+Grad Pro: 11.537089
+Loss Generator D:   5.086659
+Loss Generator G:   0.932507
+Loss Discriminaror:   0.106420
+Grad Dis: 1.092520
+Grad Pro: 10.053628
+Loss Generator D:   4.428694
+Loss Generator G:   0.855834
+Loss Discriminaror:   0.065472
+Grad Dis: 1.650234
+Grad Pro: 10.644580
+Loss Generator D:   4.512900
+Loss Generator G:   1.050737
+Loss Discriminaror:   0.088410
+Grad Dis: 2.619070
+Grad Pro: 12.048810
+Loss Generator D:   3.410475
+Loss Generator G:   1.095217
+Loss Discriminaror:   0.067682
+Grad Dis: 1.115128
+Grad Pro: 10.081856
+Loss Generator D:   4.439496
+Loss Generator G:   1.052219
+Loss Discriminaror:   0.090327
+Grad Dis: 1.773260
+Grad Pro: 10.024628
+Loss Generator D:   3.398984
+Loss Generator G:   0.968349
+Loss Discriminaror:   0.114114
+Grad Dis: 1.465120
+Grad Pro: 13.129526
+Loss Generator D:   4.290712
+Loss Generator G:   0.975497
+Loss Discriminaror:   0.124685
+Grad Dis: 1.091016
+Grad Pro: 15.102304
+Loss Generator D:   4.023573
+Loss Generator G:   1.159431
+Loss Discriminaror:   0.094832
+Grad Dis: 1.745126
+Grad Pro: 7.778724
+Loss Generator D:   3.118278
+Loss Generator G:   0.794899
+Loss Discriminaror:   0.071187
+Grad Dis: 1.045977
+Grad Pro: 7.516239
+Loss Generator D:   3.178906
+Loss Generator G:   0.840546
+Loss Discriminaror:   0.155888
+Generator    : Epoch:      2, update:     330, cost:   0.840546
+Discriminator: Epoch:      2, update:     330, cost:   0.155888
+Grad Dis: 0.617219
+Grad Pro: 11.169729
+Loss Generator D:   4.055578
+Loss Generator G:   0.893866
+Loss Discriminaror:   0.128035
+Grad Dis: 0.823509
+Grad Pro: 9.304218
+Loss Generator D:   4.111746
+Loss Generator G:   0.949587
+Loss Discriminaror:   0.158251
+Grad Dis: 1.086211
+Grad Pro: 9.405525
+Loss Generator D:   3.463384
+Loss Generator G:   0.877749
+Loss Discriminaror:   0.066729
+Grad Dis: 1.408632
+Grad Pro: 7.466331
+Loss Generator D:   3.890238
+Loss Generator G:   0.781186
+Loss Discriminaror:   0.110389
+Grad Dis: 1.039454
+Grad Pro: 8.002769
+Loss Generator D:   4.472790
+Loss Generator G:   0.754588
+Loss Discriminaror:   0.059970
+Grad Dis: 1.005311
+Grad Pro: 8.126144
+Loss Generator D:   3.686469
+Loss Generator G:   0.882761
+Loss Discriminaror:   0.068025
+Grad Dis: 1.288671
+Grad Pro: 10.085429
+Loss Generator D:   4.444085
+Loss Generator G:   0.842722
+Loss Discriminaror:   0.163946
+Grad Dis: 1.079770
+Grad Pro: 11.241358
+Loss Generator D:   3.977630
+Loss Generator G:   1.093543
+Loss Discriminaror:   0.074552
+Grad Dis: 0.493206
+Grad Pro: 10.066716
+Loss Generator D:   3.944703
+Loss Generator G:   0.907060
+Loss Discriminaror:   0.056108
+Grad Dis: 1.205741
+Grad Pro: 13.616061
+Loss Generator D:   3.969482
+Loss Generator G:   1.119150
+Loss Discriminaror:   0.162278
+Generator    : Epoch:      2, update:     340, cost:   1.119150
+Discriminator: Epoch:      2, update:     340, cost:   0.162278
+Grad Dis: 1.159411
+Grad Pro: 9.831165
+Loss Generator D:   4.480288
+Loss Generator G:   0.942326
+Loss Discriminaror:   0.059292
+Grad Dis: 0.524415
+Grad Pro: 14.431158
+Loss Generator D:   4.335195
+Loss Generator G:   1.222499
+Loss Discriminaror:   0.045496
+Grad Dis: 0.898081
+Grad Pro: 9.766840
+Loss Generator D:   4.494132
+Loss Generator G:   0.907051
+Loss Discriminaror:   0.053105
+Grad Dis: 0.930639
+Grad Pro: 8.287354
+Loss Generator D:   4.841438
+Loss Generator G:   0.824912
+Loss Discriminaror:   0.050594
+Grad Dis: 0.832794
+Grad Pro: 10.436392
+Loss Generator D:   4.687604
+Loss Generator G:   1.012342
+Loss Discriminaror:   0.123141
+Grad Dis: 0.487646
+Grad Pro: 12.795498
+Loss Generator D:   5.279125
+Loss Generator G:   1.021067
+Loss Discriminaror:   0.097626
+Grad Dis: 0.328373
+Grad Pro: 9.984755
+Loss Generator D:   6.243366
+Loss Generator G:   0.921860
+Loss Discriminaror:   0.091792
+Grad Dis: 0.713652
+Grad Pro: 8.186983
+Loss Generator D:   4.684400
+Loss Generator G:   0.816571
+Loss Discriminaror:   0.062364
+Grad Dis: 1.570453
+Grad Pro: 11.220685
+Loss Generator D:   5.510591
+Loss Generator G:   0.930928
+Loss Discriminaror:   0.093980
+Grad Dis: 0.854036
+Grad Pro: 12.099757
+Loss Generator D:   5.553829
+Loss Generator G:   1.021649
+Loss Discriminaror:   0.094672
+Generator    : Epoch:      2, update:     350, cost:   1.021649
+Discriminator: Epoch:      2, update:     350, cost:   0.094672
+Grad Dis: 0.381452
+Grad Pro: 12.986689
+Loss Generator D:   5.475305
+Loss Generator G:   1.126925
+Loss Discriminaror:   0.123366
+Grad Dis: 2.103891
+Grad Pro: 11.504430
+Loss Generator D:   4.517894
+Loss Generator G:   0.996110
+Loss Discriminaror:   0.134461
+Grad Dis: 0.164552
+Grad Pro: 10.330020
+Loss Generator D:   5.121940
+Loss Generator G:   0.918698
+Loss Discriminaror:   0.107780
+Grad Dis: 1.375145
+Grad Pro: 10.198836
+Loss Generator D:   5.433331
+Loss Generator G:   0.935554
+Loss Discriminaror:   0.038983
+Grad Dis: 1.274564
+Grad Pro: 7.716895
+Loss Generator D:   5.202944
+Loss Generator G:   0.770238
+Loss Discriminaror:   0.021632
+Grad Dis: 1.485474
+Grad Pro: 11.705850
+Loss Generator D:   4.794913
+Loss Generator G:   1.038372
+Loss Discriminaror:   0.095409
+Grad Dis: 0.911236
+Grad Pro: 8.384915
+Loss Generator D:   4.201991
+Loss Generator G:   0.834034
+Loss Discriminaror:   0.041957
+Grad Dis: 1.402978
+Grad Pro: 9.576536
+Loss Generator D:   4.891370
+Loss Generator G:   0.908622
+Loss Discriminaror:   0.071763
+Grad Dis: 0.836724
+Grad Pro: 13.238592
+Loss Generator D:   5.168033
+Loss Generator G:   0.994463
+Loss Discriminaror:   0.043814
+Grad Dis: 1.111630
+Grad Pro: 9.852758
+Loss Generator D:   4.355731
+Loss Generator G:   0.943015
+Loss Discriminaror:   0.055544
+Generator    : Epoch:      2, update:     360, cost:   0.943015
+Discriminator: Epoch:      2, update:     360, cost:   0.055544
+Grad Dis: 0.748215
+Grad Pro: 11.884333
+Loss Generator D:   3.197330
+Loss Generator G:   1.126931
+Loss Discriminaror:   0.057928
+Grad Dis: 0.889332
+Grad Pro: 9.960259
+Loss Generator D:   3.890212
+Loss Generator G:   0.926424
+Loss Discriminaror:   0.042580
+Grad Dis: 0.607623
+Grad Pro: 10.086465
+Loss Generator D:   4.846007
+Loss Generator G:   0.896920
+Loss Discriminaror:   0.096040
+Grad Dis: 0.515627
+Grad Pro: 8.174800
+Loss Generator D:   4.188157
+Loss Generator G:   0.839527
+Loss Discriminaror:   0.097905
+Grad Dis: 0.423857
+Grad Pro: 13.533722
+Loss Generator D:   4.652879
+Loss Generator G:   1.183977
+Loss Discriminaror:   0.030709
+Grad Dis: 2.175179
+Grad Pro: 12.164833
+Loss Generator D:   3.732996
+Loss Generator G:   1.086584
+Loss Discriminaror:   0.117428
+Grad Dis: 1.205118
+Grad Pro: 8.290621
+Loss Generator D:   4.261846
+Loss Generator G:   0.772198
+Loss Discriminaror:   0.161925
+Grad Dis: 1.147689
+Grad Pro: 12.799190
+Loss Generator D:   4.526554
+Loss Generator G:   1.051102
+Loss Discriminaror:   0.048507
+Grad Dis: 1.250699
+Grad Pro: 9.798721
+Loss Generator D:   4.164772
+Loss Generator G:   0.871547
+Loss Discriminaror:   0.021395
+Grad Dis: 1.105610
+Grad Pro: 10.921230
+Loss Generator D:   5.824581
+Loss Generator G:   1.007224
+Loss Discriminaror:   0.065669
+Generator    : Epoch:      2, update:     370, cost:   1.007224
+Discriminator: Epoch:      2, update:     370, cost:   0.065669
+Grad Dis: 1.692692
+Grad Pro: 12.404813
+Loss Generator D:   4.946874
+Loss Generator G:   1.076469
+Loss Discriminaror:   0.109490
+Grad Dis: 1.242473
+Grad Pro: 12.092733
+Loss Generator D:   4.034334
+Loss Generator G:   1.026096
+Loss Discriminaror:   0.121035
+Grad Dis: 1.621261
+Grad Pro: 12.698156
+Loss Generator D:   4.779024
+Loss Generator G:   1.100479
+Loss Discriminaror:   0.067115
+Grad Dis: 1.455252
+Grad Pro: 13.610097
+Loss Generator D:   4.724750
+Loss Generator G:   1.084102
+Loss Discriminaror:   0.056664
+Grad Dis: 1.455909
+Grad Pro: 13.299109
+Loss Generator D:   3.913209
+Loss Generator G:   1.047452
+Loss Discriminaror:   0.197125
+Grad Dis: 2.821193
+Grad Pro: 12.801031
+Loss Generator D:   4.163705
+Loss Generator G:   1.163201
+Loss Discriminaror:   0.045371
+Grad Dis: 1.195143
+Grad Pro: 11.576982
+Loss Generator D:   4.566824
+Loss Generator G:   1.111109
+Loss Discriminaror:   0.066731
+Grad Dis: 0.569507
+Grad Pro: 12.437124
+Loss Generator D:   5.572818
+Loss Generator G:   1.104628
+Loss Discriminaror:   0.091864
+Grad Dis: 0.844767
+Grad Pro: 16.582140
+Loss Generator D:   5.505086
+Loss Generator G:   1.212149
+Loss Discriminaror:   0.115727
+Grad Dis: 1.484485
+Grad Pro: 13.140251
+Loss Generator D:   6.059520
+Loss Generator G:   1.077844
+Loss Discriminaror:   0.071515
+Generator    : Epoch:      2, update:     380, cost:   1.077844
+Discriminator: Epoch:      2, update:     380, cost:   0.071515
+Grad Dis: 1.081247
+Grad Pro: 10.878878
+Loss Generator D:   4.860349
+Loss Generator G:   0.904304
+Loss Discriminaror:   0.100936
+Grad Dis: 0.667309
+Grad Pro: 11.285359
+Loss Generator D:   3.611261
+Loss Generator G:   0.968262
+Loss Discriminaror:   0.091832
+Grad Dis: 0.813414
+Grad Pro: 8.149607
+Loss Generator D:   4.008132
+Loss Generator G:   0.801760
+Loss Discriminaror:   0.050842
+Grad Dis: 1.567864
+Grad Pro: 15.525436
+Loss Generator D:   4.308631
+Loss Generator G:   1.122536
+Loss Discriminaror:   0.184323
+Grad Dis: 0.780007
+Grad Pro: 10.942347
+Loss Generator D:   3.846280
+Loss Generator G:   1.100449
+Loss Discriminaror:   0.073551
+Grad Dis: 1.551641
+Grad Pro: 9.487654
+Loss Generator D:   5.171936
+Loss Generator G:   0.788597
+Loss Discriminaror:   0.059592
+Grad Dis: 0.956034
+Grad Pro: 10.838199
+Loss Generator D:   5.982696
+Loss Generator G:   1.013224
+Loss Discriminaror:   0.142276
+Grad Dis: 0.816765
+Grad Pro: 9.867661
+Loss Generator D:   5.305165
+Loss Generator G:   0.833067
+Loss Discriminaror:   0.060281
+Grad Dis: 0.549792
+Grad Pro: 14.512767
+Loss Generator D:   6.009391
+Loss Generator G:   1.131608
+Loss Discriminaror:   0.068157
+Grad Dis: 1.125909
+Grad Pro: 10.523802
+Loss Generator D:   5.737765
+Loss Generator G:   0.926381
+Loss Discriminaror:   0.057612
+Generator    : Epoch:      2, update:     390, cost:   0.926381
+Discriminator: Epoch:      2, update:     390, cost:   0.057612
+Grad Dis: 1.714302
+Grad Pro: 9.485518
+Loss Generator D:   5.587535
+Loss Generator G:   0.850456
+Loss Discriminaror:   0.070770
+Grad Dis: 2.307260
+Grad Pro: 10.873146
+Loss Generator D:   6.779771
+Loss Generator G:   0.953104
+Loss Discriminaror:   0.175405
+Grad Dis: 0.587558
+Grad Pro: 13.033193
+Loss Generator D:   6.645392
+Loss Generator G:   1.122515
+Loss Discriminaror:   0.120593
+Grad Dis: 0.603544
+Grad Pro: 12.876658
+Loss Generator D:   8.642733
+Loss Generator G:   1.098333
+Loss Discriminaror:   0.081389
+Grad Dis: 0.241890
+Grad Pro: 16.551184
+Loss Generator D:   7.169902
+Loss Generator G:   1.195420
+Loss Discriminaror:   0.075303
+Grad Dis: 0.905577
+Grad Pro: 15.438749
+Loss Generator D:   5.032263
+Loss Generator G:   1.234498
+Loss Discriminaror:   0.113830
+Grad Dis: 1.269947
+Grad Pro: 8.381397
+Loss Generator D:   5.847180
+Loss Generator G:   0.780734
+Loss Discriminaror:   0.098318
+Grad Dis: 1.462428
+Grad Pro: 10.332731
+Loss Generator D:   5.389314
+Loss Generator G:   0.907246
+Loss Discriminaror:   0.133178
+Grad Dis: 0.847890
+Grad Pro: 10.060470
+Loss Generator D:   6.096285
+Loss Generator G:   0.864951
+Loss Discriminaror:   0.099660
+Grad Dis: 2.370427
+Grad Pro: 9.351601
+Loss Generator D:   6.171571
+Loss Generator G:   0.864701
+Loss Discriminaror:   0.058068
+Generator    : Epoch:      2, update:     400, cost:   0.864701
+Discriminator: Epoch:      2, update:     400, cost:   0.058068
+Validation  4 - LOSS = 1.666 (PPL: 5.292)
+Calling beam-search process
+Beam-search ended, took 1.68390 minutes.
+Validation  4 - BLEU = 16.39, 30.8/19.3/13.3/9.2 (BP=1.000, ratio=2.017, hyp_len=8511, ref_len=4220)
+Saving model with best validation BLEU
+--> Current BEST BLEU = 16.390 at validation 4
+--> Current BEST LOSS = 1.648 (PPL: 5.195) at validation 1
+--> This is model: attention_test-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each100_do_d0.0-gc1-init_xavier-s1234.8
+Grad Dis: 0.543277
+Grad Pro: 12.558457
+Loss Generator D:   7.000838
+Loss Generator G:   1.086644
+Loss Discriminaror:   0.095281
+Grad Dis: 1.152219
+Grad Pro: 12.749050
+Loss Generator D:   7.189443
+Loss Generator G:   0.993766
+Loss Discriminaror:   0.106223
+Grad Dis: 1.544837
+Grad Pro: 10.930163
+Loss Generator D:   6.461580
+Loss Generator G:   0.978839
+Loss Discriminaror:   0.105105
+Grad Dis: 1.929277
+Grad Pro: 10.553940
+Loss Generator D:   6.067924
+Loss Generator G:   0.932092
+Loss Discriminaror:   0.084097
+Grad Dis: 0.579144
+Grad Pro: 13.056040
+Loss Generator D:   7.366225
+Loss Generator G:   1.181010
+Loss Discriminaror:   0.088831
+Grad Dis: 0.437243
+Grad Pro: 9.542989
+Loss Generator D:   6.091501
+Loss Generator G:   0.925408
+Loss Discriminaror:   0.063575
+Grad Dis: 0.985401
+Grad Pro: 10.798442
+Loss Generator D:   7.100535
+Loss Generator G:   0.976065
+Loss Discriminaror:   0.096784
+Grad Dis: 1.557287
+Grad Pro: 9.498921
+Loss Generator D:   4.335710
+Loss Generator G:   0.888744
+Loss Discriminaror:   0.083159
+Grad Dis: 2.198784
+Grad Pro: 8.089598
+Loss Generator D:   5.392570
+Loss Generator G:   0.787554
+Loss Discriminaror:   0.052492
+Grad Dis: 0.658618
+Grad Pro: 9.478502
+Loss Generator D:   5.151146
+Loss Generator G:   0.861595
+Loss Discriminaror:   0.089836
+Generator    : Epoch:      2, update:     410, cost:   0.861595
+Discriminator: Epoch:      2, update:     410, cost:   0.089836
+Grad Dis: 2.190819
+Grad Pro: 9.159811
+Loss Generator D:   4.823686
+Loss Generator G:   0.869485
+Loss Discriminaror:   0.080915
+Grad Dis: 0.966035
+Grad Pro: 13.853785
+Loss Generator D:   6.415474
+Loss Generator G:   1.131151
+Loss Discriminaror:   0.048869
+Grad Dis: 1.190379
+Grad Pro: 12.979960
+Loss Generator D:   5.352055
+Loss Generator G:   1.135420
+Loss Discriminaror:   0.062740
+Grad Dis: 1.286885
+Grad Pro: 14.917232
+Loss Generator D:   7.489325
+Loss Generator G:   1.246977
+Loss Discriminaror:   0.067474
+Grad Dis: 1.308085
+Grad Pro: 16.124790
+Loss Generator D:   5.475481
+Loss Generator G:   1.283166
+Loss Discriminaror:   0.075801
+Grad Dis: 3.250382
+Grad Pro: 17.721752
+Loss Generator D:   6.547118
+Loss Generator G:   1.279735
+Loss Discriminaror:   0.085504
+Grad Dis: 1.620251
+Grad Pro: 16.138113
+Loss Generator D:   5.652852
+Loss Generator G:   1.233646
+Loss Discriminaror:   0.066719
+Grad Dis: 0.766214
+Grad Pro: 10.652408
+Loss Generator D:   6.139280
+Loss Generator G:   1.051507
+Loss Discriminaror:   0.070382
+Grad Dis: 1.063080
+Grad Pro: 12.573200
+Loss Generator D:   6.497681
+Loss Generator G:   1.071130
+Loss Discriminaror:   0.086740
+Grad Dis: 1.248098
+Grad Pro: 12.922867
+Loss Generator D:   6.233776
+Loss Generator G:   1.066921
+Loss Discriminaror:   0.093715
+Generator    : Epoch:      2, update:     420, cost:   1.066921
+Discriminator: Epoch:      2, update:     420, cost:   0.093715
+Grad Dis: 0.588990
+Grad Pro: 8.831245
+Loss Generator D:   6.087725
+Loss Generator G:   0.879521
+Loss Discriminaror:   0.063517
+Grad Dis: 1.236022
+Grad Pro: 9.907421
+Loss Generator D:   5.588014
+Loss Generator G:   0.869529
+Loss Discriminaror:   0.115453
+Grad Dis: 0.696247
+Grad Pro: 11.563407
+Loss Generator D:   5.500367
+Loss Generator G:   0.948440
+Loss Discriminaror:   0.082077
+Grad Dis: 0.847023
+Grad Pro: 9.501822
+Loss Generator D:   6.321135
+Loss Generator G:   0.802239
+Loss Discriminaror:   0.069150
+Grad Dis: 0.697230
+Grad Pro: 9.415433
+Loss Generator D:   5.109536
+Loss Generator G:   0.925437
+Loss Discriminaror:   0.118589
+Grad Dis: 0.867514
+Grad Pro: 12.625163
+Loss Generator D:   7.500670
+Loss Generator G:   0.940045
+Loss Discriminaror:   0.098354
+Grad Dis: 1.336313
+Grad Pro: 17.077147
+Loss Generator D:   5.524653
+Loss Generator G:   1.206781
+Loss Discriminaror:   0.015812
+Grad Dis: 2.271001
+Grad Pro: 16.058113
+Loss Generator D:   6.499243
+Loss Generator G:   1.233167
+Loss Discriminaror:   0.077562
+Grad Dis: 1.755548
+Grad Pro: 15.366443
+Loss Generator D:   6.945148
+Loss Generator G:   1.190659
+Loss Discriminaror:   0.060752
+Grad Dis: 0.859272
+Grad Pro: 10.002218
+Loss Generator D:   7.124548
+Loss Generator G:   0.920893
+Loss Discriminaror:   0.059576
+Generator    : Epoch:      2, update:     430, cost:   0.920893
+Discriminator: Epoch:      2, update:     430, cost:   0.059576
+Grad Dis: 2.155852
+Grad Pro: 11.976279
+Loss Generator D:   6.363963
+Loss Generator G:   1.018066
+Loss Discriminaror:   0.081857
+Grad Dis: 1.341640
+Grad Pro: 11.618364
+Loss Generator D:   5.388030
+Loss Generator G:   1.065694
+Loss Discriminaror:   0.049831
+Grad Dis: 2.969284
+Grad Pro: 11.114811
+Loss Generator D:   6.136096
+Loss Generator G:   0.951863
+Loss Discriminaror:   0.101870
+Grad Dis: 1.508109
+Grad Pro: 15.143109
+Loss Generator D:   5.786805
+Loss Generator G:   1.160028
+Loss Discriminaror:   0.142872
+Grad Dis: 1.162503
+Grad Pro: 13.512222
+Loss Generator D:   6.286806
+Loss Generator G:   1.143485
+Loss Discriminaror:   0.105804
+Grad Dis: 0.536928
+Grad Pro: 10.790930
+Loss Generator D:   7.108310
+Loss Generator G:   0.972980
+Loss Discriminaror:   0.140001
+Grad Dis: 0.685668
+Grad Pro: 11.041532
+Loss Generator D:   5.635468
+Loss Generator G:   1.069749
+Loss Discriminaror:   0.057099
+Grad Dis: 0.607220
+Grad Pro: 13.817629
+Loss Generator D:   7.325487
+Loss Generator G:   1.120852
+Loss Discriminaror:   0.080895
+Grad Dis: 0.498138
+Grad Pro: 12.024114
+Loss Generator D:   7.014876
+Loss Generator G:   1.172526
+Loss Discriminaror:   0.288733
+Grad Dis: 1.496774
+Grad Pro: 11.949412
+Loss Generator D:   5.255562
+Loss Generator G:   1.040140
+Loss Discriminaror:   0.129601
+Generator    : Epoch:      2, update:     440, cost:   1.040140
+Discriminator: Epoch:      2, update:     440, cost:   0.129601
+Grad Dis: 1.072727
+Grad Pro: 12.931732
+Loss Generator D:   6.876146
+Loss Generator G:   1.249120
+Loss Discriminaror:   0.115235
+Grad Dis: 0.696375
+Grad Pro: 11.362897
+Loss Generator D:   7.539270
+Loss Generator G:   1.000929
+Loss Discriminaror:   0.095987
+Grad Dis: 0.739685
+Grad Pro: 17.303440
+Loss Generator D:   6.514699
+Loss Generator G:   1.405069
+Loss Discriminaror:   0.086335
+Grad Dis: 1.292582
+Grad Pro: 15.518036
+Loss Generator D:   5.629313
+Loss Generator G:   1.339382
+Loss Discriminaror:   0.052947
+Grad Dis: 1.234016
+Grad Pro: 8.576277
+Loss Generator D:   5.462626
+Loss Generator G:   0.828082
+Loss Discriminaror:   0.107391
+Grad Dis: 1.096486
+Grad Pro: 13.276855
+Loss Generator D:   5.992711
+Loss Generator G:   1.134863
+Loss Discriminaror:   0.074356
+Grad Dis: 2.124700
+Grad Pro: 12.514875
+Loss Generator D:   6.559143
+Loss Generator G:   1.030841
+Loss Discriminaror:   0.057935
+Grad Dis: 1.135250
+Grad Pro: 12.899991
+Loss Generator D:   3.964798
+Loss Generator G:   1.014375
+Loss Discriminaror:   0.131095
+Grad Dis: 2.601242
+Grad Pro: 13.493109
+Loss Generator D:   5.400256
+Loss Generator G:   1.206015
+Loss Discriminaror:   0.174617
+Grad Dis: 1.900366
+Grad Pro: 10.390556
+Loss Generator D:   4.877965
+Loss Generator G:   1.045514
+Loss Discriminaror:   0.163449
+Generator    : Epoch:      2, update:     450, cost:   1.045514
+Discriminator: Epoch:      2, update:     450, cost:   0.163449
+Grad Dis: 0.434849
+Grad Pro: 11.303152
+Loss Generator D:   5.495182
+Loss Generator G:   1.038286
+Loss Discriminaror:   0.170458
+Grad Dis: 1.722919
+Grad Pro: 11.471083
+Loss Generator D:   5.629207
+Loss Generator G:   1.031897
+Loss Discriminaror:   0.180147
+Grad Dis: 1.248349
+Grad Pro: 10.261121
+Loss Generator D:   6.329564
+Loss Generator G:   0.996694
+Loss Discriminaror:   0.086859
+Grad Dis: 1.216539
+Grad Pro: 9.928141
+Loss Generator D:   6.352786
+Loss Generator G:   1.002750
+Loss Discriminaror:   0.043217
+Grad Dis: 2.503733
+Grad Pro: 10.006909
+Loss Generator D:   5.381659
+Loss Generator G:   0.955642
+Loss Discriminaror:   0.084143
+Grad Dis: 1.595700
+Grad Pro: 8.693769
+Loss Generator D:   5.882554
+Loss Generator G:   0.857489
+Loss Discriminaror:   0.089940
+Grad Dis: 1.560187
+Grad Pro: 12.105495
+Loss Generator D:   5.203383
+Loss Generator G:   1.087053
+Loss Discriminaror:   0.063780
+Grad Dis: 2.900489
+Grad Pro: 12.935239
+Loss Generator D:   5.493046
+Loss Generator G:   1.028385
+Loss Discriminaror:   0.100874
+Grad Dis: 2.064137
+Grad Pro: 10.472601
+Loss Generator D:   4.447111
+Loss Generator G:   0.995344
+Loss Discriminaror:   0.232123
+Grad Dis: 2.704320
+Grad Pro: 13.112364
+Loss Generator D:   5.254673
+Loss Generator G:   1.034611
+Loss Discriminaror:   0.080102
+Generator    : Epoch:      2, update:     460, cost:   1.034611
+Discriminator: Epoch:      2, update:     460, cost:   0.080102
+Grad Dis: 2.946098
+Grad Pro: 12.989092
+Loss Generator D:   5.830082
+Loss Generator G:   1.092480
+Loss Discriminaror:   0.104854
+Grad Dis: 1.949095
+Grad Pro: 13.384351
+Loss Generator D:   4.463689
+Loss Generator G:   1.182817
+Loss Discriminaror:   0.101405
+Grad Dis: 2.200719
+Grad Pro: 12.128636
+Loss Generator D:   6.270727
+Loss Generator G:   1.138362
+Loss Discriminaror:   0.089599
+Grad Dis: 0.774552
+Grad Pro: 8.523523
+Loss Generator D:   4.877347
+Loss Generator G:   0.879217
+Loss Discriminaror:   0.041169
+Grad Dis: 2.039037
+Grad Pro: 13.252963
+Loss Generator D:   5.576892
+Loss Generator G:   1.063643
+Loss Discriminaror:   0.125654
+Grad Dis: 0.645611
+Grad Pro: 11.284377
+Loss Generator D:   6.438568
+Loss Generator G:   1.044149
+Loss Discriminaror:   0.137802
+Grad Dis: 2.576997
+Grad Pro: 12.049919
+Loss Generator D:   5.015332
+Loss Generator G:   1.058088
+Loss Discriminaror:   0.084919
+Grad Dis: 1.945260
+Grad Pro: 10.429472
+Loss Generator D:   5.813017
+Loss Generator G:   1.005373
+Loss Discriminaror:   0.069506
+Grad Dis: 3.066222
+Grad Pro: 9.925550
+Loss Generator D:   5.707320
+Loss Generator G:   0.840911
+Loss Discriminaror:   0.149283
+Grad Dis: 0.476820
+Grad Pro: 8.438315
+Loss Generator D:   6.642644
+Loss Generator G:   0.861515
+Loss Discriminaror:   0.078922
+Generator    : Epoch:      2, update:     470, cost:   0.861515
+Discriminator: Epoch:      2, update:     470, cost:   0.078922
+Grad Dis: 1.832539
+Grad Pro: 11.164136
+Loss Generator D:   6.163070
+Loss Generator G:   0.968260
+Loss Discriminaror:   0.047083
+Grad Dis: 2.289534
+Grad Pro: 10.860186
+Loss Generator D:   5.248358
+Loss Generator G:   1.001571
+Loss Discriminaror:   0.057186
+Grad Dis: 2.053845
+Grad Pro: 13.480818
+Loss Generator D:   5.618401
+Loss Generator G:   1.102245
+Loss Discriminaror:   0.079666
+Grad Dis: 0.825234
+Grad Pro: 10.369478
+Loss Generator D:   5.940514
+Loss Generator G:   0.937845
+Loss Discriminaror:   0.155422
+Grad Dis: 1.242872
+Grad Pro: 9.992966
+Loss Generator D:   4.884486
+Loss Generator G:   0.982090
+Loss Discriminaror:   0.097732
+Grad Dis: 1.446598
+Grad Pro: 9.190051
+Loss Generator D:   3.905703
+Loss Generator G:   0.958337
+Loss Discriminaror:   0.098653
+Grad Dis: 1.297535
+Grad Pro: 10.000210
+Loss Generator D:   4.628366
+Loss Generator G:   0.947840
+Loss Discriminaror:   0.100456
+Grad Dis: 1.105342
+Grad Pro: 11.264311
+Loss Generator D:   5.746562
+Loss Generator G:   0.909829
+Loss Discriminaror:   0.092159
+Grad Dis: 2.312418
+Grad Pro: 10.978719
+Loss Generator D:   5.078713
+Loss Generator G:   1.016842
+Loss Discriminaror:   0.149011
+Grad Dis: 0.776229
+Grad Pro: 10.043729
+Loss Generator D:   5.201928
+Loss Generator G:   1.021123
+Loss Discriminaror:   0.064230
+Generator    : Epoch:      2, update:     480, cost:   1.021123
+Discriminator: Epoch:      2, update:     480, cost:   0.064230
+Grad Dis: 3.037204
+Grad Pro: 12.525128
+Loss Generator D:   5.257634
+Loss Generator G:   1.087385
+Loss Discriminaror:   0.036786
+Grad Dis: 1.606808
+Grad Pro: 11.317881
+Loss Generator D:   5.893229
+Loss Generator G:   1.101318
+Loss Discriminaror:   0.148478
+Grad Dis: 1.157013
+Grad Pro: 17.430653
+Loss Generator D:   6.000619
+Loss Generator G:   1.141457
+Loss Discriminaror:   0.113127
+Grad Dis: 1.930185
+Grad Pro: 7.531163
+Loss Generator D:   5.649961
+Loss Generator G:   0.776630
+Loss Discriminaror:   0.040727
+Grad Dis: 2.154954
+Grad Pro: 10.002286
+Loss Generator D:   4.220922
+Loss Generator G:   0.920863
+Loss Discriminaror:   0.046768
+Grad Dis: 0.901841
+Grad Pro: 10.061136
+Loss Generator D:   5.344406
+Loss Generator G:   0.967829
+Loss Discriminaror:   0.114346
+Grad Dis: 0.878870
+Grad Pro: 8.772748
+Loss Generator D:   6.139716
+Loss Generator G:   0.789818
+Loss Discriminaror:   0.127484
+Grad Dis: 1.101959
+Grad Pro: 11.195376
+Loss Generator D:   5.286871
+Loss Generator G:   1.000548
+Loss Discriminaror:   0.071938
+Grad Dis: 0.973216
+Grad Pro: 10.199794
+Loss Generator D:   5.497670
+Loss Generator G:   1.054153
+Loss Discriminaror:   0.032054
+Grad Dis: 0.966861
+Grad Pro: 10.664767
+Loss Generator D:   6.514967
+Loss Generator G:   0.981405
+Loss Discriminaror:   0.055135
+Generator    : Epoch:      2, update:     490, cost:   0.981405
+Discriminator: Epoch:      2, update:     490, cost:   0.055135
+Grad Dis: 1.369491
+Grad Pro: 11.501318
+Loss Generator D:   6.695989
+Loss Generator G:   0.971783
+Loss Discriminaror:   0.173807
+Grad Dis: 0.709817
+Grad Pro: 10.279912
+Loss Generator D:   5.647889
+Loss Generator G:   0.922431
+Loss Discriminaror:   0.126345
+Grad Dis: 1.063625
+Grad Pro: 9.285495
+Loss Generator D:   5.716266
+Loss Generator G:   0.861998
+Loss Discriminaror:   0.109960
+Grad Dis: 0.586951
+Grad Pro: 10.379049
+Loss Generator D:   4.947385
+Loss Generator G:   0.920930
+Loss Discriminaror:   0.035762
+Grad Dis: 1.576845
+Grad Pro: 12.071527
+Loss Generator D:   6.351496
+Loss Generator G:   1.105708
+Loss Discriminaror:   0.051807
+Grad Dis: 0.517879
+Grad Pro: 13.647318
+Loss Generator D:   7.570906
+Loss Generator G:   0.944610
+Loss Discriminaror:   0.154733
+Grad Dis: 2.008242
+Grad Pro: 9.352657
+Loss Generator D:   5.420124
+Loss Generator G:   0.939513
+Loss Discriminaror:   0.094161
+Grad Dis: 0.710349
+Grad Pro: 8.641085
+Loss Generator D:   6.055209
+Loss Generator G:   0.915345
+Loss Discriminaror:   0.056736
+Grad Dis: 0.583789
+Grad Pro: 11.366728
+Loss Generator D:   6.336176
+Loss Generator G:   1.055326
+Loss Discriminaror:   0.078054
+Grad Dis: 1.345818
+Grad Pro: 7.786507
+Loss Generator D:   5.660032
+Loss Generator G:   0.773438
+Loss Discriminaror:   0.054357
+Generator    : Epoch:      2, update:     500, cost:   0.773438
+Discriminator: Epoch:      2, update:     500, cost:   0.054357
+Validation  5 - LOSS = 1.617 (PPL: 5.039)
+Calling beam-search process
+Beam-search ended, took 1.93552 minutes.
+Validation  5 - BLEU = 14.62, 26.8/17.2/12.0/8.2 (BP=1.000, ratio=2.400, hyp_len=10127, ref_len=4220)
+Early stopping patience: 999 validation left
+--> Current BEST BLEU = 16.390 at validation 4
+--> Current BEST LOSS = 1.617 (PPL: 5.039) at validation 5
+--> This is model: attention_test-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each100_do_d0.0-gc1-init_xavier-s1234.8
+---------------------------------------------------------
+Epoch summary of Generator    :
+--> Epoch 2 finished with mean loss 1.02191 (PPL: 2.77849)
+--> Epoch took 399.115 minutes, 95.788 sec/update
+Epoch summary of Discriminator:
+--> Epoch 2 finished with mean loss 0.09518 (PPL: 1.09986)
+--> Epoch took 399.115 minutes, 95.788 sec/update
+---------------------------------------------------------
+Starting Epoch 3
+----------------
+Grad Dis: 1.555779
+Grad Pro: 13.406191
+Loss Generator D:   6.282180
+Loss Generator G:   1.193835
+Loss Discriminaror:   0.083560
+Grad Dis: 3.307472
+Grad Pro: 10.751909
+Loss Generator D:   5.139564
+Loss Generator G:   1.081963
+Loss Discriminaror:   0.083030
+Grad Dis: 0.844543
+Grad Pro: 14.301279
+Loss Generator D:   6.524799
+Loss Generator G:   1.030216
+Loss Discriminaror:   0.093860
+Grad Dis: 1.290471
+Grad Pro: 12.393024
+Loss Generator D:   5.359641
+Loss Generator G:   1.027303
+Loss Discriminaror:   0.164816
+Grad Dis: 2.530545
+Grad Pro: 11.518466
+Loss Generator D:   6.112162
+Loss Generator G:   0.960505
+Loss Discriminaror:   0.149775
+Grad Dis: 0.860355
+Grad Pro: 11.021948
+Loss Generator D:   4.699006
+Loss Generator G:   1.049596
+Loss Discriminaror:   0.071944
+Grad Dis: 1.287728
+Grad Pro: 10.784589
+Loss Generator D:   5.372610
+Loss Generator G:   1.092081
+Loss Discriminaror:   0.065129
+Grad Dis: 1.227795
+Grad Pro: 9.245870
+Loss Generator D:   5.149673
+Loss Generator G:   0.893484
+Loss Discriminaror:   0.080610
+Grad Dis: 0.793873
+Grad Pro: 14.008718
+Loss Generator D:   5.874191
+Loss Generator G:   1.124177
+Loss Discriminaror:   0.104665
+Grad Dis: 0.886367
+Grad Pro: 13.769565
+Loss Generator D:   5.366592
+Loss Generator G:   1.157428
+Loss Discriminaror:   0.086418
+Generator    : Epoch:      3, update:     510, cost:   1.157428
+Discriminator: Epoch:      3, update:     510, cost:   0.086418
+Grad Dis: 0.753100
+Grad Pro: 12.459891
+Loss Generator D:   6.823235
+Loss Generator G:   1.173845
+Loss Discriminaror:   0.110877
+Grad Dis: 0.792005
+Grad Pro: 11.428241
+Loss Generator D:   5.327696
+Loss Generator G:   1.091495
+Loss Discriminaror:   0.042055
+Grad Dis: 1.190124
+Grad Pro: 14.593149
+Loss Generator D:   4.773067
+Loss Generator G:   1.151218
+Loss Discriminaror:   0.061874
+Grad Dis: 1.282707
+Grad Pro: 16.068445
+Loss Generator D:   5.913936
+Loss Generator G:   1.137094
+Loss Discriminaror:   0.105003
+Grad Dis: 0.706507
+Grad Pro: 10.629401
+Loss Generator D:   4.950190
+Loss Generator G:   0.874611
+Loss Discriminaror:   0.118960
+Grad Dis: 0.357620
+Grad Pro: 8.094094
+Loss Generator D:   5.053080
+Loss Generator G:   0.800161
+Loss Discriminaror:   0.038152
+Grad Dis: 0.583105
+Grad Pro: 10.421523
+Loss Generator D:   5.864690
+Loss Generator G:   0.984823
+Loss Discriminaror:   0.069974
+Grad Dis: 1.048563
+Grad Pro: 12.470652
+Loss Generator D:   6.426286
+Loss Generator G:   0.964673
+Loss Discriminaror:   0.042736
+Grad Dis: 0.819562
+Grad Pro: 11.593915
+Loss Generator D:   4.685042
+Loss Generator G:   1.083127
+Loss Discriminaror:   0.070701
+Grad Dis: 0.724688
+Grad Pro: 14.530960
+Loss Generator D:   4.613029
+Loss Generator G:   1.109843
+Loss Discriminaror:   0.046908
+Generator    : Epoch:      3, update:     520, cost:   1.109843
+Discriminator: Epoch:      3, update:     520, cost:   0.046908
+Grad Dis: 0.669807
+Grad Pro: 10.889193
+Loss Generator D:   5.954429
+Loss Generator G:   1.064920
+Loss Discriminaror:   0.068058
+Grad Dis: 0.167054
+Grad Pro: 10.578428
+Loss Generator D:   6.409615
+Loss Generator G:   0.914348
+Loss Discriminaror:   0.057987
+Grad Dis: 0.509150
+Grad Pro: 8.974611
+Loss Generator D:   4.926514
+Loss Generator G:   0.902075
+Loss Discriminaror:   0.076720
+Grad Dis: 0.282630
+Grad Pro: 16.959681
+Loss Generator D:   5.803370
+Loss Generator G:   1.251773
+Loss Discriminaror:   0.051394
+Grad Dis: 0.406053
+Grad Pro: 14.717535
+Loss Generator D:   5.639686
+Loss Generator G:   1.088369
+Loss Discriminaror:   0.065278
+Grad Dis: 0.826793
+Grad Pro: 10.596356
+Loss Generator D:   5.148020
+Loss Generator G:   0.982553
+Loss Discriminaror:   0.068838
+Grad Dis: 0.407959
+Grad Pro: 8.270353
+Loss Generator D:   5.119297
+Loss Generator G:   0.877235
+Loss Discriminaror:   0.056242
+Grad Dis: 1.523092
+Grad Pro: 10.332718
+Loss Generator D:   4.326657
+Loss Generator G:   0.947523
+Loss Discriminaror:   0.062150
+Grad Dis: 0.529441
+Grad Pro: 10.387831
+Loss Generator D:   6.138408
+Loss Generator G:   0.928685
+Loss Discriminaror:   0.079423
+Grad Dis: 1.200033
+Grad Pro: 11.069633
+Loss Generator D:   5.641692
+Loss Generator G:   1.033471
+Loss Discriminaror:   0.084457
+Generator    : Epoch:      3, update:     530, cost:   1.033471
+Discriminator: Epoch:      3, update:     530, cost:   0.084457
+Grad Dis: 0.592273
+Grad Pro: 10.442325
+Loss Generator D:   5.236308
+Loss Generator G:   0.912462
+Loss Discriminaror:   0.052631
+Grad Dis: 0.865566
+Grad Pro: 9.144911
+Loss Generator D:   5.756982
+Loss Generator G:   0.838014
+Loss Discriminaror:   0.052439
+Grad Dis: 1.153487
+Grad Pro: 14.271423
+Loss Generator D:   5.557885
+Loss Generator G:   1.217757
+Loss Discriminaror:   0.082037
+Grad Dis: 2.262495
+Grad Pro: 15.021115
+Loss Generator D:   4.958754
+Loss Generator G:   1.193980
+Loss Discriminaror:   0.096723
+Grad Dis: 1.018695
+Grad Pro: 11.523479
+Loss Generator D:   5.100054
+Loss Generator G:   0.970610
+Loss Discriminaror:   0.059141
+Grad Dis: 0.424880
+Grad Pro: 10.833303
+Loss Generator D:   5.374227
+Loss Generator G:   0.966944
+Loss Discriminaror:   0.073163
+Grad Dis: 0.431472
+Grad Pro: 9.609526
+Loss Generator D:   5.436368
+Loss Generator G:   0.867623
+Loss Discriminaror:   0.090643
+Grad Dis: 0.400306
+Grad Pro: 11.050666
+Loss Generator D:   5.830923
+Loss Generator G:   1.081846
+Loss Discriminaror:   0.066821
+Grad Dis: 0.859044
+Grad Pro: 10.712022
+Loss Generator D:   5.460109
+Loss Generator G:   0.935352
+Loss Discriminaror:   0.036160
+Grad Dis: 0.804917
+Grad Pro: 14.334414
+Loss Generator D:   6.744167
+Loss Generator G:   1.179178
+Loss Discriminaror:   0.062038
+Generator    : Epoch:      3, update:     540, cost:   1.179178
+Discriminator: Epoch:      3, update:     540, cost:   0.062038
+Grad Dis: 1.325482
+Grad Pro: 11.172917
+Loss Generator D:   4.358890
+Loss Generator G:   0.951888
+Loss Discriminaror:   0.027044
+Grad Dis: 0.583700
+Grad Pro: 10.715544
+Loss Generator D:   5.549921
+Loss Generator G:   0.980519
+Loss Discriminaror:   0.056242
+Grad Dis: 0.796219
+Grad Pro: 11.702681
+Loss Generator D:   5.033823
+Loss Generator G:   0.980046
+Loss Discriminaror:   0.026224
+Grad Dis: 0.699933
+Grad Pro: 9.189037
+Loss Generator D:   5.200547
+Loss Generator G:   0.993951
+Loss Discriminaror:   0.051154
+Grad Dis: 0.373531
+Grad Pro: 14.064547
+Loss Generator D:   5.254290
+Loss Generator G:   1.208540
+Loss Discriminaror:   0.082941
+Grad Dis: 0.328397
+Grad Pro: 12.149595
+Loss Generator D:   4.934815
+Loss Generator G:   1.129212
+Loss Discriminaror:   0.076518
+Grad Dis: 0.953623
+Grad Pro: 11.611206
+Loss Generator D:   5.352253
+Loss Generator G:   0.940639
+Loss Discriminaror:   0.093962
+Grad Dis: 1.101490
+Grad Pro: 12.816162
+Loss Generator D:   4.362425
+Loss Generator G:   1.160877
+Loss Discriminaror:   0.103454
+Grad Dis: 0.552529
+Grad Pro: 15.572995
+Loss Generator D:   4.874687
+Loss Generator G:   1.216437
+Loss Discriminaror:   0.058991
+Grad Dis: 1.570736
+Grad Pro: 12.401403
+Loss Generator D:   4.535331
+Loss Generator G:   0.987061
+Loss Discriminaror:   0.038427
+Generator    : Epoch:      3, update:     550, cost:   0.987061
+Discriminator: Epoch:      3, update:     550, cost:   0.038427
+Grad Dis: 1.692678
+Grad Pro: 12.563484
+Loss Generator D:   4.334175
+Loss Generator G:   1.120805
+Loss Discriminaror:   0.051472
+Grad Dis: 0.808368
+Grad Pro: 13.109980
+Loss Generator D:   4.226738
+Loss Generator G:   1.090034
+Loss Discriminaror:   0.043677
+Grad Dis: 0.317303
+Grad Pro: 8.723161
+Loss Generator D:   3.699731
+Loss Generator G:   0.886530
+Loss Discriminaror:   0.034069
+Grad Dis: 0.886745
+Grad Pro: 15.092870
+Loss Generator D:   4.743094
+Loss Generator G:   1.127818
+Loss Discriminaror:   0.061990
+Grad Dis: 0.750508
+Grad Pro: 13.199175
+Loss Generator D:   4.340440
+Loss Generator G:   1.061921
+Loss Discriminaror:   0.066167
+Grad Dis: 0.986187
+Grad Pro: 10.657995
+Loss Generator D:   4.317955
+Loss Generator G:   0.932988
+Loss Discriminaror:   0.052165
+Grad Dis: 0.880765
+Grad Pro: 9.461366
+Loss Generator D:   4.485976
+Loss Generator G:   0.905430
+Loss Discriminaror:   0.124320
+Grad Dis: 0.230987
+Grad Pro: 9.865135
+Loss Generator D:   5.787083
+Loss Generator G:   0.898254
+Loss Discriminaror:   0.068591
+Grad Dis: 1.229053
+Grad Pro: 11.190008
+Loss Generator D:   4.678735
+Loss Generator G:   1.005647
+Loss Discriminaror:   0.115964
+Grad Dis: 0.414615
+Grad Pro: 12.602498
+Loss Generator D:   4.970603
+Loss Generator G:   1.012417
+Loss Discriminaror:   0.105334
+Generator    : Epoch:      3, update:     560, cost:   1.012417
+Discriminator: Epoch:      3, update:     560, cost:   0.105334
+Grad Dis: 1.501950
+Grad Pro: 11.050792
+Loss Generator D:   4.365269
+Loss Generator G:   0.941514
+Loss Discriminaror:   0.064985
+Grad Dis: 1.082433
+Grad Pro: 15.711856
+Loss Generator D:   5.146293
+Loss Generator G:   1.164938
+Loss Discriminaror:   0.083713
+Grad Dis: 0.813262
+Grad Pro: 10.512854
+Loss Generator D:   4.695760
+Loss Generator G:   0.874810
+Loss Discriminaror:   0.060177
+Grad Dis: 1.721804
+Grad Pro: 11.465785
+Loss Generator D:   4.555976
+Loss Generator G:   0.934321
+Loss Discriminaror:   0.040252
+Grad Dis: 0.912080
+Grad Pro: 12.249460
+Loss Generator D:   4.746094
+Loss Generator G:   0.944237
+Loss Discriminaror:   0.048833
+Grad Dis: 0.869392
+Grad Pro: 10.848246
+Loss Generator D:   4.636596
+Loss Generator G:   1.014250
+Loss Discriminaror:   0.103465
+Grad Dis: 1.252114
+Grad Pro: 11.709370
+Loss Generator D:   5.281968
+Loss Generator G:   1.010155
+Loss Discriminaror:   0.126546
+Grad Dis: 1.301834
+Grad Pro: 10.970896
+Loss Generator D:   5.273175
+Loss Generator G:   0.987403
+Loss Discriminaror:   0.078713
+Grad Dis: 1.317142
+Grad Pro: 15.670135
+Loss Generator D:   4.888089
+Loss Generator G:   1.196101
+Loss Discriminaror:   0.145862
+Grad Dis: 0.708956
+Grad Pro: 11.931240
+Loss Generator D:   4.876731
+Loss Generator G:   1.071752
+Loss Discriminaror:   0.112573
+Generator    : Epoch:      3, update:     570, cost:   1.071752
+Discriminator: Epoch:      3, update:     570, cost:   0.112573
+Grad Dis: 1.020862
+Grad Pro: 9.574162
+Loss Generator D:   5.723341
+Loss Generator G:   0.881664
+Loss Discriminaror:   0.087277
+Grad Dis: 1.142438
+Grad Pro: 9.167330
+Loss Generator D:   4.435351
+Loss Generator G:   0.798442
+Loss Discriminaror:   0.047043
+Grad Dis: 1.158336
+Grad Pro: 10.105073
+Loss Generator D:   4.653538
+Loss Generator G:   1.008567
+Loss Discriminaror:   0.058487
+Grad Dis: 0.755726
+Grad Pro: 11.709721
+Loss Generator D:   4.114339
+Loss Generator G:   1.103575
+Loss Discriminaror:   0.093425
+Grad Dis: 0.419812
+Grad Pro: 9.835459
+Loss Generator D:   4.219700
+Loss Generator G:   0.980865
+Loss Discriminaror:   0.099238
+Grad Dis: 0.451245
+Grad Pro: 9.228541
+Loss Generator D:   3.782829
+Loss Generator G:   0.949027
+Loss Discriminaror:   0.080279
+Grad Dis: 0.960060
+Grad Pro: 12.738715
+Loss Generator D:   4.906238
+Loss Generator G:   0.976531
+Loss Discriminaror:   0.049317
+Grad Dis: 1.041040
+Grad Pro: 12.900007
+Loss Generator D:   5.106805
+Loss Generator G:   1.079799
+Loss Discriminaror:   0.094721
+Grad Dis: 0.587047
+Grad Pro: 6.901441
+Loss Generator D:   4.008770
+Loss Generator G:   0.848071
+Loss Discriminaror:   0.059575
+Grad Dis: 0.372742
+Grad Pro: 6.997972
+Loss Generator D:   4.641793
+Loss Generator G:   0.854026
+Loss Discriminaror:   0.078986
+Generator    : Epoch:      3, update:     580, cost:   0.854026
+Discriminator: Epoch:      3, update:     580, cost:   0.078986
+Grad Dis: 0.435082
+Grad Pro: 9.746145
+Loss Generator D:   5.322440
+Loss Generator G:   0.814341
+Loss Discriminaror:   0.136362
+Grad Dis: 0.219026
+Grad Pro: 8.576035
+Loss Generator D:   4.915617
+Loss Generator G:   0.879344
+Loss Discriminaror:   0.078756
+Grad Dis: 1.045609
+Grad Pro: 8.462891
+Loss Generator D:   5.000960
+Loss Generator G:   0.898481
+Loss Discriminaror:   0.089470
+Grad Dis: 0.444074
+Grad Pro: 6.911305
+Loss Generator D:   5.257751
+Loss Generator G:   0.718605
+Loss Discriminaror:   0.060175
+Grad Dis: 0.330660
+Grad Pro: 7.856355
+Loss Generator D:   5.271218
+Loss Generator G:   0.819222
+Loss Discriminaror:   0.040449
+Grad Dis: 0.453707
+Grad Pro: 7.557126
+Loss Generator D:   5.599943
+Loss Generator G:   0.864694
+Loss Discriminaror:   0.095558
+Grad Dis: 0.220792
+Grad Pro: 9.380079
+Loss Generator D:   6.099978
+Loss Generator G:   0.904193
+Loss Discriminaror:   0.126396
+Grad Dis: 0.293549
+Grad Pro: 10.874296
+Loss Generator D:   5.532247
+Loss Generator G:   1.046782
+Loss Discriminaror:   0.075406
+Grad Dis: 0.302425
+Grad Pro: 8.995626
+Loss Generator D:   6.664449
+Loss Generator G:   0.928206
+Loss Discriminaror:   0.037289
+Grad Dis: 0.409752
+Grad Pro: 12.847000
+Loss Generator D:   5.796539
+Loss Generator G:   1.101250
+Loss Discriminaror:   0.069817
+Generator    : Epoch:      3, update:     590, cost:   1.101250
+Discriminator: Epoch:      3, update:     590, cost:   0.069817
+Grad Dis: 0.347539
+Grad Pro: 9.305315
+Loss Generator D:   5.302446
+Loss Generator G:   0.939823
+Loss Discriminaror:   0.072899
+Grad Dis: 0.202701
+Grad Pro: 14.045828
+Loss Generator D:   5.622581
+Loss Generator G:   1.295782
+Loss Discriminaror:   0.040731
+Grad Dis: 0.346851
+Grad Pro: 9.242996
+Loss Generator D:   5.837018
+Loss Generator G:   0.936460
+Loss Discriminaror:   0.046752
+Grad Dis: 0.464174
+Grad Pro: 7.825994
+Loss Generator D:   5.681522
+Loss Generator G:   0.797113
+Loss Discriminaror:   0.047189
+Grad Dis: 0.445421
+Grad Pro: 9.858649
+Loss Generator D:   5.233774
+Loss Generator G:   0.888533
+Loss Discriminaror:   0.054773
+Grad Dis: 0.375921
+Grad Pro: 11.267564
+Loss Generator D:   5.741174
+Loss Generator G:   0.993127
+Loss Discriminaror:   0.072410
+Grad Dis: 0.115059
+Grad Pro: 9.634583
+Loss Generator D:   5.996047
+Loss Generator G:   0.853963
+Loss Discriminaror:   0.100360
+Grad Dis: 0.901017
+Grad Pro: 8.124247
+Loss Generator D:   5.598237
+Loss Generator G:   0.786295
+Loss Discriminaror:   0.130359
+Grad Dis: 0.394020
+Grad Pro: 10.460793
+Loss Generator D:   6.506827
+Loss Generator G:   0.934440
+Loss Discriminaror:   0.041525
+Grad Dis: 0.592900
+Grad Pro: 11.312630
+Loss Generator D:   6.290863
+Loss Generator G:   0.944669
+Loss Discriminaror:   0.076346
+Generator    : Epoch:      3, update:     600, cost:   0.944669
+Discriminator: Epoch:      3, update:     600, cost:   0.076346
+Validation  6 - LOSS = 1.621 (PPL: 5.058)
+Calling beam-search process
+Beam-search ended, took 1.49676 minutes.
+Validation  6 - BLEU = 40.16, 66.8/47.1/36.3/28.2 (BP=0.947, ratio=0.949, hyp_len=4004, ref_len=4220)
+Saving model with best validation BLEU
+--> Current BEST BLEU = 40.160 at validation 6
+--> Current BEST LOSS = 1.617 (PPL: 5.039) at validation 5
+--> This is model: attention_test-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each100_do_d0.0-gc1-init_xavier-s1234.8
+Grad Dis: 0.205732
+Grad Pro: 12.408038
+Loss Generator D:   6.352767
+Loss Generator G:   1.053542
+Loss Discriminaror:   0.107249
+Grad Dis: 0.892005
+Grad Pro: 10.324208
+Loss Generator D:   5.638364
+Loss Generator G:   0.967033
+Loss Discriminaror:   0.061139
+Grad Dis: 0.183583
+Grad Pro: 9.607465
+Loss Generator D:   5.064364
+Loss Generator G:   0.784100
+Loss Discriminaror:   0.098337
+Grad Dis: 0.729425
+Grad Pro: 9.642822
+Loss Generator D:   6.380665
+Loss Generator G:   0.889987
+Loss Discriminaror:   0.066140
+Grad Dis: 0.348889
+Grad Pro: 7.742119
+Loss Generator D:   6.077613
+Loss Generator G:   0.752352
+Loss Discriminaror:   0.071649
+Grad Dis: 0.211140
+Grad Pro: 11.386946
+Loss Generator D:   7.099661
+Loss Generator G:   1.165680
+Loss Discriminaror:   0.121725
+Grad Dis: 1.054609
+Grad Pro: 8.313231
+Loss Generator D:   5.540393
+Loss Generator G:   0.786955
+Loss Discriminaror:   0.058641
+Grad Dis: 0.432520
+Grad Pro: 8.858571
+Loss Generator D:   6.713296
+Loss Generator G:   0.883782
+Loss Discriminaror:   0.051669
+Grad Dis: 0.511652
+Grad Pro: 12.208727
+Loss Generator D:   7.430783
+Loss Generator G:   0.909273
+Loss Discriminaror:   0.023478
+Grad Dis: 0.356297
+Grad Pro: 9.154952
+Loss Generator D:   7.082724
+Loss Generator G:   0.909985
+Loss Discriminaror:   0.074738
+Generator    : Epoch:      3, update:     610, cost:   0.909985
+Discriminator: Epoch:      3, update:     610, cost:   0.074738
+Grad Dis: 0.358097
+Grad Pro: 11.050092
+Loss Generator D:   6.314374
+Loss Generator G:   1.061264
+Loss Discriminaror:   0.109515
+Grad Dis: 0.352543
+Grad Pro: 9.763051
+Loss Generator D:   5.686196
+Loss Generator G:   0.856096
+Loss Discriminaror:   0.106716
+Grad Dis: 0.238852
+Grad Pro: 9.340151
+Loss Generator D:   7.260758
+Loss Generator G:   0.868658
+Loss Discriminaror:   0.081324
+Grad Dis: 0.214502
+Grad Pro: 7.376817
+Loss Generator D:   5.702699
+Loss Generator G:   0.754266
+Loss Discriminaror:   0.131298
+Grad Dis: 0.114847
+Grad Pro: 13.134959
+Loss Generator D:   6.407922
+Loss Generator G:   1.037471
+Loss Discriminaror:   0.072086
+Grad Dis: 0.422299
+Grad Pro: 11.815524
+Loss Generator D:   6.109877
+Loss Generator G:   1.028513
+Loss Discriminaror:   0.067013
+Grad Dis: 0.305754
+Grad Pro: 7.869216
+Loss Generator D:   7.245902
+Loss Generator G:   0.748990
+Loss Discriminaror:   0.061862
+Grad Dis: 0.343588
+Grad Pro: 11.671933
+Loss Generator D:   6.505239
+Loss Generator G:   0.992383
+Loss Discriminaror:   0.045062
+Grad Dis: 0.109764
+Grad Pro: 9.446486
+Loss Generator D:   7.372586
+Loss Generator G:   0.895829
+Loss Discriminaror:   0.034995
+Grad Dis: 0.121669
+Grad Pro: 10.118752
+Loss Generator D:   6.353885
+Loss Generator G:   0.791984
+Loss Discriminaror:   0.063775
+Generator    : Epoch:      3, update:     620, cost:   0.791984
+Discriminator: Epoch:      3, update:     620, cost:   0.063775
+Grad Dis: 0.207421
+Grad Pro: 11.533103
+Loss Generator D:   7.101247
+Loss Generator G:   1.034761
+Loss Discriminaror:   0.060918
+Grad Dis: 0.546645
+Grad Pro: 11.345607
+Loss Generator D:   6.081006
+Loss Generator G:   0.974154
+Loss Discriminaror:   0.081759
+Grad Dis: 0.270929
+Grad Pro: 11.689749
+Loss Generator D:   6.082959
+Loss Generator G:   1.069512
+Loss Discriminaror:   0.081817
+Grad Dis: 0.595393
+Grad Pro: 12.121698
+Loss Generator D:   6.527187
+Loss Generator G:   0.942580
+Loss Discriminaror:   0.039620
+Grad Dis: 0.466935
+Grad Pro: 12.141545
+Loss Generator D:   6.126392
+Loss Generator G:   1.027230
+Loss Discriminaror:   0.037916
+Grad Dis: 0.460480
+Grad Pro: 11.623111
+Loss Generator D:   5.992995
+Loss Generator G:   0.966289
+Loss Discriminaror:   0.076017
+Grad Dis: 0.249887
+Grad Pro: 11.388732
+Loss Generator D:   5.764961
+Loss Generator G:   1.089272
+Loss Discriminaror:   0.045931
+Grad Dis: 0.288912
+Grad Pro: 11.290005
+Loss Generator D:   5.538561
+Loss Generator G:   1.096719
+Loss Discriminaror:   0.035347
+Grad Dis: 0.572132
+Grad Pro: 16.962246
+Loss Generator D:   6.430759
+Loss Generator G:   1.150689
+Loss Discriminaror:   0.107618
+Grad Dis: 0.085096
+Grad Pro: 12.028346
+Loss Generator D:   6.468506
+Loss Generator G:   1.048196
+Loss Discriminaror:   0.042751
+Generator    : Epoch:      3, update:     630, cost:   1.048196
+Discriminator: Epoch:      3, update:     630, cost:   0.042751
+Grad Dis: 0.133708
+Grad Pro: 9.820953
+Loss Generator D:   5.835848
+Loss Generator G:   0.880972
+Loss Discriminaror:   0.026803
+Grad Dis: 0.559540
+Grad Pro: 10.496574
+Loss Generator D:   6.171649
+Loss Generator G:   0.890265
+Loss Discriminaror:   0.040198
+Grad Dis: 0.411778
+Grad Pro: 7.482416
+Loss Generator D:   5.543756
+Loss Generator G:   0.869465
+Loss Discriminaror:   0.053405
+Grad Dis: 0.624695
+Grad Pro: 14.410113
+Loss Generator D:   6.394506
+Loss Generator G:   1.061513
+Loss Discriminaror:   0.051251
+Grad Dis: 0.411080
+Grad Pro: 10.195602
+Loss Generator D:   5.618279
+Loss Generator G:   1.009809
+Loss Discriminaror:   0.052672
+Grad Dis: 0.067275
+Grad Pro: 8.668573
+Loss Generator D:   5.964948
+Loss Generator G:   0.688606
+Loss Discriminaror:   0.065951
+Grad Dis: 0.147023
+Grad Pro: 10.020798
+Loss Generator D:   6.228228
+Loss Generator G:   0.929884
+Loss Discriminaror:   0.097989
+Grad Dis: 0.517547
+Grad Pro: 8.905266
+Loss Generator D:   6.034229
+Loss Generator G:   0.737309
+Loss Discriminaror:   0.022689
+Grad Dis: 0.184589
+Grad Pro: 13.956369
+Loss Generator D:   6.787641
+Loss Generator G:   1.089134
+Loss Discriminaror:   0.031422
+Grad Dis: 0.214447
+Grad Pro: 9.959538
+Loss Generator D:   6.087930
+Loss Generator G:   0.861742
+Loss Discriminaror:   0.085411
+Generator    : Epoch:      3, update:     640, cost:   0.861742
+Discriminator: Epoch:      3, update:     640, cost:   0.085411
+Grad Dis: 0.416490
+Grad Pro: 8.976812
+Loss Generator D:   6.712626
+Loss Generator G:   0.791079
+Loss Discriminaror:   0.030119
+Grad Dis: 0.142967
+Grad Pro: 9.775400
+Loss Generator D:   6.476734
+Loss Generator G:   0.893953
+Loss Discriminaror:   0.065973
+Grad Dis: 0.124633
+Grad Pro: 12.625950
+Loss Generator D:   7.180008
+Loss Generator G:   1.171926
+Loss Discriminaror:   0.029125
+Grad Dis: 0.345058
+Grad Pro: 13.146802
+Loss Generator D:   6.279396
+Loss Generator G:   1.068732
+Loss Discriminaror:   0.025910
+Grad Dis: 0.158800
+Grad Pro: 15.329077
+Loss Generator D:   5.922856
+Loss Generator G:   1.123374
+Loss Discriminaror:   0.076184
+Grad Dis: 0.503699
+Grad Pro: 14.669858
+Loss Generator D:   6.134740
+Loss Generator G:   1.146238
+Loss Discriminaror:   0.046244
+Grad Dis: 0.639048
+Grad Pro: 7.819054
+Loss Generator D:   6.427110
+Loss Generator G:   0.738637
+Loss Discriminaror:   0.104108
+Grad Dis: 0.191100
+Grad Pro: 10.211385
+Loss Generator D:   5.893493
+Loss Generator G:   0.846013
+Loss Discriminaror:   0.040583
+Grad Dis: 0.688318
+Grad Pro: 9.366129
+Loss Generator D:   7.219626
+Loss Generator G:   0.790920
+Loss Discriminaror:   0.133550
+Grad Dis: 0.262071
+Grad Pro: 9.180840
+Loss Generator D:   7.234580
+Loss Generator G:   0.913564
+Loss Discriminaror:   0.080655
+Generator    : Epoch:      3, update:     650, cost:   0.913564
+Discriminator: Epoch:      3, update:     650, cost:   0.080655
+Grad Dis: 0.178052
+Grad Pro: 11.902615
+Loss Generator D:   6.856246
+Loss Generator G:   1.106064
+Loss Discriminaror:   0.053776
+Grad Dis: 0.297219
+Grad Pro: 12.026251
+Loss Generator D:   5.981713
+Loss Generator G:   0.956736
+Loss Discriminaror:   0.308588
+Grad Dis: 0.507914
+Grad Pro: 10.630320
+Loss Generator D:   5.976077
+Loss Generator G:   0.968402
+Loss Discriminaror:   0.096392
+Grad Dis: 0.342409
+Grad Pro: 9.842321
+Loss Generator D:   6.313746
+Loss Generator G:   0.862594
+Loss Discriminaror:   0.078789
+Grad Dis: 0.742848
+Grad Pro: 12.429812
+Loss Generator D:   6.487794
+Loss Generator G:   1.029352
+Loss Discriminaror:   0.106018
+Grad Dis: 0.818386
+Grad Pro: 8.640622
+Loss Generator D:   6.188681
+Loss Generator G:   0.810580
+Loss Discriminaror:   0.042107
+Grad Dis: 0.553148
+Grad Pro: 10.650897
+Loss Generator D:   6.094333
+Loss Generator G:   0.940880
+Loss Discriminaror:   0.032600
+Grad Dis: 0.502279
+Grad Pro: 8.460556
+Loss Generator D:   4.992209
+Loss Generator G:   0.803986
+Loss Discriminaror:   0.052583
+Grad Dis: 1.938440
+Grad Pro: 7.590590
+Loss Generator D:   4.546851
+Loss Generator G:   0.687319
+Loss Discriminaror:   0.063337
+Grad Dis: 0.292580
+Grad Pro: 8.629045
+Loss Generator D:   5.451381
+Loss Generator G:   0.935019
+Loss Discriminaror:   0.085836
+Generator    : Epoch:      3, update:     660, cost:   0.935019
+Discriminator: Epoch:      3, update:     660, cost:   0.085836
+Grad Dis: 0.310432
+Grad Pro: 8.291066
+Loss Generator D:   5.076402
+Loss Generator G:   0.832391
+Loss Discriminaror:   0.083417
+Grad Dis: 1.196556
+Grad Pro: 12.632115
+Loss Generator D:   5.327443
+Loss Generator G:   1.013658
+Loss Discriminaror:   0.038082
+Grad Dis: 0.477065
+Grad Pro: 11.899404
+Loss Generator D:   6.278043
+Loss Generator G:   1.043374
+Loss Discriminaror:   0.033748
+Grad Dis: 0.711335
+Grad Pro: 13.454442
+Loss Generator D:   5.551031
+Loss Generator G:   1.115402
+Loss Discriminaror:   0.075723
+Grad Dis: 0.945949
+Grad Pro: 15.970125
+Loss Generator D:   6.704422
+Loss Generator G:   1.185816
+Loss Discriminaror:   0.047623
+Grad Dis: 0.386810
+Grad Pro: 14.853500
+Loss Generator D:   5.632493
+Loss Generator G:   1.093607
+Loss Discriminaror:   0.096720
+Grad Dis: 0.936565
+Grad Pro: 15.140799
+Loss Generator D:   6.087416
+Loss Generator G:   1.145982
+Loss Discriminaror:   0.082170
+Grad Dis: 0.476136
+Grad Pro: 10.035279
+Loss Generator D:   6.042347
+Loss Generator G:   0.979749
+Loss Discriminaror:   0.037163
+Grad Dis: 0.172122
+Grad Pro: 11.888207
+Loss Generator D:   6.102739
+Loss Generator G:   1.014893
+Loss Discriminaror:   0.115275
+Grad Dis: 0.881606
+Grad Pro: 11.758235
+Loss Generator D:   6.434196
+Loss Generator G:   1.025736
+Loss Discriminaror:   0.073310
+Generator    : Epoch:      3, update:     670, cost:   1.025736
+Discriminator: Epoch:      3, update:     670, cost:   0.073310
+Grad Dis: 0.694751
+Grad Pro: 8.268756
+Loss Generator D:   6.262311
+Loss Generator G:   0.753278
+Loss Discriminaror:   0.096467
+Grad Dis: 0.935641
+Grad Pro: 8.785257
+Loss Generator D:   5.608151
+Loss Generator G:   0.770692
+Loss Discriminaror:   0.051001
+Grad Dis: 0.300119
+Grad Pro: 11.380877
+Loss Generator D:   5.695418
+Loss Generator G:   0.944325
+Loss Discriminaror:   0.053481
+Grad Dis: 0.507372
+Grad Pro: 8.863120
+Loss Generator D:   5.923177
+Loss Generator G:   0.702856
+Loss Discriminaror:   0.039787
+Grad Dis: 0.291671
+Grad Pro: 8.357118
+Loss Generator D:   5.592747
+Loss Generator G:   0.822266
+Loss Discriminaror:   0.095642
+Grad Dis: 0.221162
+Grad Pro: 11.529971
+Loss Generator D:   6.754537
+Loss Generator G:   0.892215
+Loss Discriminaror:   0.042389
+Grad Dis: 0.720023
+Grad Pro: 15.365320
+Loss Generator D:   5.448829
+Loss Generator G:   1.056707
+Loss Discriminaror:   0.033308
+Grad Dis: 0.720143
+Grad Pro: 15.756155
+Loss Generator D:   6.127986
+Loss Generator G:   1.158753
+Loss Discriminaror:   0.023790
+Grad Dis: 0.435575
+Grad Pro: 14.181581
+Loss Generator D:   6.298217
+Loss Generator G:   1.081609
+Loss Discriminaror:   0.039617
+Grad Dis: 0.106422
+Grad Pro: 9.924547
+Loss Generator D:   7.868564
+Loss Generator G:   0.896894
+Loss Discriminaror:   0.047681
+Generator    : Epoch:      3, update:     680, cost:   0.896894
+Discriminator: Epoch:      3, update:     680, cost:   0.047681
+Grad Dis: 0.755592
+Grad Pro: 11.813074
+Loss Generator D:   7.251511
+Loss Generator G:   0.938520
+Loss Discriminaror:   0.055060
+Grad Dis: 0.356387
+Grad Pro: 10.322741
+Loss Generator D:   6.818789
+Loss Generator G:   0.993185
+Loss Discriminaror:   0.043510
+Grad Dis: 0.571488
+Grad Pro: 10.338661
+Loss Generator D:   5.973999
+Loss Generator G:   0.945051
+Loss Discriminaror:   0.043457
+Grad Dis: 0.395787
+Grad Pro: 14.184381
+Loss Generator D:   5.658708
+Loss Generator G:   1.090961
+Loss Discriminaror:   0.072491
+Grad Dis: 0.190332
+Grad Pro: 13.168042
+Loss Generator D:   5.848282
+Loss Generator G:   1.039738
+Loss Discriminaror:   0.035077
+Grad Dis: 0.137184
+Grad Pro: 10.113450
+Loss Generator D:   6.724301
+Loss Generator G:   0.907149
+Loss Discriminaror:   0.071241
+Grad Dis: 0.667399
+Grad Pro: 10.440277
+Loss Generator D:   4.538154
+Loss Generator G:   0.960187
+Loss Discriminaror:   0.062539
+Grad Dis: 0.573473
+Grad Pro: 12.880407
+Loss Generator D:   6.589940
+Loss Generator G:   1.100391
+Loss Discriminaror:   0.121253
+Grad Dis: 0.196627
+Grad Pro: 11.118551
+Loss Generator D:   5.975092
+Loss Generator G:   1.072007
+Loss Discriminaror:   0.059938
+Grad Dis: 0.712259
+Grad Pro: 11.299041
+Loss Generator D:   5.090367
+Loss Generator G:   0.997828
+Loss Discriminaror:   0.091849
+Generator    : Epoch:      3, update:     690, cost:   0.997828
+Discriminator: Epoch:      3, update:     690, cost:   0.091849
+Grad Dis: 0.239404
+Grad Pro: 12.145582
+Loss Generator D:   6.546771
+Loss Generator G:   1.179917
+Loss Discriminaror:   0.049552
+Grad Dis: 0.388603
+Grad Pro: 10.278915
+Loss Generator D:   6.512383
+Loss Generator G:   0.952619
+Loss Discriminaror:   0.038367
+Grad Dis: 0.500816
+Grad Pro: 15.334437
+Loss Generator D:   5.564057
+Loss Generator G:   1.289121
+Loss Discriminaror:   0.082159
+Grad Dis: 0.140622
+Grad Pro: 15.143957
+Loss Generator D:   5.459167
+Loss Generator G:   1.273594
+Loss Discriminaror:   0.039351
+Grad Dis: 1.002977
+Grad Pro: 7.879447
+Loss Generator D:   5.743030
+Loss Generator G:   0.793167
+Loss Discriminaror:   0.069433
+Grad Dis: 0.304230
+Grad Pro: 12.690809
+Loss Generator D:   5.590119
+Loss Generator G:   1.051523
+Loss Discriminaror:   0.031320
+Grad Dis: 0.932629
+Grad Pro: 12.092203
+Loss Generator D:   5.298537
+Loss Generator G:   0.975728
+Loss Discriminaror:   0.060468
+Grad Dis: 0.686424
+Grad Pro: 11.884371
+Loss Generator D:   4.140019
+Loss Generator G:   0.954212
+Loss Discriminaror:   0.064783
+Grad Dis: 0.415557
+Grad Pro: 12.439558
+Loss Generator D:   4.972459
+Loss Generator G:   1.109811
+Loss Discriminaror:   0.086349
+Grad Dis: 0.729815
+Grad Pro: 9.490379
+Loss Generator D:   5.823753
+Loss Generator G:   0.888400
+Loss Discriminaror:   0.033278
+Generator    : Epoch:      3, update:     700, cost:   0.888400
+Discriminator: Epoch:      3, update:     700, cost:   0.033278
+Validation  7 - LOSS = 1.604 (PPL: 4.971)
+Calling beam-search process
+Beam-search ended, took 1.75168 minutes.
+Validation  7 - BLEU = 23.54, 41.7/27.2/19.5/13.9 (BP=1.000, ratio=1.559, hyp_len=6577, ref_len=4220)
+Early stopping patience: 999 validation left
+--> Current BEST BLEU = 40.160 at validation 6
+--> Current BEST LOSS = 1.604 (PPL: 4.971) at validation 7
+--> This is model: attention_test-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each100_do_d0.0-gc1-init_xavier-s1234.8
+Grad Dis: 0.383325
+Grad Pro: 10.553111
+Loss Generator D:   5.407624
+Loss Generator G:   0.948298
+Loss Discriminaror:   0.048824
+Grad Dis: 0.351764
+Grad Pro: 10.900185
+Loss Generator D:   5.543180
+Loss Generator G:   0.951602
+Loss Discriminaror:   0.067950
+Grad Dis: 0.648323
+Grad Pro: 9.816736
+Loss Generator D:   6.355013
+Loss Generator G:   0.931210
+Loss Discriminaror:   0.042166
+Grad Dis: 0.324576
+Grad Pro: 9.138606
+Loss Generator D:   5.764018
+Loss Generator G:   0.910835
+Loss Discriminaror:   0.047264
+Grad Dis: 0.390042
+Grad Pro: 8.951939
+Loss Generator D:   5.791524
+Loss Generator G:   0.783501
+Loss Discriminaror:   0.027434
+Grad Dis: 0.255802
+Grad Pro: 8.095385
+Loss Generator D:   5.747488
+Loss Generator G:   0.853616
+Loss Discriminaror:   0.036782
+Grad Dis: 0.538381
+Grad Pro: 11.577746
+Loss Generator D:   5.875517
+Loss Generator G:   1.012114
+Loss Discriminaror:   0.080839
+Grad Dis: 0.503047
+Grad Pro: 12.515768
+Loss Generator D:   6.496490
+Loss Generator G:   0.975440
+Loss Discriminaror:   0.080067
+Grad Dis: 0.362206
+Grad Pro: 9.776538
+Loss Generator D:   5.146287
+Loss Generator G:   0.919952
+Loss Discriminaror:   0.087743
+Grad Dis: 0.229797
+Grad Pro: 11.398637
+Loss Generator D:   6.010881
+Loss Generator G:   0.882211
+Loss Discriminaror:   0.042384
+Generator    : Epoch:      3, update:     710, cost:   0.882211
+Discriminator: Epoch:      3, update:     710, cost:   0.042384
+Grad Dis: 0.195684
+Grad Pro: 12.397250
+Loss Generator D:   6.588577
+Loss Generator G:   1.022786
+Loss Discriminaror:   0.137759
+Grad Dis: 0.615913
+Grad Pro: 12.255723
+Loss Generator D:   6.066775
+Loss Generator G:   1.073346
+Loss Discriminaror:   0.053032
+Grad Dis: 0.212810
+Grad Pro: 11.185502
+Loss Generator D:   7.186655
+Loss Generator G:   1.023368
+Loss Discriminaror:   0.093121
+Grad Dis: 0.406867
+Grad Pro: 7.706308
+Loss Generator D:   5.322276
+Loss Generator G:   0.800075
+Loss Discriminaror:   0.098976
+Grad Dis: 0.118867
+Grad Pro: 13.085764
+Loss Generator D:   7.055064
+Loss Generator G:   1.012655
+Loss Discriminaror:   0.090387
+Grad Dis: 0.381835
+Grad Pro: 11.450710
+Loss Generator D:   6.528905
+Loss Generator G:   1.050761
+Loss Discriminaror:   0.083349
+Grad Dis: 1.461787
+Grad Pro: 11.171097
+Loss Generator D:   5.551956
+Loss Generator G:   0.923886
+Loss Discriminaror:   0.066592
+Grad Dis: 0.272997
+Grad Pro: 11.131170
+Loss Generator D:   6.048583
+Loss Generator G:   1.019836
+Loss Discriminaror:   0.076956
+Grad Dis: 0.383876
+Grad Pro: 9.149426
+Loss Generator D:   6.045636
+Loss Generator G:   0.802519
+Loss Discriminaror:   0.059434
+Grad Dis: 0.200329
+Grad Pro: 7.652172
+Loss Generator D:   6.300151
+Loss Generator G:   0.821386
+Loss Discriminaror:   0.053498
+Generator    : Epoch:      3, update:     720, cost:   0.821386
+Discriminator: Epoch:      3, update:     720, cost:   0.053498
+Grad Dis: 0.913609
+Grad Pro: 10.372015
+Loss Generator D:   6.088941
+Loss Generator G:   0.909504
+Loss Discriminaror:   0.020360
+Grad Dis: 0.660088
+Grad Pro: 10.394224
+Loss Generator D:   5.531456
+Loss Generator G:   0.938492
+Loss Discriminaror:   0.059984
+Grad Dis: 0.441364
+Grad Pro: 11.583316
+Loss Generator D:   6.435637
+Loss Generator G:   1.017217
+Loss Discriminaror:   0.090504
+Grad Dis: 0.852684
+Grad Pro: 9.258689
+Loss Generator D:   6.319398
+Loss Generator G:   0.811324
+Loss Discriminaror:   0.070474
+Grad Dis: 0.592978
+Grad Pro: 9.610834
+Loss Generator D:   6.644925
+Loss Generator G:   0.885985
+Loss Discriminaror:   0.035586
+Grad Dis: 0.383586
+Grad Pro: 8.913280
+Loss Generator D:   6.131936
+Loss Generator G:   0.921976
+Loss Discriminaror:   0.037655
+Grad Dis: 0.382378
+Grad Pro: 9.289830
+Loss Generator D:   6.557489
+Loss Generator G:   0.968369
+Loss Discriminaror:   0.035797
+Grad Dis: 0.396993
+Grad Pro: 9.736666
+Loss Generator D:   6.629915
+Loss Generator G:   0.827804
+Loss Discriminaror:   0.043457
+Grad Dis: 0.511557
+Grad Pro: 10.435944
+Loss Generator D:   7.360594
+Loss Generator G:   0.929141
+Loss Discriminaror:   0.097596
+Grad Dis: 0.167929
+Grad Pro: 9.508555
+Loss Generator D:   6.497020
+Loss Generator G:   0.895920
+Loss Discriminaror:   0.048845
+Generator    : Epoch:      3, update:     730, cost:   0.895920
+Discriminator: Epoch:      3, update:     730, cost:   0.048845
+Grad Dis: 0.266035
+Grad Pro: 11.811162
+Loss Generator D:   6.777112
+Loss Generator G:   1.082827
+Loss Discriminaror:   0.036438
+Grad Dis: 0.564354
+Grad Pro: 11.254680
+Loss Generator D:   6.172293
+Loss Generator G:   1.062089
+Loss Discriminaror:   0.116885
+Grad Dis: 0.266779
+Grad Pro: 16.424358
+Loss Generator D:   7.534554
+Loss Generator G:   1.045411
+Loss Discriminaror:   0.099079
+Grad Dis: 0.235920
+Grad Pro: 6.930571
+Loss Generator D:   6.467267
+Loss Generator G:   0.758669
+Loss Discriminaror:   0.068285
+Grad Dis: 0.727088
+Grad Pro: 9.369580
+Loss Generator D:   5.667082
+Loss Generator G:   0.887616
+Loss Discriminaror:   0.098295
+Grad Dis: 0.917652
+Grad Pro: 9.116969
+Loss Generator D:   6.967992
+Loss Generator G:   0.855644
+Loss Discriminaror:   0.087794
+Grad Dis: 0.334411
+Grad Pro: 8.443060
+Loss Generator D:   7.183350
+Loss Generator G:   0.797614
+Loss Discriminaror:   0.059719
+Grad Dis: 0.742388
+Grad Pro: 9.990273
+Loss Generator D:   6.122534
+Loss Generator G:   0.866205
+Loss Discriminaror:   0.087927
+Grad Dis: 0.382295
+Grad Pro: 9.271986
+Loss Generator D:   6.551030
+Loss Generator G:   0.926216
+Loss Discriminaror:   0.072841
+Grad Dis: 0.161632
+Grad Pro: 10.064031
+Loss Generator D:   7.949230
+Loss Generator G:   0.924048
+Loss Discriminaror:   0.047509
+Generator    : Epoch:      3, update:     740, cost:   0.924048
+Discriminator: Epoch:      3, update:     740, cost:   0.047509
+Grad Dis: 0.774741
+Grad Pro: 11.071436
+Loss Generator D:   7.185339
+Loss Generator G:   0.916305
+Loss Discriminaror:   0.031062
+Grad Dis: 1.625484
+Grad Pro: 9.624460
+Loss Generator D:   6.176776
+Loss Generator G:   0.819369
+Loss Discriminaror:   0.024757
+Grad Dis: 0.293727
+Grad Pro: 8.829526
+Loss Generator D:   7.993829
+Loss Generator G:   0.920813
+Loss Discriminaror:   0.088306
+Grad Dis: 0.354443
+Grad Pro: 9.520437
+Loss Generator D:   5.958852
+Loss Generator G:   0.830582
+Loss Discriminaror:   0.037166
+Grad Dis: 0.247700
+Grad Pro: 11.167967
+Loss Generator D:   7.260602
+Loss Generator G:   0.968633
+Loss Discriminaror:   0.053504
+Grad Dis: 1.340533
+Grad Pro: 11.088893
+Loss Generator D:   6.850749
+Loss Generator G:   0.830630
+Loss Discriminaror:   0.082557
+Grad Dis: 0.931704
+Grad Pro: 8.488161
+Loss Generator D:   6.352199
+Loss Generator G:   0.838011
+Loss Discriminaror:   0.061626
+Grad Dis: 0.635876
+Grad Pro: 8.643661
+Loss Generator D:   6.705426
+Loss Generator G:   0.811310
+Loss Discriminaror:   0.029060
+Grad Dis: 0.327825
+Grad Pro: 10.551485
+Loss Generator D:   7.035777
+Loss Generator G:   0.973252
+Loss Discriminaror:   0.097313
+Grad Dis: 0.303728
+Grad Pro: 7.090937
+Loss Generator D:   6.524631
+Loss Generator G:   0.687658
+Loss Discriminaror:   0.041240
+Generator    : Epoch:      3, update:     750, cost:   0.687658
+Discriminator: Epoch:      3, update:     750, cost:   0.041240
+---------------------------------------------------------
+Epoch summary of Generator    :
+--> Epoch 3 finished with mean loss 0.96602 (PPL: 2.62747)
+--> Epoch took 260.625 minutes, 62.550 sec/update
+Epoch summary of Discriminator:
+--> Epoch 3 finished with mean loss 0.06932 (PPL: 1.07178)
+--> Epoch took 260.625 minutes, 62.550 sec/update
+---------------------------------------------------------
+Starting Epoch 4
+----------------
+Grad Dis: 0.310590
+Grad Pro: 12.301931
+Loss Generator D:   6.176721
+Loss Generator G:   1.090264
+Loss Discriminaror:   0.101622
+Grad Dis: 0.263050
+Grad Pro: 10.287064
+Loss Generator D:   4.919449
+Loss Generator G:   1.045278
+Loss Discriminaror:   0.065847
+Grad Dis: 0.237715
+Grad Pro: 13.426285
+Loss Generator D:   6.734880
+Loss Generator G:   1.034804
+Loss Discriminaror:   0.023919
+Grad Dis: 0.493932
+Grad Pro: 11.571134
+Loss Generator D:   5.550720
+Loss Generator G:   0.979572
+Loss Discriminaror:   0.075322
+Grad Dis: 0.286453
+Grad Pro: 10.747813
+Loss Generator D:   6.967875
+Loss Generator G:   0.886880
+Loss Discriminaror:   0.045348
+Grad Dis: 0.220311
+Grad Pro: 10.460388
+Loss Generator D:   6.101554
+Loss Generator G:   1.048722
+Loss Discriminaror:   0.027580
+Grad Dis: 0.950622
+Grad Pro: 9.953565
+Loss Generator D:   5.760263
+Loss Generator G:   0.977163
+Loss Discriminaror:   0.030173
+Grad Dis: 0.239176
+Grad Pro: 8.459384
+Loss Generator D:   5.603189
+Loss Generator G:   0.838098
+Loss Discriminaror:   0.069772
+Grad Dis: 0.670294
+Grad Pro: 13.735361
+Loss Generator D:   6.137611
+Loss Generator G:   1.049902
+Loss Discriminaror:   0.049171
+Grad Dis: 0.188973
+Grad Pro: 14.047620
+Loss Generator D:   6.247869
+Loss Generator G:   1.283933
+Loss Discriminaror:   0.029435
+Generator    : Epoch:      4, update:     760, cost:   1.283933
+Discriminator: Epoch:      4, update:     760, cost:   0.029435
+Grad Dis: 0.196322
+Grad Pro: 12.404357
+Loss Generator D:   6.442652
+Loss Generator G:   1.205304
+Loss Discriminaror:   0.041748
+Grad Dis: 0.279345
+Grad Pro: 10.957112
+Loss Generator D:   5.627943
+Loss Generator G:   0.974954
+Loss Discriminaror:   0.047491
+Grad Dis: 1.287417
+Grad Pro: 13.492305
+Loss Generator D:   6.553432
+Loss Generator G:   1.069292
+Loss Discriminaror:   0.105042
+Grad Dis: 1.022134
+Grad Pro: 15.306834
+Loss Generator D:   6.738803
+Loss Generator G:   1.064134
+Loss Discriminaror:   0.031065
+Grad Dis: 0.286933
+Grad Pro: 10.086875
+Loss Generator D:   6.373553
+Loss Generator G:   0.820537
+Loss Discriminaror:   0.041101
+Grad Dis: 0.203634
+Grad Pro: 7.849210
+Loss Generator D:   6.035159
+Loss Generator G:   0.694017
+Loss Discriminaror:   0.020729
+Grad Dis: 0.624631
+Grad Pro: 9.824481
+Loss Generator D:   7.020137
+Loss Generator G:   0.974792
+Loss Discriminaror:   0.054094
+Grad Dis: 0.539158
+Grad Pro: 11.578501
+Loss Generator D:   6.175517
+Loss Generator G:   0.845266
+Loss Discriminaror:   0.072887
+Grad Dis: 0.550773
+Grad Pro: 10.859877
+Loss Generator D:   5.636022
+Loss Generator G:   0.999753
+Loss Discriminaror:   0.049424
+Grad Dis: 0.447826
+Grad Pro: 12.668447
+Loss Generator D:   5.841815
+Loss Generator G:   1.030945
+Loss Discriminaror:   0.033243
+Generator    : Epoch:      4, update:     770, cost:   1.030945
+Discriminator: Epoch:      4, update:     770, cost:   0.033243
+Grad Dis: 0.514137
+Grad Pro: 10.244555
+Loss Generator D:   6.481802
+Loss Generator G:   0.954132
+Loss Discriminaror:   0.045883
+Grad Dis: 0.374726
+Grad Pro: 9.652304
+Loss Generator D:   6.542746
+Loss Generator G:   0.872521
+Loss Discriminaror:   0.113389
+Grad Dis: 0.070191
+Grad Pro: 8.609752
+Loss Generator D:   6.141442
+Loss Generator G:   0.787613
+Loss Discriminaror:   0.076419
+Grad Dis: 0.303297
+Grad Pro: 15.863203
+Loss Generator D:   6.424021
+Loss Generator G:   1.132903
+Loss Discriminaror:   0.094362
+Grad Dis: 0.595074
+Grad Pro: 13.204684
+Loss Generator D:   6.358152
+Loss Generator G:   0.987503
+Loss Discriminaror:   0.053677
+Grad Dis: 0.264351
+Grad Pro: 10.371732
+Loss Generator D:   7.156120
+Loss Generator G:   0.969678
+Loss Discriminaror:   0.035363
+Grad Dis: 0.518278
+Grad Pro: 7.586615
+Loss Generator D:   5.582227
+Loss Generator G:   0.849572
+Loss Discriminaror:   0.057774
+Grad Dis: 0.576079
+Grad Pro: 9.551142
+Loss Generator D:   4.835902
+Loss Generator G:   0.872376
+Loss Discriminaror:   0.099256
+Grad Dis: 0.192698
+Grad Pro: 9.649834
+Loss Generator D:   6.232312
+Loss Generator G:   0.845319
+Loss Discriminaror:   0.027659
+Grad Dis: 0.566150
+Grad Pro: 10.099955
+Loss Generator D:   6.324458
+Loss Generator G:   0.937962
+Loss Discriminaror:   0.095568
+Generator    : Epoch:      4, update:     780, cost:   0.937962
+Discriminator: Epoch:      4, update:     780, cost:   0.095568
+Grad Dis: 0.282928
+Grad Pro: 9.542099
+Loss Generator D:   5.472781
+Loss Generator G:   0.754968
+Loss Discriminaror:   0.080278
+Grad Dis: 0.437456
+Grad Pro: 8.547022
+Loss Generator D:   5.732677
+Loss Generator G:   0.801644
+Loss Discriminaror:   0.067622
+Grad Dis: 0.314519
+Grad Pro: 13.183682
+Loss Generator D:   6.142175
+Loss Generator G:   1.094797
+Loss Discriminaror:   0.086977
+Grad Dis: 1.155363
+Grad Pro: 14.302759
+Loss Generator D:   5.725694
+Loss Generator G:   1.126414
+Loss Discriminaror:   0.121843
+Grad Dis: 0.563110
+Grad Pro: 10.652794
+Loss Generator D:   5.936625
+Loss Generator G:   0.868830
+Loss Discriminaror:   0.038818
+Grad Dis: 0.558217
+Grad Pro: 10.226850
+Loss Generator D:   5.785227
+Loss Generator G:   0.906333
+Loss Discriminaror:   0.051132
+Grad Dis: 0.369834
+Grad Pro: 9.609295
+Loss Generator D:   5.989131
+Loss Generator G:   0.788537
+Loss Discriminaror:   0.047728
+Grad Dis: 0.744489
+Grad Pro: 9.955995
+Loss Generator D:   6.009509
+Loss Generator G:   0.911074
+Loss Discriminaror:   0.089031
+Grad Dis: 0.725616
+Grad Pro: 9.940369
+Loss Generator D:   5.209219
+Loss Generator G:   0.909622
+Loss Discriminaror:   0.060201
+Grad Dis: 0.919801
+Grad Pro: 13.954213
+Loss Generator D:   6.676037
+Loss Generator G:   1.116021
+Loss Discriminaror:   0.137103
+Generator    : Epoch:      4, update:     790, cost:   1.116021
+Discriminator: Epoch:      4, update:     790, cost:   0.137103
+Grad Dis: 0.237157
+Grad Pro: 10.914156
+Loss Generator D:   5.520320
+Loss Generator G:   0.907852
+Loss Discriminaror:   0.033599
+Grad Dis: 0.473936
+Grad Pro: 11.216702
+Loss Generator D:   7.034493
+Loss Generator G:   0.920392
+Loss Discriminaror:   0.048762
+Grad Dis: 0.244656
+Grad Pro: 10.501211
+Loss Generator D:   7.063146
+Loss Generator G:   0.875136
+Loss Discriminaror:   0.024547
+Grad Dis: 0.187906
+Grad Pro: 8.921213
+Loss Generator D:   7.303327
+Loss Generator G:   0.830222
+Loss Discriminaror:   0.096669
+Grad Dis: 0.184683
+Grad Pro: 13.292941
+Loss Generator D:   7.118699
+Loss Generator G:   1.104601
+Loss Discriminaror:   0.118526
+Grad Dis: 0.179860
+Grad Pro: 11.342506
+Loss Generator D:   6.217898
+Loss Generator G:   0.974362
+Loss Discriminaror:   0.058446
+Grad Dis: 0.483824
+Grad Pro: 10.174091
+Loss Generator D:   6.276784
+Loss Generator G:   0.817081
+Loss Discriminaror:   0.041123
+Grad Dis: 0.411683
+Grad Pro: 12.022890
+Loss Generator D:   6.073355
+Loss Generator G:   0.981884
+Loss Discriminaror:   0.044946
+Grad Dis: 0.702844
+Grad Pro: 15.025378
+Loss Generator D:   6.688749
+Loss Generator G:   1.173716
+Loss Discriminaror:   0.046348
+Grad Dis: 0.504332
+Grad Pro: 11.504320
+Loss Generator D:   5.765595
+Loss Generator G:   0.919516
+Loss Discriminaror:   0.070628
+Generator    : Epoch:      4, update:     800, cost:   0.919516
+Discriminator: Epoch:      4, update:     800, cost:   0.070628
+Validation  8 - LOSS = 1.648 (PPL: 5.199)
+Calling beam-search process
+Beam-search ended, took 1.79596 minutes.
+Validation  8 - BLEU = 14.21, 27.0/16.7/11.5/7.9 (BP=1.000, ratio=2.338, hyp_len=9865, ref_len=4220)
+Early stopping patience: 998 validation left
+--> Current BEST BLEU = 40.160 at validation 6
+--> Current BEST LOSS = 1.604 (PPL: 4.971) at validation 7
+--> This is model: attention_test-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each100_do_d0.0-gc1-init_xavier-s1234.8
+Grad Dis: 1.036532
+Grad Pro: 11.660357
+Loss Generator D:   6.059723
+Loss Generator G:   1.028145
+Loss Discriminaror:   0.086268
+Grad Dis: 0.213922
+Grad Pro: 12.257805
+Loss Generator D:   6.395492
+Loss Generator G:   0.954607
+Loss Discriminaror:   0.054729
+Grad Dis: 0.490925
+Grad Pro: 8.180725
+Loss Generator D:   5.118781
+Loss Generator G:   0.815529
+Loss Discriminaror:   0.121706
+Grad Dis: 0.876947
+Grad Pro: 14.734711
+Loss Generator D:   5.942631
+Loss Generator G:   1.141559
+Loss Discriminaror:   0.043175
+Grad Dis: 0.402085
+Grad Pro: 12.092616
+Loss Generator D:   5.653528
+Loss Generator G:   0.972916
+Loss Discriminaror:   0.027743
+Grad Dis: 0.552522
+Grad Pro: 9.592656
+Loss Generator D:   5.882703
+Loss Generator G:   0.825390
+Loss Discriminaror:   0.123667
+Grad Dis: 0.255091
+Grad Pro: 8.619347
+Loss Generator D:   5.687166
+Loss Generator G:   0.796967
+Loss Discriminaror:   0.088739
+Grad Dis: 0.249111
+Grad Pro: 8.774981
+Loss Generator D:   6.034724
+Loss Generator G:   0.840101
+Loss Discriminaror:   0.080044
+Grad Dis: 0.371158
+Grad Pro: 10.664169
+Loss Generator D:   6.379216
+Loss Generator G:   1.004734
+Loss Discriminaror:   0.043787
+Grad Dis: 0.299470
+Grad Pro: 11.437038
+Loss Generator D:   5.828183
+Loss Generator G:   1.023896
+Loss Discriminaror:   0.015631
+Generator    : Epoch:      4, update:     810, cost:   1.023896
+Discriminator: Epoch:      4, update:     810, cost:   0.015631
+Grad Dis: 0.243129
+Grad Pro: 10.256842
+Loss Generator D:   5.793522
+Loss Generator G:   0.998725
+Loss Discriminaror:   0.041882
+Grad Dis: 0.789684
+Grad Pro: 14.435819
+Loss Generator D:   5.959739
+Loss Generator G:   1.057548
+Loss Discriminaror:   0.082154
+Grad Dis: 0.179278
+Grad Pro: 9.647985
+Loss Generator D:   4.855767
+Loss Generator G:   0.839405

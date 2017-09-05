@@ -470,13 +470,13 @@ class MainLoop(object):
                     loss_discriminator = self.discriminator.train_batch(*batch_discriminator)
                     
                     # Khoa: Get loss
-                    self.__print('Loss Discriminator: %10.6f' % loss_discriminator)
+                    self.__print("Discriminator: Epoch: %6d, update: %7d, cost: %10.6f" % (self.ectr, self.uctr, loss_discriminator))
                     discriminator_batch_losses.append(loss_discriminator)
 
             # Verbose
             if self.uctr % self.f_verbose == 0:
                 self.__print("Generator    : Epoch: %6d, update: %7d, cost: %10.6f" % (self.ectr, self.uctr, loss_generator))
-                self.__print("Discriminator: Epoch: %6d, update: %7d, cost: %10.6f" % (self.ectr, self.uctr, loss_discriminator))
+                #self.__print("Discriminator: Epoch: %6d, update: %7d, cost: %10.6f" % (self.ectr, self.uctr, loss_discriminator))
                 
             # Should we stop
             if self.uctr == self.max_updates:

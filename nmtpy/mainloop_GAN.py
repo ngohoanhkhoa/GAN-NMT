@@ -364,7 +364,7 @@ class MainLoop(object):
                     if self.monte_carlo_search:
                         # Khoa: def get_reward_MC(self, discriminator, 
                         # input_sentence, translated_sentence, translated_states, 
-                        # rollout_num = 20, maxlen = 50, base_value=0.1)
+                        # rollout_num = 20, maxlen = 50, base_value=0.0)
 
                         reward = self.model.get_reward_MC(discriminator       = self.discriminator, 
                                                           input_sentence      = input_sentence, 
@@ -377,7 +377,7 @@ class MainLoop(object):
                         
                     else:
                         # Khoa: def get_reward_not_MC(self, discriminator, 
-                        # input_sentence, translated_sentence, base_value=0.1):
+                        # input_sentence, translated_sentence, base_value=0.0):
                         
                         reward = self.model.get_reward_not_MC(discriminator       = self.discriminator, 
                                                               input_sentence      = input_sentence, 
@@ -401,8 +401,14 @@ class MainLoop(object):
                 if self.language_model is not None:
                     language_model_rewards_ = []
                     for translated_sentence in translated_sentences:
-                        # Khoa: def get_reward_LM(self, language_model, translated_sentence, base_value=0.1)
-                        reward = self.model.get_reward_LM(language_model = self.language_model, 
+                        # Khoa: Reward when a full sentence is put into LM.
+                        # def get_reward_LM(self, language_model, translated_sentence, base_value=0.0)
+                        #reward = self.model.get_reward_LM(language_model = self.language_model, 
+                        #                                translated_sentence = translated_sentence, 
+                        #                                base_value=0.0)
+                        
+                        # Khoa: Reward when partially generated sentences are put into LM.
+                        reward = self.model.get_reward_partial_LM(language_model = self.language_model, 
                                                         translated_sentence = translated_sentence, 
                                                         base_value=0.0)
                         

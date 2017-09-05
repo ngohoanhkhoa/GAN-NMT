@@ -97,10 +97,6 @@ class Model(Attention):
         cost = cost[0]
         # Khoa.
         
-        
-        
-        
-        
         # Filter out weights that we do not want to update during backprop
         if dont_update is not None:
             for key in list(tparams.keys()):
@@ -117,8 +113,6 @@ class Model(Attention):
 #            final_cost = cost.mean()
 #         Khoa.
 
-        self.final_cost = theano.function(list(self.inputs.values())+[reward], final_cost, on_unused_input='warn')
-        self.get_cost = theano.function(list(self.inputs.values())+[reward], cost.mean(), on_unused_input='warn')
         
         # If we have a regularization cost, add it
         if regcost is not None:
@@ -503,7 +497,7 @@ class Model(Attention):
     # Khoa: Reward for a sentence by using Monte Carlo search;
     # Khoa: Number of reward and the number of token you count in translated_sentence are SOMETIME different. 
     # Because this sentence has an end token [0] (not shown).
-    def get_reward_MC(self, discriminator, input_sentence, translated_sentence, translated_states, rollout_num = 20, maxlen = 50, base_value=0.1):
+    def get_reward_MC(self, discriminator, input_sentence, translated_sentence, translated_states, rollout_num = 20, maxlen = 50, base_value=0.0):
         final_reward = []
         
         for token_index in range(len(translated_sentence)):
@@ -541,8 +535,8 @@ class Model(Attention):
                 
         return np.array(final_reward,dtype=FLOAT)
     
-    # Khoa: Reward for a sentence: Discriminator directly assign reward for each parts of token
-    def get_reward_not_MC(self, discriminator, input_sentence, translated_sentence, base_value=0.1):
+    # Khoa: Reward for a partially generated sentence: Discriminator directly assign reward for each parts of token
+    def get_reward_not_MC(self, discriminator, input_sentence, translated_sentence, base_value=0.0):
         final_reward = []
         for token_index in range(len(translated_sentence)):
             partially_generated_token = translated_sentence[0:token_index+1]
@@ -551,14 +545,29 @@ class Model(Attention):
             final_reward.append(discriminator_reward[0] - base_value)
         return np.array(final_reward,dtype=FLOAT)
     
-    # Khoa: Reward for a sentence: Get reward from Language Model
-    def get_reward_LM(self, language_model, translated_sentence, base_value=0.1):
+    # Khoa: Reward for a full sentence: Get reward from Language Model
+    def get_reward_LM(self, language_model, translated_sentence, base_value=0.0):
         batch = language_model.get_batch(translated_sentence)
         probs = language_model.pred_probs(batch[0],batch[1])
         probs_ = np.array(probs)
         probs_shape = probs_.shape
         probs = probs_.reshape(probs_shape[0])
         return probs
+    
+    # Khoa: Reward for a partially generated sentence: Get reward from Language Model
+    def get_reward_partial_LM(self, language_model, translated_sentence, base_value=0.0):
+        final_reward = []
+        for token_index in range(len(translated_sentence)):
+            partially_generated_token = translated_sentence[0:token_index+1]
+            batch = language_model.get_batch(partially_generated_token)
+            probs = language_model.pred_probs(batch[0],batch[1])
+            probs_ = np.array(probs)
+            probs_shape = probs_.shape
+            probs = probs_.reshape(probs_shape[0])
+            probs = probs.mean()
+            final_reward.append(probs - base_value)
+        return np.array(final_reward,dtype=FLOAT)
+
     
     # Khoa: The translated sentences could have different sizes (Not ready for a batch)
     def translate_beam_search(self, inputs, beam_size = 1, maxlen = 50):

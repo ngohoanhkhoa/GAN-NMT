@@ -21,4 +21,4 @@ Generative Adversarial Networks in Neural Machine Translation
 
 4: In "GAN_NMT_model", run bash file (file.sh)
 
-Note: Remember to check the path \\
+Note: Remember to check the path

@@ -1,0 +1,209 @@
+#!/usr/bin/env python
+"""Score a source file using a model."""
+
+import os
+import sys
+import time
+import argparse
+import importlib
+from multiprocessing import Process, Queue, cpu_count
+
+from collections import OrderedDict
+
+import numpy as np
+
+from nmtpy.logger import Logger
+from nmtpy.config import Config
+from nmtpy.sysutils import *
+from nmtpy.iterators.bitext import BiTextIterator
+import nmtpy.cleanup as cleanup
+
+Logger.setup()
+log = Logger.get()
+
+"""Worker process which does calculate logprobs from data send through the model."""
+def test_model(queue, rqueue, pid, model):
+
+    while True:
+        req = queue.get()
+        # We should avoid this
+        if req is None:
+            break
+
+        # Get data from queue
+        idx, data_dict = req[0], req[1]
+        # Calculate validation loss
+        curr_loss, sentlen = model.val_loss(data_dict)
+
+        score=0
+        rqueue.put((idx, score, sentlen, curr_loss))
+
+
+"""Tester starts worker processes, delegates source iterator
+to them, waits for the results."""
+class Tester(object):
+    def __init__(self, args):
+        # Always lists provided by argparse (nargs:'+')
+        self.src_files = args.src_files
+        self.ref_files = args.ref_files
+
+        self.n_jobs = args.n_jobs
+        self.mode = args.decoder
+        self.model_file = args.model
+
+        # Not used
+        self.seed = 1234
+
+        self.utf8 = False
+
+        # Create worker process pool
+        self.processes = [None] * self.n_jobs
+
+    def set_model_options(self):
+        model_options = dict(np.load(self.model_file)['opts'].tolist())
+
+        # Import the module
+        self.__class = importlib.import_module("nmtpy.models.%s" % model_options['model_type']).Model
+
+        # Create the model
+        self.model = self.__class(seed=self.seed, logger=None, **model_options)
+        self.model.load(self.model_file)
+        self.model.set_dropout(False)
+
+        # invert dictionary
+        self.ref_idict = dict([[v,k] for k,v in self.model.src_dict.items()])
+
+            # Normal test mode
+        if self.src_files is not None:
+            self.model.data['valid_src'] = self.src_files[0]
+
+        self.model.load_valid_data()
+        self.iterator = self.model.valid_iterator
+        self.n_sentences = self.iterator.n_samples
+        log.info('I will test %d samples' % self.n_sentences)
+
+        if self.src_files is None:
+            self.src_files = listify(self.model.data['valid_src'])
+            log.info("No test data given, assuming validation dataset.")
+
+        # Print information
+        log.info("Source file(s)")
+        for f in self.src_files:
+            log.info("  %s" % f)
+
+        # It's possible that we don't have any reference files, e.g. for test sets.
+        if self.ref_files:
+            log.info("Reference file(s)")
+            for f in self.ref_files:
+                log.info("  %s" % f)
+
+    def start(self):
+        # create input and output queues for processes
+        write_queue = Queue()
+        read_queue = Queue()
+        # Create processes
+        self.model.build_sampler()
+        self.model.build()
+        for idx in range(self.n_jobs):
+            self.processes[idx] = Process(target=test_model, args=(write_queue, read_queue, idx, self.model))
+            self.processes[idx].start()
+            cleanup.register_proc(self.processes[idx].pid)
+
+        cleanup.register_handler()
+
+        # Send data to worker processes
+        for idx in range(self.n_sentences):
+            sample = next(self.iterator)
+            write_queue.put((idx, sample))
+
+        log.info("Distributed %d sentences to worker processes." % self.n_sentences)
+
+        # Receive the results
+        self.sentences = [None] * self.n_sentences
+        self.log_probs = [None] * self.n_sentences
+
+        t = time.time()
+        sum_sentlen = 0
+        sum_logprob = 0.
+
+        for i in range(self.n_sentences):
+            # Get response from worker
+            resp = read_queue.get()
+
+            # This is the sample id of the processed sample
+            idx = resp[0]
+            sentlens, logprobs = resp[2], resp[3]
+
+            sum_sentlen += sentlens
+            sum_logprob += sum(logprobs)
+            self.log_probs[idx] = logprobs
+
+            # Print progress
+            if (i+1) % 100 == 0:
+                t = time.time() - t
+                log.info("%d/%d sentences completed (%.2f seconds)" % ((i+1), self.n_sentences, t))
+                t = time.time()
+
+        log.info("Test Perplexity: %.4f" % np.exp(sum_logprob/sum_sentlen))
+        # Stop workers
+        for idx in range(self.n_jobs):
+            write_queue.put(None)
+            self.processes[idx].terminate()
+            cleanup.unregister_proc(self.processes[idx].pid)
+
+    #Write sentence and logprobs for rescoring purpose
+    def write_logprobs(self, filename, dump_scores=False):
+        def __encode(s):
+            return s.encode('utf-8') if self.utf8 else s
+
+        with open(filename, 'w') as f:
+            log.info("Writing output file...")
+            for idx, lp in enumerate(self.log_probs):
+                logprobs_array=''.join(map(str,' '.join(str(i[0]) for i in lp)))
+                f.write(__encode("%d ||| %s ||| %f\n"%(idx, logprobs_array,sum(lp))))
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(prog='lm-test')
+    parser.add_argument('-j', '--n-jobs'        , type=int, default=8,
+                                                  help="Number of processes (default: 8, 0: Auto)")
+    parser.add_argument('-D', '--decoder'        ,default='beamsearch', choices=['beamsearch', 'argmax', 'sample', 'forced'], help="Decoding mode")
+
+    parser.add_argument('-m', '--model'         , type=str, help="Model file", required=True)
+    parser.add_argument('-o', '--saveto'        , type=str, help="Output test file (if not given, only metrics will be printed)",
+                                                  default=None)
+    parser.add_argument('-s', '--score'         , action='store_true', help="Print scores of each sentence")
+    
+    parser.add_argument('-S', '--src-files'     , type=str, help="Source data file (default: validation set)",
+                                                  nargs='+', default=None)
+    parser.add_argument('-R', '--ref-files'     , type=str, help="One or multiple reference files (default: validation set)",
+                                                  nargs='+',
+                                                  default=None)
+
+    args = parser.parse_args()
+
+    # TODO: Do we have forced decoding mode for lm-test?
+    if args.decoder == "forced" and (args.src_files is None or args.ref_files is None):
+        log.info("Error: Forced decoding requires that you give src and ref files explicitly.")
+        sys.exit(1)
+
+    if args.n_jobs == 0:
+        # Auto infer CPU number
+        args.n_jobs = (cpu_count() / 2) - 1
+
+    # This is to avoid thread explosion. Allow
+    # each process to use a single thread.
+    os.environ["OMP_NUM_THREADS"] = "1"
+    os.environ["MKL_NUM_THREADS"] = "1"
+
+    # Force CPU
+    os.environ["THEANO_FLAGS"] = "device=cpu"
+
+    # Create tester object
+    tester = Tester(args)
+    tester.set_model_options()
+    tester.start()
+    out_file = args.saveto
+
+    tester.write_logprobs(out_file, args.score)
+
+    sys.exit(0)

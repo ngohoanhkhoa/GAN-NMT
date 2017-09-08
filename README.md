@@ -17,7 +17,7 @@ Generative Adversarial Networks in Neural Machine Translation
 
 2: Replace "nmtpy" folder
 
-3: In model_conf, check config files (file.conf)
+3: In GAN_NMT_model/model_conf, check config files (file.conf)
 
 4: In "GAN_NMT_model", run bash file (file.sh)
 

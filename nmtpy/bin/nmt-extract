@@ -1,0 +1,41 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""Extract several features from a trained model."""
+
+import sys
+import argparse
+
+import numpy as np
+
+from nmtpy.nmtutils import get_param_dict
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(prog='nmt-extract')
+    parser.add_argument('-o', '--output', type=str,                 help="Output .npz file.")
+    parser.add_argument('-n', '--init', action='store_true',        help="Make output file compatible with nmt-train '--init' argument.")
+    parser.add_argument('-m', '--model', type=str,                  help="Model's .npz file from which weights will be extracted.")
+    parser.add_argument('-w', '--which', nargs='+', required=True,  help='Space separated list of to-be-extracted weight keys.')
+
+    args = parser.parse_args()
+
+    try:
+        params = get_param_dict(args.model)
+    except KeyError as ke:
+        print('%s does not contain model parameters. Did you train model do at least 1 validation?' % args.model)
+        sys.exit(1)
+
+    extracted_weights = {}
+    for key in args.which:
+        try:
+            extracted_weights[key] = params[key]
+            print("Extracted '%s' with shape=%s" % (key, params[key].shape))
+        except KeyError as ke:
+            print("'%s' not found in model's .npz file, aborting." % key)
+            sys.exit(1)
+
+    if args.init:
+        # You can use output file to init a new model with pre-trained weights
+        # extracted here.
+        np.savez(args.output, tparams=extracted_weights, opts={})
+    else:
+        np.savez(args.output, **extracted_weights)

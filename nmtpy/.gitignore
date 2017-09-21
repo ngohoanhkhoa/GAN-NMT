@@ -1,0 +1,3 @@
+*.pyc
+*egg-info
+nmtpy/external/data/*gz

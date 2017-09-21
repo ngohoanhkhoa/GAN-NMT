@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import os
+import sys
+import numpy as np
+
+os.environ['THEANO_FLAGS'] = 'device=cpu'
+
+if __name__ == '__main__':
+    # Change a property inside the 'opts' dictionary
+    # of npz files and write it back.
+    # Useful to port old npz files to new nmtpy versions.
+
+    modif = sys.argv.pop(-1)
+
+    # Replace key with value
+    key, value = modif.split(':')
+
+    for npzf in sys.argv[1:]:
+        npz = np.load(npzf)
+        # Get the dict
+        opts = npz['opts'].tolist()
+        opts[key] = value
+
+        if key == 'model_type':
+            # If model_type changed, change the filename as well
+            oldmodel, rest = npzf.split('-', 1)
+            newfilename = '%s-%s' % (value, rest)
+        else:
+            # Override
+            newfilename = npzf
+
+        print('Writing %s' % newfilename)
+        np.savez(newfilename, tparams=npz['tparams'], opts=opts)

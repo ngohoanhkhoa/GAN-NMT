@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jul 13 17:42:08 2017
-
-@author: macbook975
-"""
 import random
 
 sf = open('/Users/macbook975/Documents/Stage/GAN_NMT_model/data_translate/test.en', 'r')

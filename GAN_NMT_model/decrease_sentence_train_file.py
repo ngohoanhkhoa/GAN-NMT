@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Jul 28 11:23:55 2017
-
-@author: macbook975
-"""
-
 sf = open('/Users/macbook975/Documents/Stage/GAN_NMT_model/data/train.en', 'r')
 tf = open('/Users/macbook975/Documents/Stage/GAN_NMT_model/data/train.fr', 'r')
 

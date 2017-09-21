@@ -1,0 +1,276 @@
+THEANO_FLAGS = device=gpu,floatX=float32
+Using device: auto (on machine n2)
+Theano version: 0.9.0.dev-RELEASE
+Training options:
+-----------------------------------
+                alpha_init : 0
+                alpha_rate : 0.001
+                    clip_c : 1.0
+                   decay_c : 0
+                 device_id : auto
+    discriminator_loop_num : 1
+        generator_loop_num : 1
+                      init : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/attention-e512-r1024-adadelta_1e+00-bs80-bleu-each5000_do_d0.0-gc1-init_xavier-s1234.1-val001-bleu_38.850.npz
+                   initdis : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/models/discriminator_en_fr/cnn_discriminator-e512-adadelta_1e+00-bs80-bleu-each50-gc1-init_xavier-s1234.1-val002-loss_0.218.npz
+                    initlm : None
+                   max_acc : 0.85
+                max_epochs : 1000000
+             max_iteration : 1000000
+                    maxlen : 50
+                   min_acc : 0.75
+  model_discriminator_type : cnn_discriminator
+ model_language_model_type : None
+                model_type : attention_GAN_gradient
+        monte_carlo_search : True
+                  patience : 1000
+                   rollnum : 20
+               sample_freq : 0
+               save_best_n : 4
+                      seed : 1234
+             snapshot_freq : 0
+                valid_beam : 12
+                valid_freq : 100
+              valid_metric : bleu
+               valid_njobs : 16
+            valid_save_hyp : False
+               valid_start : 1
+
+Model options:
+-----------------------------------
+                batch_size : 80
+                  dec_type : gru_cond
+                   dropout : 0.0
+             embedding_dim : 512
+                  enc_type : gru
+                in_emb_dim : 512
+                layer_norm : False
+                     lrate : 1
+                   n_words : 30000
+               n_words_src : 30000
+               n_words_trg : 30000
+                     njobs : 15
+                 norm_cost : False
+                 optimizer : adadelta
+               out_emb_dim : 512
+                   rnn_dim : 1024
+                 save_path : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/models/nmt_GAN_en_fr_gradient/attention_GAN_gradient-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each100_do_d0.0-gc1-init_xavier-s1234.1
+              shuffle_mode : None
+              tied_trg_emb : True
+              valid_metric : bleu
+               weight_init : xavier
+                     dicts =
+                       src : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/train.en.vocab.pkl
+                    src_lm : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/train.fr.vocab.pkl
+                       trg : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/train.fr.vocab.pkl
+                      data =
+                 train_src : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/train.en
+                 train_trg : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/train.fr
+                 valid_src : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/valid.en
+                 valid_trg : /users/limsi_nmt/ngoho/Stage/GAN_NMT_model/data/valid.fr
+
+Initializing parameters
+Creating shared variables
+Will override parameters from pre-trained weights init Generator
+  attention-e512-r1024-adadelta_1e+00-bs80-bleu-each5000_do_d0.0-gc1-init_xavier-s1234.1-val001-bleu_38.850.npz
+Will override parameters from pre-trained weights init Discriminator
+  cnn_discriminator-e512-adadelta_1e+00-bs80-bleu-each50-gc1-init_xavier-s1234.1-val002-loss_0.218.npz
+Number of parameters generator    : 42.4M
+Number of parameters discriminator: 8.7M
+No language model
+Loading data
+Shuffle mode: None
+Source vocabulary size: 7751
+Target vocabulary size: 9067
+19972 training samples
+506 validation samples
+dropout (emb,ctx,out): 0.00, 0.00, 0.00
+Building model
+Input tensor order: 
+[x, x_mask, y, y_mask]
+Building sampler
+Building optimizer adadelta (initial lr=1.00000)
+Starting Epoch 1
+----------------
+Gradient discriminator: -1.890526
+Gradient professor: 19.256291
+Loss Generator D: 7.123084
+Loss Generator P: 1.326830
+Discriminator: Epoch:      1, update:       1, cost:   0.394890
+Gradient discriminator: -50.144656
+Gradient professor: -13.641686
+Loss Generator D: 7.695215
+Loss Generator P: 1.199125
+Discriminator: Epoch:      1, update:       2, cost:   0.345198
+Gradient discriminator: -2.337181
+Gradient professor: 5.325018
+Loss Generator D: 8.823100
+Loss Generator P: 1.112998
+Discriminator: Epoch:      1, update:       3, cost:   0.416723
+Gradient discriminator: 9.832729
+Gradient professor: -32.455299
+Loss Generator D: 7.609628
+Loss Generator P: 1.169714
+Discriminator: Epoch:      1, update:       4, cost:   0.340578
+Gradient discriminator: -32.412370
+Gradient professor: 118.400309
+Loss Generator D: 8.803868
+Loss Generator P: 0.959516
+Discriminator: Epoch:      1, update:       5, cost:   0.368631
+Gradient discriminator: -101.575220
+Gradient professor: -7.998083
+Loss Generator D: 5.846857
+Loss Generator P: 1.155013
+Discriminator: Epoch:      1, update:       6, cost:   0.402590
+Gradient discriminator: -10.581807
+Gradient professor: -1.429282
+Loss Generator D: 7.552274
+Loss Generator P: 1.116234
+Discriminator: Epoch:      1, update:       7, cost:   0.348416
+Gradient discriminator: 6.069035
+Gradient professor: 22.195548
+Loss Generator D: 6.588884
+Loss Generator P: 1.041094
+Discriminator: Epoch:      1, update:       8, cost:   0.301582
+Gradient discriminator: -23.052434
+Gradient professor: 2.523141
+Loss Generator D: 6.773207
+Loss Generator P: 1.241003
+Discriminator: Epoch:      1, update:       9, cost:   0.279231
+Gradient discriminator: 51.922875
+Gradient professor: 22.420837
+Loss Generator D: 6.934283
+Loss Generator P: 1.339343
+Discriminator: Epoch:      1, update:      10, cost:   0.377504
+Generator    : Epoch:      1, update:      10, cost:   1.339343
+Gradient discriminator: -9.676698
+Gradient professor: 12.316736
+Loss Generator D: 6.390975
+Loss Generator P: 1.476669
+Discriminator: Epoch:      1, update:      11, cost:   0.371435
+Gradient discriminator: 8.372701
+Gradient professor: 31.849977
+Loss Generator D: 6.899590
+Loss Generator P: 1.217497
+Discriminator: Epoch:      1, update:      12, cost:   0.303475
+Gradient discriminator: -16.216902
+Gradient professor: -3.666176
+Loss Generator D: 5.881863
+Loss Generator P: 1.378976
+Discriminator: Epoch:      1, update:      13, cost:   0.347498
+Gradient discriminator: 32.679442
+Gradient professor: 15.173520
+Loss Generator D: 7.385264
+Loss Generator P: 1.338821
+Discriminator: Epoch:      1, update:      14, cost:   0.334085
+Gradient discriminator: -26.558180
+Gradient professor: -2.395648
+Loss Generator D: 6.424515
+Loss Generator P: 1.067450
+Discriminator: Epoch:      1, update:      15, cost:   0.286176
+Gradient discriminator: -14.001963
+Gradient professor: 7.074225
+Loss Generator D: 5.697919
+Loss Generator P: 0.869225
+Gradient discriminator: 3.185278
+Gradient professor: -1.982897
+Loss Generator D: 7.026892
+Loss Generator P: 1.186132
+Discriminator: Epoch:      1, update:      17, cost:   0.329438
+Gradient discriminator: 31.627316
+Gradient professor: 26.238831
+Loss Generator D: 6.563278
+Loss Generator P: 1.182346
+Discriminator: Epoch:      1, update:      18, cost:   0.384650
+Gradient discriminator: -0.315424
+Gradient professor: -8.065295
+Loss Generator D: 6.070604
+Loss Generator P: 1.230314
+Discriminator: Epoch:      1, update:      19, cost:   0.366307
+Gradient discriminator: 25.683826
+Gradient professor: 51.474186
+Loss Generator D: 6.113141
+Loss Generator P: 1.379122
+Discriminator: Epoch:      1, update:      20, cost:   0.267137
+Generator    : Epoch:      1, update:      20, cost:   1.379122
+Gradient discriminator: -16.891029
+Gradient professor: -25.406524
+Loss Generator D: 6.530309
+Loss Generator P: 1.152197
+Discriminator: Epoch:      1, update:      21, cost:   0.343043
+Gradient discriminator: 5.083746
+Gradient professor: 27.583131
+Loss Generator D: 5.922002
+Loss Generator P: 1.118835
+Gradient discriminator: 10.260148
+Gradient professor: -30.775263
+Loss Generator D: 5.291602
+Loss Generator P: 1.085451
+Discriminator: Epoch:      1, update:      23, cost:   0.258082
+Gradient discriminator: -2.206760
+Gradient professor: 33.762728
+Loss Generator D: 5.240895
+Loss Generator P: 1.511909
+Discriminator: Epoch:      1, update:      24, cost:   0.295259
+Gradient discriminator: -16.252835
+Gradient professor: -21.994136
+Loss Generator D: 6.359508
+Loss Generator P: 1.437616
+Discriminator: Epoch:      1, update:      25, cost:   0.312513
+Gradient discriminator: 1.628824
+Gradient professor: 13.719335
+Loss Generator D: 5.071311
+Loss Generator P: 1.207031
+Discriminator: Epoch:      1, update:      26, cost:   0.270529
+Gradient discriminator: 11.775037
+Gradient professor: -33.355722
+Loss Generator D: 4.007112
+Loss Generator P: 1.062132
+Discriminator: Epoch:      1, update:      27, cost:   0.314416
+Gradient discriminator: -30.695592
+Gradient professor: 16.650253
+Loss Generator D: 3.903733
+Loss Generator P: 1.178992
+Gradient discriminator: 20.494822
+Gradient professor: -8.991154
+Loss Generator D: 5.333224
+Loss Generator P: 1.118196
+Discriminator: Epoch:      1, update:      29, cost:   0.255136
+Gradient discriminator: -17.107777
+Gradient professor: -3.522708
+Loss Generator D: 5.150923
+Loss Generator P: 1.229146
+Discriminator: Epoch:      1, update:      30, cost:   0.210019
+Generator    : Epoch:      1, update:      30, cost:   1.229146
+Gradient discriminator: 14.224424
+Gradient professor: -21.810218
+Loss Generator D: 5.032542
+Loss Generator P: 1.017632
+Discriminator: Epoch:      1, update:      31, cost:   0.327865
+Gradient discriminator: 4.561548
+Gradient professor: 43.930616
+Loss Generator D: 4.667375
+Loss Generator P: 1.063920
+Discriminator: Epoch:      1, update:      32, cost:   0.251896
+Gradient discriminator: 26.639315
+Gradient professor: -32.402423
+Loss Generator D: 4.905605
+Loss Generator P: 1.442653
+Gradient discriminator: 22.514309
+Gradient professor: 3.069475
+Loss Generator D: 3.979444
+Loss Generator P: 1.488245
+Discriminator: Epoch:      1, update:      34, cost:   0.310481
+Gradient discriminator: -12.125719
+Gradient professor: -8.601254
+Loss Generator D: 3.937469
+Loss Generator P: 1.288084
+Discriminator: Epoch:      1, update:      35, cost:   0.253012
+Gradient discriminator: 10.966262
+Gradient professor: -18.573614
+Loss Generator D: 3.836078
+Loss Generator P: 1.241412
+Discriminator: Epoch:      1, update:      36, cost:   0.307765
+Gradient discriminator: 17.724378
+Gradient professor: -14.664978
+Loss Generator D: 3.915680
+Loss Generator P: 1.011021

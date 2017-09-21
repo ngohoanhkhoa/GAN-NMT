@@ -559,3 +559,248 @@ Loss Generator:   1.386642
 Loss Generator:   1.322365
 Loss Generator:   1.181113
 Loss Generator:   1.170626
+Loss Generator:   1.215666
+Loss Generator:   1.388014
+Loss Generator:   0.940522
+Loss Generator:   0.997712
+Generator    : Epoch:      2, update:     330, cost:   0.997712
+Loss Generator:   0.994569
+Loss Generator:   1.146831
+Loss Generator:   1.003509
+Loss Generator:   0.915756
+Loss Generator:   0.930043
+Loss Generator:   0.933136
+Loss Generator:   1.093618
+Loss Generator:   1.188072
+Loss Generator:   1.073848
+Loss Generator:   1.229363
+Generator    : Epoch:      2, update:     340, cost:   1.229363
+Loss Generator:   1.023896
+Loss Generator:   1.473658
+Loss Generator:   1.036119
+Loss Generator:   0.969224
+Loss Generator:   1.097185
+Loss Generator:   1.154960
+Loss Generator:   1.025847
+Loss Generator:   1.004429
+Loss Generator:   1.093319
+Loss Generator:   1.298600
+Generator    : Epoch:      2, update:     350, cost:   1.298600
+Loss Generator:   1.227051
+Loss Generator:   1.252531
+Loss Generator:   0.995195
+Loss Generator:   1.075106
+Loss Generator:   0.911781
+Discriminator: Epoch:      2, update:     355, cost:   0.259956
+Loss Generator:   1.242796
+Loss Generator:   1.097764
+Loss Generator:   1.018917
+Loss Generator:   1.138920
+Loss Generator:   1.022232
+Generator    : Epoch:      2, update:     360, cost:   1.022232
+Loss Generator:   1.258656
+Loss Generator:   1.059448
+Loss Generator:   1.042681
+Loss Generator:   0.963543
+Loss Generator:   1.257278
+Loss Generator:   1.349554
+Loss Generator:   0.897871
+Loss Generator:   1.235559
+Loss Generator:   1.081749
+Loss Generator:   1.050113
+Generator    : Epoch:      2, update:     370, cost:   1.050113
+Loss Generator:   1.241233
+Loss Generator:   1.173010
+Loss Generator:   1.274888
+Loss Generator:   1.259585
+Loss Generator:   1.326986
+Loss Generator:   1.151926
+Loss Generator:   1.230490
+Loss Generator:   1.324402
+Loss Generator:   1.184178
+Loss Generator:   1.262823
+Generator    : Epoch:      2, update:     380, cost:   1.262823
+Loss Generator:   1.065731
+Loss Generator:   1.120337
+Loss Generator:   1.042945
+Loss Generator:   1.318928
+Loss Generator:   1.245801
+Loss Generator:   0.904944
+Loss Generator:   1.135542
+Loss Generator:   0.898208
+Loss Generator:   1.227501
+Loss Generator:   1.148308
+Generator    : Epoch:      2, update:     390, cost:   1.148308
+Loss Generator:   1.004894
+Loss Generator:   1.128457
+Loss Generator:   1.302332
+Loss Generator:   1.225824
+Loss Generator:   1.286793
+Loss Generator:   1.426771
+Loss Generator:   1.041782
+Loss Generator:   0.981637
+Loss Generator:   1.008676
+Loss Generator:   0.981643
+Generator    : Epoch:      2, update:     400, cost:   0.981643
+Validation  4 - LOSS = 1.710 (PPL: 5.527)
+Calling beam-search process
+Beam-search ended, took 2.36516 minutes.
+Validation  4 - BLEU = 6.54, 12.9/7.8/5.3/3.5 (BP=1.000, ratio=4.170, hyp_len=17597, ref_len=4220)
+Early stopping patience: 997 validation left
+--> Current BEST BLEU = 7.260 at validation 1
+--> Current BEST LOSS = 1.675 (PPL: 5.339) at validation 2
+--> This is model: attention_GAN-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each100_do_d0.0-gc1-init_xavier-s1234.7
+Loss Generator:   1.293840
+Loss Generator:   1.186633
+Loss Generator:   1.095086
+Loss Generator:   1.130043
+Loss Generator:   1.266508
+Loss Generator:   1.092171
+Discriminator: Epoch:      2, update:     406, cost:   0.243490
+Loss Generator:   1.124048
+Loss Generator:   1.001670
+Loss Generator:   0.875241
+Loss Generator:   1.016581
+Generator    : Epoch:      2, update:     410, cost:   1.016581
+Loss Generator:   1.049721
+Loss Generator:   1.346241
+Loss Generator:   1.272967
+Loss Generator:   1.435208
+Loss Generator:   1.389839
+Loss Generator:   1.421005
+Loss Generator:   1.347750
+Loss Generator:   1.143066
+Loss Generator:   1.207472
+Loss Generator:   1.252635
+Generator    : Epoch:      2, update:     420, cost:   1.252635
+Loss Generator:   1.003922
+Discriminator: Epoch:      2, update:     421, cost:   0.349291
+Loss Generator:   1.016492
+Discriminator: Epoch:      2, update:     422, cost:   0.306367
+Loss Generator:   1.123758
+Loss Generator:   0.998885
+Loss Generator:   1.046492
+Loss Generator:   1.079170
+Loss Generator:   1.405178
+Loss Generator:   1.474601
+Loss Generator:   1.388045
+Loss Generator:   1.007069
+Generator    : Epoch:      2, update:     430, cost:   1.007069
+Loss Generator:   1.110761
+Loss Generator:   1.287612
+Loss Generator:   1.173453
+Loss Generator:   1.264655
+Loss Generator:   1.296427
+Loss Generator:   1.239293
+Loss Generator:   1.232715
+Loss Generator:   1.422009
+Loss Generator:   1.329772
+Loss Generator:   1.247002
+Generator    : Epoch:      2, update:     440, cost:   1.247002
+Loss Generator:   1.372481
+Loss Generator:   1.150688
+Loss Generator:   1.507406
+Loss Generator:   1.490374
+Loss Generator:   0.949539
+Loss Generator:   1.262661
+Loss Generator:   1.182524
+Loss Generator:   1.181195
+Loss Generator:   1.310170
+Loss Generator:   1.126282
+Generator    : Epoch:      2, update:     450, cost:   1.126282
+Loss Generator:   1.103958
+Loss Generator:   1.129758
+Loss Generator:   1.086762
+Loss Generator:   1.086421
+Loss Generator:   0.979263
+Loss Generator:   1.015860
+Loss Generator:   1.202236
+Loss Generator:   1.252641
+Discriminator: Epoch:      2, update:     458, cost:   0.329677
+Loss Generator:   1.242753
+Discriminator: Epoch:      2, update:     459, cost:   0.317764
+Loss Generator:   1.170387
+Discriminator: Epoch:      2, update:     460, cost:   0.246921
+Generator    : Epoch:      2, update:     460, cost:   1.170387
+Loss Generator:   1.195956
+Loss Generator:   1.286658
+Discriminator: Epoch:      2, update:     462, cost:   0.384094
+Loss Generator:   1.317495
+Loss Generator:   1.031685
+Discriminator: Epoch:      2, update:     464, cost:   0.252950
+Loss Generator:   1.290663
+Loss Generator:   1.205792
+Loss Generator:   1.217943
+Loss Generator:   1.153525
+Discriminator: Epoch:      2, update:     468, cost:   0.359137
+Loss Generator:   1.147222
+Discriminator: Epoch:      2, update:     469, cost:   0.244425
+Loss Generator:   1.177054
+Generator    : Epoch:      2, update:     470, cost:   1.177054
+Loss Generator:   1.100870
+Loss Generator:   1.234102
+Loss Generator:   1.223519
+Loss Generator:   1.115269
+Discriminator: Epoch:      2, update:     474, cost:   0.287048
+Loss Generator:   1.153023
+Loss Generator:   1.125707
+Loss Generator:   1.136674
+Loss Generator:   1.040694
+Loss Generator:   1.082234
+Loss Generator:   1.209994
+Generator    : Epoch:      2, update:     480, cost:   1.209994
+Loss Generator:   1.308284
+Loss Generator:   1.233871
+Loss Generator:   1.238535
+Loss Generator:   0.894730
+Loss Generator:   1.023733
+Loss Generator:   1.092269
+Loss Generator:   0.969561
+Loss Generator:   1.189508
+Loss Generator:   1.164337
+Loss Generator:   1.109629
+Generator    : Epoch:      2, update:     490, cost:   1.109629
+Loss Generator:   1.097471
+Loss Generator:   1.043050
+Loss Generator:   0.995781
+Loss Generator:   1.038634
+Loss Generator:   1.206244
+Loss Generator:   1.034138
+Loss Generator:   1.084951
+Loss Generator:   1.072722
+Loss Generator:   1.148018
+Loss Generator:   0.878066
+Generator    : Epoch:      2, update:     500, cost:   0.878066
+Validation  5 - LOSS = 1.646 (PPL: 5.188)
+Calling beam-search process
+Beam-search ended, took 2.92679 minutes.
+Validation  5 - BLEU = 4.25, 8.5/5.2/3.4/2.2 (BP=1.000, ratio=5.497, hyp_len=23196, ref_len=4220)
+Early stopping patience: 996 validation left
+--> Current BEST BLEU = 7.260 at validation 1
+--> Current BEST LOSS = 1.646 (PPL: 5.188) at validation 5
+--> This is model: attention_GAN-e512-i512-o512-r1024-adadelta_1e+00-bs80-bleu-each100_do_d0.0-gc1-init_xavier-s1234.7
+---------------------------------------------------------
+Epoch summary of Generator    :
+--> Epoch 2 finished with mean loss 1.17859 (PPL: 3.24979)
+--> Epoch took 20927.362 minutes, 5022.567 sec/update
+Epoch summary of Discriminator:
+--> Epoch 2 finished with mean loss 0.29731 (PPL: 1.34624)
+--> Epoch took 20927.362 minutes, 5022.567 sec/update
+---------------------------------------------------------
+Starting Epoch 3
+----------------
+Loss Generator:   1.354751
+Loss Generator:   1.205321
+Loss Generator:   1.162744
+Loss Generator:   1.230672
+Loss Generator:   1.130637
+Loss Generator:   1.084830
+Loss Generator:   1.205621
+Loss Generator:   1.075335
+Loss Generator:   1.263077
+Loss Generator:   1.366354
+Generator    : Epoch:      3, update:     510, cost:   1.366354
+Loss Generator:   1.336797
+Loss Generator:   1.238819
+Loss Generator:   1.351850
+Loss Generator:   1.224054

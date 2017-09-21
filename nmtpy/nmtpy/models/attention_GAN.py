@@ -16,7 +16,6 @@ from ..iterators.text import TextIterator
 from ..iterators.bitext import BiTextIterator
 from .attention import Model as Attention
 from .cnn_discriminator import ClassificationIterator as ClassificationIterator
-from nmtpy.nmtutils import idx_to_sent
 
 #######################################
 ## For debugging function input outputs
@@ -88,13 +87,13 @@ class Model(Attention):
         if 'valid_src' in self.data:
             self.load_valid_data()
         
-    def build_optimizer(self, cost, reward, regcost, clip_c, dont_update=None, debug=False):
+    def build_optimizer_discriminator_reward(self, cost, reward, regcost, clip_c, dont_update=None, debug=False):
         """Build optimizer by optionally disabling learning for some weights."""
         tparams = OrderedDict(self.tparams)
         
         # Khoa:
-        log_probs_output = cost[1]
         cost = cost[0]
+        log_probs_output = cost[1]
         # Khoa.
         
         # Filter out weights that we do not want to update during backprop
@@ -107,11 +106,7 @@ class Model(Attention):
         # Our final cost
         # Khoa:
         final_cost = (reward*log_probs_output).sum(0).mean()
-#        if reward is not None:
-#            final_cost = (reward*log_probs_ouput).sum(0).mean()
-#        else:
-#            final_cost = cost.mean()
-#         Khoa.
+        # Khoa.
 
         
         # If we have a regularization cost, add it
@@ -140,26 +135,82 @@ class Model(Attention):
             grads = self.get_clipped_grads(grads, clip_c)
 
         # Load optimizer
-        opt = importlib.import_module("nmtpy.optimizers").__dict__[self.optimizer]
+        opt_discriminator_reward = importlib.import_module("nmtpy.optimizers").__dict__[self.optimizer_discriminator_reward]
+        
+        # Create theano shared variable for learning rate
+        # self.lrate comes from **kwargs / nmt-train params
+        self.learning_rate_discriminator_reward = theano.shared(np.float64(self.lrate_discriminator_reward).astype(FLOAT), name='lrate_discriminator_reward')
+        
+        # Get updates
+        updates = opt_discriminator_reward(tparams, grads, self.inputs.values(), final_cost, lr0=self.learning_rate_discriminator_reward)
+        
+        # Compile forward/backward function
+        # Khoa: norm_cost is different (norm_cost != loss_generator from self.model.train_batch() ) ?
+        self.train_batch_discriminator_reward = theano.function(list(self.inputs.values())+[reward], norm_cost, updates=updates, 
+                                               on_unused_input='warn')
+
+    def build_optimizer_professor_forcing(self, cost, reward, regcost, clip_c, dont_update=None, debug=False):
+        """Build optimizer by optionally disabling learning for some weights."""
+        tparams = OrderedDict(self.tparams)
+        
+        # Khoa:
+        cost = cost[0]
+        log_probs_output = cost[1]
+        # Khoa.
+        
+        # Filter out weights that we do not want to update during backprop
+        if dont_update is not None:
+            for key in list(tparams.keys()):
+                if key in dont_update:
+                    del tparams[key]
+        
+        
+        # Our final cost
+        # Khoa:
+        final_cost = (reward*log_probs_output).sum(0).mean()
+        # Khoa.
+
+        
+        # If we have a regularization cost, add it
+        if regcost is not None:
+            final_cost += regcost
+
+
+        # Normalize cost w.r.t sentence lengths to correctly compute perplexity
+        # Only active when y_mask is available
+        if 'y_mask' in self.inputs:
+            norm_cost = (cost / self.inputs['y_mask'].sum(0)).mean()
+            if regcost is not None:
+                norm_cost += regcost
+        else:
+            norm_cost = final_cost
+            
+        
+        
+        # Get gradients of cost with respect to variables
+        # This uses final_cost which is not normalized w.r.t sentence lengths
+        grads = tensor.grad(final_cost, wrt=list(tparams.values()))
+        self.get_gradient = theano.function(list(self.inputs.values())+[reward], grads, on_unused_input='warn')
+
+        # Clip gradients if requested
+        if clip_c > 0:
+            grads = self.get_clipped_grads(grads, clip_c)
+
+        # Load optimizer
+        opt_professor_forcing = importlib.import_module("nmtpy.optimizers").__dict__[self.optimizer_professor_forcing]
 
         # Create theano shared variable for learning rate
         # self.lrate comes from **kwargs / nmt-train params
-        self.learning_rate = theano.shared(np.float64(self.lrate).astype(FLOAT), name='lrate')
-
+        self.learning_rate_professor_forcing = theano.shared(np.float64(self.lrate_professor_forcing).astype(FLOAT), name='lrate_professor_forcing')
+        
         # Get updates
-        updates = opt(tparams, grads, self.inputs.values(), final_cost, lr0=self.learning_rate)
+        updates = opt_professor_forcing(tparams, grads, self.inputs.values(), final_cost, lr0=self.learning_rate_discriminator_reward)
         
         # Compile forward/backward function
-        if debug:
-            self.train_batch = theano.function(list(self.inputs.values())+[reward], norm_cost, updates=updates,
-                                               mode=theano.compile.MonitorMode(
-                                                   pre_func=inspect_inputs,
-                                                   post_func=inspect_outputs), on_unused_input='warn')
-        else:
-            # Khoa: norm_cost is different (norm_cost != loss_generator from self.model.train_batch() ) ?
-            self.train_batch = theano.function(list(self.inputs.values())+[reward], norm_cost, updates=updates, 
-                                               on_unused_input='warn')
-            
+        # Khoa: norm_cost is different (norm_cost != loss_generator from self.model.train_batch() ) ?
+        self.train_batch_professor_forcing = theano.function(list(self.inputs.values())+[reward], norm_cost, updates=updates, 
+                                               on_unused_input='warn')    
+        
     def init_params(self):
         params = OrderedDict()
 

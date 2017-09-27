@@ -86,6 +86,7 @@ class Model(Attention):
         self.train_iterator.read()
         if 'valid_src' in self.data:
             self.load_valid_data()
+    
         
     def build_optimizer_discriminator_reward(self, cost, reward, regcost, clip_c, dont_update=None, debug=False):
         """Build optimizer by optionally disabling learning for some weights."""

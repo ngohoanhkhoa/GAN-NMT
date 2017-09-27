@@ -306,8 +306,11 @@ if __name__ == '__main__':
     reg_loss = sum(reg_loss) if len(reg_loss) > 0 else None
 
     # Build optimizer
-    log.info('Building optimizer %s (initial lr=%.5f)' % (model_args.optimizer, model_args.lrate))
-    model.build_optimizer(data_loss_generator, model.reward, reg_loss, train_args.clip_c, dont_update=dont_update, debug=verbose)
+    log.info('Building optimizer for Discriminator-reward %s (initial lr=%.5f)' % (model_args.optimizer_discriminator_reward, model_args.lrate_discriminator_reward))
+    model.build_optimizer_discriminator_reward(data_loss_generator, model.reward, reg_loss, train_args.clip_c, dont_update=dont_update, debug=verbose)
+    
+    log.info('Building optimizer for Professor-forcing    %s (initial lr=%.5f)' % (model_args.optimizer_professor_forcing, model_args.lrate_professor_forcing))
+    model.build_optimizer_professor_forcing(data_loss_generator, model.reward, reg_loss, train_args.clip_c, dont_update=dont_update, debug=verbose)
    
     # Khoa:
     discriminator.build_optimizer(data_loss_discriminator, reg_loss, train_args.clip_c, dont_update=dont_update, debug=verbose)
@@ -323,8 +326,8 @@ if __name__ == '__main__':
     # Create mainloop
     # Khoa: Put discriminator
     if train_args.model_language_model_type is not None:
-        loop = MainLoop(model,discriminator, language_model, log, train_args, model_args)
+        loop = MainLoop(model, discriminator, language_model, log, train_args, model_args)
     else:
-        loop = MainLoop(model,discriminator, None, log, train_args, model_args)
+        loop = MainLoop(model, discriminator, None, log, train_args, model_args)
     loop.run()
     # Khoa.

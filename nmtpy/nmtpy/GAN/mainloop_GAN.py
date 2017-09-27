@@ -27,6 +27,7 @@ class MainLoop(MainLoop):
         self.discriminator_reward_loop_num = train_args.discriminator_reward_loop_num
         self.discriminator_loop_num = train_args.discriminator_loop_num
         self.professor_forcing_loop_num = train_args.professor_forcing_loop_num
+        
         # Maximum - Minimum accuracy of Discriminator
         self.max_acc = train_args.max_acc
         self.min_acc = train_args.min_acc

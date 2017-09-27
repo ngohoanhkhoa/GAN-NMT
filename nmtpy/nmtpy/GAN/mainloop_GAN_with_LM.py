@@ -8,13 +8,14 @@ import time
 class MainLoop(MainLoop):
     def __init__(self, model, discriminator, language_model, logger, train_args, model_args):
         # Call parent's init first
-        super(MainLoop, self).__init__(model, logger, train_args, model_args)
+        super(MainLoop, self).__init__(model, discriminator, logger, train_args, model_args)
         
         self.language_model =  language_model
         
         # Alpha value for modifying the reward between Discriminator and Language Model
         self.alpha = train_args.alpha_init
         self.alpha_rate = train_args.alpha_rate
+        
 
         # Khoa.
             
@@ -119,15 +120,13 @@ class MainLoop(MainLoop):
                 # -------------------------------------------------------------
                 # Khoa: Update Generator with Reward from Discriminator or/and Language Model 
                 # (Using machine-translated sentence)
-                loss_generator = self.model.train_batch(*batch_generator, rewards)
+                loss_generator = self.model.train_batch_discriminator_reward(*batch_generator, rewards)
                 self.__print('Loss Generator D: %f' % loss_generator)
                 generator_batch_losses.append(loss_generator)
                 self.__send_stats(self.uctr, train_loss=loss_generator)
                 
                 # Khoa: Update Generator with Professor Forcing (Using human-translated sentence)
-                loss_generator = self.model.train_batch(*list(data.values()), professor_rewards)
-                
-                # Khoa: Get loss
+                loss_generator = self.model.train_batch_professor_forcing(*list(data.values()), professor_rewards)
                 self.__print('Loss Generator P: %f' % loss_generator)
                 generator_batch_losses.append(loss_generator)
                 self.__send_stats(self.uctr, train_loss=loss_generator)

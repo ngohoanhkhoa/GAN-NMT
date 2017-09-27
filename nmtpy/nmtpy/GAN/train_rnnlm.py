@@ -5,7 +5,6 @@ import os
 # Avoid thread explosion
 os.environ["OMP_NUM_THREADS"] = "8"
 os.environ["MKL_NUM_THREADS"] = "8"
-os.environ["THEANO_FLAGS"] = "floatX=float32"
 
 import sys
 import argparse

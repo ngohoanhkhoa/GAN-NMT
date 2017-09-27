@@ -38,7 +38,6 @@ log = Logger.get()
 # each process to use a single thread.
 os.environ["OMP_NUM_THREADS"] = "1"
 os.environ["MKL_NUM_THREADS"] = "1"
-os.environ["THEANO_FLAGS"] = "floatX=float32"
 
 # Force CPU
 os.environ["THEANO_FLAGS"] = "device=cpu,optimizer_including=local_remove_all_assert"

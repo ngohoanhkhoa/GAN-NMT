@@ -24,8 +24,9 @@ class MainLoop(MainLoop):
         
         # Number of loop for Generator and Discriminator
         self.generator_loop_num = train_args.generator_loop_num
+        self.discriminator_reward_loop_num = train_args.discriminator_reward_loop_num
         self.discriminator_loop_num = train_args.discriminator_loop_num
-        
+        self.professor_forcing_loop_num = train_args.professor_forcing_loop_num
         # Maximum - Minimum accuracy of Discriminator
         self.max_acc = train_args.max_acc
         self.min_acc = train_args.min_acc
@@ -78,7 +79,7 @@ class MainLoop(MainLoop):
         #Iterate over batches
         for data in self.model.train_iterator:
             self.uctr += 1
-
+            
             #Train the generator
             for it in range(self.generator_loop_num):
                 # Khoa: Generate samples
@@ -132,20 +133,23 @@ class MainLoop(MainLoop):
 
                 rewards = discriminator_rewards
                 
+                
                 # -------------------------------------------------------------
-                # Khoa: Update Generator with Reward from Discriminator
-                # (Using machine-translated sentence)
-                loss_generator = self.model.train_batch_discriminator_reward(*batch_generator, rewards)
-                self.__print('Loss Generator D: %f' % loss_generator)
-                generator_batch_losses.append(loss_generator)
-                self.__send_stats(self.uctr, train_loss=loss_generator)
+                for it in range(self.discriminator_reward_loop_num):
+                    # Khoa: Update Generator with Reward from Discriminator
+                    # (Using machine-translated sentence)
+                    loss_generator = self.model.train_batch_discriminator_reward(*batch_generator, rewards)
+                    self.__print('Loss Generator D: %f' % loss_generator)
+                    generator_batch_losses.append(loss_generator)
+                    self.__send_stats(self.uctr, train_loss=loss_generator)
                 
                 
                 # Khoa: Update Generator with Professor Forcing (Using human-translated sentence)
-                loss_generator = self.model.train_batch_professor_forcing(*list(data.values()), professor_rewards)
-                self.__print('Loss Generator P: %f' % loss_generator)
-                generator_batch_losses.append(loss_generator)
-                self.__send_stats(self.uctr, train_loss=loss_generator)
+                for it in range(self.professor_forcing_loop_num):
+                    loss_generator = self.model.train_batch_professor_forcing(*list(data.values()), professor_rewards)
+                    self.__print('Loss Generator P: %f' % loss_generator)
+                    generator_batch_losses.append(loss_generator)
+                    self.__send_stats(self.uctr, train_loss=loss_generator)
 
                 
             # Train de discriminator
